@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ex-app" />
+        <module name="ex-core" />
+        <module name="ex-order" />
+        <module name="ex-pay" />
+        <module name="ex-product" />
+        <module name="ex-redis" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ex-app" target="1.8" />
+      <module name="ex-core" target="1.8" />
+      <module name="ex-order" target="1.8" />
+      <module name="ex-parent" target="1.8" />
+      <module name="ex-pay" target="1.8" />
+      <module name="ex-product" target="1.8" />
+      <module name="ex-redis" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
