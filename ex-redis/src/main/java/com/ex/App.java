@@ -1,34 +1,36 @@
 package com.ex;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;  
-import org.springframework.boot.autoconfigure.SpringBootApplication;  
-import org.springframework.web.bind.annotation.RequestMapping;  
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 /** 
  * 是Spring Boot项目的核心注解,主要是开启自动配置 
  */  
-@SpringBootApplication // same as @Configuration @EnableAutoConfiguration @ComponentScan  
-@RestController  
-public class App {  
-      
-    @Autowired  
-    private RedisClient redisClinet;  
-      
+@SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class}) // same as @Configuration @EnableAutoConfiguration@ComponentScan
+@ComponentScan
+//@EnableAutoConfiguration 不注释启动会出现找不到数据库dataSource错误
+@EnableTransactionManagement(proxyTargetClass = true)
+public class App extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(
+            SpringApplicationBuilder builder) {
+        return builder.sources(com.ex.App.class);
+    }
+
+
     public static void main(String[] args) {  
         SpringApplication.run(App.class, args);  
     }  
       
-      
-    @RequestMapping("/set")  
-    public String set(String key, String value) throws Exception{  
-        redisClinet.set(key, value);  
-        return "success";  
-    }  
-      
-    @RequestMapping("/get")  
-    public String get(String key) throws Exception {  
-        return redisClinet.get(key);  
-    }  
+
       
 }  
