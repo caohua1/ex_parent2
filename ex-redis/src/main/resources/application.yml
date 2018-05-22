@@ -1,0 +1,42 @@
+
+#DUBBOX
+#dubbox:
+ # application:
+ #   name: xbin-store-service-redis
+ #   organization: dubbox
+#    owner: binux
+#  registry:
+ #   protocol: zookeeper
+ #   address: 192.168.125.128:2181
+ # annotation:
+ #   package: com.ex
+ # protocol:
+ #   name: dubbo
+ #   port: 20881
+ #   host: 192.168.125.1
+ #   timeout: 30000
+ #   threadpool: fixed
+  #  threads: 500
+ #   accepts: 1000
+ #   serialization: kryo
+ #   optimizer: cn.binux.serial.SerializationOptimizerImpl
+ # monitor:
+ #   enabled: false
+ #   address: 192.168.125.1:6060
+  #  username: admin
+ #   password: admin
+
+
+
+
+jedis :
+  pool :
+    host : 127.0.0.1
+    port : 6379
+    config :
+      maxTotal: 100
+      maxIdle: 10
+      maxWaitMillis : 100000
+
+server :
+  port : 8082
