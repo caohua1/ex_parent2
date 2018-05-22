@@ -14,18 +14,18 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan
 @EnableAutoConfiguration
 @EnableTransactionManagement(proxyTargetClass = true)
-public class WebApplication extends SpringBootServletInitializer {
+public class CoreWebApplication extends SpringBootServletInitializer {
 
-    private static final Logger logger = LoggerFactory.getLogger(com.ex.WebApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(com.ex.CoreWebApplication.class);
 
     @Override
     protected SpringApplicationBuilder configure(
             SpringApplicationBuilder builder) {
-        return builder.sources(com.ex.WebApplication.class);
+        return builder.sources(com.ex.CoreWebApplication.class);
     }
 
     public static void main(String[] args) {
         logger.info("服务开始运行");
-        SpringApplication.run(com.ex.WebApplication.class, args);
+        SpringApplication.run(com.ex.CoreWebApplication.class, args);
     }
 }
