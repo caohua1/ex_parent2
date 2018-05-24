@@ -16,6 +16,7 @@
         <module name="ex-pojo" />
         <module name="ex-product" />
         <module name="ex-redis" />
+        <module name="ex-solr" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -30,6 +31,7 @@
       <module name="ex-pojo" target="1.8" />
       <module name="ex-product" target="1.8" />
       <module name="ex-redis" target="1.8" />
+      <module name="ex-solr" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

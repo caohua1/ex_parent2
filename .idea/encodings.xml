@@ -12,5 +12,6 @@
     <file url="file://$PROJECT_DIR$/ex-pojo" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-product" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-redis" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ex-solr" charset="UTF-8" />
   </component>
 </project>

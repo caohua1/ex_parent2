@@ -19,6 +19,7 @@
         <module>ex-pojo</module>
         <module>ex-mapper</module>
         <module>ex-config</module>
+        <module>ex-solr</module>
     </modules>
 
 
