@@ -10,13 +10,14 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-/** 
- * 是Spring Boot项目的核心注解,主要是开启自动配置 
- */  
+/**
+ * 是Spring Boot项目的核心注解,主要是开启自动配置
+ */
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class}) // same as @Configuration @EnableAutoConfiguration@ComponentScan
 @ComponentScan
 //@EnableAutoConfiguration 不注释启动会出现找不到数据库dataSource错误
 @EnableTransactionManagement(proxyTargetClass = true)
+//@ImportResource(value = {"classpath:dubbo-privider.xml"})
 public class RedisApplication extends SpringBootServletInitializer {
 
     @Override
@@ -26,10 +27,10 @@ public class RedisApplication extends SpringBootServletInitializer {
     }
 
 
-    public static void main(String[] args) {  
+    public static void main(String[] args) {
         SpringApplication.run(RedisApplication.class, args);
-    }  
-      
+    }
 
-      
+
+
 }  

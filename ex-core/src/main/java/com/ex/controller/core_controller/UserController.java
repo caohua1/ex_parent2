@@ -1,7 +1,9 @@
 package com.ex.controller.core_controller;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.ex.service.UserService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
+import com.ex.service.RedisUtilService;
 import com.github.pagehelper.PageInfo;
 import org.apache.catalina.User;
 import org.slf4j.Logger;
@@ -24,4 +26,21 @@ public class UserController {
         PageInfo<User> pageInfo = userService.findAll(page);
         return JsonView.success(pageInfo);
     }
+
+
+        @Reference(version="1.0.0",timeout=100000)
+        private RedisUtilService redisUtilService;
+
+        @RequestMapping("/set")
+        public String setRedis(String key,String value){
+            redisUtilService.set(key,value);
+            return "success";
+        }
+
+        @RequestMapping("/get")
+        public  String  getRedis(String key){
+            return redisUtilService.get(key);
+        }
+
+
 }

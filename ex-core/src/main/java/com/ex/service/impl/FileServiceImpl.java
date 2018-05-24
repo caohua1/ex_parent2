@@ -26,7 +26,7 @@ import java.util.zip.ZipOutputStream;
  * Created by 7 on 2017/9/26.
  */
 @Service("fileServiceImpl")
-@PropertySource("classpath:conf/file.properties")
+@PropertySource("classpath:application.properties")
 public class FileServiceImpl implements IFileService {
     @Value("${FILE_PATH}")
     private String savePath;

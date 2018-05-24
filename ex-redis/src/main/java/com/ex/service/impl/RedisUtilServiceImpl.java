@@ -1,23 +1,29 @@
-package com.ex.util;
+package com.ex.service.impl;
+
+import com.alibaba.dubbo.config.annotation.Service;
+import com.ex.service.RedisUtilService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.stereotype.Component;
 /**
  * redicache 工具类
  * 
  */
+
+
+
 @SuppressWarnings("unchecked")
-@Component
-public class RedisUtil {
-@SuppressWarnings("rawtypes")
+@Service(version="1.0.0")
+public class RedisUtilServiceImpl implements RedisUtilService {
+        @SuppressWarnings("rawtypes")
+
 @Autowired
 private RedisTemplate redisTemplate;
 /**
