@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
-@ComponentScan
+@ComponentScan(basePackages="com.ex")
 @EnableAutoConfiguration
 @EnableTransactionManagement(proxyTargetClass = true)
 public class CoreWebApplication extends SpringBootServletInitializer {
