@@ -1,9 +1,8 @@
 package com.ex.controller.core_controller;
-import com.alibaba.dubbo.config.annotation.Reference;
-import com.ex.service.UserService;
+
+import com.ex.service.*;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
-import com.ex.service.RedisUtilService;
 import com.github.pagehelper.PageInfo;
 import org.apache.catalina.User;
 import org.slf4j.Logger;
@@ -19,6 +18,14 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService userService;
+    @Autowired
+    private SolrTestService solrTestService;
+    @Autowired
+    private OrderTestService orderTestService;
+    @Autowired
+    private PayTestService payTestService;
+    @Autowired
+    private ProduceTestService produceTestService;
 
     @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
@@ -28,19 +35,38 @@ public class UserController {
     }
 
 
-        @Reference(version="1.0.0",timeout=100000)
-        private RedisUtilService redisUtilService;
+    @Autowired
+    private RedisUtilService redisUtilService;
 
-        @RequestMapping("/set")
-        public String setRedis(String key,String value){
-            redisUtilService.set(key,value);
-            return "success";
-        }
+    @RequestMapping("/set")
+    public String setRedis(String key, String value) {
+        redisUtilService.set(key, value);
+        return "success";
+    }
 
-        @RequestMapping("/get")
-        public  String  getRedis(String key){
-            return redisUtilService.get(key);
-        }
+    @RequestMapping("/get")
+    public String getRedis(String key) {
+        return redisUtilService.get(key);
+    }
 
+    @RequestMapping("/orderTestService")
+    public String orderTestService() {
+        return orderTestService.TestService();
+    }
+
+    @RequestMapping("/payTestService")
+    public String payTestService() {
+        return payTestService.TestService();
+    }
+
+    @RequestMapping("/produceTestService")
+    public String produceTestService() {
+        return produceTestService.TestService();
+    }
+
+    @RequestMapping("/solrTestService")
+    public String solrTestService() {
+        return solrTestService.TestService();
+    }
 
 }

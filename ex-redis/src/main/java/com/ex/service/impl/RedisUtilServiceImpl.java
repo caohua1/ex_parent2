@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unchecked")
 @Service(version="1.0.0")
 public class RedisUtilServiceImpl implements RedisUtilService {
-        @SuppressWarnings("rawtypes")
+@SuppressWarnings("rawtypes")
 
 @Autowired
 private RedisTemplate redisTemplate;

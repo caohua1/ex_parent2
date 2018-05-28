@@ -6,10 +6,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ImportResource;
 
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 //@EnableAutoConfiguration 不注释启动会出现找不到数据库dataSource错误
+@ImportResource(value = {"classpath:dubbo-privider.xml"})
 public class SolrApplication extends SpringBootServletInitializer {
 
     @Override

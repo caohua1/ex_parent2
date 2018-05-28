@@ -20,6 +20,11 @@
         <module>ex-mapper</module>
         <module>ex-config</module>
         <module>ex-solr</module>
+        <module>ex-redis-api</module>
+        <module>ex-product-api</module>
+        <module>ex-pay-api</module>
+        <module>ex-solr-api</module>
+        <module>ex-order-api</module>
     </modules>
 
 
@@ -137,16 +142,16 @@
             <artifactId>zookeeper</artifactId>
             <version>3.4.12</version>
         </dependency>
-        <dependency>
-            <groupId>com.101tec</groupId>
-            <artifactId>zkclient</artifactId>
-            <version>0.10</version>
-        </dependency>
-        <dependency>
-            <groupId>io.dubbo.springboot</groupId>
-            <artifactId>spring-boot-starter-dubbo</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.101tec</groupId>-->
+            <!--<artifactId>zkclient</artifactId>-->
+            <!--<version>0.10</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.dubbo.springboot</groupId>-->
+            <!--<artifactId>spring-boot-starter-dubbo</artifactId>-->
+            <!--<version>1.0.0</version>-->
+        <!--</dependency>-->
         <!--Apache Curator操作zookeeper的API使用-->
         <dependency>
             <groupId>org.apache.curator</groupId>

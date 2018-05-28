@@ -7,6 +7,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-solr/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-order/pom.xml" />
       </list>
     </option>
   </component>

@@ -11,5 +11,12 @@
 
     <artifactId>ex-order</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ex</groupId>
+            <artifactId>ex-order-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

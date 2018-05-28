@@ -11,5 +11,12 @@
 
     <artifactId>ex-product</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ex</groupId>
+            <artifactId>ex-product-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

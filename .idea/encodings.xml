@@ -8,10 +8,15 @@
     <file url="file://$PROJECT_DIR$/ex-core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-mapper" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-order" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ex-order-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-pay" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ex-pay-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-pojo" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-product" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ex-product-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-redis" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ex-redis-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ex-solr" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ex-solr-api" charset="UTF-8" />
   </component>
 </project>

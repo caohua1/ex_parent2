@@ -11,5 +11,12 @@
 
     <artifactId>ex-pay</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.ex</groupId>
+            <artifactId>ex-pay-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
