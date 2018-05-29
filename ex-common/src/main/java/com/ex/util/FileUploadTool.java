@@ -1,17 +1,15 @@
 package com.ex.util;
 
+import com.ex.vo.FileEntity;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Iterator;
-
-import javax.servlet.http.HttpServletRequest;
-
-
-import com.ex.vo.FileEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadTool {
     TransfMediaTool transfMediaTool = new TransfMediaTool();
@@ -30,6 +28,10 @@ public class FileUploadTool {
     public FileEntity createFile(MultipartFile multipartFile, HttpServletRequest request) {
         FileEntity entity = new FileEntity();
         boolean bflag = false;
+        if(multipartFile!=null &&!multipartFile.isEmpty()){
+            String fileName = multipartFile.getOriginalFilename().toString();
+            System.out.println("文件名-----"+fileName);
+        }
         String fileName = multipartFile.getOriginalFilename().toString();
         // 判断文件不为空
         if (multipartFile.getSize() != 0 && !multipartFile.isEmpty()) {
@@ -53,10 +55,12 @@ public class FileUploadTool {
             System.out.println("文件为空");
         }
         if (bflag) {
-            String logoPathDir = "/video/";
-            String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
+            String logoPathDir = "/video";
+            //上传视频存入的路径
+            //String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
+
             // 上传到本地磁盘
-            //String logoRealPathDir = "C:/acp";
+            String logoRealPathDir = "E:/acp";
             File logoSaveFile = new File(logoRealPathDir);
             if (!logoSaveFile.exists()) {
                 logoSaveFile.mkdirs();

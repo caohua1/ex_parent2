@@ -1,15 +1,21 @@
 package com.ex.controller.core_controller;
 
 import com.ex.service.*;
+import com.ex.util.FileUploadTool;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
+import com.ex.vo.FileEntity;
 import com.github.pagehelper.PageInfo;
 import org.apache.catalina.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/user")
@@ -18,14 +24,14 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     private UserService userService;
-    @Autowired
+   /* @Autowired
     private SolrTestService solrTestService;
     @Autowired
     private OrderTestService orderTestService;
     @Autowired
     private PayTestService payTestService;
     @Autowired
-    private ProduceTestService produceTestService;
+    private ProduceTestService produceTestService;*/
 
     @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
@@ -33,7 +39,6 @@ public class UserController {
         PageInfo<User> pageInfo = userService.findAll(page);
         return JsonView.success(pageInfo);
     }
-
 
     @Autowired
     private RedisUtilService redisUtilService;
@@ -49,7 +54,7 @@ public class UserController {
         return redisUtilService.get(key);
     }
 
-    @RequestMapping("/orderTestService")
+   /* @RequestMapping("/orderTestService")
     public String orderTestService() {
         return orderTestService.TestService();
     }
@@ -67,6 +72,6 @@ public class UserController {
     @RequestMapping("/solrTestService")
     public String solrTestService() {
         return solrTestService.TestService();
-    }
+    }*/
 
 }
