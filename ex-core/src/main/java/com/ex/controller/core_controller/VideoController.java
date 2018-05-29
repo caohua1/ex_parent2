@@ -14,13 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/file")
-public class VedioController {
-	
-	@RequestMapping("tZhuan")
-	public String tZhuan(){
-		return "video";
-	}
-
+public class VideoController {
 
     @RequestMapping("upload")
     public JsonView upload(MultipartFile multipartFile,

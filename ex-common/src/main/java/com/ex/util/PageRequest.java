@@ -14,15 +14,6 @@ public class PageRequest implements Serializable {
     return pageNum * pageSize;
   }
 
-  public PageRequest(){
-
-  }
-
-  public PageRequest(int pageNum, int pageSize){
-    this.pageNum = pageNum;
-    this.pageSize = pageSize;
-  }
-
   public int getPageNum() {
     return pageNum;
   }
