@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,11 @@ public class UserController {
     @Autowired
     private ProduceTestService produceTestService;*/
 
+    /**
+     * 查询所有的用户
+     * @param page
+     * @return
+     */
     @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
         logger.info("Request comming to find user list...");
