@@ -1,6 +1,6 @@
 package com.ex.controller;
 
-import com.ex.util.RedisUtil;
+import com.ex.service.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

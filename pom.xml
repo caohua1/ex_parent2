@@ -160,6 +160,12 @@
         </dependency>
         <!-- dubbo 结束 -->
 
+        <!--kafka-->
+       <!-- <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+            <version>RELEASE</version>
+        </dependency>-->
     </dependencies>
 
     <build>

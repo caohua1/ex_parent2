@@ -38,9 +38,9 @@ public class SolrController {
              * 下面都是一样的
              */
 
-            client.add("collection1", doc);
+            client.add("articles", doc);
             //client.commit();
-            client.commit("collection1");
+            client.commit("articles");
             return uuid;
         } catch (Exception e) {
             e.printStackTrace();

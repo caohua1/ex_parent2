@@ -11,5 +11,12 @@
 
     <artifactId>ex-redis-api</artifactId>
 
-
+<dependencies>
+    <!--kafka-->
+    <dependency>
+         <groupId>org.springframework.cloud</groupId>
+         <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+         <version>RELEASE</version>
+     </dependency>
+</dependencies>
 </project>

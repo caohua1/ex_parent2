@@ -45,10 +45,10 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ex</groupId>
-            <artifactId>ex-pojo</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <groupId>com.ex</groupId>
+        <artifactId>ex-pojo</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
         <dependency>
             <groupId>com.ex</groupId>
             <artifactId>ex-redis-api</artifactId>
