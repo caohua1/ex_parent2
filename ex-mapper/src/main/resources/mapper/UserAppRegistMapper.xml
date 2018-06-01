@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ex.dao.user.UserAppRegistDao">
+<mapper namespace="com.ex.dao.UserAppRegistDao">
 
     <select id="findByPage" resultType="com.ex.entity.UserAppRegist">
         SELECT
@@ -12,7 +12,7 @@
         SELECT * FROM userapp_regist WHERE id = #{id}
     </select>
 
-    <insert id="insertUserAppRegist"  useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.UserappRegist" >
+    <insert id="insertUserAppRegist"  useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.UserAppRegist" >
     insert into userapp_regist (
       username,
       password,

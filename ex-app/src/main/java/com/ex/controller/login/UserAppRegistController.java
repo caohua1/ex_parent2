@@ -1,4 +1,4 @@
-package com.ex.controller;
+package com.ex.controller.login;
 
 import com.ex.entity.UserAppRegist;
 import com.ex.service.UserAppRegistService;

@@ -1,6 +1,6 @@
 package com.ex.service.impl;
 
-import com.ex.dao.user.UserAppRegistDao;
+import com.ex.dao.UserAppRegistDao;
 import com.ex.entity.UserAppRegist;
 import com.ex.service.UserAppRegistService;
 import com.ex.util.CustomMD5;
