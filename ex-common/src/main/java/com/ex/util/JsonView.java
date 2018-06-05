@@ -58,6 +58,8 @@ public class JsonView {
     return view;
   }
 
+
+
   public static JsonView success(String message) {
     JsonView view = new JsonView();
     view.setMessage(message);
