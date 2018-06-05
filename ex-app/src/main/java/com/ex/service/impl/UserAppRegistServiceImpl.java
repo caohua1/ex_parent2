@@ -32,26 +32,6 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
     private UserAppRegistDao userAppRegistDao;
 
     /**
-     * @return int
-     * @author sanmu
-     * @Desription 注册用户
-     * @date 2018/6/1 11:13
-     * @Param [userAppRegist]
-     **/
-    @Override
-    public UserAppRegist insertUserAppRegist(UserAppRegist userAppRegist) {
-        try {
-            userAppRegist.setPassword(CustomMD5.passwordAndSalt(userAppRegist.getPassword(),userAppRegist.getUsername()));
-            userAppRegistDao.insertUserAppRegist(userAppRegist);
-            logger.info("打印==================>"+userAppRegist.getId());
-            return selectUserAppRegistById(userAppRegist.getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
      * @return com.ex.entity.UserAppRegist
      * @author sanmu
      * @Desription 校验用户名是否存在
@@ -60,13 +40,33 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
      **/
     @Override
     public UserAppRegist checkUserName(String username) {
-        //查询是否用当前用户，返回用户信息
         logger.info("Request comming to Login user");
-        UserAppRegist userAppRegist = userAppRegistDao.checkUserName(username);
+        UserAppRegist userAppRegist = userAppRegistDao.userLoginOrCheckUserName(username);
         if (userAppRegist==null)
             return null;
         return userAppRegist;
     }
+
+    /**
+     * @return int
+     * @author sanmu
+     * @Desription 注册用户
+     * @date 2018/6/1 11:13
+     * @Param [userAppRegist]
+     **/
+    @Override
+    public boolean insertUserAppRegist(UserAppRegist userAppRegist) {
+        try {
+            userAppRegist.setPassword(CustomMD5.passwordAndSalt(userAppRegist.getPassword(),userAppRegist.getUsername()));
+            userAppRegistDao.insertUserAppRegist(userAppRegist);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 
     /**
      * @author sanmu
@@ -87,19 +87,6 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
 
         return null;
     }
-
-    /**
-     * @return com.ex.entity.UserAppRegist
-     * @author sanmu
-     * @Desription 按id查询用户 返回用户对象
-     * @date 2018/6/1 11:14
-     * @Param [id]
-     **/
-    @Override
-    public UserAppRegist selectUserAppRegistById(long id) {
-        return userAppRegistDao.selectUserAppRegistById(id);
-    }
-
     /**
      * @return com.github.pagehelper.PageInfo<com.ex.entity.UserAppRegist>
      * @author sanmu
