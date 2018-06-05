@@ -20,7 +20,7 @@ public interface UserAppRegistDao {
 
     Long insertUserAppRegist(UserAppRegist userAppRegist);
 
-    UserAppRegist userAppLogin(@Param("username") String username);
+    UserAppRegist checkUserName(@Param("username") String username);
 
     UserAppRegist selectUserAppRegistById(@Param("id")long id);
 

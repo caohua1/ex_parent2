@@ -16,9 +16,14 @@ import org.apache.ibatis.annotations.Param;
 public interface UserAppRegistService {
     UserAppRegist insertUserAppRegist(UserAppRegist userAppRegist);
 
-    UserAppRegist userAppLogin(@Param("username") String username);
+    UserAppRegist checkUserName(String username);
 
-    UserAppRegist selectUserAppRegistById(@Param("id")long id);
+    UserAppRegist selectUserAppRegistById(long id);
 
     PageInfo<UserAppRegist> findByPage(PageRequest page);
+
+    boolean checkPassword(String passwordOne,String passwordTwo,String username);
+
+    String checkSMS(String username);
+
 }

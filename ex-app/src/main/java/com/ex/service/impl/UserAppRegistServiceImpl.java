@@ -7,6 +7,8 @@ import com.ex.util.CustomMD5;
 import com.ex.util.PageRequest;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,21 +26,25 @@ import java.util.List;
 @Service
 public class UserAppRegistServiceImpl implements UserAppRegistService {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private UserAppRegistDao userAppRegistDao;
 
     /**
+     * @return int
      * @author sanmu
      * @Desription 注册用户
      * @date 2018/6/1 11:13
      * @Param [userAppRegist]
-     * @return int
      **/
     @Override
     public UserAppRegist insertUserAppRegist(UserAppRegist userAppRegist) {
         try {
             userAppRegist.setPassword(CustomMD5.passwordAndSalt(userAppRegist.getPassword(),userAppRegist.getUsername()));
-                return selectUserAppRegistById(userAppRegistDao.insertUserAppRegist(userAppRegist));
+            userAppRegistDao.insertUserAppRegist(userAppRegist);
+            logger.info("打印==================>"+userAppRegist.getId());
+            return selectUserAppRegistById(userAppRegist.getId());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,23 +52,48 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
     }
 
     /**
+     * @return com.ex.entity.UserAppRegist
      * @author sanmu
-     * @Desription 登陆方法
+     * @Desription 校验用户名是否存在
      * @date 2018/6/1 15:02
      * @Param [username]
-     * @return com.ex.entity.UserAppRegist
      **/
     @Override
-    public UserAppRegist userAppLogin(String username) {
-        return null;
+    public UserAppRegist checkUserName(String username) {
+        //查询是否用当前用户，返回用户信息
+        logger.info("Request comming to Login user");
+        UserAppRegist userAppRegist = userAppRegistDao.checkUserName(username);
+        if (userAppRegist==null)
+            return null;
+        return userAppRegist;
     }
 
     /**
      * @author sanmu
+     * @Desription 校验密码
+     * @date 2018/6/4 11:02
+     * @Param [passwordOne, passwordTwo, username]
+     * @return boolean
+     **/
+    @Override
+    public boolean checkPassword(String passwordOne,String passwordTwo,String username) {
+        if(passwordOne.equals(CustomMD5.passwordAndSalt(passwordTwo,username)))
+            return true;
+        return false;
+    }
+
+    @Override
+    public String checkSMS(String username) {
+
+        return null;
+    }
+
+    /**
+     * @return com.ex.entity.UserAppRegist
+     * @author sanmu
      * @Desription 按id查询用户 返回用户对象
      * @date 2018/6/1 11:14
      * @Param [id]
-     * @return com.ex.entity.UserAppRegist
      **/
     @Override
     public UserAppRegist selectUserAppRegistById(long id) {
@@ -70,11 +101,11 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
     }
 
     /**
+     * @return com.github.pagehelper.PageInfo<com.ex.entity.UserAppRegist>
      * @author sanmu
      * @Desription 查询所有用户信息
      * @date 2018/6/1 11:14
      * @Param [page]
-     * @return com.github.pagehelper.PageInfo<com.ex.entity.UserAppRegist>
      **/
     @Override
     public PageInfo<UserAppRegist> findByPage(PageRequest page) {

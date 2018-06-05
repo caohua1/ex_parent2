@@ -12,7 +12,8 @@
         SELECT * FROM userapp_regist WHERE id = #{id}
     </select>
 
-    <insert id="insertUserAppRegist"  useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.UserAppRegist" >
+    <insert id="insertUserAppRegist" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.ex.entity.UserAppRegist">
     insert into userapp_regist (
       username,
       password,
@@ -24,15 +25,17 @@
       updateTime
       )
     values (
-      #{username,jdbcType=VARCHAR},
-      #{password,jdbcType=VARCHAR},
-      #{rid,jdbcType=VARCHAR},
-      #{rphone,jdbcType=VARCHAR},
-      #{identity,jdbcType=INTEGER},
-      #{status,jdbcType=INTEGER},
-      #{registtime,jdbcType=TIMESTAMP},
-      #{updatetime,jdbcType=TIMESTAMP}
+      #{username},
+      #{password},
+      #{RId},
+      #{rphone},
+      #{identity},
+      #{status},
+      #{registtime},
+      #{updatetime}
       )
-  </insert>
-
+    </insert>
+    <select id="checkUserName" resultType="com.ex.entity.UserAppRegist" parameterType="java.lang.String">
+        SELECT * FROM userapp_regist WHERE username = #{username}
+    </select>
 </mapper>

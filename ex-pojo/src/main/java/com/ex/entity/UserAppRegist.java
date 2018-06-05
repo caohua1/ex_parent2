@@ -24,9 +24,9 @@ public class UserAppRegist {
     private Integer identity;
     private Integer status;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date registTime;
+    private Date registtime;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date updateTime;
+    private Date updatetime;
 
     public long getId() {
         return id;
@@ -84,19 +84,19 @@ public class UserAppRegist {
         this.status = status;
     }
 
-    public Date getRegistTime() {
-        return registTime;
+    public Date getRegisttime() {
+        return registtime;
     }
 
-    public void setRegistTime(Date registTime) {
-        this.registTime = registTime;
+    public void setRegisttime(Date registtime) {
+        this.registtime = registtime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getUpdatetime() {
+        return updatetime;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
     }
 }
