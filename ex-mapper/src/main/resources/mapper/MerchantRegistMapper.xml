@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MerchantRegistDao">
+
+    <!--查询商家-->
+    <select id="findByPage" resultType="com.ex.entity.MerchantRegist">
+        SELECT
+        *
+        FROM merchant_registv
+    </select>
+
+    <!--注册商家-->
+    <insert id="insertMerchantRegist" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.MerchantRegist">
+
+        insert into merchant_regist (
+        username,
+        password,
+        indentity,
+        status,
+        registTime,
+        updateTime
+        )
+        values (
+        #{username},
+        #{password},
+        #{indentity},
+        #{status},
+        #{registtime},
+        #{updatetime}
+        )
+    </insert>
+
+    <!--商家登陆或者验证用商家是否存在-->
+    <select id="merchantLoginOrCheckUserName" resultType="com.ex.entity.MerchantRegist" parameterType="java.lang.String">
+        SELECT * FROM merchant_regist WHERE username = #{username}
+    </select>
+</mapper>

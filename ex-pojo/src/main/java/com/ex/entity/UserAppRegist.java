@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @ProjectName ex_parent
  * @ClassName userapp_regist
- * @Description Appy用户注册表
+ * @Description TODO Appy用户注册表
  * @Author sanmu
  * @Date 2018/5/31 18:02
  * @Version 1.0
@@ -16,7 +16,7 @@ import java.util.Date;
 @Data
 public class UserAppRegist {
 
-    private long id;
+    private Long id;
     private String username;
     private String password;
     private String RId;
