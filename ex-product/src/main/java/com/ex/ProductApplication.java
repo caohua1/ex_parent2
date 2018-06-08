@@ -24,5 +24,4 @@ public class ProductApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(ProductApplication.class, args);
     }
-
 }

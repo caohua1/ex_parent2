@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.ViewManageDao">
+    <!--视享配置添加数据-->
+    <insert id="addViewManage" parameterType="com.ex.entity.ViewManage"  >
+        INSERT INTO view_manage(videoTime,fileKb,bidTime,videoInitialize,pictureInitialize,createTime,updateTime,status)
+        VALUES (#{videoTime},#{fileKb},#{bidTime},#{videoInitialize},#{pictureInitialize},#{createTime},#{updateTime},#{status})
+    </insert>
+</mapper>
