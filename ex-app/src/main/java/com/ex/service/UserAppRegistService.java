@@ -14,11 +14,9 @@ import org.apache.ibatis.annotations.Param;
  * @Version 1.0
  **/
 public interface UserAppRegistService {
-    UserAppRegist insertUserAppRegist(UserAppRegist userAppRegist);
+    boolean insertUserAppRegist(UserAppRegist userAppRegist);
 
     UserAppRegist checkUserName(String username);
-
-    UserAppRegist selectUserAppRegistById(long id);
 
     PageInfo<UserAppRegist> findByPage(PageRequest page);
 
