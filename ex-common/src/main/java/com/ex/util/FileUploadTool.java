@@ -13,24 +13,39 @@ import java.util.Iterator;
 
 public class FileUploadTool {
     TransfMediaTool transfMediaTool = new TransfMediaTool();
+
     // 文件最大500M
     private static long upload_maxsize = 800 * 1024 * 1024;
     // 文件允许格式
-    private static String[] allowFiles = { ".rar", ".doc", ".docx", ".zip",
-            ".pdf", ".txt", ".swf", ".xlsx", ".gif", ".png", ".jpg", ".jpeg",
-            ".bmp", ".xls", ".mp4", ".flv", ".ppt", ".avi", ".mpg", ".wmv",
-            ".3gp", ".mov", ".asf", ".asx", ".vob", ".wmv9", ".rm", ".rmvb" };
+    private static String[] allowFiles = { ".mp3",
+             ".gif", ".png", ".jpg", ".jpeg",
+             ".mp4", ".flv",  ".avi", ".mpg", ".wmv",
+             ".3gp", ".mov", ".asf", ".asx", ".vob", ".wmv9", ".rm", ".rmvb" };
     // 允许转码的视频格式（ffmpeg）
     private static String[] allowFLV = { ".avi", ".mpg", ".wmv", ".3gp",
             ".mov", ".asf", ".asx", ".vob" };
     // 允许的视频转码格式(mencoder)
     private static String[] allowAVI = { ".wmv9", ".rm", ".rmvb" };
     public FileEntity createFile(MultipartFile multipartFile, HttpServletRequest request) {
+        //视频，图片，音频，位置区别
+        String site="";
         FileEntity entity = new FileEntity();
         boolean bflag = false;
         if(multipartFile!=null &&!multipartFile.isEmpty()){
             String fileName = multipartFile.getOriginalFilename().toString();
             System.out.println("文件名-----"+fileName);
+            String nameSuffix=fileName.substring(fileName.lastIndexOf("."));
+            String nameSuffix2=fileName.substring(fileName.lastIndexOf(".")+1);
+            System.out.println("文件后缀名-----"+nameSuffix2);
+            if(nameSuffix2.equals("mp4")){
+                //视频
+                site="video";
+            }else if (nameSuffix2.equals("mp3")){
+                //音频
+                site="frequency";
+            }else if(nameSuffix2.equals("jpg")){
+                site="image";
+            }
         }
         String fileName = multipartFile.getOriginalFilename().toString();
         // 判断文件不为空
@@ -58,9 +73,8 @@ public class FileUploadTool {
             String logoPathDir = "/video";
             //上传视频存入的路径
             //String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
-
             // 上传到本地磁盘
-            String logoRealPathDir = "E:/acp";
+            String logoRealPathDir = "C:/acp/"+site;
             File logoSaveFile = new File(logoRealPathDir);
             if (!logoSaveFile.exists()) {
                 logoSaveFile.mkdirs();

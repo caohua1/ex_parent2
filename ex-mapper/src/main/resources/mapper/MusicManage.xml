@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MusicManageDao">
+
+	<!--查询音乐列表全部数据-->
+	<select id="selectMusicManage" resultType="com.ex.entity.MusicManage">
+		SELECT * FROM music_manage
+	</select>
+	<!-- 音乐列表添加数据-->
+	<insert id="addMusicManage" parameterType="com.ex.entity.MusicManage">
+	  	INSERT INTO music_manage
+	  	(musicName,singer,status,createTime,updateTime,musicUrl)
+	  	VALUES(#{musicName},#{singer},#{status},#{createTime},#{updateTime},#{musicUrl})
+	</insert>
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.PaidLlistingManageDao">
+	<!--视享竞价排名管理（查询所有，条件查询）-->
+	<select id="selectPaidLlisting" parameterType="java.util.Map" resultType="com.ex.entity.PaidLlistingManage">
+		SELECT p.*,r.username,u.fileUrl,u.fileType,u.`describe`
+		FROM merchant_regist r
+		LEFT JOIN merchantorperson_upload_product u
+		ON r.id=u.merchantId
+		JOIN paidlist_product p
+		ON u.id=p.uploadProductId
+		WHERE 1=1
+		<if test="id!=null and id!=''">
+			AND p.id=#{id}
+		</if>
+		<if test="username!=null and username!=''">
+			AND r.username=#{username}
+		</if>
+		<if test="describe!=null and describe!=''">
+			AND  u.`describe`=#{describe}
+		</if>
+		<if test="maxMoney!=null and mixMoney!=null">
+			AND BETWEEN #{mixMoney} AND #{maxMoney}
+		</if>
+		<if test="fileType!=null and fileType!=''">
+			AND u.fileType=#{fileType}
+		</if>
+	</select>
+	<!--视享竞价排名管理删除数据-->
+	<delete id="delectPaidLlisting" parameterType="java.lang.Long" >
+		DELETE FROM paidlist_product WHERE id=#{id}
+	</delete>
+</mapper>

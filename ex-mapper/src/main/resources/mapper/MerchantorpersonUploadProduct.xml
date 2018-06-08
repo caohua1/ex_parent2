@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MerchantorpersonUploadProductDao">
+    <!--视享条件查询-->
+    <select id="selectMerchantorpersonUploadProduct" parameterType="java.util.Map" resultType="com.ex.entity.MerchantorpersonUploadProduct">
+        SELECT * FROM merchantorperson_upload_product
+        WHERE 1=1
+        <if test="id!=null and id!=''">
+            AND id=#{id}
+        </if>
+        <if test="merchantId!=null and merchantId!=''">
+            AND merchantId=#{merchantId}
+        </if>
+        <if test="describe!=null and describe!=''">
+            AND m.describe LIKE '%'#{describe}'%'
+        </if>
+        <if test="firstDate!=null and lastDate==null">
+            and uploadfileTime&gt;=#{firstDate}
+        </if>
+        <if test="firstDate==null and lastDate!=null">
+            and uploadfileTime&lt;=#{lastDate}
+        </if>
+        <if test="sta!=null and sta!=''">
+            AND status=#{sta}
+        </if>
+    </select>
+
+    <!--修改审核状态-->
+    <update id="updateStatus" parameterType="java.util.Map" >
+        UPDATE merchantorperson_upload_product m SET m.status=#{status} WHERE id=#{id}
+    </update>
+</mapper>
