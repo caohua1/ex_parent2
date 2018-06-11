@@ -2,6 +2,7 @@ package com.ex.controller.login;
 
 import com.ex.entity.UserAppRegist;
 import com.ex.service.UserAppRegistService;
+import com.ex.util.CustomMD5;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
 import com.github.pagehelper.PageInfo;
@@ -12,63 +13,73 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @ProjectName ex_parent
  * @ClassName UserAppRegistController
- * @Description 用户注册Controller
- * @Author sanmu
- * @Date 2018/6/1 11:16
+ * @Description TODO 用户注册Controller
+ * @Author sanmu=
  * @Version 1.0
  **/
 @RestController
-@RequestMapping("/userapp")
+@RequestMapping("/userapp/login")
 public class UserAppLoginController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private UserAppRegistService userAppRegistService;
 
     /**
-     * @param username
+     * @param username 用户名
      * @return
-     * @Desription 检查用户名是否存在
+     * @Desription TODO 检查用户名是否存在
      */
     @RequestMapping("/checkUserName")
     public JsonView checkUserName(String username) {
         try {
             logger.info("Request comming to Check username");
-            UserAppRegist user = userAppRegistService.checkUserName(username);
+            UserAppRegist user = userAppRegistService.userLoginOrCheckUserName(username);
             if (user != null)
-                return JsonView.fail(JsonView.ERROR, "用户名已存在");
+                return JsonView.fail("用户名已存在");
             return JsonView.success("用户名可用");
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            return JsonView.fail(e.getMessage());
         }
     }
 
     /**
      * @return com.ex.util.JsonView
      * @author sanmu
-     * @Desription 用户注册
+     * @Desription TODO 用户注册
      * @date 2018/6/4 11:12
-     * @Param [userAppRegist]
+     * @Param [userAppRegist] 用户对象
      **/
     @RequestMapping(path = "/regist", method = RequestMethod.POST)
     public JsonView userAppRegistInsert(UserAppRegist userAppRegist) {
         try {
             logger.info("Request comming to regist user");
             JsonView view = new JsonView();
-            UserAppRegist user = userAppRegistService.checkUserName(userAppRegist.getUsername());
+            String date = sf.format(new Date());
+            userAppRegist.setRegisttime(sf.parse(date));
+            userAppRegist.setIdentity(1);
+            userAppRegist.setStatus(1);
+            UserAppRegist user = userAppRegistService.userLoginOrCheckUserName(userAppRegist.getUsername());
             if (user != null) {
-                return JsonView.fail(JsonView.ERROR, "用户名已存在");
+                return JsonView.fail("手机号已注册，请登录");
             }
             userAppRegistService.insertUserAppRegist(userAppRegist);
-            return JsonView.success("注册成功");
+            view.setData(userAppRegist);
+            view.setMessage("注册成功");
+            view.setCode(JsonView.SUCCESS);
+            return view;
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            return JsonView.fail("注册失败"+e.getMessage());
         }
     }
 
@@ -76,16 +87,16 @@ public class UserAppLoginController {
      * @param username 用户名
      * @param password 密码
      * @return
-     * @Desription 用户登陆
+     * @Desription TODO 用户登陆
      */
     @RequestMapping(path = "/userAppLogin", method = RequestMethod.POST)
     public JsonView userAppLogin(String username, String password) {
         try {
             logger.info("Request comming to Login user");
-            UserAppRegist user = userAppRegistService.checkUserName(username);
+            UserAppRegist user = userAppRegistService.userLoginOrCheckUserName(username);
             if (user == null)
-                return JsonView.fail(JsonView.ERROR, "用户名已存在");
-            if (!userAppRegistService.checkPassword(user.getPassword(), password, username))
+                return JsonView.fail(JsonView.ERROR, "手机号未注册");
+            if (!CustomMD5.checkPassword(user.getPassword(), password, username))
                 return JsonView.fail(JsonView.ERROR, "密码不正确");
             return JsonView.success(user);
         } catch (Exception e) {
@@ -95,19 +106,19 @@ public class UserAppLoginController {
     }
 
     /**
-     * @Desription 查询所有用户信息
      * @param page 分页
      * @return
+     * @Desription TODO 查询所有用户注册信息
      */
     @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
-        try{
-        logger.info("Request comming to find user list...");
-        PageInfo<UserAppRegist> pageInfo = userAppRegistService.findByPage(page);
-        return JsonView.success(pageInfo);
-        }catch (Exception e){
+        try {
+            logger.info("Request comming to find user list...");
+            PageInfo<UserAppRegist> pageInfo = userAppRegistService.findByPage(page);
+            return JsonView.success(pageInfo);
+        } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR,e.getMessage());
+            return JsonView.fail(JsonView.ERROR, e.getMessage());
         }
     }
 

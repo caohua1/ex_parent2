@@ -40,7 +40,7 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
      * @Param [username]
      **/
     @Override
-    public UserAppRegist checkUserName(String username) {
+    public UserAppRegist userLoginOrCheckUserName(String username) {
         logger.info("Request comming to Login user");
         UserAppRegist userAppRegist = userAppRegistDao.checkUserName(username);
         if (userAppRegist==null)
@@ -65,28 +65,6 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
             e.printStackTrace();
         }
         return false;
-    }
-
-
-
-    /**
-     * @author sanmu
-     * @Desription 校验密码
-     * @date 2018/6/4 11:02
-     * @Param [passwordOne, passwordTwo, username]
-     * @return boolean
-     **/
-    @Override
-    public boolean checkPassword(String passwordOne,String passwordTwo,String username) {
-        if(passwordOne.equals(CustomMD5.passwordAndSalt(passwordTwo,username)))
-            return true;
-        return false;
-    }
-
-    @Override
-    public String checkSMS(String username) {
-
-        return null;
     }
     /**
      * @return com.github.pagehelper.PageInfo<com.ex.entity.UserAppRegist>
