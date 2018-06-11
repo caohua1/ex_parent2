@@ -1,5 +1,6 @@
 package com.ex.service.impl;
 
+
 import com.ex.dao.UserAppRegistDao;
 import com.ex.entity.UserAppRegist;
 import com.ex.service.UserAppRegistService;
@@ -41,7 +42,7 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
     @Override
     public UserAppRegist checkUserName(String username) {
         logger.info("Request comming to Login user");
-        UserAppRegist userAppRegist = userAppRegistDao.userLoginOrCheckUserName(username);
+        UserAppRegist userAppRegist = userAppRegistDao.checkUserName(username);
         if (userAppRegist==null)
             return null;
         return userAppRegist;

@@ -1,4 +1,4 @@
-package com.ex.controller.videoShareController;
+package com.ex.controller.core_controller.videoShareController;
 
 import com.ex.entity.MerchantorpersonUploadProduct;
 import com.ex.service.MerchantorpersonUploadProductService;

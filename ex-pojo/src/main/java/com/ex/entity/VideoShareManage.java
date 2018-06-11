@@ -6,12 +6,13 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 视享管理实体类
+ * 视享管理实体类/和商家PC端的视享管理实体类
  */
 @Data
 public class VideoShareManage {
 
-    private Long id;
+    private Long rid;//商家（个人）唯一标识id
+    private Long id;//商家（个人）上传文件信息的id
     private String username;//发布者
     private String fileUrl;//视频图片路径
     private String describe;//发布内容（说说）
@@ -51,7 +52,8 @@ public class VideoShareManage {
         super.finalize();
     }
 
-    public VideoShareManage(Long id, String username, String fileUrl, String describe, Date uploadfileTime, String order, double money, int playNum, int fileType) {
+    public VideoShareManage(Long rid,Long id, String username, String fileUrl, String describe, Date uploadfileTime, String order, double money, int playNum, int fileType) {
+        this.rid=rid;
         this.id = id;
         this.username = username;
         this.fileUrl = fileUrl;
@@ -61,6 +63,14 @@ public class VideoShareManage {
         this.money = money;
         this.playNum = playNum;
         this.fileType = fileType;
+    }
+
+    public Long getRid() {
+        return rid;
+    }
+
+    public void setRid(Long rid) {
+        this.rid = rid;
     }
 
     public Long getId() {

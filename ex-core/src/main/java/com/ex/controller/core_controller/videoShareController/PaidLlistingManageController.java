@@ -1,6 +1,5 @@
-package com.ex.controller.videoShareController;
+package com.ex.controller.core_controller.videoShareController;
 
-import com.ex.dao.PaidLlistingManageDao;
 import com.ex.entity.PaidLlistingManage;
 import com.ex.service.PaidLlistingManageService;
 import com.ex.util.JsonResult;
@@ -8,7 +7,6 @@ import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
