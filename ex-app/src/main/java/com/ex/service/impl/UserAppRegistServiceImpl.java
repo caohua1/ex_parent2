@@ -42,7 +42,7 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
     @Override
     public UserAppRegist userLoginOrCheckUserName(String username) {
         logger.info("Request comming to Login user");
-        UserAppRegist userAppRegist = userAppRegistDao.checkUserName(username);
+        UserAppRegist userAppRegist = userAppRegistDao.userLoginOrCheckUserName(username);
         if (userAppRegist==null)
             return null;
         return userAppRegist;

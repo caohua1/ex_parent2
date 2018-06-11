@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.IdCardInfoDao">
+    <!-- 条件 -->
+    <sql id="Example_Where_Clause" >
+        <where >
+            1=1
+            <if test="record.id != null" >
+               OR id = #{record.id},
+            </if>
+            <if test="record.type != null" >
+                OR type = #{record.type},
+            </if>
+            <if test="record.name != null" >
+                OR name = #{record.name},
+            </if>
+            <if test="record.gender != null" >
+                OR gender = #{record.gender},
+            </if>
+            <if test="record.birthday != null" >
+                OR birthday = #{record.birthday},
+            </if>
+            <if test="record.address != null" >
+                OR address = #{record.address},
+            </if>
+            <if test="record.national != null" >
+                OR national = #{record.national},
+            </if>
+            <if test="record.idnumber != null" >
+                OR idNumber = #{record.idnumber},
+            </if>
+            <if test="record.uploadtime != null" >
+                OR uploadTime = #{record.uploadtime},
+            </if>
+            <if test="record.status != null" >
+                OR status = #{record.status},
+            </if>
+        </where>
+    </sql>
+
+    <!--查询商家-->
+    <select id="findByPage" resultType="com.ex.entity.IdCardInfo">
+        SELECT
+        *
+        FROM id_card_info
+    </select>
+
+    <!--注册商家-->
+    <insert id="insertMerchantRegist" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.IdCardInfo">
+      insert into id_card_info (id, type, name,
+      gender, birthday, address,
+      national, idNumber, uploadTime,
+      status)
+      values (#{id}, #{type}, #{name},
+      #{gender}, #{birthday}, #{address},
+      #{national}, #{idnumber}, #{uploadtime},
+      #{status})
+    </insert>
+
+    <select id="byConditionsQuery" resultMap="BaseResultMap" parameterType="com.ex.entity.IdCardInfo" >
+        select
+        *
+        from id_card_info
+            <include refid="Example_Where_Clause" />
+    </select>
+
+</mapper>
