@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.ProductPropertySetDao">
+
+
+
+
+	<!--批量插入数据（商品的规格参数,颜色：红色，尺寸：）-->
+	<insert id="insertPropertySet" parameterType="List">
+		insert into product_property_set (productinfoId,typeName,typeDescribe,appointmentTime,createTime) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.productinfoId},#{item.typeName},#{item.typeDescribe},#{item.appointmentTime},#{item.createTime})
+		</foreach>
+	</insert>
+</mapper>

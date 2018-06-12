@@ -10,7 +10,7 @@
     <!-- dubbo项目名称 -->
     <dubbo:application name="ex-pay"/>
     <!-- 指定注册中心 -->
-    <dubbo:registry protocol="zookeeper" address="192.168.1.53:2181" />
+    <dubbo:registry protocol="zookeeper" address="192.168.1.110:2181" />
     <!-- 指定暴露接口，协议 -->
     <dubbo:protocol name="dubbo" port="20882"/>
     <!-- 声明需要暴露的服务接口 -->
