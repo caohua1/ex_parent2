@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.ProductClassifyDao">
+
+	<!--选择商品分类（根据级别（一级/二级/三级））-->
+	<select id="selectProductClassify" parameterType="com.ex.entity.ProductClassify" resultType="com.ex.entity.ProductClassify">
+		select * from product_classify where levelNum = #{levelNum}
+		<if test="parentId!=null">
+			and parentId = #{parentId}
+		</if>
+	</select>
+</mapper>

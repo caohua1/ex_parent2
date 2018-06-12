@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.LogDao">
+
+	<insert id="insertLog" parameterType="com.ex.entity.Log">
+		insert into log(operation,operationType,eventType,eventLevel,operationUser,operationTime,userIp,describe,result) values(
+		#{operation},#{operationType},#{eventType},#{eventLevel},#{operationUser},#{operationTime},#{userIp},#{describe},#{result}
+		)
+	</insert>
+</mapper>
