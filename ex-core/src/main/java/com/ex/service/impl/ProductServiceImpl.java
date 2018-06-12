@@ -1,18 +1,29 @@
 package com.ex.service.impl;
 
 import com.ex.dao.ProductClassifyDao;
+import com.ex.dao.ProductInfoManageDao;
+import com.ex.dao.ProductPropertySetDao;
 import com.ex.entity.ProductClassify;
-import com.ex.service.ProductClassifyService;
+import com.ex.entity.ProductInfoManage;
+import com.ex.entity.ProductPropertySet;
+import com.ex.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class ProductClassifyServiceImpl implements ProductClassifyService {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductClassifyDao productClassifyDao;
+    @Autowired
+    private ProductInfoManageDao productInfoManageDao;
+    @Autowired
+    private ProductPropertySetDao productPropertySetDao;
 
     /**
      * 选择商品分类（根据级别（一级/二级/三级））
@@ -46,4 +57,34 @@ public class ProductClassifyServiceImpl implements ProductClassifyService {
         }
         return productClassifies;
     }
+
+
+    /**
+     * 添加商品信息（批量添加商品的规格）
+     * @param productInfoManage
+     * @param list
+     * @return
+     */
+    //事物处理
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
+    @Override
+    public Boolean insertProduct(ProductInfoManage productInfoManage, List<ProductPropertySet> list) {
+        Integer i = productInfoManageDao.insertProductInfo(productInfoManage);
+        Integer j = productPropertySetDao.insertPropertySet(list);
+        return i>0&&(j>0&&j==list.size());
+    }
+
+
+    /**
+     * 分享设置
+     * @param productInfoManage
+     * @return
+     */
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
+    @Override
+    public Integer shareSet(ProductInfoManage productInfoManage) {
+        return productInfoManageDao.shareSet(productInfoManage);
+    }
+
+
 }

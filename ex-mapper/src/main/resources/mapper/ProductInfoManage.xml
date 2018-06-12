@@ -2,8 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.ProductInfoManageDao">
 
-	<!--选择商品分类（根据级别（一级/二级/三级））-->
-	<insert id="selectProductClassify" parameterType="com.ex.entity.ProductInfoManage">
-		insert into productinfo_manage() values()
+	<!--添加商品信息-->
+	<insert id="insertProductInfo" parameterType="com.ex.entity.ProductInfoManage">
+		insert into productinfo_manage(merchantId,productName,productClassifyId,
+		agentPrice,vipPrice,resalePrice,storeNum,storePrewarnNum,brandId,productPicUrl,appSlideshowPic,
+		pcSlideshowPic,productDescribe,startTime,endTime,createTime)
+		values(#{merchantId},#{productName},#{productClassifyId},#{agentPrice},#{vipPrice},#{resalePrice},#{storeNum},#{storePrewarnNum},
+		#{brandId},#{productPicUrl},#{appSlideshowPic},#{pcSlideshowPic},#{productDescribe},#{startTime},#{endTime} #{createTime})
 	</insert>
+
+   <!--分享设置-->
+	<update id="shareSet" parameterType="com.ex.entity.ProductInfoManage">
+		update productinfo_manage set shareSet = #{shareSet} where id = #{id}
+	</update>
+
 </mapper>
