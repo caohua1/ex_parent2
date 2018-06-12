@@ -1,5 +1,7 @@
 package com.ex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class MerchantorpersonCheckIn {
@@ -19,6 +21,7 @@ public class MerchantorpersonCheckIn {
 
     private String companyaddress;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date companycreatetime;
 
     private Double registmoney;
@@ -33,6 +36,7 @@ public class MerchantorpersonCheckIn {
 
     private String industry;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date checkintime;
 
     private Double checkinmoney;
@@ -43,6 +47,7 @@ public class MerchantorpersonCheckIn {
 
     private Integer status;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updatetime;
 
     public Long getId() {
