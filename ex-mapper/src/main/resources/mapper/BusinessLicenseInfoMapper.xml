@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.BusinessLicenseInfoDao">
+    <!-- 条件 -->
+    <sql id="Example_Where_Clause">
+        <where>
+            1 != 1
+            <if test="record.id != null" >
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.type != null" >
+                type = #{record.type,jdbcType=INTEGER},
+            </if>
+            <if test="record.merchantid != null" >
+                merchantId = #{record.merchantid,jdbcType=BIGINT},
+            </if>
+            <if test="record.registuserid != null" >
+                registUserId = #{record.registuserid,jdbcType=BIGINT},
+            </if>
+            <if test="record.companyname != null" >
+                companyName = #{record.companyname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.legalperson != null" >
+                legalPerson = #{record.legalperson,jdbcType=VARCHAR},
+            </if>
+            <if test="record.companyaddress != null" >
+                companyAddress = #{record.companyaddress,jdbcType=VARCHAR},
+            </if>
+            <if test="record.validityperiod != null" >
+                validityPeriod = #{record.validityperiod,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.merchantidnumber != null" >
+                merchantIdNumber = #{record.merchantidnumber,jdbcType=VARCHAR},
+            </if>
+            <if test="record.socialcreditcode != null" >
+                socialCreditCode = #{record.socialcreditcode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.idcard != null" >
+                idCard = #{record.idcard,jdbcType=VARCHAR},
+            </if>
+            <if test="record.realname != null" >
+                realName = #{record.realname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sex != null" >
+                sex = #{record.sex,jdbcType=INTEGER},
+            </if>
+            <if test="record.birthday != null" >
+                birthday = #{record.birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="record.address != null" >
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.national != null" >
+                national = #{record.national,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createtime != null" >
+                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null" >
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+        </where>
+    </sql>
+
+    <!--查询所有营业执照信息-->
+    <select id="findByPage" resultType="com.ex.entity.BusinessLicenseInfo">
+        SELECT
+        *
+        FROM business_license_info
+    </select>
+
+    <!--添加营业执照信息-->
+    <insert id="insertBusinessLicenseInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.BusinessLicenseInfo">
+        insert into business_license_info (id, type, merchantId,
+      registUserId, companyName, legalPerson,
+      companyAddress, validityPeriod, merchantIdNumber,
+      socialCreditCode, idCard, realName,
+      sex, birthday, address,
+      national, createTime, status
+      )
+    values (#{id}, #{type}, #{merchantid},
+      #{registuserid}, #{companyname}, #{legalperson},
+      #{companyaddress}, #{validityperiod}, #{merchantidnumber},
+      #{socialcreditcode}, #{idcard}, #{realname},
+      #{sex}, #{birthday}, #{address},
+      #{national}, #{createtime}, #{status}
+      )
+    </insert>
+
+    <!--按条件查询身份证信息-->
+    <select id="byConditionsQuery" resultMap="BaseResultMap" parameterType="com.ex.entity.BusinessLicenseInfo" >
+        select
+        *
+        from business_license_info
+        <include refid="Example_Where_Clause" />
+    </select>
+
+</mapper>
