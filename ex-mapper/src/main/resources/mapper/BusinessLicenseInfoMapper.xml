@@ -2,65 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.BusinessLicenseInfoDao">
     <!-- 条件 -->
-    <sql id="Example_Where_Clause">
+    <sql id="Example_Where_OR_Clause">
         <where>
             1 != 1
-            <if test="record.id != null" >
-                id = #{record.id,jdbcType=INTEGER},
+            <if test="businessLicenseInfo.id != null" >
+                OR id = #{businessLicenseInfo.id}
             </if>
-            <if test="record.type != null" >
-                type = #{record.type,jdbcType=INTEGER},
+            <if test="businessLicenseInfo.type != null" >
+                OR type = #{businessLicenseInfo.type}
             </if>
-            <if test="record.merchantid != null" >
-                merchantId = #{record.merchantid,jdbcType=BIGINT},
+            <if test="businessLicenseInfo.merchantid != null" >
+                OR merchantId = #{businessLicenseInfo.merchantid}
             </if>
-            <if test="record.registuserid != null" >
-                registUserId = #{record.registuserid,jdbcType=BIGINT},
+            <if test="businessLicenseInfo.registuserid != null" >
+                OR registUserId = #{businessLicenseInfo.registuserid}
             </if>
-            <if test="record.companyname != null" >
-                companyName = #{record.companyname,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.companyname != null" >
+                OR companyName = #{businessLicenseInfo.companyname}
             </if>
-            <if test="record.legalperson != null" >
-                legalPerson = #{record.legalperson,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.legalperson != null" >
+                OR legalPerson = #{businessLicenseInfo.legalperson}
             </if>
-            <if test="record.companyaddress != null" >
-                companyAddress = #{record.companyaddress,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.companyaddress != null" >
+                OR companyAddress = #{businessLicenseInfo.companyaddress}
             </if>
-            <if test="record.validityperiod != null" >
-                validityPeriod = #{record.validityperiod,jdbcType=TIMESTAMP},
+            <if test="businessLicenseInfo.establishmentdate != null" >
+                OR establishmentDate = #{businessLicenseInfo.establishmentdate}
             </if>
-            <if test="record.merchantidnumber != null" >
-                merchantIdNumber = #{record.merchantidnumber,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.validityperiod != null" >
+                OR validityPeriod = #{businessLicenseInfo.validityperiod}
             </if>
-            <if test="record.socialcreditcode != null" >
-                socialCreditCode = #{record.socialcreditcode,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.merchantidnumber != null" >
+                OR merchantIdNumber = #{businessLicenseInfo.merchantidnumber}
             </if>
-            <if test="record.idcard != null" >
-                idCard = #{record.idcard,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.socialcreditcode != null" >
+                OR socialCreditCode = #{businessLicenseInfo.socialcreditcode}
             </if>
-            <if test="record.realname != null" >
-                realName = #{record.realname,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.idcard != null" >
+                OR idCard = #{businessLicenseInfo.idcard}
             </if>
-            <if test="record.sex != null" >
-                sex = #{record.sex,jdbcType=INTEGER},
+            <if test="businessLicenseInfo.realname != null" >
+                OR realName = #{businessLicenseInfo.realname}
             </if>
-            <if test="record.birthday != null" >
-                birthday = #{record.birthday,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.sex != null" >
+                OR sex = #{businessLicenseInfo.sex}
             </if>
-            <if test="record.address != null" >
-                address = #{record.address,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.birthday != null" >
+                OR birthday = #{businessLicenseInfo.birthday}
             </if>
-            <if test="record.national != null" >
-                national = #{record.national,jdbcType=VARCHAR},
+            <if test="businessLicenseInfo.address != null" >
+                OR address = #{businessLicenseInfo.address}
             </if>
-            <if test="record.createtime != null" >
-                createTime = #{record.createtime,jdbcType=TIMESTAMP},
+            <if test="businessLicenseInfo.national != null" >
+                OR  national = #{businessLicenseInfo.national}
             </if>
-            <if test="record.status != null" >
-                status = #{record.status,jdbcType=INTEGER},
+            <if test="businessLicenseInfo.createtime != null" >
+                OR createTime = #{businessLicenseInfo.createtime}
+            </if>
+            <if test="businessLicenseInfo.status != null" >
+                OR status = #{businessLicenseInfo.status}
             </if>
         </where>
     </sql>
+
 
     <!--查询所有营业执照信息-->
     <select id="findByPage" resultType="com.ex.entity.BusinessLicenseInfo">
@@ -73,14 +77,14 @@
     <insert id="insertBusinessLicenseInfo" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.BusinessLicenseInfo">
         insert into business_license_info (id, type, merchantId,
       registUserId, companyName, legalPerson,
-      companyAddress, validityPeriod, merchantIdNumber,
+      companyAddress, establishmentDate, validityPeriod, merchantIdNumber,
       socialCreditCode, idCard, realName,
       sex, birthday, address,
       national, createTime, status
       )
     values (#{id}, #{type}, #{merchantid},
       #{registuserid}, #{companyname}, #{legalperson},
-      #{companyaddress}, #{validityperiod}, #{merchantidnumber},
+      #{companyaddress}, #{establishmentdate}, #{validityperiod}, #{merchantidnumber},
       #{socialcreditcode}, #{idcard}, #{realname},
       #{sex}, #{birthday}, #{address},
       #{national}, #{createtime}, #{status}

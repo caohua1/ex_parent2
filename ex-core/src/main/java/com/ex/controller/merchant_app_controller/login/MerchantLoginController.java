@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @ProjectName ex_parent
  * @ClassName MerchantLoginController
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MerchantLoginController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
+    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private MerchantRegistService merchantRegistService;
@@ -64,6 +68,8 @@ public class MerchantLoginController {
             if (user != null) {
                 return JsonView.fail(JsonView.ERROR, "用户名已存在");
             }
+            String date = sf.format(new Date());
+            merchantRegist.setRegisttime(sf.parse(date));
             merchantRegistService.insertMerchantRegist(merchantRegist);
             return JsonView.success("注册成功");
         } catch (Exception e) {

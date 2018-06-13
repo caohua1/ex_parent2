@@ -8,17 +8,19 @@ import java.util.List;
 
 public interface BusinessLicenseInfoService {
     /**
-     * 查询所有营业执照信息
+     * 查询所有身份证和营业执照信息
      * @return
      */
     PageInfo<BusinessLicenseInfo> findByPage(PageRequest page);
 
     /**
-     * 添加营业执照信息
-     * @param path
+     * 添加身份证和营业执照信息
+     * @param idCardPath
+     * @param charterPicUrl
+     * @param businessLicenseInfo
      * @return
      */
-    int insertBusinessLicenseInfo(String path);
+    int insertBusinessLicenseInfo(String idCardPath,String charterPicUrl,BusinessLicenseInfo businessLicenseInfo);
 
     /**
      * 按条件查询
