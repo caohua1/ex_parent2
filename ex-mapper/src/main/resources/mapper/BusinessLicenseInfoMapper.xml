@@ -92,11 +92,11 @@
     </insert>
 
     <!--按条件查询身份证信息-->
-    <select id="byConditionsQuery" resultMap="BaseResultMap" parameterType="com.ex.entity.BusinessLicenseInfo" >
+    <select id="byConditionsQuery" parameterType="com.ex.entity.BusinessLicenseInfo" >
         select
         *
         from business_license_info
-        <include refid="Example_Where_Clause" />
+        <include refid="Example_Where_OR_Clause" />
     </select>
 
 </mapper>
