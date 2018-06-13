@@ -2,6 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.MerchantorpersonCheckInDao">
 
+    <!-- 条件 -->
+    <sql id="Example_Where_OR_Clause">
+        <where>
+            1 != 1
+            <if test="record.id != null" >
+                OR id = #{record.id}
+            </if>
+            <if test="record.merchantid != null" >
+                OR merchantId = #{record.merchantid}
+            </if>
+            <if test="record.checkintype != null" >
+                OR checkInType = #{record.checkintype}
+            </if>
+            <if test="record.invitercode != null" >
+                OR inviterCode = #{record.invitercode}
+            </if>
+            <if test="record.linkmanname != null" >
+                OR linkmanName = #{record.linkmanname}
+            </if>
+            <if test="record.companyname != null" >
+                OR companyName = #{record.companyname}
+            </if>
+            <if test="record.companycode != null" >
+                OR companyCode = #{record.companycode}
+            </if>
+            <if test="record.legalname != null" >
+                OR legalName = #{record.legalname}
+            </if>
+            <if test="record.companyaddress != null" >
+                OR companyAddress = #{record.companyaddress}
+            </if>
+            <if test="record.companycreatetime != null" >
+                OR companyCreateTime = #{record.companycreatetime}
+            </if>
+            <if test="record.registmoney != null" >
+                OR registMoney = #{record.registmoney}
+            </if>
+            <if test="record.charterpicurl != null" >
+                OR charterPicUrl = #{record.charterpicurl}
+            </if>
+            <if test="record.idcardpicurlZ != null" >
+                OR idCardPicUrl_Z = #{record.idcardpicurlZ}
+            </if>
+            <if test="record.idcardpicurlF != null" >
+                OR idCardPicUrl_F = #{record.idcardpicurlF}
+            </if>
+            <if test="record.idcardpic != null" >
+                OR idCardPic = #{record.idcardpic}
+            </if>
+            <if test="record.industry != null" >
+                OR industry = #{record.industry}
+            </if>
+            <if test="record.checkintime != null" >
+                OR checkInTime = #{record.checkintime}
+            </if>
+            <if test="record.checkinmoney != null" >
+                OR checkInMoney = #{record.checkinmoney}
+            </if>
+            <if test="record.checkinmoneystatus != null" >
+                OR checkInMoneyStatus = #{record.checkinmoneystatus}
+            </if>
+            <if test="record.checkinpaystatus != null" >
+                OR checkInPayStatus = #{record.checkinpaystatus}
+            </if>
+            <if test="record.causeby != null" >
+                OR causeBy = #{record.causeby}
+            </if>
+            <if test="record.status != null" >
+                OR status = #{record.status}
+            </if>
+            <if test="record.updatetime != null" >
+                OR updateTime = #{record.updatetime}
+            </if>
+        </where>
+    </sql>
+
     <!--查询商家-->
     <select id="findByPage" resultType="com.ex.entity.MerchantorpersonCheckIn">
         SELECT
@@ -10,25 +86,30 @@
     </select>
 
     <!--注册商家-->
-    <insert id="insertMerchantRegist" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.MerchantorpersonCheckIn">
-        insert into merchantorperson_check_in (
-        merchantId, checkInType,
-      linkmanName, companyName, companyCode,
-      legalName, companyAddress, companyCreateTime,
-      registMoney, charterPicUrl, idCardPicUrl_Z,
-      idCardPicUrl_F, idCardPic, industry,
-      checkInTime, checkInMoney, checkInMoneyStatus,
-      checkInPayStatus, status, updateTime
-        )
-        values (
-        #{merchantid}, #{checkintype},
-        #{linkmanname}, #{companyname}, #{companycode},
-        #{legalname}, #{companyaddress}, #{companycreatetime},
-        #{registmoney}, #{charterpicurl}, #{idcardpicurlZ},
-        #{idcardpicurlF}, #{idcardpic}, #{industry},
-        #{checkintime}, #{checkinmoney}, #{checkinmoneystatus},
-        #{checkinpaystatus}, #{status}, #{updatetime}
-        )
+    <insert id="insertMerchantorpersonCheckIn" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.MerchantorpersonCheckIn">
+        insert into merchantorperson_check_in (id, merchantId, checkInType,
+      inviterCode, linkmanName, companyName,
+      companyCode, legalName, companyAddress,
+      companyCreateTime, registMoney, charterPicUrl,
+      idCardPicUrl_Z, idCardPicUrl_F, idCardPic,
+      industry, checkInTime, checkInMoney,
+      checkInMoneyStatus, checkInPayStatus, causeBy,
+      status, updateTime)
+    values (#{id}, #{merchantid}, #{checkintype},
+      #{invitercode}, #{linkmanname}, #{companyname},
+      #{companycode}, #{legalname}, #{companyaddress},
+      #{companycreatetime}, #{registmoney}, #{charterpicurl},
+      #{idcardpicurlZ}, #{idcardpicurlF}, #{idcardpic},
+      #{industry}, #{checkintime}, #{checkinmoney},
+      #{checkinmoneystatus}, #{checkinpaystatus}, #{causeby},
+      #{status}, #{updatetime})
     </insert>
 
+    <!--按条件查询身份证信息-->
+    <select id="byConditionsQuery" parameterType="com.ex.entity.MerchantorpersonCheckIn" >
+    select
+    *
+    from merchantorperson_check_in
+    <include refid="Example_Where_OR_Clause" />
+    </select>
 </mapper>
