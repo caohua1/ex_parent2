@@ -2,11 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.ProductClassifyDao">
 
-	<!--选择商品分类（根据级别（一级/二级/三级））-->
+	<!--选择商品分类（根据级别（一级/二级/三级））/查询每个级别的分类-->
 	<select id="selectProductClassify" parameterType="com.ex.entity.ProductClassify" resultType="com.ex.entity.ProductClassify">
-		select * from product_classify where levelNum = #{levelNum}
+		select * from product_classify where 1=1
+		<if test="levelNum!=null">
+			and levelNum = #{levelNum}
+		</if>
+
 		<if test="parentId!=null">
 			and parentId = #{parentId}
 		</if>
 	</select>
+
+
+	<!--根据一级分类来查-->
+	<select id="selectByLevelNum3" parameterType="Long" resultType="com.ex.entity.ProductClassify">
+		select pc1.* from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{parentId}
+	</select>
+
+	<!--根据二级分类来查-->
+	<select id="selectByLevelNum2" parameterType="Long" resultType="com.ex.entity.ProductClassify">
+		select * from product_classify where parentId = #{parentId}
+	</select>
+
+	<!--根据三级分类来查-->
+	<select id="selectByLevelNum1" parameterType="Long" resultType="com.ex.entity.ProductClassify">
+		select * from product_classify where id = #{id}
+	</select>
+
 </mapper>

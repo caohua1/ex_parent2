@@ -7,5 +7,10 @@ import java.util.List;
 
 @Mapper
 public interface ProductPropertySetDao {
+
     public Integer insertPropertySet(List<ProductPropertySet> list);
+
+    public List<ProductPropertySet> selectPropertySet(Long productinfoId);
+
+    public Integer updatePropertySet(ProductPropertySet productPropertySet);
 }
