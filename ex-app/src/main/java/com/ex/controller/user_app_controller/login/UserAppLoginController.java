@@ -1,4 +1,4 @@
-package com.ex.controller.merchant_app_controller.login;
+package com.ex.controller.user_app_controller.login;
 
 import com.ex.entity.UserAppRegist;
 import com.ex.service.UserAppRegistService;
