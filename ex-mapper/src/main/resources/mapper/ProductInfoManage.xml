@@ -6,14 +6,154 @@
 	<insert id="insertProductInfo" parameterType="com.ex.entity.ProductInfoManage">
 		insert into productinfo_manage(merchantId,productName,productClassifyId,
 		agentPrice,vipPrice,resalePrice,storeNum,storePrewarnNum,brandId,productPicUrl,appSlideshowPic,
-		pcSlideshowPic,productDescribe,startTime,endTime,createTime)
+		pcSlideshowPic,productDescribe,startTime,endTime,SXJStatus,createTime)
 		values(#{merchantId},#{productName},#{productClassifyId},#{agentPrice},#{vipPrice},#{resalePrice},#{storeNum},#{storePrewarnNum},
-		#{brandId},#{productPicUrl},#{appSlideshowPic},#{pcSlideshowPic},#{productDescribe},#{startTime},#{endTime} #{createTime})
+		#{brandId},#{productPicUrl},#{appSlideshowPic},#{pcSlideshowPic},#{productDescribe},#{startTime},#{endTime},#{SXJStatus},#{createTime})
 	</insert>
 
-   <!--分享设置-->
-	<update id="shareSet" parameterType="com.ex.entity.ProductInfoManage">
-		update productinfo_manage set shareSet = #{shareSet} where id = #{id}
+   <!--修改商品详情（分享设置）-->
+	<update id="updateProductInfo" parameterType="com.ex.entity.ProductInfoManage">
+		update productinfo_manage set
+		<if test="shareSet!=null">
+			shareSet = #{shareSet},
+		</if>
+		<if test="productName!=null">
+			productName = #{productName},
+		</if>
+		<if test="agentPrice!=null">
+			agentPrice = #{agentPrice},
+		</if>
+		<if test="vipPrice!=null">
+			vipPrice = #{vipPrice},
+		</if>
+		<if test="resalePrice!=null">
+			resalePrice = #{resalePrice},
+		</if>
+		<if test="storeNum!=null">
+			storeNum = #{storeNum},
+		</if>
+		<if test="storePrewarnNum!=null">
+			storePrewarnNum = #{storePrewarnNum},
+		</if>
+		<if test="productPicUrl!=null and productPicUrl!=''">
+			productPicUrl = #{productPicUrl},
+		</if>
+		<if test="appSlideshowPic!=null and appSlideshowPic!=''">
+			appSlideshowPic = #{appSlideshowPic},
+		</if>
+		<if test="pcSlideshowPic!=null and pcSlideshowPic!=''">
+			pcSlideshowPic = #{pcSlideshowPic},
+		</if>
+		<if test="productDescribe!=null and productDescribe!=''">
+			productDescribe = #{productDescribe},
+		</if>
+		<if test="startTime!=null">
+			startTime = #{startTime},
+		</if>
+		<if test="endTime!=null">
+			endTime = #{endTime},
+		</if>
+		<if test="SHStatus!=null">
+			SXJStatus = #{SXJStatus},
+		</if>
+		<if test="SXJStatus!=null">
+			SXJStatus = #{SXJStatus},
+		</if>
+		<if test="DLStatus!=null">
+			SXJStatus = #{SXJStatus},
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		 where id = #{id}
 	</update>
 
+	<!--查询总数量-->
+	<select id="selectCount" parameterType="com.ex.vo.ProductInfoManageVo" resultType="Integer">
+		select count(*) from productinfo_manage  where 1=1
+		<if test="productName!=null and productName!=''">
+			and productName = #{productName}
+		</if>
+		<if test="SHStatus!=null">
+			and SHStatus = #{SHStatus}
+		</if>
+		<if test="SXJStatus!=null">
+			and SXJStatus = #{SXJStatus}
+		</if>
+		<if test="DLStatus!=null">
+			and DLStatus = #{DLStatus}
+		</if>
+
+	</select>
+
+	<!--查询所有的商品(列表展示,条件查询（商品名称，状态）)-->
+    <select id="selectProductInfos" parameterType="com.ex.vo.ProductInfoManageVo" resultType="com.ex.vo.ProductInfoManageVo">
+		 select * from productinfo_manage where 1=1
+		 <if test="productName!=null and productName!=''">
+			 and productName = #{productName}
+		 </if>
+		 <if test="SHStatus!=null">
+			and SHStatus = #{SHStatus}
+		 </if>
+		 <if test="SXJStatus!=null">
+			and SXJStatus = #{SXJStatus}
+		 </if>
+		 <if test="DLStatus!=null">
+			and DLStatus = #{DLStatus}
+		 </if>
+
+	</select>
+
+	<!--查询商品详情-->
+	<select id="selectProductInfoById" parameterType="Long" resultType="com.ex.vo.ProductInfoManageVo">
+		select * from productinfo_manage where id = #{id}
+	</select>
+
+
+	<!--运营后台接口-->
+	<!--查询所有的商品信息（分页查询）-->
+	<select id="selectCoreProductInfos" parameterType="java.util.Map" resultType="com.ex.vo.ProductInfoManageVo">
+		select * from productinfo_manage where 1=1
+		<if test="productName!=null and productName!=''">
+			and productName = #{productName}
+		</if>
+		<if test="startTime!=null and endTime==null">
+			and startTime &gt;= #{startTime}
+		</if>
+		<if test="endTime!=null and startTime==null">
+			and endTime &lt;= #{endTime}
+		</if>
+		<if test="productClassifyId!=null and levelNum==1">
+			and productClassifyId in(select pc1.id from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyId}))
+		</if>
+		<if test="productClassifyId!=null and levelNum==2">
+			and productClassifyId in(select *.id from product_classify where parentId = #{productClassifyId})
+		</if>
+		<if test="productClassifyId!=null and levelNum==3">
+			and productClassifyId in(select *.id from product_classify where id = #{productClassifyId})
+		</if>
+	</select>
+
+    <!--查询数量-->
+	<select id="selectCoreProductInfosCount" parameterType="java.util.Map" resultType="Integer">
+		select count(*) from productinfo_manage where 1=1
+		<if test="productName!=null and productName!=''">
+			and productName = #{productName}
+		</if>
+		<if test="startTime!=null and endTime==null">
+			and startTime &gt;= #{startTime}
+		</if>
+		<if test="endTime!=null and startTime==null">
+			and endTime &lt;= #{endTime}
+		</if>
+		<if test="productClassifyId!=null and levelNum==1">
+			and productClassifyId in(select pc1.id from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyId}))
+		</if>
+		<if test="productClassifyId!=null and levelNum==2">
+			and productClassifyId in(select *.id from product_classify where parentId = #{productClassifyId})
+		</if>
+		<if test="productClassifyId!=null and levelNum==3">
+			and productClassifyId in(select *.id from product_classify where id = #{productClassifyId})
+		</if>
+	</select>
 </mapper>

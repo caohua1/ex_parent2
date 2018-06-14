@@ -12,4 +12,6 @@ public interface MerchantorpersonUploadProductService {
     public PageInfo<MerchantorpersonUploadProduct> selectMerchantorpersonUploadProduct(PageRequest page, Map conditionMap);
 
     public int updateStatus(Map statusMap);
+
+    public int insertMerchantorpersonUploadProduct(MerchantorpersonUploadProduct merchantorpersonUploadProduct);
 }

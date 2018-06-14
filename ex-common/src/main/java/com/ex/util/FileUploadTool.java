@@ -70,7 +70,7 @@ public class FileUploadTool {
             System.out.println("文件为空");
         }
         if (bflag) {
-            String logoPathDir = "/acp/"+site+"/";
+            String logoPathDir = "/video";
             //上传视频存入的路径
             //String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
             // 上传到本地磁盘

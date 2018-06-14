@@ -30,8 +30,9 @@ public class ProductInfoManage implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
     private Integer shareSet;//分享设置（0（1+2分享模式）1按比例返利模式 ）
-    private Integer status;//状态（0待审核 1审核失败 2审核成功 3所有此系列可代理 4所有此系列不可代理 5上架 6下架）
-
+    private Integer SHStatus;//审核状态（0待审核 1审核失败 2审核成功）
+    private Integer SXJStatus;//上下架状态（0下架 1上架）
+    private Integer DLStatus;//代理状态（0不可代理 1可代理）
 
     public Long getId() {
         return id;
@@ -185,11 +186,27 @@ public class ProductInfoManage implements Serializable {
         this.shareSet = shareSet;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getSHStatus() {
+        return SHStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setSHStatus(Integer SHStatus) {
+        this.SHStatus = SHStatus;
+    }
+
+    public Integer getSXJStatus() {
+        return SXJStatus;
+    }
+
+    public void setSXJStatus(Integer SXJStatus) {
+        this.SXJStatus = SXJStatus;
+    }
+
+    public Integer getDLStatus() {
+        return DLStatus;
+    }
+
+    public void setDLStatus(Integer DLStatus) {
+        this.DLStatus = DLStatus;
     }
 }

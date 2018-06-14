@@ -9,6 +9,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,6 +38,7 @@ public class MusicManageServiceImpl implements MusicManageService {
      * @param musicManage
      * @return
      */
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
     @Override
     public int addMusicManage(MusicManage musicManage) {
         return musicManageDao.addMusicManage(musicManage);
