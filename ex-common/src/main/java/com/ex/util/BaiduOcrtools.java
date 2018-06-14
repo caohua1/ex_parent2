@@ -1,11 +1,15 @@
 package com.ex.util;
 
 import com.baidu.aip.ocr.AipOcr;
+import com.ex.entity.BusinessLicenseInfo;
+import com.ex.vo.FileEntity;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -27,11 +31,12 @@ public class BaiduOcrtools {
 //        idCard(client);
 //        business(client);
         Map<String, String> outMap = business("C:/acp/yyzz.jpg");
-        outMap.put("","");
+        outMap.put("", "");
     }
 
     /**
      * 身份证识别
+     *
      * @param path
      * @return Json
      */
@@ -51,32 +56,35 @@ public class BaiduOcrtools {
         // 参数为本地图片二进制数组
         byte[] file = ImageBinaryTools.getImageBinary(image);
         res = client.idcard(file, idCardSide, options);
+        System.out.print(res.toString(2));
         return jsonToObject(res.toString(2));
     }
 
     /**
      * 营业执照识别
+     *
      * @param path
      * @return Json
      */
-    public static  Map<String, String> business(String path) throws Exception {
+    public static Map<String, String> business(String path) throws Exception {
         // 传入可选参数调用接口
         HashMap<String, String> options = new HashMap<String, String>();
 
         // 参数为本地图片路径
         String image = path;
         JSONObject res = client.businessLicense(image, options);
-//        System.out.println(res.toString(2));
+        System.out.println(res.toString(2));
 
         // 参数为本地图片二进制数组
         byte[] file = ImageBinaryTools.getImageBinary(image);
         res = client.businessLicense(file, options);
+        System.out.print(res.toString(2));
         return jsonToObject(res.toString(2));
-
     }
 
     /**
      * 遍历返回的json数据，仅用于百度返回json遍历
+     *
      * @param jsonStr
      * @return Map
      * @throws Exception
@@ -88,12 +96,12 @@ public class BaiduOcrtools {
             map = (Map<?, ?>) map.get("words_result");
             Map<String, String> map3 = new HashMap<String, String>();
             Iterator<?> iterator = map.keySet().iterator();
-            while ( iterator.hasNext() ) {
+            while (iterator.hasNext()) {
                 Object key = iterator.next();
                 String newkey = key.toString();
-                Map<?, ?> map2= (Map<?, ?>) map.get(key);
+                Map<?, ?> map2 = (Map<?, ?>) map.get(key);
                 String value = map2.get("words").toString();
-                map3.put(newkey,value);
+                map3.put(newkey, value);
             }
             return map3;
         } catch (JsonParseException e) {
@@ -109,5 +117,105 @@ public class BaiduOcrtools {
         return null;
     }
 
+    /**
+     * 校验认证信息
+     *
+     * @param idCardPicUrl_Z
+     * @param charterPicUrl
+     * @param request
+     * @param businessLicenseInfo
+     * @return
+     */
+    public static Map<String, Object> chackCertification(MultipartFile charterPicUrl, MultipartFile idCardPicUrl_Z, MultipartFile idCardPicUrl_F, MultipartFile idCardPic, HttpServletRequest request, BusinessLicenseInfo businessLicenseInfo) {
+        FileEntity entity = new FileEntity();
+        FileUploadTool fileUploadTool = new FileUploadTool();
+        Map<String, String> businessMap;
+        Map<String, Object> ret = new HashMap<String, Object>();
+        try {
+            if (charterPicUrl != null) {
+                entity = fileUploadTool.createFile(charterPicUrl, request);
+                if (entity != null) {
+                    System.out.println("返回报文---" + entity);
+                    businessMap = BaiduOcrtools.business("C:/acp/" + entity.getPath());
+                    businessLicenseInfo.setCompanyname(businessMap.get("单位名称"));
+                    businessLicenseInfo.setLegalperson(businessMap.get("法人"));
+                    businessLicenseInfo.setSocialcreditcode(businessMap.get("社会信用代码"));
+                    businessLicenseInfo.setValidityperiod(businessMap.get("有效期"));
+                    businessLicenseInfo.setCompanyaddress(businessMap.get("地址"));
+                    businessLicenseInfo.setMerchantidnumber(businessMap.get("证件编号"));
+                    businessLicenseInfo.setEstablishmentdate(businessMap.get("成立日期"));
+                    if (businessLicenseInfo.getCompanyname().equals("无") ||
+                            businessLicenseInfo.getLegalperson().equals("无") ||
+                            businessLicenseInfo.getSocialcreditcode().equals("无") ||
+                            businessLicenseInfo.getValidityperiod().equals("无") ||
+                            businessLicenseInfo.getCompanyaddress().equals("无") ||
+                            businessLicenseInfo.getEstablishmentdate().equals("无")) {
+                        // 1002营业执照有遮挡
+                        ret.put("code", 1002);
+                        return ret;
+                    }
+                } else {
+                    //1001图片上传失败
+                    ret.put("code", 1001);
+                    return ret;
+                }
+                ret.put("charterPicUrl", entity.getPath());
+            }
+            if (idCardPicUrl_Z != null) {
+                entity = fileUploadTool.createFile(idCardPicUrl_Z, request);
+                if (entity != null) {
+                    System.out.println("返回报文---" + entity);
+                    businessMap = BaiduOcrtools.idCard("C:/acp/" + entity.getPath());
+                    businessLicenseInfo.setRealname(businessMap.get("姓名"));
+                    businessLicenseInfo.setIdcard(businessMap.get("公民身份号码"));
+                    businessLicenseInfo.setBirthday(businessMap.get("出生"));
+                    businessLicenseInfo.setSex(businessMap.get("性别") == "男" ? 1 : 0);
+                    businessLicenseInfo.setAddress(businessMap.get("地址"));
+                    businessLicenseInfo.setNational(businessMap.get("民族"));
+                    if (businessLicenseInfo.getRealname().equals("无") ||
+                            businessLicenseInfo.getIdcard().equals("无") ||
+                            businessLicenseInfo.getBirthday().equals("无") ||
+                            businessLicenseInfo.getSex().equals("无") ||
+                            businessLicenseInfo.getAddress().equals("无") ||
+                            businessLicenseInfo.getNational().equals("无")) {
+                        // 1003身份证有遮挡
+                        ret.put("code", 1003);
+                        return ret;
+                    }
+                } else {
+                    ret.put("code", 1001);
+                    return ret;
+                }
+                ret.put("idCardPicUrl_Z", entity.getPath());
+            }
+            if (idCardPicUrl_F != null) {
+                entity = fileUploadTool.createFile(idCardPicUrl_F, request);
+                if (entity!=null){
+                    ret.put("idCardPicUrl_F", entity.getPath());
+                }else {
+                    //1001图片上传失败
+                    ret.put("code", 1001);
+                    return ret;
+                }
+            }
+            if (idCardPic != null) {
+                entity = fileUploadTool.createFile(idCardPic, request);
+                if (entity!=null){
+                    ret.put("idCardPic", entity.getPath());
+                }else {
+                    //1001图片上传失败
+                    ret.put("code", 1001);
+                    return ret;
+                }
+            }
+            ret.put("code", 200);
+            ret.put("businessLicenseInfo", businessLicenseInfo);
+            return ret;
+        } catch (Exception e) {
+            e.printStackTrace();
+            ret.put("code", 1001);
+            return ret;
+        }
+    }
 
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -28,7 +27,6 @@ import java.util.Date;
 public class UserAppLoginController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private UserAppRegistService userAppRegistService;
@@ -64,8 +62,7 @@ public class UserAppLoginController {
         try {
             logger.info("Request comming to regist user");
             JsonView view = new JsonView();
-            String date = sf.format(new Date());
-            userAppRegist.setRegisttime(sf.parse(date));
+            userAppRegist.setRegisttime(new Date());
             userAppRegist.setIdentity(1);
             userAppRegist.setStatus(1);
             UserAppRegist user = userAppRegistService.userLoginOrCheckUserName(userAppRegist.getUsername());

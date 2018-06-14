@@ -21,4 +21,5 @@ public interface MerchantorpersonCheckInDao {
 
     int insertMerchantorpersonCheckIn(@Param("record") MerchantorpersonCheckIn merchantorpersonCheckIn);
 
+    List<MerchantorpersonCheckIn> byConditionsQuery(@Param("record") MerchantorpersonCheckIn merchantorpersonCheckIn);
 }

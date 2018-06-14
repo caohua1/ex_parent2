@@ -1,4 +1,4 @@
-package com.ex.controller.merchant_app_controller.login;
+package com.ex.controller.merchant_app_controller.login.login;
 
 import com.ex.entity.MerchantRegist;
 import com.ex.service.MerchantRegistService;
@@ -28,7 +28,6 @@ import java.util.Date;
 public class MerchantLoginController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     private MerchantRegistService merchantRegistService;
@@ -68,8 +67,7 @@ public class MerchantLoginController {
             if (user != null) {
                 return JsonView.fail(JsonView.ERROR, "用户名已存在");
             }
-            String date = sf.format(new Date());
-            merchantRegist.setRegisttime(sf.parse(date));
+            merchantRegist.setRegisttime(new Date());
             merchantRegistService.insertMerchantRegist(merchantRegist);
             return JsonView.success("注册成功");
         } catch (Exception e) {
