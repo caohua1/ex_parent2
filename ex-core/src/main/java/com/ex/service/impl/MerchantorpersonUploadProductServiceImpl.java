@@ -41,4 +41,14 @@ public class MerchantorpersonUploadProductServiceImpl implements Merchantorperso
     public int updateStatus(Map statusMap) {
         return merchantorpersonUploadProductDao.updateStatus(statusMap);
     }
+
+    /**
+     * PC端商家上传视频
+     * @param merchantorpersonUploadProduct
+     * @return
+     */
+    @Override
+    public int insertMerchantorpersonUploadProduct(MerchantorpersonUploadProduct merchantorpersonUploadProduct) {
+        return merchantorpersonUploadProductDao.insertMerchantorpersonUploadProduct(merchantorpersonUploadProduct);
+    }
 }

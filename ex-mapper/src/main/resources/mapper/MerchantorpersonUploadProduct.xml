@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.MerchantorpersonUploadProductDao">
-    <!--视享条件查询-->
+    <!--视享运营后台条件查询-->
     <select id="selectMerchantorpersonUploadProduct" parameterType="java.util.Map" resultType="com.ex.entity.MerchantorpersonUploadProduct">
         SELECT * FROM merchantorperson_upload_product
         WHERE 1=1
@@ -25,8 +25,15 @@
         </if>
     </select>
 
-    <!--修改审核状态-->
+    <!--视享运营后台修改审核状态-->
     <update id="updateStatus" parameterType="java.util.Map" >
         UPDATE merchantorperson_upload_product m SET m.status=#{status} WHERE id=#{id}
     </update>
+    <!-- 商家PC端上传视频-->
+    <insert id="insertMerchantorpersonUploadProduct" parameterType="com.ex.entity.MerchantorpersonUploadProduct">
+        INSERT INTO merchantorperson_upload_product
+        (merchantId,productClassifyId,productInfoId,productNo,fileUrl,fileType,merchantorperson_upload_product.`describe`,musicId,link,uploadfileTime,price,updateTime,status,playNum,storeNum,saleNum,distribution)
+        VALUES
+        (#{merchantId},#{productClassifyId},#{productInfoId},#{productNo},#{fileUrl},#{fileType},#{describe},#{musicId},#{link},#{uploadfileTime},#{price},#{updateTime},#{status},#{playNum},#{storeNum},#{saleNum},#{distribution})
+    </insert>
 </mapper>

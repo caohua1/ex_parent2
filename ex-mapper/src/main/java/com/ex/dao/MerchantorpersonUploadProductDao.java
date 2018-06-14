@@ -26,4 +26,11 @@ public interface MerchantorpersonUploadProductDao {
      * @return
      */
     public int updateStatus(Map statusMap);
+
+    /**
+     * 商家pc端视频上传
+     * @param merchantorpersonUploadProduct
+     * @return
+     */
+    public int insertMerchantorpersonUploadProduct(MerchantorpersonUploadProduct merchantorpersonUploadProduct);
 }
