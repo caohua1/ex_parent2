@@ -2,6 +2,7 @@ package com.ex.dao;
 
 import com.ex.entity.MerchantorpersonCheckIn;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,6 +19,6 @@ public interface MerchantorpersonCheckInDao {
 
     List<MerchantorpersonCheckIn> findByPage();
 
-    int insertMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
+    int insertMerchantorpersonCheckIn(@Param("record") MerchantorpersonCheckIn merchantorpersonCheckIn);
 
 }
