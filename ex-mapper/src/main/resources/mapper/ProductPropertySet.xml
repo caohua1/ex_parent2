@@ -7,9 +7,39 @@
 
 	<!--批量插入数据（商品的规格参数,颜色：红色，尺寸：）-->
 	<insert id="insertPropertySet" parameterType="List">
-		insert into product_property_set (productinfoId,typeName,typeDescribe,appointmentTime,createTime) values
+		insert into product_property_set (productinfoId,typeName,typeDescribe,price,appointmentTime,createTime) values
 		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.productinfoId},#{item.typeName},#{item.typeDescribe},#{item.appointmentTime},#{item.createTime})
+			(#{item.productinfoId},#{item.typeName},#{item.typeDescribe},#{item.price},#{item.appointmentTime},#{item.createTime})
 		</foreach>
 	</insert>
+
+	<!--根据productinfoId查询商品规格-->
+	<select id="selectPropertySet" parameterType="Long" resultType="com.ex.entity.ProductPropertySet">
+		select * from product_property_set where productinfoId = #{productinfoId}
+	</select>
+
+	<!--修改商品规格-->
+	<update id="updatePropertySet" parameterType="com.ex.entity.ProductPropertySet">
+		update product_property_set set
+		<if test="typeName!=null and typeName!=''">
+			typeName = #{typeName},
+		</if>
+        <if test="price!=null">
+            price = #{price},
+        </if>
+		<if test="typeDescribe!=null and typeDescribe!=''">
+			typeDescribe = #{typeDescribe},
+		</if>
+		<if test="appointmentTime!=null">
+			appointmentTime = #{appointmentTime},
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		where id=#{id} and productinfoId = #{productinfoId}
+	</update>
+
+
+
+
 </mapper>
