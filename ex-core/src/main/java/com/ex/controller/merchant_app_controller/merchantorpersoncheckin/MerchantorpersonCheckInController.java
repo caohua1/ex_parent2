@@ -63,13 +63,6 @@ public class MerchantorpersonCheckInController {
             businessLicenseInfo.setMerchantid(merchantorpersonCheckIn.getMerchantid());
             businessLicenseInfo.setCreatetime(new Date());
             Map<String,Object> ret = businessLicenseInfoService.insertBusinessLicenseInfo(charterPicUrl,idCardPicUrl_Z,idCardPicUrl_F,idCardPic,request,businessLicenseInfo);
-            businessLicenseInfo = (BusinessLicenseInfo) ret.get("businessLicenseInfo");
-            merchantorpersonCheckIn.setCompanycreatetime(sf.parse(businessLicenseInfo.getEstablishmentdate()));
-            merchantorpersonCheckIn.setCharterpicurl(ret.get("charterPicUrl").toString());
-            merchantorpersonCheckIn.setIdcardpicurlZ(ret.get("idCardPicUrl_Z").toString());
-            merchantorpersonCheckIn.setIdcardpicurlF(ret.get("idCardPicUrl_F").toString());
-            merchantorpersonCheckIn.setIdcardpic(ret.get("idCardPic").toString());
-            merchantorpersonCheckIn.setCheckintime(new Date());
             String code = ret.get("code").toString();
             if(code.equals("1001")){
                 return JsonView.fail("提交失败，请重新上传!");
@@ -80,6 +73,13 @@ public class MerchantorpersonCheckInController {
             if(code.equals("1003")){
                 return  JsonView.fail("身份证模糊，请重新上传!");
             }
+            businessLicenseInfo = (BusinessLicenseInfo) ret.get("businessLicenseInfo");
+            merchantorpersonCheckIn.setCompanycreatetime(sf.parse(businessLicenseInfo.getEstablishmentdate()));
+            merchantorpersonCheckIn.setCharterpicurl(ret.get("charterPicUrl").toString());
+            merchantorpersonCheckIn.setIdcardpicurlZ(ret.get("idCardPicUrl_Z").toString());
+            merchantorpersonCheckIn.setIdcardpicurlF(ret.get("idCardPicUrl_F").toString());
+            merchantorpersonCheckIn.setIdcardpic(ret.get("idCardPic").toString());
+            merchantorpersonCheckIn.setCheckintime(new Date());
             return JsonView.success("提交成功!");
         } catch (Exception e) {
             e.printStackTrace();
