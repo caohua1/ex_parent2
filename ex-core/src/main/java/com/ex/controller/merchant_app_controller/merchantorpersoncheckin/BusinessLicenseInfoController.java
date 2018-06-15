@@ -1,4 +1,4 @@
-package com.ex.controller.merchant_app_controller.login.merchantorpersoncheckin;
+package com.ex.controller.merchant_app_controller.merchantorpersoncheckin;
 
 import com.ex.entity.BusinessLicenseInfo;
 import com.ex.service.BusinessLicenseInfoService;
@@ -10,10 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import java.text.SimpleDateFormat;
 
 @RestController
 @RequestMapping("/merchant/certification")

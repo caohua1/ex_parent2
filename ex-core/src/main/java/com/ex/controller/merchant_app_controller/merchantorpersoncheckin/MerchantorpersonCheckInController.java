@@ -1,4 +1,4 @@
-package com.ex.controller.merchant_app_controller.login.merchantorpersoncheckin;
+package com.ex.controller.merchant_app_controller.merchantorpersoncheckin;
 
 import com.ex.entity.BusinessLicenseInfo;
 import com.ex.entity.MerchantorpersonCheckIn;
