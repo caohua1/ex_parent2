@@ -64,6 +64,68 @@
             </if>
         </where>
     </sql>
+    <sql id="Example_Where_Clause">
+        <where>
+            1 = 1
+            <if test="businessLicenseInfo.id != null" >
+                AND id = #{businessLicenseInfo.id}
+            </if>
+            <if test="businessLicenseInfo.type != null" >
+                AND type = #{businessLicenseInfo.type}
+            </if>
+            <if test="businessLicenseInfo.merchantid != null" >
+                AND merchantId = #{businessLicenseInfo.merchantid}
+            </if>
+            <if test="businessLicenseInfo.registuserid != null" >
+                AND registUserId = #{businessLicenseInfo.registuserid}
+            </if>
+            <if test="businessLicenseInfo.companyname != null" >
+                AND companyName = #{businessLicenseInfo.companyname}
+            </if>
+            <if test="businessLicenseInfo.legalperson != null" >
+                AND legalPerson = #{businessLicenseInfo.legalperson}
+            </if>
+            <if test="businessLicenseInfo.companyaddress != null" >
+                AND companyAddress = #{businessLicenseInfo.companyaddress}
+            </if>
+            <if test="businessLicenseInfo.establishmentdate != null" >
+                AND establishmentDate = #{businessLicenseInfo.establishmentdate}
+            </if>
+            <if test="businessLicenseInfo.validityperiod != null" >
+                AND validityPeriod = #{businessLicenseInfo.validityperiod}
+            </if>
+            <if test="businessLicenseInfo.merchantidnumber != null" >
+                AND merchantIdNumber = #{businessLicenseInfo.merchantidnumber}
+            </if>
+            <if test="businessLicenseInfo.socialcreditcode != null" >
+                AND socialCreditCode = #{businessLicenseInfo.socialcreditcode}
+            </if>
+            <if test="businessLicenseInfo.idcard != null" >
+                AND idCard = #{businessLicenseInfo.idcard}
+            </if>
+            <if test="businessLicenseInfo.realname != null" >
+                AND realName = #{businessLicenseInfo.realname}
+            </if>
+            <if test="businessLicenseInfo.sex != null" >
+                AND sex = #{businessLicenseInfo.sex}
+            </if>
+            <if test="businessLicenseInfo.birthday != null" >
+                AND birthday = #{businessLicenseInfo.birthday}
+            </if>
+            <if test="businessLicenseInfo.address != null" >
+                AND address = #{businessLicenseInfo.address}
+            </if>
+            <if test="businessLicenseInfo.national != null" >
+                AND  national = #{businessLicenseInfo.national}
+            </if>
+            <if test="businessLicenseInfo.createtime != null" >
+                AND createTime = #{businessLicenseInfo.createtime}
+            </if>
+            <if test="businessLicenseInfo.status != null" >
+                AND status = #{businessLicenseInfo.status}
+            </if>
+        </where>
+    </sql>
 
 
     <!--查询所有营业执照信息-->
@@ -92,11 +154,11 @@
     </insert>
 
     <!--按条件查询身份证信息-->
-    <select id="byConditionsQuery" parameterType="com.ex.entity.BusinessLicenseInfo" >
+    <select id="byConditionsQuery" resultType="com.ex.entity.BusinessLicenseInfo" parameterType="com.ex.entity.BusinessLicenseInfo" >
         select
         *
         from business_license_info
-        <include refid="Example_Where_OR_Clause" />
+        <include refid="Example_Where_Clause" />
     </select>
 
 </mapper>

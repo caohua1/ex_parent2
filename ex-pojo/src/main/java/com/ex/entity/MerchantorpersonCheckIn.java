@@ -11,6 +11,8 @@ public class MerchantorpersonCheckIn {
 
     private Integer checkintype;
 
+    private String invitercode;
+
     private String linkmanname;
 
     private String companyname;
@@ -21,10 +23,8 @@ public class MerchantorpersonCheckIn {
 
     private String companyaddress;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date companycreatetime;
-
-    private Double registmoney;
 
     private String charterpicurl;
 
@@ -36,18 +36,19 @@ public class MerchantorpersonCheckIn {
 
     private String industry;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date checkintime;
 
     private Double checkinmoney;
 
-    private Integer checkinmoneystatus;
+    private Integer checkinpaytype;
 
     private Integer checkinpaystatus;
 
+    private String causeby;
+
     private Integer status;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updatetime;
 
     public Long getId() {
@@ -122,14 +123,6 @@ public class MerchantorpersonCheckIn {
         this.companycreatetime = companycreatetime;
     }
 
-    public Double getRegistmoney() {
-        return registmoney;
-    }
-
-    public void setRegistmoney(Double registmoney) {
-        this.registmoney = registmoney;
-    }
-
     public String getCharterpicurl() {
         return charterpicurl;
     }
@@ -186,12 +179,12 @@ public class MerchantorpersonCheckIn {
         this.checkinmoney = checkinmoney;
     }
 
-    public Integer getCheckinmoneystatus() {
-        return checkinmoneystatus;
+    public Integer getCheckinpaytype() {
+        return checkinpaytype;
     }
 
-    public void setCheckinmoneystatus(Integer checkinmoneystatus) {
-        this.checkinmoneystatus = checkinmoneystatus;
+    public void setCheckinpaytype(Integer checkinpaytype) {
+        this.checkinpaytype = checkinpaytype;
     }
 
     public Integer getCheckinpaystatus() {
@@ -216,5 +209,21 @@ public class MerchantorpersonCheckIn {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
+    }
+
+    public String getInvitercode() {
+        return invitercode;
+    }
+
+    public void setInvitercode(String invitercode) {
+        this.invitercode = invitercode;
+    }
+
+    public String getCauseby() {
+        return causeby;
+    }
+
+    public void setCauseby(String causeby) {
+        this.causeby = causeby;
     }
 }

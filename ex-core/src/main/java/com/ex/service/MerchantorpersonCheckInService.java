@@ -5,6 +5,7 @@ import com.ex.util.PageRequest;
 import com.github.pagehelper.PageInfo;
 
 
+
 /**
  * @ClassName MerchantorpersonCheckInService
  * @Description TODO
@@ -18,4 +19,5 @@ public interface MerchantorpersonCheckInService {
 
     int insertMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
 
+    PageInfo<MerchantorpersonCheckIn> byConditionsQuery(PageRequest page,MerchantorpersonCheckIn merchantorpersonCheckIn);
 }
