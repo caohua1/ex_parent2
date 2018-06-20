@@ -41,14 +41,9 @@ public class MerchantRegistServiceImpl implements MerchantRegistService {
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
     @Override
     public boolean insertMerchantRegist(MerchantRegist merchantRegist) {
-        try {
             merchantRegist.setPassword(CustomMD5.passwordAndSalt(merchantRegist.getPassword(),merchantRegist.getUsername()));
             merchantRegistDao.insertMerchantRegist(merchantRegist);
             return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     /**

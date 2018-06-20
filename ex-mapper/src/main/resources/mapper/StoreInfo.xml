@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MerchantorpersonCheckInDao">
+
+    <sql id="Example_Where_OR_Clause">
+        <where>
+            1=1
+            <if test="record.id != null">
+                AND id = #{record.id},
+            </if>
+            <if test="record.productclassifyid != null">
+                AND productClassifyId = #{record.productclassifyid},
+            </if>
+            <if test="record.merchantid != null">
+                AND merchantId = #{record.merchantid},
+            </if>
+            <if test="record.storename != null">
+                AND storeName = #{record.storename},
+            </if>
+            <if test="record.describe != null">
+                AND describe = #{record.describe},
+            </if>
+            <if test="record.advertisingpicurl != null">
+                AND advertisingPicUrl = #{record.advertisingpicurl},
+            </if>
+            <if test="record.createtime != null">
+                AND createTime = #{record.createtime},
+            </if>
+            <if test="record.updatetime != null">
+                AND updateTime = #{record.updatetime},
+            </if>
+            <if test="record.status != null">
+                AND status = #{record.status},
+            </if>
+            <if test="record.paystatus != null">
+                AND payStatus = #{record.paystatus},
+            </if>
+        </where>
+    </sql>
+
+    <!--添加店铺信息-->
+    <insert id="insertStoreInfo" parameterType="com.ex.entity.StoreInfo">
+      insert into store_info (productClassifyId, merchantId,
+      storeName, describe, advertisingPicUrl,
+      createTime, updateTime, status,
+      payStatus)
+    values (#{productclassifyid}, #{merchantid}, #{storename}, #{describe}, #{advertisingpicurl},
+      #{createtime}, #{updatetime}, #{status}, #{paystatus})
+    </insert>
+
+    <!--按条件查询店铺信息-->
+    <select id="byConditionsQuery" resultType="com.ex.entity.StoreInfo" parameterType="com.ex.entity.StoreInfo">
+        SELECT * FROM store_info
+        <include refid="Example_Where_OR_Clause"/>
+    </select>
+
+    <!--修改店铺信息-->
+    <update id="updateStoreInfo" parameterType="com.ex.entity.StoreInfo">
+        update store_info
+        <set >
+            <if test="productclassifyid != null" >productClassifyId = #{productclassifyid},</if>
+            <if test="merchantid != null" >merchantId = #{merchantid},</if>
+            <if test="storename != null" >storeName = #{storename},</if>
+            <if test="describe != null" >describe = #{describe},</if>
+            <if test="advertisingpicurl != null" >advertisingPicUrl = #{advertisingpicurl},</if>
+            <if test="createtime != null" >createTime = #{createtime},</if>
+            <if test="updatetime != null" >updateTime = #{updatetime},</if>
+            <if test="status != null" >status = #{status},</if>
+            <if test="paystatus != null" >payStatus = #{paystatus},</if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

@@ -9,8 +9,8 @@
             <if test="record.id != null" >
                 AND id = #{record.id}
             </if>
-            <if test="record.merchantid != null" >
-                AND merchantId = #{record.merchantid}
+            <if test="record.merchantId != null" >
+                AND merchantId = #{record.merchantId}
             </if>
             <if test="record.checkintype != null" >
                 AND checkInType = #{record.checkintype}
@@ -35,18 +35,6 @@
             </if>
             <if test="record.companycreatetime != null" >
                 AND companyCreateTime = #{record.companycreatetime}
-            </if>
-            <if test="record.charterpicurl != null" >
-                AND charterPicUrl = #{record.charterpicurl}
-            </if>
-            <if test="record.idcardpicurlZ != null" >
-                AND idCardPicUrl_Z = #{record.idcardpicurlZ}
-            </if>
-            <if test="record.idcardpicurlF != null" >
-                AND idCardPicUrl_F = #{record.idcardpicurlF}
-            </if>
-            <if test="record.idcardpic != null" >
-                AND idCardPic = #{record.idcardpic}
             </if>
             <if test="record.industry != null" >
                 AND industry = #{record.industry}
@@ -75,38 +63,70 @@
         </where>
     </sql>
 
-    <!--查询商家-->
+    <!--查询所有入驻信息-->
     <select id="findByPage" resultType="com.ex.entity.MerchantorpersonCheckIn">
         SELECT
         *
         FROM merchantorperson_check_in
     </select>
 
-    <!--注册商家-->
+    <!--商家入驻-->
     <insert id="insertMerchantorpersonCheckIn" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.MerchantorpersonCheckIn">
-        insert into merchantorperson_check_in (id, merchantId, checkInType,
-      inviterCode, linkmanName, companyName,
-      companyCode, legalName, companyAddress,
-      companyCreateTime, charterPicUrl,
-      idCardPicUrl_Z, idCardPicUrl_F, idCardPic,
-      industry, checkInTime, checkInMoney,
-      checkInPayType, checkInPayStatus, causeBy,
-      status, updateTime)
-    values (#{id}, #{merchantid}, #{checkintype},
-      #{invitercode}, #{linkmanname}, #{companyname},
-      #{companycode}, #{legalname}, #{companyaddress},
-      #{companycreatetime}, #{charterpicurl},
-      #{idcardpicurlZ}, #{idcardpicurlF}, #{idcardpic},
-      #{industry}, #{checkintime}, #{checkinmoney},
-      #{checkinpaytype}, #{checkinpaystatus}, #{causeby},
-      #{status}, #{updatetime})
+        insert into merchantorperson_check_in (merchantId, checkInType,
+        inviterCode, linkmanName, companyName,
+        companyCode, legalName, companyAddress,
+        companyCreateTime, charterPicUrl,
+        idCardPicUrl_Z, idCardPicUrl_F, idCardPic,
+        industry, checkInTime, checkInMoney,
+        checkInPayType, checkInPayStatus, causeBy,
+        status, updateTime)
+        values (#{merchantId}, #{checkintype},
+        #{invitercode}, #{linkmanname}, #{companyname},
+        #{companycode}, #{legalname}, #{companyaddress},
+        #{companycreatetime}, #{charterpicurl},
+        #{idcardpicurlZ}, #{idcardpicurlF}, #{idcardpic},
+        #{industry}, #{checkintime}, #{checkinmoney},
+        #{checkinpaytype}, #{checkinpaystatus}, #{causeby},
+        #{status}, #{updatetime})
     </insert>
 
-    <!--按条件查询身份证信息-->
+    <!--按条件查询入驻信息-->
     <select id="byConditionsQuery" resultType="com.ex.entity.MerchantorpersonCheckIn" parameterType="com.ex.entity.MerchantorpersonCheckIn" >
     select
     *
     from merchantorperson_check_in
     <include refid="Example_Where_OR_Clause" />
     </select>
+
+    <!--按注册人Id和入住类型查询-->
+    <select id="selectByMerchantId" resultType="com.ex.entity.MerchantorpersonCheckIn" parameterType="map">
+        SELECT * FROM merchantorperson_check_in WHERE merchantId = #{merchantId} AND checkInType = #{checkInType}
+    </select>
+
+    <update id="updateMerchantorpersonCheckIn" parameterType="com.ex.entity.MerchantorpersonCheckIn" >
+        update merchantorperson_check_in
+        <set >
+            <if test="invitercode != null" >inviterCode = #{invitercode},</if>
+            <if test="linkmanname != null" >linkmanName = #{linkmanname},</if>
+            <if test="companyname != null" >companyName = #{companyname},</if>
+            <if test="companycode != null" >companyCode = #{companycode},</if>
+            <if test="legalname != null" >legalName = #{legalname},</if>
+            <if test="companyaddress != null" >companyAddress = #{companyaddress},</if>
+            <if test="companycreatetime != null" >companyCreateTime = #{companycreatetime},</if>
+            <if test="charterpicurl != null" >charterPicUrl = #{charterpicurl},</if>
+            <if test="idcardpicurlZ != null" >idCardPicUrl_Z = #{idcardpicurlZ},</if>
+            <if test="idcardpicurlF != null" >idCardPicUrl_F = #{idcardpicurlF},</if>
+            <if test="idcardpic != null" >idCardPic = #{idcardpic},</if>
+            <if test="industry != null" >industry = #{industry},</if>
+            <if test="checkintime != null" >checkInTime = #{checkintime},</if>
+            <if test="checkinmoney != null" >checkInMoney = #{checkinmoney},</if>
+            <if test="checkinpaystatus != null" >checkInPayStatus = #{checkinpaystatus},</if>
+            <if test="checkinpaytype != null" >checkInPayType = #{checkinpaytype},</if>
+            <if test="causeby != null" >causeBy = #{causeby},</if>
+            <if test="status != null" >status = #{status},</if>
+            <if test="updatetime != null" >updateTime = #{updatetime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

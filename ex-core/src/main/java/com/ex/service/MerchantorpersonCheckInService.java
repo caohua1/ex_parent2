@@ -20,4 +20,8 @@ public interface MerchantorpersonCheckInService {
     int insertMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
 
     PageInfo<MerchantorpersonCheckIn> byConditionsQuery(PageRequest page,MerchantorpersonCheckIn merchantorpersonCheckIn);
+
+    MerchantorpersonCheckIn selectByMerchantId(Long merchantId, Integer checkInType);
+
+    int updateMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
 }
