@@ -42,6 +42,7 @@ public class BusinessLicenseInfoServiceImpl implements BusinessLicenseInfoServic
 
     /**
      * 添加身份证和营业执照信息
+     *
      * @param charterPicUrl
      * @param idCardPicUrl_Z
      * @param idCardPicUrl_F
@@ -50,48 +51,39 @@ public class BusinessLicenseInfoServiceImpl implements BusinessLicenseInfoServic
      * @param businessLicenseInfo
      * @return
      */
-    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
-    public Map<String,Object>  insertBusinessLicenseInfo(MultipartFile charterPicUrl, MultipartFile idCardPicUrl_Z, MultipartFile idCardPicUrl_F,MultipartFile idCardPic, HttpServletRequest request, BusinessLicenseInfo businessLicenseInfo) {
+    public Map<String, Object> insertBusinessLicenseInfo(MultipartFile charterPicUrl, MultipartFile idCardPicUrl_Z, MultipartFile idCardPicUrl_F, MultipartFile idCardPic, HttpServletRequest request, BusinessLicenseInfo businessLicenseInfo) {
         FileEntity entity = new FileEntity();
         FileUploadTool fileUploadTool = new FileUploadTool();
-        try {
-            Map<String,Object> ret = BaiduOcrtools.chackCertification(charterPicUrl,idCardPicUrl_Z,idCardPicUrl_F,idCardPic,request,businessLicenseInfo);
-            String code = ret.get("code").toString();
-            if(code.equals("1001")){
-                return ret;
-            }
-            if(code.equals("1002")){
-                return ret;
-            }
-            if(code.equals("1003")){
-                return ret;
-            }
-            businessLicenseInfo = (BusinessLicenseInfo) ret.get("businessLicenseInfo");
-            businessLicenseInfoDao.insertBusinessLicenseInfo(businessLicenseInfo);
+        Map<String, Object> ret = BaiduOcrtools.chackCertification(charterPicUrl, idCardPicUrl_Z, idCardPicUrl_F, idCardPic, request, businessLicenseInfo);
+        String code = ret.get("code").toString();
+        if (code.equals("1001")) {
             return ret;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
         }
+        if (code.equals("1002")) {
+            return ret;
+        }
+        if (code.equals("1003")) {
+            return ret;
+        }
+        businessLicenseInfo = (BusinessLicenseInfo) ret.get("businessLicenseInfo");
+        businessLicenseInfoDao.insertBusinessLicenseInfo(businessLicenseInfo);
+        return ret;
     }
 
     /**
      * 按条件查询
+     *
      * @param businessLicenseInfo
      * @return
      */
     @Override
-    public PageInfo<BusinessLicenseInfo> byConditionsQuery(PageRequest page,BusinessLicenseInfo businessLicenseInfo) {
-        try {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize());
-            List<BusinessLicenseInfo> businessLicenseInfos = businessLicenseInfoDao.byConditionsQuery(businessLicenseInfo);
-            PageInfo<BusinessLicenseInfo> pageInfo = new PageInfo<>(businessLicenseInfos);
-            return pageInfo;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public PageInfo<BusinessLicenseInfo> byConditionsQuery(PageRequest page, BusinessLicenseInfo businessLicenseInfo) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<BusinessLicenseInfo> businessLicenseInfos = businessLicenseInfoDao.byConditionsQuery(businessLicenseInfo);
+        PageInfo<BusinessLicenseInfo> pageInfo = new PageInfo<>(businessLicenseInfos);
+        return pageInfo;
     }
 
 }

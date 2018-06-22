@@ -7,7 +7,7 @@ import java.util.Date;
 public class MerchantorpersonCheckIn {
     private Long id;
 
-    private Long merchantid;
+    private Long merchantId;
 
     private Integer checkintype;
 
@@ -23,8 +23,7 @@ public class MerchantorpersonCheckIn {
 
     private String companyaddress;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date companycreatetime;
+    private String companycreatetime;
 
     private String charterpicurl;
 
@@ -59,12 +58,12 @@ public class MerchantorpersonCheckIn {
         this.id = id;
     }
 
-    public Long getMerchantid() {
-        return merchantid;
+    public Long getMerchantId() {
+        return merchantId;
     }
 
-    public void setMerchantid(Long merchantid) {
-        this.merchantid = merchantid;
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
     }
 
     public Integer getCheckintype() {
@@ -115,11 +114,11 @@ public class MerchantorpersonCheckIn {
         this.companyaddress = companyaddress;
     }
 
-    public Date getCompanycreatetime() {
+    public String getCompanycreatetime() {
         return companycreatetime;
     }
 
-    public void setCompanycreatetime(Date companycreatetime) {
+    public void setCompanycreatetime(String companycreatetime) {
         this.companycreatetime = companycreatetime;
     }
 

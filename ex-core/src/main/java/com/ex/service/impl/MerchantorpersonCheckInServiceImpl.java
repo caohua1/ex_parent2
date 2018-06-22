@@ -30,53 +30,63 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
 
     /**
      * 查询所有入驻信息
+     *
      * @param page
      * @return
      */
     @Override
     public PageInfo<MerchantorpersonCheckIn> findByPage(PageRequest page) {
-        try {
-            PageHelper.startPage(page.getPageNum(), page.getPageSize());
-            List<MerchantorpersonCheckIn> users = merchantorpersonCheckInDao.findByPage();
-            PageInfo<MerchantorpersonCheckIn> pageInfo = new PageInfo<>(users);
-            return pageInfo;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<MerchantorpersonCheckIn> users = merchantorpersonCheckInDao.findByPage();
+        PageInfo<MerchantorpersonCheckIn> pageInfo = new PageInfo<>(users);
+        return pageInfo;
     }
 
     /**
      * 商家入驻
+     *
      * @param merchantorpersonCheckIn
      * @return
      */
-    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
     public int insertMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn) {
-        try {
-            return merchantorpersonCheckInDao.insertMerchantorpersonCheckIn(merchantorpersonCheckIn);
-        }catch (Exception e){
-            e.printStackTrace();
-            return 1001;
-        }
+        return merchantorpersonCheckInDao.insertMerchantorpersonCheckIn(merchantorpersonCheckIn);
     }
 
     /**
      * 按条件查询入驻信息
+     *
      * @param merchantorpersonCheckIn
      * @return
      */
     @Override
-    public PageInfo<MerchantorpersonCheckIn> byConditionsQuery(PageRequest page,MerchantorpersonCheckIn merchantorpersonCheckIn) {
-        try{
-            PageHelper.startPage(page.getPageNum(), page.getPageSize());
-            List<MerchantorpersonCheckIn> users = merchantorpersonCheckInDao.byConditionsQuery(merchantorpersonCheckIn);
-            PageInfo<MerchantorpersonCheckIn> pageInfo = new PageInfo<>(users);
-            return pageInfo;
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
+    public PageInfo<MerchantorpersonCheckIn> byConditionsQuery(PageRequest page, MerchantorpersonCheckIn merchantorpersonCheckIn) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<MerchantorpersonCheckIn> users = merchantorpersonCheckInDao.byConditionsQuery(merchantorpersonCheckIn);
+        PageInfo<MerchantorpersonCheckIn> pageInfo = new PageInfo<>(users);
+        return pageInfo;
+    }
+
+    /**
+     * 按注册人Id和入住类型查询
+     * @param merchantId
+     * @param checkInType
+     * @return
+     */
+    @Override
+    public MerchantorpersonCheckIn selectByMerchantId(Long merchantId, Integer checkInType) {
+        MerchantorpersonCheckIn merchantorpersonCheckIn = merchantorpersonCheckInDao.selectByMerchantId(merchantId, checkInType);
+        return merchantorpersonCheckIn;
+    }
+
+    /**
+     * 修改入驻信息
+     * @param merchantorpersonCheckIn
+     * @return
+     */
+    @Override
+    public int updateMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn) {
+        return merchantorpersonCheckInDao.updateMerchantorpersonCheckIn(merchantorpersonCheckIn);
     }
 }

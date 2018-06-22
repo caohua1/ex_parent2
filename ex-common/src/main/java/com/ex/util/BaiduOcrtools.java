@@ -129,21 +129,22 @@ public class BaiduOcrtools {
     public static Map<String, Object> chackCertification(MultipartFile charterPicUrl, MultipartFile idCardPicUrl_Z, MultipartFile idCardPicUrl_F, MultipartFile idCardPic, HttpServletRequest request, BusinessLicenseInfo businessLicenseInfo) {
         FileEntity entity = new FileEntity();
         FileUploadTool fileUploadTool = new FileUploadTool();
-        Map<String, String> businessMap;
+        Map<String, String> businessMap =  new HashMap<String, String>();
         Map<String, Object> ret = new HashMap<String, Object>();
         try {
             if (charterPicUrl != null) {
                 entity = fileUploadTool.createFile(charterPicUrl, request);
                 if (entity != null) {
                     System.out.println("返回报文---" + entity);
+                    System.out.println("C:/acp/" + entity.getPath().toString());
                     businessMap = BaiduOcrtools.business("C:/acp/" + entity.getPath());
-                    businessLicenseInfo.setCompanyname(businessMap.get("单位名称"));
-                    businessLicenseInfo.setLegalperson(businessMap.get("法人"));
-                    businessLicenseInfo.setSocialcreditcode(businessMap.get("社会信用代码"));
-                    businessLicenseInfo.setValidityperiod(businessMap.get("有效期"));
-                    businessLicenseInfo.setCompanyaddress(businessMap.get("地址"));
-                    businessLicenseInfo.setMerchantidnumber(businessMap.get("证件编号"));
-                    businessLicenseInfo.setEstablishmentdate(businessMap.get("成立日期"));
+                    businessLicenseInfo.setCompanyname(businessMap.get("单位名称") == null ? "无" : businessMap.get("单位名称"));
+                    businessLicenseInfo.setLegalperson(businessMap.get("法人") == null ? "无" : businessMap.get("法人"));
+                    businessLicenseInfo.setSocialcreditcode(businessMap.get("社会信用代码") == null ? "无" : businessMap.get("社会信用代码"));
+                    businessLicenseInfo.setValidityperiod(businessMap.get("有效期") == null ? "无" : businessMap.get("有效期"));
+                    businessLicenseInfo.setCompanyaddress(businessMap.get("地址") == null ? "无" : businessMap.get("地址"));
+                    businessLicenseInfo.setMerchantidnumber(businessMap.get("证件编号") == null ? "无" : businessMap.get("证件编号"));
+                    businessLicenseInfo.setEstablishmentdate(businessMap.get("成立日期") == null ? "无" : businessMap.get("成立日期"));
                     if (businessLicenseInfo.getCompanyname().equals("无") ||
                             businessLicenseInfo.getLegalperson().equals("无") ||
                             businessLicenseInfo.getSocialcreditcode().equals("无") ||
@@ -165,17 +166,20 @@ public class BaiduOcrtools {
                 entity = fileUploadTool.createFile(idCardPicUrl_Z, request);
                 if (entity != null) {
                     System.out.println("返回报文---" + entity);
-                    businessMap = BaiduOcrtools.idCard("C:/acp/" + entity.getPath());
-                    businessLicenseInfo.setRealname(businessMap.get("姓名"));
-                    businessLicenseInfo.setIdcard(businessMap.get("公民身份号码"));
-                    businessLicenseInfo.setBirthday(businessMap.get("出生"));
-                    businessLicenseInfo.setSex(businessMap.get("性别") == "男" ? 1 : 0);
-                    businessLicenseInfo.setAddress(businessMap.get("地址"));
-                    businessLicenseInfo.setNational(businessMap.get("民族"));
+                    //businessMap = //BaiduOcrtools.idCard("C:/acp/" + entity.getPath());
+                    businessLicenseInfo.setRealname(businessMap.get("姓名") == null ? "无" : businessMap.get("姓名"));
+                    businessLicenseInfo.setIdcard(businessMap.get("公民身份号码") == null ? "无" : businessMap.get("公民身份号码"));
+                    businessLicenseInfo.setBirthday(businessMap.get("出生") == null ? "无" : businessMap.get("出生"));
+                    if(businessMap.get("性别")==null){
+                        businessLicenseInfo.setSex(3);
+                    }else{
+                    businessLicenseInfo.setSex(businessMap.get("性别") == "男" ? 1 : 0);}
+                    businessLicenseInfo.setAddress(businessMap.get("地址") == null ? "无" : businessMap.get("地址"));
+                    businessLicenseInfo.setNational(businessMap.get("民族") == null ? "无" : businessMap.get("民族"));
                     if (businessLicenseInfo.getRealname().equals("无") ||
                             businessLicenseInfo.getIdcard().equals("无") ||
                             businessLicenseInfo.getBirthday().equals("无") ||
-                            businessLicenseInfo.getSex().equals("无") ||
+                            businessLicenseInfo.getSex()==3 ||
                             businessLicenseInfo.getAddress().equals("无") ||
                             businessLicenseInfo.getNational().equals("无")) {
                         // 1003身份证有遮挡
@@ -190,9 +194,9 @@ public class BaiduOcrtools {
             }
             if (idCardPicUrl_F != null) {
                 entity = fileUploadTool.createFile(idCardPicUrl_F, request);
-                if (entity!=null){
+                if (entity != null) {
                     ret.put("idCardPicUrl_F", entity.getPath());
-                }else {
+                } else {
                     //1001图片上传失败
                     ret.put("code", 1001);
                     return ret;
@@ -200,9 +204,9 @@ public class BaiduOcrtools {
             }
             if (idCardPic != null) {
                 entity = fileUploadTool.createFile(idCardPic, request);
-                if (entity!=null){
+                if (entity != null) {
                     ret.put("idCardPic", entity.getPath());
-                }else {
+                } else {
                     //1001图片上传失败
                     ret.put("code", 1001);
                     return ret;
