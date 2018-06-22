@@ -29,5 +29,5 @@ public interface ProductService {
     public Integer selectCoreProductInfosCount(Map map);
 
     //商家app，查询所有商品
-    public List<ProductInfoManageVo> selectAppProductInfos(ProductInfoManageVo productInfoManageVo);
+    public PageInfo<ProductInfoManageVo> selectAppProductInfos(ProductInfoManageVo productInfoManageVo,PageRequest pageRequest);
 }

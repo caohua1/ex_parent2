@@ -118,10 +118,13 @@
 			and productName = #{productName}
 		</if>
 		<if test="startTime!=null and endTime==null">
-			and startTime &gt;= #{startTime}
+			and createTime &gt;= #{startTime}
 		</if>
 		<if test="endTime!=null and startTime==null">
-			and endTime &lt;= #{endTime}
+			and createTime &lt;= #{endTime}
+		</if>
+		<if test="endTime!=null and startTime!=null">
+			and createTime BETWEEN  #{startTime} AND #{endTime}
 		</if>
 		<if test="productClassifyId!=null and levelNum==1">
 			and productClassifyId in(select pc1.id from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyId}))

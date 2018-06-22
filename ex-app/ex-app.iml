@@ -32,8 +32,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ex-pojo" />
-    <orderEntry type="module" module-name="ex-mapper" />
     <orderEntry type="module" module-name="ex-config" />
+    <orderEntry type="module" module-name="ex-mapper" />
     <orderEntry type="module" module-name="ex-redis-api" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-stream-kafka:2.0.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-stream-binder-kafka:2.0.0.RELEASE" level="project" />
