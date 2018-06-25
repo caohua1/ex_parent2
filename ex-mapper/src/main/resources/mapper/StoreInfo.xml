@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ex.dao.MerchantorpersonCheckInDao">
+<mapper namespace="com.ex.dao.StoreInfoDao">
 
     <sql id="Example_Where_OR_Clause">
         <where>
@@ -39,7 +39,7 @@
     </sql>
 
     <!--添加店铺信息-->
-    <insert id="insertStoreInfo" parameterType="com.ex.entity.StoreInfo">
+    <insert id="insertStoreInfo"  useGeneratedKeys="true" keyProperty="id"   parameterType="com.ex.entity.StoreInfo">
       insert into store_info (productClassifyId, merchantId,
       storeName, describe, advertisingPicUrl,
       createTime, updateTime, status,
@@ -68,7 +68,7 @@
             <if test="status != null" >status = #{status},</if>
             <if test="paystatus != null" >payStatus = #{paystatus},</if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
+        where id = #{id}
     </update>
 
 </mapper>
