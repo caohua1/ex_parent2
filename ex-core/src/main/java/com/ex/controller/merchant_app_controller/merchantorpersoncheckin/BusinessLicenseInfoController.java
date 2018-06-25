@@ -28,14 +28,19 @@ public class BusinessLicenseInfoController {
      */
     @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
+        JsonView jsonView = new JsonView();
         try {
             logger.info("Request comming to find businessLicenseInfo list...");
             PageInfo<BusinessLicenseInfo> pageInfo = businessLicenseInfoService.findByPage(page);
-            return JsonView.success(pageInfo);
+            jsonView.setMessage("查询数据成功");
+            jsonView.setData(pageInfo);
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setTodoCount(pageInfo.getSize());
         } catch (Exception e) {
             e.printStackTrace();
             return JsonView.fail(JsonView.ERROR, e.getMessage());
         }
+        return jsonView;
     }
 
     /**

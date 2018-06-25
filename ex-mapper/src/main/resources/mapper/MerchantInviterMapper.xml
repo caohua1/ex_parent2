@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MerchantInviterDao">
+
+    <!-- 条件 -->
+    <sql id="Example_Where_OR_Clause">
+        <where>
+            1 =
+            <if test="record.invitercode != null" >
+                AND inviterCode = #{record.invitercode}
+            </if>
+            <if test="record.invitermerchantid != null" >
+                AND inviterMerchantId = #{record.invitermerchantid}
+            </if>
+            <if test="record.createtime != null" >
+                AND createTime = #{record.createtime}
+            </if>
+            <if test="record.updatetime != null" >
+                AND updateTime = #{record.updatetime}
+            </if>
+            <if test="record.status != null" >
+                AND status = #{record.status}
+            </if>
+        </where>
+    </sql>
+
+    <!--生成邀请码-->
+    <insert id="insertMerchantInviter" useGeneratedKeys="true" keyProperty="invitercode"
+            parameterType="com.ex.entity.MerchantInviter">
+    INSERT INTO merchant_inviter (createTime, updateTime, status)
+    VALUES (#{createtime}, #{updatetime}, #{status})
+    </insert>
+
+    <!--按条件查询邀请码信息-->
+    <select id="byConditionsQuery" resultType="com.ex.entity.MerchantInviter"
+            parameterType="com.ex.entity.MerchantInviter">
+        SELECT * FROM merchant_inviter
+        <include refid="Example_Where_OR_Clause"/>
+    </select>
+
+    <!--按商家id查询邀请码-->
+    <select id="selectInvitercode" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
+        SELECT * FROM merchant_inviter WHERE inviterMerchantId = #{invitermerchantid}
+    </select>
+
+    <!--按邀请码查询邀请码信息-->
+    <select id="selectInvitercode" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
+        SELECT * FROM merchant_inviter WHERE inviterCode = #{invitercode}
+    </select>
+
+    <!--修改邀请码状态-->
+    <update id="selectInvitercodeByMerchantid" parameterType="com.ex.entity.MerchantInviter">
+        UPDATE merchant_inviter
+        SET updateTime = #{updatetime},status = #{status}
+        WHERE inviterCode = #{invitercode}
+    </update>
+</mapper>
