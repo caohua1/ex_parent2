@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.ProductClassifyDao">
 
+	<!--添加商品分类-->
+	<insert id="insertProductClassify" parameterType="com.ex.entity.ProductClassify">
+		insert into product_classify(typeName,parentId,levelNum,IconStylePic,describes,sort,createTime)
+		values(#{typeName},#{parentId},#{levelNum},#{IconStylePic},#{describes},#{sort},#{createTime})
+	</insert>
+
 	<!--选择商品分类（根据级别（一级/二级/三级））/查询每个级别的分类-->
 	<select id="selectProductClassify" parameterType="com.ex.entity.ProductClassify" resultType="com.ex.entity.ProductClassify">
 		select * from product_classify where 1=1
@@ -13,6 +19,53 @@
 			and parentId = #{parentId}
 		</if>
 	</select>
+	<!--查询总数量-->
+	<select id="selectProductClassifyCount" parameterType="com.ex.entity.ProductClassify" resultType="Integer">
+		select count(*) from product_classify where 1=1
+		<if test="levelNum!=null">
+			and levelNum = #{levelNum}
+		</if>
+
+		<if test="parentId!=null">
+			and parentId = #{parentId}
+		</if>
+	</select>
+
+	<!--修改商品分类-->
+    <update id="updateProductClassify" parameterType="com.ex.entity.ProductClassify">
+		update product_classify set
+		<if test="typeName!=null and typeName!=''">
+			typeName = #{typeName},
+		</if>
+		<if test="levelNum!=null">
+			levelNum = #{levelNum},
+		</if>
+		<if test="IconStylePic!=null and IconStylePic!=''">
+			IconStylePic = #{IconStylePic},
+		</if>
+		<if test="describe!=null and describe!=''">
+			describe = #{describe},
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		where id = #{id}
+	</update>
+
+	<!--删除商品分类-->
+	<delete id="deleteProductClassify" parameterType="Long">
+		delete from product_classify where id = #{id}
+	</delete>
+
+
+
+
+
+
+
+
+
+
 
 
 	<!--根据一级分类来查-->

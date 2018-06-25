@@ -4,6 +4,7 @@ import com.ex.dao.AppointmentOrderDao;
 import com.ex.entity.AppointmentOrder;
 import com.ex.service.AppointmentOrder1Service;
 import com.ex.util.JsonView;
+import com.ex.vo.ProductInfoManageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -36,5 +37,25 @@ public class AppointmentOrder1ServiceImpl implements AppointmentOrder1Service {
         }
 
         return jsonView;
+    }
+
+    /**
+     * 查询选择的商品的价格
+     * @param id
+     * @return
+     */
+    @Override
+    public double selectProductPrice(String ids) {
+        double prices = 0;
+        if(ids!=null && ids.length()>0){
+            String[] split = ids.split(",");
+            for(String id :split){
+                //“——”左边是单价，右边是数量
+                String[] split1 = id.split("_");
+                //单价*数量
+                prices += (appointmentOrderDao.selectProductPrice(Long.parseLong(split1[0])).getResalePrice())*Long.parseLong(split1[1]);
+            }
+        }
+        return prices;
     }
 }
