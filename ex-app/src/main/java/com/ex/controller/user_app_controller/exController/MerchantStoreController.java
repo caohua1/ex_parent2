@@ -18,9 +18,31 @@ public class MerchantStoreController {
     @Autowired
     private AppointmentOrder1Service appointmentOrderService;
 
+
+
+    /**
+     * 根据ids查询所有选择的商品的价格
+     * @param ids（id：单价_数量）
+     * @return
+     */
+    @RequestMapping("/selectProductPrice")
+    public JsonView selectProductPrice(String ids){
+        JsonView jsonView = new JsonView();
+        try{
+            double prices = appointmentOrderService.selectProductPrice(ids);
+            jsonView.setMessage("查询成功");
+            jsonView.setData(prices);
+            jsonView.setCode(JsonView.SUCCESS);
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("查询失败");
+        }
+        return jsonView;
+    }
+
     /**
      * 用户预订商品
-     * registUserId,productInfoId商品id,registUsername用户账号,contactsName联系人,contactsPhone联系电话,
+     * registUserId,productInfoIds商品ids,registUsername用户账号,contactsName联系人,contactsPhone联系电话,
      peopleNum预定人数,orderNum预定编号,merchantName商家名称,productName产品名称,appointmentMoney金额,appointmentTime时间,
      createTime,remark备注,payWay支付方式,payStatus支付状态
      * @param appointmentOrder

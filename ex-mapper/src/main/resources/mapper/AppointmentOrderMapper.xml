@@ -3,12 +3,16 @@
 <mapper namespace="com.ex.dao.AppointmentOrderDao">
 
 
+	<!--查询商品详情-->
+	<select id="selectProductPrice" parameterType="Long" resultType="com.ex.vo.ProductInfoManageVo">
+		select * from productinfo_manage where id = #{id}
+	</select>
 	<!--设置预约配置，添加数据-->
 	<insert id="insertAppointmentOrder" parameterType="com.ex.entity.AppointmentOrder">
-		insert appointment_order (registUserId,productInfoId,registUsername,contactsName,contactsPhone,
+		insert appointment_order (registUserId,productInfoIds,registUsername,contactsName,contactsPhone,
 		peopleNum,orderNum,merchantName,productName,appointmentMoney,appointmentTime,
 		createTime,remark,payWay,payStatus)
-		values(#{registUserId},#{productInfoId},#{registUsername},#{contactsName},
+		values(#{registUserId},#{productInfoIds},#{registUsername},#{contactsName},
 		#{contactsPhone},#{peopleNum},#{orderNum},#{merchantName},#{productName},
 		#{appointmentMoney},#{appointmentTime},#{createTime},#{remark},#{payWay},
 		#{payStatus})

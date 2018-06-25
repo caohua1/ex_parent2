@@ -10,11 +10,11 @@
           <element id="archive" name="ex-pojo-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ex-pojo" />
           </element>
-          <element id="archive" name="ex-mapper-1.0-SNAPSHOT.jar">
-            <element id="module-output" name="ex-mapper" />
-          </element>
           <element id="archive" name="ex-config-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ex-config" />
+          </element>
+          <element id="archive" name="ex-mapper-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="ex-mapper" />
           </element>
           <element id="archive" name="ex-redis-api-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ex-redis-api" />

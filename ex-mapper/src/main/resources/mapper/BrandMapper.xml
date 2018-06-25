@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.BrandDao">
+
+
+	<!--添加品牌-->
+	<insert id="insertBrand" parameterType="com.ex.entity.Brand">
+		insert into brand(brandName,brandPicUrl,createTime) values(#{brandName},#{brandPicUrl},#{createTime})
+	</insert>
+
+	<!--修改品牌-->
+	<update id="updateBrand" parameterType="com.ex.entity.Brand">
+		update brand set
+		<if test="brandName!=null and brandName!=''">
+			brandName = #{brandName},
+		</if>
+		<if test="brandPicUrl!=null and brandPicUrl!=''">
+			brandPicUrl = #{brandPicUrl},
+		</if>
+		<if test="status!=null">
+			status = #{status},
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		where id = #{id}
+	</update>
+
+	<!--分页查询所有的品牌-->
+	<select id="selectBrands" parameterType="com.ex.entity.Brand" resultType="com.ex.entity.Brand">
+		select * from brand where 1=1
+		<if test="brandName!=null and brandName!=''">
+			and brandName = #{brandName}
+		</if>
+		<if test="status!=null">
+			and status = #{status}
+		</if>
+	</select>
+
+	<!--查询总数量-->
+	<select id="selectBrandsCount" parameterType="com.ex.entity.Brand" resultType="Integer">
+		select count(*) from brand where 1=1
+		<if test="brandName!=null and brandName!=''">
+			and brandName = #{brandName}
+		</if>
+		<if test="status!=null">
+			and status = #{status}
+		</if>
+	</select>
+
+	<!--删除-->
+	<delete id="deleteBrand" parameterType="Long" >
+		delete from brand where id= #{id}
+	</delete>
+</mapper>

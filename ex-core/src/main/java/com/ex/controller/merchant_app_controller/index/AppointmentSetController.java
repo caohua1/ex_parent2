@@ -93,4 +93,7 @@ public class AppointmentSetController {
         return jsonView;
     }
 
+
+    //点击预约商品，展示预约的所有的商品productInfoIds（）
+
 }
