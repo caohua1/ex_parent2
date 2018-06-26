@@ -37,12 +37,12 @@ public class MerchantInviterServiceImpl implements MerchantInviterService {
 
     @Override
     public  MerchantInviter selectInvitercode(Long invitermerchantid) {
-        return merchantInviterDao.selectInvitercodeByMerchantid(invitermerchantid);
+        return merchantInviterDao.selectByMerchantid(invitermerchantid);
     }
 
     @Override
     public MerchantInviter selectInvitercodeByInvitercode(Long invitercode) {
-        return merchantInviterDao.selectInvitercodeByInvitercode(invitercode);
+        return merchantInviterDao.selectByInvitercode(invitercode);
     }
 
     @Override

@@ -39,12 +39,12 @@
     </select>
 
     <!--按商家id查询邀请码-->
-    <select id="selectInvitercode" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
+    <select id="selectByMerchantid" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
         SELECT * FROM merchant_inviter WHERE inviterMerchantId = #{invitermerchantid}
     </select>
 
     <!--按邀请码查询邀请码信息-->
-    <select id="selectInvitercode" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
+    <select id="selectByInvitercode" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
         SELECT * FROM merchant_inviter WHERE inviterCode = #{invitercode}
     </select>
 

@@ -27,13 +27,13 @@ public interface MerchantInviterDao {
      * 按商家id查询邀请码
      * @return
      */
-    MerchantInviter selectInvitercodeByMerchantid(@Param("invitermerchantid") Long invitermerchantid);
+    MerchantInviter selectByMerchantid(@Param("invitermerchantid") Long invitermerchantid);
 
     /**
      * 按商家id查询邀请码
      * @return
      */
-    MerchantInviter selectInvitercodeByInvitercode(@Param("invitercode") Long invitercode);
+    MerchantInviter selectByInvitercode(@Param("invitercode") Long invitercode);
 
     /**
      * 修改邀请码状态
