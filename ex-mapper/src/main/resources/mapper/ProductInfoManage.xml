@@ -53,6 +53,9 @@
 		<if test="endTime!=null">
 			endTime = #{endTime},
 		</if>
+		<if test="saleOrderNum!=null">
+			saleOrderNum = #{saleOrderNum} + saleOrderNum,
+		</if>
 		<if test="SHStatus!=null">
 			SXJStatus = #{SXJStatus},
 		</if>
@@ -130,10 +133,10 @@
 			and productClassifyId in(select pc1.id from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyId}))
 		</if>
 		<if test="productClassifyId!=null and levelNum==2">
-			and productClassifyId in(select *.id from product_classify where parentId = #{productClassifyId})
+			and productClassifyId in(select pc2.id from product_classify pc2 where parentId = #{productClassifyId})
 		</if>
 		<if test="productClassifyId!=null and levelNum==3">
-			and productClassifyId in(select *.id from product_classify where id = #{productClassifyId})
+			and productClassifyId in(select pc3.id from product_classify pc3 where id = #{productClassifyId})
 		</if>
 	</select>
 

@@ -77,7 +77,7 @@ public class MerchantorpersonCheckInController {
             if (code.equals("1001")) {
                 return JsonView.fail("提交失败，请重新上传!");
             }
-            if (code.equals("1003")) {
+            if (code.equals("1002")) {
                 return JsonView.fail("营业执照有遮挡，请重新上传!");
             }
             if (code.equals("1003")) {

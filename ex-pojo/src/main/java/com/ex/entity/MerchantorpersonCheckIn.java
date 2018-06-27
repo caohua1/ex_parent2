@@ -33,7 +33,7 @@ public class MerchantorpersonCheckIn {
 
     private String idcardpic;
 
-    private String industry;
+    private Long industryId;
 
     private Date checkintime;
 
@@ -154,12 +154,12 @@ public class MerchantorpersonCheckIn {
         this.idcardpic = idcardpic;
     }
 
-    public String getIndustry() {
-        return industry;
+    public Long getIndustryId() {
+        return industryId;
     }
 
-    public void setIndustry(String industry) {
-        this.industry = industry;
+    public void setIndustryId(Long industryId) {
+        this.industryId = industryId;
     }
 
     public Date getCheckintime() {

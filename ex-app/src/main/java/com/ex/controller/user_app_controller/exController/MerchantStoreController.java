@@ -41,7 +41,7 @@ public class MerchantStoreController {
     }
 
     /**
-     * 用户预订商品
+     * 用户，预订商品
      * registUserId,productInfoIds商品ids,registUsername用户账号,contactsName联系人,contactsPhone联系电话,
      peopleNum预定人数,orderNum预定编号,merchantName商家名称,productName产品名称,appointmentMoney金额,appointmentTime时间,
      createTime,remark备注,payWay支付方式,payStatus支付状态
