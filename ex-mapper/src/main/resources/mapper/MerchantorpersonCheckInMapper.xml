@@ -129,4 +129,11 @@
         where id = #{id}
     </update>
 
+    <update id="auditTheMerchant" parameterType="map" >
+        update merchant_inviter
+        set causeBy = #{causeby}
+        status = #{status},
+        where id = #{id}
+    </update>
+
 </mapper>

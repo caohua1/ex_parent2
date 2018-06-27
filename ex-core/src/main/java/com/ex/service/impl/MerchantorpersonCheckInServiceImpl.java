@@ -1,6 +1,7 @@
 package com.ex.service.impl;
 
 import com.ex.dao.MerchantorpersonCheckInDao;
+import com.ex.dao.StoreInfoDao;
 import com.ex.entity.MerchantorpersonCheckIn;
 import com.ex.service.MerchantorpersonCheckInService;
 import com.ex.util.PageRequest;
@@ -27,6 +28,9 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
 
     @Autowired
     private MerchantorpersonCheckInDao merchantorpersonCheckInDao;
+
+    @Autowired
+    private StoreInfoDao storeInfoDao;
 
     /**
      * 查询所有入驻信息
@@ -85,8 +89,23 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
      * @param merchantorpersonCheckIn
      * @return
      */
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
     public int updateMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn) {
         return merchantorpersonCheckInDao.updateMerchantorpersonCheckIn(merchantorpersonCheckIn);
+    }
+
+    /**
+     * 商家PC端审核
+     * @param id
+     * @param status
+     * @param causeby
+     * @return
+     */
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
+    @Override
+    public int auditTheMerchant(long id, int status, String causeby) {
+        //审核商家
+        return merchantorpersonCheckInDao.auditTheMerchant(id, status, causeby);
     }
 }

@@ -52,4 +52,12 @@ public interface MerchantorpersonCheckInDao {
      */
     int updateMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
 
+    /**
+     * 商家PC端审核
+     * @param id
+     * @param status
+     * @param causeby
+     * @return
+     */
+    int auditTheMerchant(Long id,int status,String causeby);
 }

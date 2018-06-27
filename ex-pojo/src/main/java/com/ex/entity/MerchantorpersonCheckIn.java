@@ -11,7 +11,7 @@ public class MerchantorpersonCheckIn {
 
     private Integer checkintype;
 
-    private String invitercode;
+    private Long invitercode;
 
     private String linkmanname;
 
@@ -72,6 +72,14 @@ public class MerchantorpersonCheckIn {
 
     public void setCheckintype(Integer checkintype) {
         this.checkintype = checkintype;
+    }
+
+    public Long getInvitercode() {
+        return invitercode;
+    }
+
+    public void setInvitercode(Long invitercode) {
+        this.invitercode = invitercode;
     }
 
     public String getLinkmanname() {
@@ -194,6 +202,14 @@ public class MerchantorpersonCheckIn {
         this.checkinpaystatus = checkinpaystatus;
     }
 
+    public String getCauseby() {
+        return causeby;
+    }
+
+    public void setCauseby(String causeby) {
+        this.causeby = causeby;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -208,21 +224,5 @@ public class MerchantorpersonCheckIn {
 
     public void setUpdatetime(Date updatetime) {
         this.updatetime = updatetime;
-    }
-
-    public String getInvitercode() {
-        return invitercode;
-    }
-
-    public void setInvitercode(String invitercode) {
-        this.invitercode = invitercode;
-    }
-
-    public String getCauseby() {
-        return causeby;
-    }
-
-    public void setCauseby(String causeby) {
-        this.causeby = causeby;
     }
 }

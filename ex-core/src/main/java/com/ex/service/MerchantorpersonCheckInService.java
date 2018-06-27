@@ -24,4 +24,6 @@ public interface MerchantorpersonCheckInService {
     MerchantorpersonCheckIn selectByMerchantId(Long merchantId, Integer checkInType);
 
     int updateMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
+
+    int auditTheMerchant(long id,int status,String causeby);
 }

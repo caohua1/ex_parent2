@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * 商家入驻
+ */
 @RestController
 @RequestMapping("/merchant/in")
 public class MerchantorpersonCheckInController {
@@ -31,6 +34,11 @@ public class MerchantorpersonCheckInController {
     @Autowired
     private BusinessLicenseInfoService businessLicenseInfoService;
 
+    /**
+     * 获取所有商家信息
+     * @param page
+     * @return
+     */
     @RequestMapping("/all")
     public JsonView findByPage(PageRequest page) {
         JsonView jsonView = new JsonView();
@@ -97,7 +105,7 @@ public class MerchantorpersonCheckInController {
             merchantorpersonCheckIn.setStatus(1);
             merchantorpersonCheckInService.insertMerchantorpersonCheckIn(merchantorpersonCheckIn);
             jsonView.setCode(JsonView.SUCCESS);
-            jsonView.setMessage("提交成功!");
+            jsonView.setMessage("提交成功!等待审核!");
         } catch (Exception e) {
             e.printStackTrace();
             return JsonView.fail(JsonView.EXPIRED, "服务器错误!");
@@ -154,6 +162,7 @@ public class MerchantorpersonCheckInController {
      * @param merchantorpersonCheckIn
      * @return
      */
+    @RequestMapping("updateMerchant")
     public JsonView updateMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn){
         JsonView jsonView = new JsonView();
         try{
