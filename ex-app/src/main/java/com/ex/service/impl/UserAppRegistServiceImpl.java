@@ -19,14 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @ProjectName ex_parent
- * @ClassName UserAppRegistServiceImpl
- * @Description 用户注册和登陆接口
- * @Author sanmu
- * @Date 2018/6/1 10:11
- * @Version 1.0
- **/
-
+ * 用户注册和登陆接口
+ */
 @Service
 public class UserAppRegistServiceImpl implements UserAppRegistService {
 
@@ -36,12 +30,10 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
     private UserAppRegistDao userAppRegistDao;
 
     /**
-     * @return com.ex.entity.UserAppRegist
-     * @author sanmu
-     * @Desription 校验用户名是否存在
-     * @date 2018/6/1 15:02
-     * @Param [username]
-     **/
+     * 校验用户名是否存在
+     * @param username
+     * @return
+     */
     @Override
     public UserAppRegist userLoginOrCheckUserName(String username) {
         logger.info("Request comming to Login user");
@@ -52,12 +44,9 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
     }
 
     /**
-     * @return int
-     * @author sanmu
-     * @Desription 注册用户
-     * @date 2018/6/1 11:13
-     * @Param [userAppRegist]
-     **/
+     * 注册用户
+     * @param userAppRegist
+     */
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
     @Override
     public boolean insertUserAppRegist(UserAppRegist userAppRegist) {

@@ -162,36 +162,36 @@ public class BaiduOcrtools {
                 }
                 ret.put("charterPicUrl", entity.getPath());
             }
-            if (idCardPicUrl_Z != null) {
-                entity = fileUploadTool.createFile(idCardPicUrl_Z, request);
-                if (entity != null) {
-                    System.out.println("返回报文---" + entity);
-                    //businessMap = //BaiduOcrtools.idCard("C:/acp/" + entity.getPath());
-                    businessLicenseInfo.setRealname(businessMap.get("姓名") == null ? "无" : businessMap.get("姓名"));
-                    businessLicenseInfo.setIdcard(businessMap.get("公民身份号码") == null ? "无" : businessMap.get("公民身份号码"));
-                    businessLicenseInfo.setBirthday(businessMap.get("出生") == null ? "无" : businessMap.get("出生"));
-                    if(businessMap.get("性别")==null){
-                        businessLicenseInfo.setSex(3);
-                    }else{
-                    businessLicenseInfo.setSex(businessMap.get("性别") == "男" ? 1 : 0);}
-                    businessLicenseInfo.setAddress(businessMap.get("地址") == null ? "无" : businessMap.get("地址"));
-                    businessLicenseInfo.setNational(businessMap.get("民族") == null ? "无" : businessMap.get("民族"));
-                    if (businessLicenseInfo.getRealname().equals("无") ||
-                            businessLicenseInfo.getIdcard().equals("无") ||
-                            businessLicenseInfo.getBirthday().equals("无") ||
-                            businessLicenseInfo.getSex()==3 ||
-                            businessLicenseInfo.getAddress().equals("无") ||
-                            businessLicenseInfo.getNational().equals("无")) {
-                        // 1003身份证有遮挡
-                        ret.put("code", 1003);
-                        return ret;
-                    }
-                } else {
-                    ret.put("code", 1001);
-                    return ret;
-                }
-                ret.put("idCardPicUrl_Z", entity.getPath());
-            }
+//            if (idCardPicUrl_Z != null) {
+//                entity = fileUploadTool.createFile(idCardPicUrl_Z, request);
+//                if (entity != null) {
+//                    System.out.println("返回报文---" + entity);
+//                    //businessMap = //BaiduOcrtools.idCard("C:/acp/" + entity.getPath());
+//                    businessLicenseInfo.setRealname(businessMap.get("姓名") == null ? "无" : businessMap.get("姓名"));
+//                    businessLicenseInfo.setIdcard(businessMap.get("公民身份号码") == null ? "无" : businessMap.get("公民身份号码"));
+//                    businessLicenseInfo.setBirthday(businessMap.get("出生") == null ? "无" : businessMap.get("出生"));
+//                    if(businessMap.get("性别")==null){
+//                        businessLicenseInfo.setSex(3);
+//                    }else{
+//                    businessLicenseInfo.setSex(businessMap.get("性别") == "男" ? 1 : 0);}
+//                    businessLicenseInfo.setAddress(businessMap.get("地址") == null ? "无" : businessMap.get("地址"));
+//                    businessLicenseInfo.setNational(businessMap.get("民族") == null ? "无" : businessMap.get("民族"));
+//                    if (businessLicenseInfo.getRealname().equals("无") ||
+//                            businessLicenseInfo.getIdcard().equals("无") ||
+//                            businessLicenseInfo.getBirthday().equals("无") ||
+//                            businessLicenseInfo.getSex()==3 ||
+//                            businessLicenseInfo.getAddress().equals("无") ||
+//                            businessLicenseInfo.getNational().equals("无")) {
+//                        // 1003身份证有遮挡
+//                        ret.put("code", 1003);
+//                        return ret;
+//                    }
+//                } else {
+//                    ret.put("code", 1001);
+//                    return ret;
+//                }
+//                ret.put("idCardPicUrl_Z", entity.getPath());
+//            }
             if (idCardPicUrl_F != null) {
                 entity = fileUploadTool.createFile(idCardPicUrl_F, request);
                 if (entity != null) {

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 代理商家
+ */
 @RestController
 @RequestMapping("/merchant/agentmerchant")
 public class AgentMerchantContorller {
@@ -17,19 +20,46 @@ public class AgentMerchantContorller {
     @Autowired
     private AgentMerchantService agentMerchantService;
 
+    /**
+     * 代理商家
+     * @param agentMerchant 可选参数
+     *                      id
+     *                      gentuserid
+     *                      merchantid
+     *                      productinfoid
+     *                      agenttime
+     *                      updatetime
+     *                      status
+     * @return
+     */
     @RequestMapping(value = "/insertAgentMerchant",method = RequestMethod.POST)
     public JsonView insertAgentMerchant(AgentMerchant agentMerchant){
         JsonView jsonView = new JsonView();
         try {
             agentMerchantService.insertAgentMerchant(agentMerchant);
+            jsonView.setCode(JsonView.SUCCESS);
             jsonView.setMessage("代理成功!");
         }catch (Exception e){
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED,"代理失败");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }
 
+    /**
+     * 按条件查询代理商家信息
+     * @param page
+     * @param agentMerchant 可选参数
+     *                      id
+     *                      gentuserid
+     *                      merchantid
+     *                      productinfoid
+     *                      agenttime
+     *                      updatetime
+     *                      status
+     * @return
+     */
     @RequestMapping("/byConditionsQuery")
     public JsonView byConditionsQuery(PageRequest page,AgentMerchant agentMerchant){
         JsonView jsonView = new JsonView();
@@ -41,11 +71,24 @@ public class AgentMerchantContorller {
             jsonView.setTodoCount(pageInfo.getSize());
         }catch (Exception e){
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED,"查询数据失败");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }
 
+    /**
+     * 修改代理权限
+     * @param agentMerchant 可选参数
+     *                      id
+     *                      gentuserid
+     *                      merchantid
+     *                      productinfoid
+     *                      agenttime
+     *                      updatetime
+     *                      status
+     * @return
+     */
     @RequestMapping(value = "/updateAgentMerchant",method = RequestMethod.POST)
     public JsonView updateAgentMerchant(AgentMerchant agentMerchant){
         JsonView jsonView = new JsonView();
@@ -56,11 +99,10 @@ public class AgentMerchantContorller {
             jsonView.setTodoCount(1);
         }catch (Exception e){
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED,"修改失败");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }
-
-
 
 }

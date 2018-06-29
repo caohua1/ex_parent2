@@ -5,6 +5,7 @@ import com.ex.service.MerchantRegistService;
 import com.ex.util.CustomMD5;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
+import com.ex.util.TokenUtil;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ProjectName ex_parent
@@ -33,86 +36,125 @@ public class MerchantLoginController {
     private MerchantRegistService merchantRegistService;
 
     /**
+     * 检查手机号是否已经注册
+     *
      * @param username 用户名
      * @return
-     * @Desription TODO 检查手机号是否已经注册
      */
     @RequestMapping("/checkMerchantName")
     public JsonView checkMerchantName(String username) {
+        JsonView jsonView = new JsonView();
         try {
             logger.info("Request comming to Check username");
             MerchantRegist user = merchantRegistService.merchantLoginOrCheckUserName(username);
-            if (user != null)
-                return JsonView.fail(JsonView.ERROR, "手机号已存在");
-            return JsonView.success("手机号可用");
+            if (user != null){
+                jsonView.setMessage("手机号已存在");
+                jsonView.setCode(JsonView.ERROR);
+                return jsonView;
+            }
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("手机号可用");
+            jsonView.setTodoCount(1);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 
     /**
-     * @return com.ex.util.JsonView
-     * @author sanmu
-     * @Desription TODO 商家注册
-     * @Param [merchantRegist] 用户对象
-     **/
+     * 商家注册
+     *
+     * @param merchantRegist
+     * @return
+     */
     @RequestMapping(path = "/merchantRegist", method = RequestMethod.POST)
     public JsonView merchantInsert(MerchantRegist merchantRegist) {
+        JsonView jsonView = new JsonView();
         try {
             merchantRegist.setStatus(1);
             logger.info("Request comming to regist user");
-            JsonView view = new JsonView();
             MerchantRegist user = merchantRegistService.merchantLoginOrCheckUserName(merchantRegist.getUsername());
             if (user != null) {
-                return JsonView.fail(JsonView.ERROR, "用户名已存在");
+                jsonView.setMessage("用户名已存在");
+                jsonView.setCode(JsonView.ERROR);
+                return jsonView;
             }
             merchantRegist.setRegisttime(new Date());
             merchantRegistService.insertMerchantRegist(merchantRegist);
-            return JsonView.success("注册成功");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("注册成功!");
+            jsonView.setTodoCount(1);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 
     /**
+     * 商家登陆
+     *
      * @param username 用户名
      * @param password 密码
      * @return
-     * @Desription TODO 商家登陆
      */
     @RequestMapping(path = "/merchantLogin", method = RequestMethod.POST)
     public JsonView merchantLogin(String username, String password) {
+        JsonView jsonView = new JsonView();
         try {
             logger.info("Request comming to Login user");
-            MerchantRegist user = merchantRegistService.merchantLoginOrCheckUserName(username);
-            if (user == null)
-                return JsonView.fail(JsonView.ERROR, "用户名不存在");
-            if (!CustomMD5.checkPassword(user.getPassword(), password, username))
-                return JsonView.fail(JsonView.ERROR, "密码不正确");
-            return JsonView.success(user);
+            MerchantRegist merchantRegist = merchantRegistService.merchantLoginOrCheckUserName(username);
+            if (merchantRegist == null){
+                jsonView.setMessage("用户名不存在");
+                jsonView.setCode(JsonView.ERROR);
+                return jsonView;
+            }
+            if (!CustomMD5.checkPassword(merchantRegist.getPassword(), password, username)) {
+                jsonView.setMessage("密码不正确");
+                jsonView.setCode(JsonView.ERROR);
+                return jsonView;
+            }
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("登陆成功!");
+            Map<String, Object> map = new HashMap<>();
+            String token = TokenUtil.MerchantToken(username, password, merchantRegist);
+            map.put("token", token);
+            map.put("merchant", merchantRegist);
+            jsonView.setData(map);
+            jsonView.setTodoCount(1);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 
     /**
+     * 查询所有商家注册信息
+     *
      * @param page 分页
      * @return
-     * @Desription TODO 查询所有商家注册信息
      */
     @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
+        JsonView jsonView = new JsonView();
         try {
             logger.info("Request comming to find user list...");
             PageInfo<MerchantRegist> pageInfo = merchantRegistService.findByPage(page);
-            return JsonView.success(pageInfo);
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("请求数据成功!");
+            jsonView.setData(pageInfo);
+            jsonView.setTodoCount(pageInfo.getSize());
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 
 }

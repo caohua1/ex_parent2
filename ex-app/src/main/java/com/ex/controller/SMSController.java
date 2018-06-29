@@ -34,32 +34,35 @@ public class SMSController {
      */
     @RequestMapping(value = "/sendSMS",method = RequestMethod.POST)
     public JsonView sendSMS(String phone) throws ClientException {
+        JsonView jsonView = new JsonView();
         try {
             //发送验证码
             String code = SMSUtil.sendSMS(phone);
             System.out.println(sf.format(new Date()));
-            if (code == null)
-                return JsonView.fail(JsonView.ERROR, "短信验证码发送失败！");
+            if (code == null) {
+                jsonView.setMessage("短信验证码发送失败");
+                jsonView.setCode(JsonView.ERROR);
+                return jsonView;
+            }
             //对验证码进行自定义加密
             String hashcose = CustomMD5.passwordAndSalt(KEY+"wh"+code, phone, 10);
             Calendar c = Calendar.getInstance();
-            // 生成5分钟后的时间
+            //生成5分钟后的时间
             c.add(Calendar.MINUTE, 5);
             String currentTime = sf.format(c.getTime());
 
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("hashcose", hashcose);
             resultMap.put("tamp", currentTime);
-
-            JsonView view = new JsonView();
-            view.setData(resultMap);
-            view.setMessage("短信验证码发送成功！");
-            view.setCode(JsonView.SUCCESS);
-            return view;
+            jsonView.setData(resultMap);
+            jsonView.setMessage("短信验证码发送成功！");
+            jsonView.setCode(JsonView.SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 
     /**
@@ -68,16 +71,28 @@ public class SMSController {
      */
     @RequestMapping(value = "/checkSMS",method = RequestMethod.POST)
     public JsonView checkSMS(String hashcose,String tamp,String phone,String code) {
-        String requestHash = CustomMD5.passwordAndSalt(KEY+"wh"+code, phone, 10);
-        Calendar c = Calendar.getInstance();
-        if (tamp.compareTo(sf.format(new Date())) > 0) {
-            if (hashcose.equalsIgnoreCase(requestHash)) {
-                return JsonView.success("验证成功！");
+        JsonView jsonView = new JsonView();
+        try {
+            String requestHash = CustomMD5.passwordAndSalt(KEY+"wh"+code, phone, 10);
+            Calendar c = Calendar.getInstance();
+            if (tamp.compareTo(sf.format(new Date())) > 0) {
+                if (!hashcose.equalsIgnoreCase(requestHash)) {
+                    jsonView.setMessage("验证码错误!");
+                    jsonView.setCode(JsonView.SUCCESS);
+                    return jsonView;
+                }
             } else {
-                return JsonView.fail("验证码错误！");
+                jsonView.setMessage("验证码超时!");
+                jsonView.setCode(JsonView.SUCCESS);
+                return jsonView;
             }
-        } else {
-            return JsonView.fail(JsonView.EXPIRED,"验证码超时!");
+            jsonView.setMessage("验证成功!");
+            jsonView.setCode(JsonView.SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 }

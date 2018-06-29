@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 开店铺
+ */
 @RestController
 @RequestMapping("/merchant/store")
 public class StoreInfoController {
@@ -33,7 +36,8 @@ public class StoreInfoController {
             jsonView.setTodoCount(i);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED, "服务器错误");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }
@@ -54,7 +58,8 @@ public class StoreInfoController {
             jsonView.setTodoCount(i);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED, "服务器错误");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }
@@ -75,7 +80,8 @@ public class StoreInfoController {
             jsonView.setTodoCount(pageInfo.getSize());
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED, "服务器错误");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }
