@@ -36,8 +36,8 @@
             <if test="record.companycreatetime != null" >
                 AND companyCreateTime = #{record.companycreatetime}
             </if>
-            <if test="record.industry != null" >
-                AND industry = #{record.industry}
+            <if test="record.industryId != null" >
+                AND industryId = #{record.industryId}
             </if>
             <if test="record.checkintime != null" >
                 AND checkInTime = #{record.checkintime}
@@ -77,7 +77,7 @@
         companyCode, legalName, companyAddress,
         companyCreateTime, charterPicUrl,
         idCardPicUrl_Z, idCardPicUrl_F, idCardPic,
-        industry, checkInTime, checkInMoney,
+        industryId, checkInTime, checkInMoney,
         checkInPayType, checkInPayStatus, causeBy,
         status, updateTime)
         values (#{merchantId}, #{checkintype},
@@ -85,7 +85,7 @@
         #{companycode}, #{legalname}, #{companyaddress},
         #{companycreatetime}, #{charterpicurl},
         #{idcardpicurlZ}, #{idcardpicurlF}, #{idcardpic},
-        #{industry}, #{checkintime}, #{checkinmoney},
+        #{industryId}, #{checkintime}, #{checkinmoney},
         #{checkinpaytype}, #{checkinpaystatus}, #{causeby},
         #{status}, #{updatetime})
     </insert>
@@ -117,7 +117,7 @@
             <if test="idcardpicurlZ != null" >idCardPicUrl_Z = #{idcardpicurlZ},</if>
             <if test="idcardpicurlF != null" >idCardPicUrl_F = #{idcardpicurlF},</if>
             <if test="idcardpic != null" >idCardPic = #{idcardpic},</if>
-            <if test="industry != null" >industry = #{industry},</if>
+            <if test="industryId != null" >industryId = #{industryId},</if>
             <if test="checkintime != null" >checkInTime = #{checkintime},</if>
             <if test="checkinmoney != null" >checkInMoney = #{checkinmoney},</if>
             <if test="checkinpaystatus != null" >checkInPayStatus = #{checkinpaystatus},</if>

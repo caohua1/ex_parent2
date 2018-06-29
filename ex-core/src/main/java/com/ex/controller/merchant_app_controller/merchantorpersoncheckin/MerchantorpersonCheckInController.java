@@ -93,6 +93,8 @@ public class MerchantorpersonCheckInController {
                 jsonView.setCode(JsonView.ERROR);
                 return jsonView;
             }
+            if (code.equals("1002")) {
+                return JsonView.fail("营业执照有遮挡，请重新上传!");
             if (code.equals("1003")) {
                 jsonView.setMessage("营业执照有遮挡，请重新上传!");
                 jsonView.setCode(JsonView.ERROR);

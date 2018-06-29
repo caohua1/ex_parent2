@@ -13,4 +13,5 @@ public interface ProductClassifyDao {
     public Integer updateProductClassify(ProductClassify productClassify);
     public Integer deleteProductClassify(Long id);
     public Integer selectProductClassifyCount(ProductClassify productClassify);
+    public List<ProductClassify> selectByLevelNum2(Long parentId);
 }
