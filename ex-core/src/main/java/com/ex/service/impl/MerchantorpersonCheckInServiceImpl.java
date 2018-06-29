@@ -1,7 +1,9 @@
 package com.ex.service.impl;
 
+import com.ex.dao.IndustryClassifyDao;
 import com.ex.dao.MerchantorpersonCheckInDao;
 import com.ex.dao.StoreInfoDao;
+import com.ex.entity.IndustryClassify;
 import com.ex.entity.MerchantorpersonCheckIn;
 import com.ex.service.MerchantorpersonCheckInService;
 import com.ex.util.PageRequest;
@@ -30,7 +32,7 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
     private MerchantorpersonCheckInDao merchantorpersonCheckInDao;
 
     @Autowired
-    private StoreInfoDao storeInfoDao;
+    private IndustryClassifyDao industryClassifyDao;
 
     /**
      * 查询所有入驻信息
@@ -107,5 +109,14 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
     public int auditTheMerchant(long id, int status, String causeby) {
         //审核商家
         return merchantorpersonCheckInDao.auditTheMerchant(id, status, causeby);
+    }
+
+    /**
+     * 查询所有可显示的行业分类信息
+     * @return
+     */
+    @Override
+    public List<IndustryClassify> getIndustryClassifyAll() {
+        return industryClassifyDao.getAll();
     }
 }

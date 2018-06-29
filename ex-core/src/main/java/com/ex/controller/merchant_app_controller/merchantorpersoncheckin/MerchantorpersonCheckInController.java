@@ -1,8 +1,10 @@
 package com.ex.controller.merchant_app_controller.merchantorpersoncheckin;
 
 import com.ex.entity.BusinessLicenseInfo;
+import com.ex.entity.IndustryClassify;
 import com.ex.entity.MerchantorpersonCheckIn;
 import com.ex.service.BusinessLicenseInfoService;
+import com.ex.service.IndustryClassifyService;
 import com.ex.service.MerchantorpersonCheckInService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,6 +36,28 @@ public class MerchantorpersonCheckInController {
 
     @Autowired
     private BusinessLicenseInfoService businessLicenseInfoService;
+
+
+    /**
+     * 查询所有可显示的行业分类信息
+     * @return
+     */
+    @RequestMapping("/getIndustryClassifyAll")
+    private JsonView getIndustryClassifyAll(){
+        JsonView jsonView = new JsonView();
+        try {
+            List<IndustryClassify> industryClassifyList = merchantorpersonCheckInService.getIndustryClassifyAll();
+            jsonView.setTodoCount(industryClassifyList.size());
+            jsonView.setData(industryClassifyList);
+            jsonView.setMessage("请求数据成功!");
+            jsonView.setCode(JsonView.SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("请求失败");
+            jsonView.setCode(JsonView.EXPIRED);
+        }
+        return jsonView;
+    }
 
     /**
      * 获取所有商家信息
@@ -124,6 +149,7 @@ public class MerchantorpersonCheckInController {
                 merchantorpersonCheckIn.setIdcardpicurlF(ret.get("idCardPicUrl_F").toString());
             if (ret.get("idCardPic") != null)
                 merchantorpersonCheckIn.setIdcardpic(ret.get("idCardPic").toString());
+
 
             merchantorpersonCheckIn.setStatus(1);
 

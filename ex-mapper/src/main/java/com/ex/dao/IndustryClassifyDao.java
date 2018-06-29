@@ -12,4 +12,5 @@ public interface IndustryClassifyDao {
     public Integer selectIndustryCount(IndustryClassify industryClassify);
     public Integer updateIndustry(IndustryClassify industryClassify);
     public Integer deleteIndustry(Long id);
+    public List<IndustryClassify> getAll();
 }
