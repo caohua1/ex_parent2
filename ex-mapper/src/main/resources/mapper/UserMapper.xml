@@ -6,4 +6,11 @@
 		  *
 		FROM userapp_regist
 	</select>
+
+	<!--查询注册用户的数量-->
+	<select id="findUserCount" resultType="Integer">
+		SELECT
+		  count(*)
+		FROM userapp_regist
+	</select>
 </mapper>

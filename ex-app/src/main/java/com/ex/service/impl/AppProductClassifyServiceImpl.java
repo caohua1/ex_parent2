@@ -3,8 +3,10 @@ package com.ex.service.impl;
 import com.ex.dao.ProductClassifyDao;
 import com.ex.dao.ProductInfoManageDao;
 import com.ex.dao.ProductPropertySetDao;
+import com.ex.dao.StoreInfoDao;
 import com.ex.entity.ProductClassify;
 import com.ex.entity.ProductPropertySet;
+import com.ex.entity.StoreInfo;
 import com.ex.service.AppProductClassifyService;
 import com.ex.util.PageRequest;
 import com.ex.vo.ProductInfoManageVo;
@@ -28,8 +30,9 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
     @Autowired
     private ProductInfoManageDao productInfoManageDao;
     @Autowired
+    private StoreInfoDao storeInfoDao;
+    @Autowired
     private ProductPropertySetDao productPropertySetDao;
-
     /**
      * 分页查询商品分类
      * @param productClassify
@@ -64,9 +67,21 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
      * @return
      */
     @Override
-    public PageInfo<ProductInfoManageVo> selectCoreProductInfos(Map map, PageRequest pageRequest) {
+    public PageInfo<StoreInfo> byConditionsQuery(PageRequest pageRequest, StoreInfo storeInfo) {
         PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
-        List<ProductInfoManageVo> productInfoManageVos = productInfoManageDao.selectCoreProductInfos(map);
+        List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+        PageInfo<StoreInfo> pageInfo = new PageInfo<>(storeInfos);
+        return pageInfo;
+    }
+
+    /**
+     * 根据merchantId查询此商家的所有商品
+     * @param merchantId
+     * @return
+     */
+    @Override
+    public List<ProductInfoManageVo> selectProductsByMerchantId(Long merchantId) {
+        List<ProductInfoManageVo> productInfoManageVos = productInfoManageDao.selectProductsByMerchantId(merchantId);
         if(productInfoManageVos!=null && productInfoManageVos.size()>0){
             for(ProductInfoManageVo productInfoManage1 : productInfoManageVos){
                 List<ProductPropertySet> productPropertySets = productPropertySetDao.selectPropertySet(productInfoManage1.getId());
@@ -74,7 +89,8 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
                 productInfoManage1.setProductPropertySetList(productPropertySets);
             }
         }
-        PageInfo<ProductInfoManageVo> pageInfo = new PageInfo<>(productInfoManageVos);
-        return pageInfo;
+        return productInfoManageVos;
     }
+
+
 }

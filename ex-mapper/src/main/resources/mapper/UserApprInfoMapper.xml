@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.UserAppInfoDao">
+
+	<!--根据用户id，查询用户详细信息-->
+	<select id="findByUserId" resultType="com.ex.vo.UserVo">
+		select ui.*,upd.headUrl headUrl,upd.MyQRCode MyQRCode,upd.nickName nickName,upd.sex sex,upd.marriage marriage,upd.job job,upd.email email
+		from userapp_info ui
+		left join userapp_person_data upd on upd.registUserId = ui.registUserId
+		where ui.registUserId = #{id}
+	</select>
+</mapper>
