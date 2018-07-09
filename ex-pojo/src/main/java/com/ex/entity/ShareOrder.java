@@ -6,66 +6,24 @@ import java.util.Date;
 
 public class ShareOrder {
     private Long id;
-
-    private String ordernum;
-
-    private Long buyuserid;
-
-    private Long shareuserid;
-
-    private String shareusername;
-
-    private String buyusername;
-
-    private String sharemechanism;
-
+    private String orderNum;
+    private Long buyUserId;
+    private Long shareUserId;
+    private String shareUsername;
+    private String buyUsername;
+    private String shareMechanism;
     private Double commission;
-
-    private String merchantname;
-
-    private Double ordermoney;
-
+    private Long merchantId;
+    private String merchantName;
+    private Double orderMoney;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date createtime;
-
+    private Date createTime;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date updatetime;
-
-    private Integer paystatus;
-
+    private Date updateTime;
+    private Integer payStatus;
     private Integer status;
-
     private Orders orders;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date startTime;
-
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date endTime;
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Orders getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Orders orders) {
-        this.orders = orders;
-    }
 
     public Long getId() {
         return id;
@@ -75,52 +33,52 @@ public class ShareOrder {
         this.id = id;
     }
 
-    public String getOrdernum() {
-        return ordernum;
+    public String getOrderNum() {
+        return orderNum;
     }
 
-    public void setOrdernum(String ordernum) {
-        this.ordernum = ordernum;
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
     }
 
-    public Long getBuyuserid() {
-        return buyuserid;
+    public Long getBuyUserId() {
+        return buyUserId;
     }
 
-    public void setBuyuserid(Long buyuserid) {
-        this.buyuserid = buyuserid;
+    public void setBuyUserId(Long buyUserId) {
+        this.buyUserId = buyUserId;
     }
 
-    public Long getShareuserid() {
-        return shareuserid;
+    public Long getShareUserId() {
+        return shareUserId;
     }
 
-    public void setShareuserid(Long shareuserid) {
-        this.shareuserid = shareuserid;
+    public void setShareUserId(Long shareUserId) {
+        this.shareUserId = shareUserId;
     }
 
-    public String getShareusername() {
-        return shareusername;
+    public String getShareUsername() {
+        return shareUsername;
     }
 
-    public void setShareusername(String shareusername) {
-        this.shareusername = shareusername;
+    public void setShareUsername(String shareUsername) {
+        this.shareUsername = shareUsername;
     }
 
-    public String getBuyusername() {
-        return buyusername;
+    public String getBuyUsername() {
+        return buyUsername;
     }
 
-    public void setBuyusername(String buyusername) {
-        this.buyusername = buyusername;
+    public void setBuyUsername(String buyUsername) {
+        this.buyUsername = buyUsername;
     }
 
-    public String getSharemechanism() {
-        return sharemechanism;
+    public String getShareMechanism() {
+        return shareMechanism;
     }
 
-    public void setSharemechanism(String sharemechanism) {
-        this.sharemechanism = sharemechanism;
+    public void setShareMechanism(String shareMechanism) {
+        this.shareMechanism = shareMechanism;
     }
 
     public Double getCommission() {
@@ -131,44 +89,52 @@ public class ShareOrder {
         this.commission = commission;
     }
 
-    public String getMerchantname() {
-        return merchantname;
+    public Long getMerchantId() {
+        return merchantId;
     }
 
-    public void setMerchantname(String merchantname) {
-        this.merchantname = merchantname;
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
     }
 
-    public Double getOrdermoney() {
-        return ordermoney;
+    public String getMerchantName() {
+        return merchantName;
     }
 
-    public void setOrdermoney(Double ordermoney) {
-        this.ordermoney = ordermoney;
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Double getOrderMoney() {
+        return orderMoney;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setOrderMoney(Double orderMoney) {
+        this.orderMoney = orderMoney;
     }
 
-    public Date getUpdatetime() {
-        return updatetime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Integer getPaystatus() {
-        return paystatus;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setPaystatus(Integer paystatus) {
-        this.paystatus = paystatus;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Integer getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(Integer payStatus) {
+        this.payStatus = payStatus;
     }
 
     public Integer getStatus() {
@@ -177,5 +143,13 @@ public class ShareOrder {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
     }
 }

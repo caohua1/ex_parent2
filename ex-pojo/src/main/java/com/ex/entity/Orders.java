@@ -1,47 +1,31 @@
 package com.ex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Orders {
     private Long id;
-
-    private String ordernum;
-
-    private Integer productnum;
-
-    private Double ordermoney;
-
-    private Long productinfoid;
-
-    private Long addressid;
-
-    private Date createtime;
-
-    private Date paytime;
-
-    private Date sendtime;
-
-    private Date finishtime;
-
-    private Double money;
-
-    private Integer paystatus;
-
-    private String backcauseby;
-
-    private String backnum;
-
+    private String orderNum;
+    private Integer productNum;
+    private Double orderMoney;
+    private Long productInfoId;
+    private Long addressId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date payTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date sendTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date finishTime;
+    private Integer payStatus;
+    private String backCauseBy;
+    private String backNum;
     private Integer status;
-
     private ProductInfoManage productInfoManage;
-
-    public ProductInfoManage getProductInfoManage() {
-        return productInfoManage;
-    }
-
-    public void setProductInfoManage(ProductInfoManage productInfoManage) {
-        this.productInfoManage = productInfoManage;
-    }
+    // private Long addressId;
+    private ShippingAddress shippingAddress;
 
     public Long getId() {
         return id;
@@ -51,108 +35,100 @@ public class Orders {
         this.id = id;
     }
 
-    public String getOrdernum() {
-        return ordernum;
+    public String getOrderNum() {
+        return orderNum;
     }
 
-    public void setOrdernum(String ordernum) {
-        this.ordernum = ordernum;
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum;
     }
 
-    public Integer getProductnum() {
-        return productnum;
+    public Integer getProductNum() {
+        return productNum;
     }
 
-    public void setProductnum(Integer productnum) {
-        this.productnum = productnum;
+    public void setProductNum(Integer productNum) {
+        this.productNum = productNum;
     }
 
-    public Double getOrdermoney() {
-        return ordermoney;
+    public Double getOrderMoney() {
+        return orderMoney;
     }
 
-    public void setOrdermoney(Double ordermoney) {
-        this.ordermoney = ordermoney;
+    public void setOrderMoney(Double orderMoney) {
+        this.orderMoney = orderMoney;
     }
 
-    public Long getProductinfoid() {
-        return productinfoid;
+    public Long getProductInfoId() {
+        return productInfoId;
     }
 
-    public void setProductinfoid(Long productinfoid) {
-        this.productinfoid = productinfoid;
+    public void setProductInfoId(Long productInfoId) {
+        this.productInfoId = productInfoId;
     }
 
-    public Long getAddressid() {
-        return addressid;
+    public Long getAddressId() {
+        return addressId;
     }
 
-    public void setAddressid(Long addressid) {
-        this.addressid = addressid;
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getPaytime() {
-        return paytime;
+    public Date getPayTime() {
+        return payTime;
     }
 
-    public void setPaytime(Date paytime) {
-        this.paytime = paytime;
+    public void setPayTime(Date payTime) {
+        this.payTime = payTime;
     }
 
-    public Date getSendtime() {
-        return sendtime;
+    public Date getSendTime() {
+        return sendTime;
     }
 
-    public void setSendtime(Date sendtime) {
-        this.sendtime = sendtime;
+    public void setSendTime(Date sendTime) {
+        this.sendTime = sendTime;
     }
 
-    public Date getFinishtime() {
-        return finishtime;
+    public Date getFinishTime() {
+        return finishTime;
     }
 
-    public void setFinishtime(Date finishtime) {
-        this.finishtime = finishtime;
+    public void setFinishTime(Date finishTime) {
+        this.finishTime = finishTime;
     }
 
-    public Double getMoney() {
-        return money;
+    public Integer getPayStatus() {
+        return payStatus;
     }
 
-    public void setMoney(Double money) {
-        this.money = money;
+    public void setPayStatus(Integer payStatus) {
+        this.payStatus = payStatus;
     }
 
-    public Integer getPaystatus() {
-        return paystatus;
+    public String getBackCauseBy() {
+        return backCauseBy;
     }
 
-    public void setPaystatus(Integer paystatus) {
-        this.paystatus = paystatus;
+    public void setBackCauseBy(String backCauseBy) {
+        this.backCauseBy = backCauseBy;
     }
 
-    public String getBackcauseby() {
-        return backcauseby;
+    public String getBackNum() {
+        return backNum;
     }
 
-    public void setBackcauseby(String backcauseby) {
-        this.backcauseby = backcauseby;
-    }
-
-    public String getBacknum() {
-        return backnum;
-    }
-
-    public void setBacknum(String backnum) {
-        this.backnum = backnum;
+    public void setBackNum(String backNum) {
+        this.backNum = backNum;
     }
 
     public Integer getStatus() {
@@ -161,5 +137,21 @@ public class Orders {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public ProductInfoManage getProductInfoManage() {
+        return productInfoManage;
+    }
+
+    public void setProductInfoManage(ProductInfoManage productInfoManage) {
+        this.productInfoManage = productInfoManage;
+    }
+
+    public ShippingAddress getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 }
