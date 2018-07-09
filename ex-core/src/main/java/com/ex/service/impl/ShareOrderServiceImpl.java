@@ -55,7 +55,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
     public int insertShareOrder(ShareOrder shareOrder) {
-        shareOrder.setCreatetime(new Date());
+        shareOrder.setCreateTime(new Date());
         return shareOrderDao.insertShareOrder(shareOrder);
     }
 
@@ -67,7 +67,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
     public int uodateShareOrder(ShareOrder shareOrder) {
-        shareOrder.setUpdatetime(new Date());
+        shareOrder.setUpdateTime(new Date());
         return shareOrderDao.uodateShareOrder(shareOrder);
     }
 
