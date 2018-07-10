@@ -5,11 +5,16 @@ import com.ex.entity.ShareOrderInfo;
 import com.ex.service.ShareOrderService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/shareOrderPC")
@@ -22,7 +27,9 @@ public class ShareOrderController {
     public JsonView selectShareOrderAll(ShareOrder shareOrder, PageRequest page){
         JsonView jsonView = new JsonView();
         try {
-            PageInfo<ShareOrder> pageInfo = shareOrderService.selectShareOrderAll(shareOrder,page);
+            PageHelper.startPage(page.getPageNum(),page.getPageSize());
+            List<ShareOrder> shareOrders = shareOrderService.selectShareOrderAll(shareOrder,page);
+            PageInfo<ShareOrder> pageInfo = new PageInfo<>(shareOrders);
             jsonView.setTodoCount(pageInfo.getSize());
             jsonView.setMessage("查询数据成功!");
             jsonView.setCode(JsonView.SUCCESS);
@@ -90,7 +97,10 @@ public class ShareOrderController {
     public JsonView selectShareOrderInfo(long merchantId, int payStatus){
         JsonView jsonView = new JsonView();
         try {
-            ShareOrderInfo shareOrderInfo = shareOrderService.selectShareOrderInfo(merchantId, payStatus);
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("merchantId",merchantId);
+            map.put("payStatus",payStatus);
+            ShareOrderInfo shareOrderInfo = shareOrderService.selectShareOrderInfo(map);
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setMessage("请求数据成功");
             jsonView.setData(shareOrderInfo);

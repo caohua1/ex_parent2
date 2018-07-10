@@ -7,15 +7,16 @@ import com.ex.util.PageRequest;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分享管理
  */
 public interface ShareOrderService {
-    PageInfo<ShareOrder> selectShareOrderAll(ShareOrder shareOrder, PageRequest pageRequest);
+    List<ShareOrder> selectShareOrderAll(ShareOrder shareOrder, PageRequest pageRequest);
     ShareOrder selectShareOrderById(Long id);
     int insertShareOrder(ShareOrder shareOrder);
     int uodateShareOrder(ShareOrder shareOrder);
-    ShareOrderInfo selectShareOrderInfo(long merchantId, int payStatus);
+    ShareOrderInfo selectShareOrderInfo(Map<String,Object> map);
     ProductInfoManage selectproductinfoById(long productinfoid);
 }
