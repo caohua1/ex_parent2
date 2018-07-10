@@ -16,7 +16,9 @@
     <!-- 和本地bean一样实现服务 -->
     <bean id="shareOrderService" class="com.ex.service.impl.ShareOrderServiceImpl"/>
     <bean id="userOrdersService" class="com.ex.service.impl.UserOrdersServiceImpl"/>
+    <bean id="userAppOrderService" class="com.ex.service.impl.UserAppOrderServiceImpl"/>
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.ex.service.ShareOrderService" ref="shareOrderService" version="1.0.0"/>
     <dubbo:service interface="com.ex.service.UserOrdersService" ref="userOrdersService" version="1.0.0"/>
+    <dubbo:service interface="com.ex.service.UserAppOrderService" ref="userAppOrderService" version="1.0.0"/>
 </beans>

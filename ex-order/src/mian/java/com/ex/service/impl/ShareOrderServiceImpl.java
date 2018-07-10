@@ -89,7 +89,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
     }
 
     @Override
-    public ProductInfoManage selectproductinfoById(long productinfoid) {
+    public ProductInfoManage selectproductinfoById(Long productinfoid) {
         return shareOrderDao.selectproductinfoById(productinfoid);
     }
 }

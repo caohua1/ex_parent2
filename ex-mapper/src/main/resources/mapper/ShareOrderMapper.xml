@@ -55,7 +55,7 @@
                 <result column="shareSet" property="shareSet"/>
                 <result column="saleOrderNum" property="saleOrderNum"/>
                 <result column="SHStatus" property="SHStatus"/>
-                <result column="SXJStatus" property="sxjstatus"/>
+                <result column="SXJStatus" property="SXJStatus"/>
                 <result column="DLStatus" property="DLStatus"/>
             </association>
         </association>
@@ -67,15 +67,15 @@
         <where>
             1=1
             <if test="id != null">AND so.id = #{id}</if>
-            <if test="ordernum != null">AND so.orderNum = #{orderNum}</if>
-            <if test="buyuserid != null">AND so.buyUserId = #{buyUserId}</if>
-            <if test="shareuserid != null">AND so.shareUserId = #{shareUserId}</if>
-            <if test="shareusername != null">AND so.shareUsername = #{shareUsername}</if>
-            <if test="buyusername != null">AND so.buyUsername = #{buyUsername}</if>
-            <if test="sharemechanism != null">AND so.shareMechanism = #{shareMechanism}</if>
+            <if test="orderNum != null">AND so.orderNum = #{orderNum}</if>
+            <if test="buyUserId != null">AND so.buyUserId = #{buyUserId}</if>
+            <if test="shareUserId != null">AND so.shareUserId = #{shareUserId}</if>
+            <if test="shareUsername != null">AND so.shareUsername = #{shareUsername}</if>
+            <if test="buyUsername != null">AND so.buyUsername = #{buyUsername}</if>
+            <if test="shareMechanism != null">AND so.shareMechanism = #{shareMechanism}</if>
             <if test="commission != null">AND so.commission = #{commission}</if>
-            <if test="merchantname != null">AND so.merchantName = #{merchantName}</if>
-            <if test="ordermoney != null">AND so.orderMoney = #{orderMoney}</if>
+            <if test="merchantName != null">AND so.merchantName = #{merchantName}</if>
+            <if test="orderMoney != null">AND so.orderMoney = #{orderMoney}</if>
             <if test="startTime!=null and endTime==null">
                 and so.createTime &gt;= #{startTime}
             </if>
@@ -85,19 +85,19 @@
             <if test="endTime!=null and startTime!=null">
                 and so.createTime BETWEEN #{startTime} AND #{endTime}
             </if>
-            <if test="updatetime != null">AND so.updateTime = #{updateTime}</if>
-            <if test="paystatus != null">AND so.payStatus = #{payStatus}</if>
+            <if test="updateTime != null">AND so.updateTime = #{updateTime}</if>
+            <if test="payStatus != null">AND so.payStatus = #{payStatus}</if>
             <if test="status != null">AND so.status = #{status}</if>
         </where>
     </sql>
     <!--按条件查询所有分享信息-->
     <select id="selectShareOrderAll" resultMap="ShareOrderResultMap" parameterType="com.ex.entity.ShareOrder">
-        SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum JOIN productinfo_manage pm ON o.productInfoId = pm.id
+        SELECT * FROM share_order  so LEFT JOIN orders o ON so.orderNum = o.orderNum LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
         <include refid="Example_Where_Clause"/>
     </select>
     <!--按条件id精确查找分享信息-->
     <select id="selectShareOrderById" resultMap="ShareOrderResultMap" parameterType="java.lang.Long">
-        SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum JOIN productinfo_manage pm ON o.productInfoId = pm.id WHERE so.id = #{id}
+        SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id WHERE so.id = #{id}
     </select>
     <!--添加分享信息-->
     <insert id="insertShareOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.ShareOrder">

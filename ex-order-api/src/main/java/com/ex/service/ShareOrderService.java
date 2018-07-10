@@ -18,5 +18,5 @@ public interface ShareOrderService {
     int insertShareOrder(ShareOrder shareOrder);
     int uodateShareOrder(ShareOrder shareOrder);
     ShareOrderInfo selectShareOrderInfo(Map<String,Object> map);
-    ProductInfoManage selectproductinfoById(long productinfoid);
+    ProductInfoManage selectproductinfoById(Long productinfoid);
 }

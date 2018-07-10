@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.UserOrderDao">
+
+    <resultMap id="UserOrderResultMap" type="com.ex.entity.UserOrder">
+        <id column="id" property="id" />
+        <result column="orderId" property="orderId"/>
+        <result column="registUserId" property="registUserId" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+        <result column="payTime" property="payTime" />
+        <result column="status" property="status" />
+        <association property="orders" javaType="com.ex.entity.Orders">
+            <id column="id" property="id"/>
+            <result column="orderNum" property="orderNum"/>
+            <result column="productNum" property="productNum"/>
+            <result column="orderMoney" property="orderMoney"/>
+            <result column="productInfoId" property="productInfoId"/>
+            <result column="addressId" property="addressId"/>
+            <result column="createTime" property="createTime"/>
+            <result column="payTime" property="payTime"/>
+            <result column="sendTime" property="sendTime"/>
+            <result column="finishTime" property="finishTime"/>
+            <result column="money" property="money"/>
+            <result column="payStatus" property="payStatus"/>
+            <result column="backCauseBy" property="backCauseBy"/>
+            <result column="backNum" property="backNum"/>
+            <result column="status" property="status"/>
+            <association property="productInfoManage" javaType="com.ex.entity.ProductInfoManage">
+                <id column="id" property="id"/>
+                <result column="productName" property="productName"/>
+                <result column="productClassifyId" property="productClassifyId"/>
+                <result column="agentPrice" property="agentPrice"/>
+                <result column="vipPrice" property="vipPrice"/>
+                <result column="resalePrice" property="resalePrice"/>
+                <result column="storeNum" property="storeNum"/>
+                <result column="storePrewarnNum" property="storePrewarnNum"/>
+                <result column="productPicUrl" property="productPicUrl"/>
+                <result column="appSlideshowPic" property="appSlideshowPic"/>
+                <result column="pcSlideshowPic" property="pcSlideshowPic"/>
+                <result column="productDescribe" property="productDescribe"/>
+                <result column="brandId" property="brandId"/>
+                <result column="startTime" property="startTime"/>
+                <result column="endTime" property="endTime"/>
+                <result column="createTime" property="createTime"/>
+                <result column="updateTime" property="updateTime"/>
+                <result column="shareSet" property="shareSet"/>
+                <result column="saleOrderNum" property="saleOrderNum"/>
+                <result column="SHStatus" property="SHStatus"/>
+                <result column="SXJStatus" property="SXJStatus"/>
+                <result column="DLStatus" property="DLStatus"/>
+            </association>
+        </association>
+    </resultMap>
+    <!--根据用户Id查询该用户的所有订单信息-->
+    <select id="selectUserOrderByid" parameterType="java.lang.Long" resultMap="UserOrderResultMap">
+        SELECT * FROM user_order uo LEFT JOIN orders o ON uo.orderId = o.id LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id  WHERE registUserId = #{registUserId}
+    </select>
+
+    <!--查询所有订单信息-->
+    <select id="selectUserOrderByid" parameterType="java.lang.Long" resultMap="UserOrderResultMap">
+        SELECT * FROM user_order uo LEFT JOIN orders o ON uo.orderId = o.id LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
+    </select>
+</mapper>
