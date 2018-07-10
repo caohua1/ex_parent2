@@ -1,13 +1,11 @@
 package com.ex.entity;
 
-import lombok.Data;
 
 import java.util.Date;
 
 /**
  * 视享竞价排名实体类
  */
-@Data
 public class PaidlistProduct {
     private Long id;
     private Long merchantId;

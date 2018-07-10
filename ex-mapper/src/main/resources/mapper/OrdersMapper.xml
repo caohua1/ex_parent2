@@ -27,4 +27,8 @@
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		where pm.merchantId = #{merchantId}
 	</select>
+
+	<select id="selectAll" resultType="com.ex.entity.Orders" parameterType="Long"  >
+		select * FROM orders WHERE id=#{id}
+	</select>
 </mapper>

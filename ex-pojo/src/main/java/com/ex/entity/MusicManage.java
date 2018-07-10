@@ -1,13 +1,13 @@
 package com.ex.entity;
 
-import lombok.Data;
+
 
 import java.util.Date;
 
 /**
  * 音乐管理实体类
  */
-@Data
+
 public class MusicManage {
     private Long id;
     private String musicName;

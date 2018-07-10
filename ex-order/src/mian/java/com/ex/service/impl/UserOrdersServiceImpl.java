@@ -1,12 +1,15 @@
 package com.ex.service.impl;
+
 import com.alibaba.dubbo.config.annotation.Service;
 import com.ex.dao.OrdersDao;
+import com.ex.entity.Orders;
 import com.ex.service.UserOrdersService;
 import com.ex.util.PageRequest;
 import com.ex.vo.OrderVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 
 import java.util.List;
@@ -40,5 +43,11 @@ public class UserOrdersServiceImpl implements UserOrdersService{
     @Override
     public Map selectUserByMerchantIdCount(Long merchantId) {
         return ordersDao.selectUserByMerchantIdCount(merchantId);
+    }
+
+    @Override
+    public Orders selectAll(long id) {
+        Orders orders = ordersDao.selectAll(id);
+        return orders;
     }
 }
