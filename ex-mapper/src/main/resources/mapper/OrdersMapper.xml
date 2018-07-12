@@ -28,7 +28,61 @@
 		where pm.merchantId = #{merchantId}
 	</select>
 
-	<select id="selectAll" resultType="com.ex.entity.Orders" parameterType="Long"  >
-		select * FROM orders WHERE id=#{id}
+	<!--===================================================-->
+	<!--第二种查询方式，先查询所有的用户，分页查询-->
+	<select id="selectUserByMerchantId2" parameterType="Long" resultType="com.ex.vo.OrderVo">
+		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName from productinfo_manage pm
+		left join orders os on os.productInfoId = pm.id
+		left join user_order uo on uo.orderId = os.id
+		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		where pm.merchantId = #{merchantId}
+		order by upd.registUserId
 	</select>
+	<!--查询用户的累计消费-->
+	<select id="selectUserMoneyByMerchantId2" parameterType="java.util.Map" resultType="Double">
+		select sum(os.orderMoney) from productinfo_manage pm
+		left join orders os on os.productInfoId = pm.id
+		left join user_order uo on uo.orderId = os.id
+		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		where pm.merchantId = #{merchantId} and uo.registUserId = #{registUserId}
+		order by upd.registUserId
+	</select>
+
+	<!--某用户的待发货量总数-->
+	<select id="selectUserOrdersCountByMerchantId2" parameterType="java.util.Map" resultType="Integer">
+		select count(os.id) ordersNum from productinfo_manage pm
+		left join orders os on os.productInfoId = pm.id
+		left join user_order uo on uo.orderId = os.id
+		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		left join shipping_address sa on sa.id = os.addressId
+		left join product_property_set pps on pps.id = os.productPropertyId
+		where pm.merchantId = #{merchantId} and upd.registUserId = #{registUserId}
+		and os.status in(0,2)
+		order by upd.registUserId
+	</select>
+	 <!--查询用户的总数-->
+	<select id="selectUserCountByMerchantId2" parameterType="Long" resultType="Integer">
+		select count(DISTINCT(upd.registUserId))userCount from productinfo_manage pm
+		left join orders os on os.productInfoId = pm.id
+		left join user_order uo on uo.orderId = os.id
+		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		where pm.merchantId = #{merchantId}
+		order by upd.registUserId
+	</select>
+
+	<!--点击查看代发货商品的详情-->
+	<!--查询此用户在此商家的待发货的详情，分页查询-->
+	<select id="selectUserOrdersByMerchantId2" parameterType="java.util.Map" resultType="com.ex.vo.OrderVo">
+		select DISTINCT(upd.registUserId),os.*,sa.address,sa.phone,sa.realName,pm.productPicUrl,pps.typeName from productinfo_manage pm
+		left join orders os on os.productInfoId = pm.id
+		left join user_order uo on uo.orderId = os.id
+		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		left join shipping_address sa on sa.id = os.addressId
+        left join product_property_set pps on pps.id = os.productPropertyId
+		where pm.merchantId = #{merchantId} and upd.registUserId = #{registUserId}
+		and os.status in(0,2)
+		order by upd.registUserId
+	</select>
+
+
 </mapper>

@@ -17,5 +17,10 @@ public interface AppProductClassifyService {
     public PageInfo<StoreInfo> byConditionsQuery(PageRequest page, StoreInfo storeInfo);
 
     //根据merchantId查询某商家的所有的商品
-    public List<ProductInfoManageVo> selectProductsByMerchantId(Long merchantId);
+    public PageInfo<ProductInfoManageVo> selectProductsByMerchantId(Map map,PageRequest pageRequest);
+    public List<ProductInfoManageVo> selectProductsByMerchantId2(Map map);
+
+    //查询商品详情
+    public ProductInfoManageVo selectProductInfoById(Long id);
+
 }
