@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.OrderDiscussDao">
+
+	<!--
+    /*CREATE TABLE `order_discuss` (
+            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+            `orderId` bigint(20) DEFAULT NULL COMMENT '订单id（与order主键关联）',
+            `registUserId` bigint(20) DEFAULT NULL COMMENT '评论的用户的id（与userapp_regist主键关联）',
+            `discussLevel` int(11) DEFAULT NULL COMMENT '描述相符',
+            `discuss` varchar(2000) DEFAULT NULL COMMENT '用户对商品的评论',
+            `anonymity` int(2) DEFAULT NULL COMMENT '是否匿名',
+            `logisticsService` int(2) DEFAULT NULL COMMENT '物流服务（5星级别）',
+            `serviceAttitude` int(2) DEFAULT NULL COMMENT '服务态度（5星级别）',
+            `pictureUrl` varchar(200) DEFAULT NULL COMMENT '评论图片',
+            `discussTime` datetime DEFAULT NULL COMMENT '评论的时间',
+            `updateTime` datetime DEFAULT NULL COMMENT '修改时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户评论商品';*/-->
+
+	<!--用户对订单进行评论-->
+	<insert id="insertOrderDiscuss" parameterType="com.ex.entity.OrderDiscuss">
+		insert into order_discuss(orderId,registUserId,discussLevel,discuss,anonymity,logisticsService,serviceAttitude,pictureUrl,discussTime) values(
+		#{orderId},#{registUserId},#{discussLevel},#{discuss},#{anonymity},#{logisticsService},#{serviceAttitude},#{pictureUrl},#{discussTime}
+		)
+	</insert>
+
+	<!--查询某商家商品的所有的评论(商家店铺-评论（merchantId）//用户app商品页详情（productInfoId）)-->
+	<select id="selectDiscussByMerchantIdAndProductInfoId" parameterType="java.util.Map" resultType="com.ex.vo.OrderDiscussVo">
+		select od.*,upd.headUrl headUrl,upd.nickName nickName from order_discuss od
+		left join orders o on o.id = od.orderId
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		left join userapp_person_data upd on upd.registUserId = od.registUserId
+		where 1=1
+		<if test="merchantId!=null">
+			and pm.merchantId = #{merchantId}
+		</if>
+		<if test="productInfoId!=null">
+			and pm.id = #{productInfoId}
+		</if>
+	</select>
+</mapper>

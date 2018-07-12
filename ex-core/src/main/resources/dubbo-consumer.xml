@@ -10,16 +10,12 @@
 	<!-- dubbo项目名称 -->
 	<dubbo:application name="ex-core" />
 	<!-- 指定注册中心 -->
-	<dubbo:registry protocol="zookeeper" address="192.168.1.61:2181" />
+	<dubbo:registry protocol="zookeeper" address="192.168.1.33:2181" />
 	<!-- 引用服务 -->
-	<dubbo:reference interface="com.ex.service.RedisUtilService" id="redisUtilService" version="1.0.0" />
-	<dubbo:reference interface="com.ex.service.PcAlipayService" id="pcAlipayService" version="1.0.0" />
+	<dubbo:reference interface="com.ex.service.RedisUtilService" id="redisUtilServiceTest" version="1.0.0" />
+	<dubbo:reference interface="com.ex.service.UserOrdersService" id="userOrdersService" version="1.0.0" />
 	<!--<dubbo:reference interface="com.ex.service.OrderTestService" id="orderTestService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.PayTestService" id="payTestService" version="1.0.0" />
-	<dubbo:reference interface="com.ex.service.RedisUtilService" id="redisUtilServiceTest" version="1.0.0" />
-	<dubbo:reference interface="com.ex.service.ShareOrderService" id="shareOrderService" version="1.0.0" />
-	<dubbo:reference interface="com.ex.service.UserOrdersService" id="userOrdersService" version="1.0.0" />
-	<!--<dubbo:reference interface="com.ex.service.PayTestService" id="payTestService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.ProduceTestService" id="produceTestService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.SolrTestService" id="solrTestService" version="1.0.0" />-->
 

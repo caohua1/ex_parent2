@@ -7,6 +7,7 @@ public class AppointmentOrder implements Serializable{
 
     private Long id;
     private Long registUserId;
+    private Long merchantId;
     private String productInfoIds;
     private String registUsername;
     private String contactsName;
@@ -37,6 +38,14 @@ public class AppointmentOrder implements Serializable{
 
     public void setRegistUserId(Long registUserId) {
         this.registUserId = registUserId;
+    }
+
+    public Long getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
     }
 
     public String getProductInfoIds() {

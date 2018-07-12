@@ -58,7 +58,27 @@
     </select>
 
     <!--查询所有订单信息-->
-    <select id="selectUserOrderByid" parameterType="java.lang.Long" resultMap="UserOrderResultMap">
+    <select id="selectUserOrderAll" resultMap="UserOrderResultMap">
         SELECT * FROM user_order uo LEFT JOIN orders o ON uo.orderId = o.id LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
     </select>
+
+    <!--添加用户和订单表关联信息-->
+    <insert id="insertUserOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.UserOrder">
+        INSERT INTO user_order (orderId, registUserId, createTime, payTime, status)
+        VALUES ( #{orderId}, #{registUserId}, #{createTime}, #{payTime}, #{status)
+    </insert>
+
+    <!--修改用户和订单表关联信息状态-->
+    <update id="updateUserOrder" parameterType="map">
+        update user_order
+        <set >
+            <if test="updateTime != null" >
+                updateTime = #{updateTime},
+            </if>
+            <if test="status != null" >
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

@@ -2,7 +2,6 @@ package com.ex.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.ex.dao.OrdersDao;
-import com.ex.entity.Orders;
 import com.ex.service.UserOrdersService;
 import com.ex.util.PageRequest;
 import com.ex.vo.OrderVo;
@@ -15,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(version = "1.0.0")
 public class UserOrdersServiceImpl implements UserOrdersService{
 
 
@@ -45,9 +44,64 @@ public class UserOrdersServiceImpl implements UserOrdersService{
         return ordersDao.selectUserByMerchantIdCount(merchantId);
     }
 
+
+
+
+   //=========================================第二种方式
+
+    /**
+     * 先查询所有的用户，分页查询
+     * @param merchantId
+     * @return
+     */
     @Override
-    public Orders selectAll(long id) {
-        Orders orders = ordersDao.selectAll(id);
-        return orders;
+    public PageInfo<OrderVo> selectUserByMerchantId2(Long merchantId,PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<OrderVo> orderVos = ordersDao.selectUserByMerchantId2(merchantId);
+        PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVos);
+        return pageInfo;
+    }
+
+    /**
+     * 查询用户的累计消费
+     * @param map
+     * @return
+     */
+    @Override
+    public Double selectUserMoneyByMerchantId2(Map map) {
+        return ordersDao.selectUserMoneyByMerchantId2(map);
+    }
+
+    /**
+     * 某用户的待发货量总数
+     * @param map
+     * @return
+     */
+    @Override
+    public Integer selectUserOrdersCountByMerchantId2(Map map) {
+        return ordersDao.selectUserOrdersCountByMerchantId2(map);
+    }
+
+    /**
+     * 查询用户的总数
+     * @param merchantId
+     * @return
+     */
+    @Override
+    public Integer selectUserCountByMerchantId2(Long merchantId) {
+        return ordersDao.selectUserCountByMerchantId2(merchantId);
+    }
+
+    /**
+     * 查询此用户在此商家的待发货的详情，分页查询
+     * @param map
+     * @return
+     */
+    @Override
+    public PageInfo<OrderVo> selectUserOrdersByMerchantId2(Map map,PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<OrderVo> orderVos = ordersDao.selectUserOrdersByMerchantId2(map);
+        PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVos);
+        return pageInfo;
     }
 }

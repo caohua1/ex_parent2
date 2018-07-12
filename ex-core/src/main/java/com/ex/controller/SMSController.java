@@ -35,6 +35,7 @@ public class SMSController {
      */
     @RequestMapping(value = "/sendSMS",method = RequestMethod.POST)
         public JsonView sendSMS (String phone) throws ClientException {
+        JsonView view = new JsonView();
             try {
                 //发送验证码
                 String code = SMSUtil.sendSMS(phone);
@@ -51,15 +52,16 @@ public class SMSController {
                 resultMap.put("hashcose", hashcose);
                 resultMap.put("tamp", currentTime);
 
-                JsonView view = new JsonView();
+
                 view.setData(resultMap);
                 view.setMessage("短信验证码发送成功！");
                 view.setCode(JsonView.SUCCESS);
-                return view;
             } catch (Exception e) {
                 e.printStackTrace();
-                return JsonView.fail(JsonView.ERROR, e.getMessage());
+                view.setMessage("短信发送失败");
+                view.setCode(JsonView.EXPIRED);
             }
+            return view;
         }
 
     /**
@@ -70,14 +72,19 @@ public class SMSController {
     public JsonView checkSMS(String hashcose,String tamp,String phone,String code) {
         String requestHash = CustomMD5.passwordAndSalt(KEY+"wh"+code, phone, 15);
         Calendar c = Calendar.getInstance();
+        JsonView jsonView = new JsonView();
         if (tamp.compareTo(sf.format(new Date())) > 0) {
             if (hashcose.equalsIgnoreCase(requestHash)) {
-                return JsonView.success("验证成功！");
+                jsonView.setMessage("验证成功!");
+                jsonView.setCode(JsonView.SUCCESS);
             } else {
-                return JsonView.fail("验证码错误！");
+                jsonView.setMessage("验证码错误！");
+                jsonView.setCode(JsonView.ERROR);
             }
         } else {
-            return JsonView.fail(JsonView.EXPIRED,"验证码超时!");
+            jsonView.setMessage("验证码超时");
+            jsonView.setCode(JsonView.ERROR);
         }
+        return jsonView;
     }
 }

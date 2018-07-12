@@ -11,6 +11,7 @@ public class Orders implements Serializable{
     private Integer productNum;
     private Double orderMoney;
     private Long productInfoId;
+    private Long productPropertyId;//商品规格
     private Long addressId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
@@ -25,8 +26,14 @@ public class Orders implements Serializable{
     private String backNum;
     private Integer status;
     private ProductInfoManage productInfoManage;
-    // private Long addressId;
-    private ShippingAddress shippingAddress;
+
+    public ProductInfoManage getProductInfoManage() {
+        return productInfoManage;
+    }
+
+    public void setProductInfoManage(ProductInfoManage productInfoManage) {
+        this.productInfoManage = productInfoManage;
+    }
 
     public Long getId() {
         return id;
@@ -66,6 +73,14 @@ public class Orders implements Serializable{
 
     public void setProductInfoId(Long productInfoId) {
         this.productInfoId = productInfoId;
+    }
+
+    public Long getProductPropertyId() {
+        return productPropertyId;
+    }
+
+    public void setProductPropertyId(Long productPropertyId) {
+        this.productPropertyId = productPropertyId;
     }
 
     public Long getAddressId() {
@@ -140,19 +155,5 @@ public class Orders implements Serializable{
         this.status = status;
     }
 
-    public ProductInfoManage getProductInfoManage() {
-        return productInfoManage;
-    }
 
-    public void setProductInfoManage(ProductInfoManage productInfoManage) {
-        this.productInfoManage = productInfoManage;
-    }
-
-    public ShippingAddress getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(ShippingAddress shippingAddress) {
-        this.shippingAddress = shippingAddress;
-    }
 }

@@ -107,9 +107,16 @@
 
 	</select>
 
-	<!--查询商品详情-->
+	<!--查询商品详情
+	 private String typeName;
+    private String IconStylePic;//商品类型图标样式
+    private String brandName;//品牌名称
+    private String brandPicUrl;//品牌图标-->
 	<select id="selectProductInfoById" parameterType="Long" resultType="com.ex.vo.ProductInfoManageVo">
-		select * from productinfo_manage where id = #{id}
+		select pm.*,pc.typeName,pc.IconStylePic,b.brandName,b.brandPicUrl from productinfo_manage pm
+		left join product_classify pc on pc.id = pm.productClassifyId
+		left join brand b on b.id = pm.brandId
+		 where pm.id = #{id}
 	</select>
 
 
@@ -166,8 +173,21 @@
 		</if>
 	</select>
 
-	<!--查询某商家的所有的商品-->
-	<select id="selectProductsByMerchantId" parameterType="Long" resultType="com.ex.vo.ProductInfoManageVo">
-		select * from productinfo_manage where merchantId = #{merchantId} and SXJStatus != 0
+	<!--查询某商家的所有的商品
+	    private String IconStylePic;//商品类型图标样式
+    private String brandName;//品牌名称
+    private String brandPicUrl;//品牌图标-->
+	<select id="selectProductsByMerchantId" parameterType="java.util.Map" resultType="com.ex.vo.ProductInfoManageVo">
+		select pm.*,pc.typeName,pc.IconStylePic,b.brandName,b.brandPicUrl from productinfo_manage pm
+		left join product_classify pc on pc.id = pm.productClassifyId
+		left join brand b on b.id = pm.brandId
+		where 1=1
+		 <if test="merchantId!=null">
+			and pm.merchantId = #{merchantId}
+		 </if>
+		<if test="productClassifyId!=null">
+			and pm.productClassifyId = #{productClassifyId}
+		</if>
+		 and pm.SXJStatus != 0
 	</select>
 </mapper>
