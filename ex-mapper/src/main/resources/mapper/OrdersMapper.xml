@@ -31,4 +31,17 @@
 	<select id="selectAll" resultType="com.ex.entity.Orders" parameterType="Long"  >
 		select * FROM orders WHERE id=#{id}
 	</select>
+	
+	<update id="updateOrdersStatusById" parameterType="map">
+		UPDATE orders
+		<set >
+			<if test="updateTime != null" >
+				updateTime = #{updateTime},
+			</if>
+			<if test="status != null" >
+				status = #{status},
+			</if>
+		</set>
+		WHERE id = #{id}
+	</update>
 </mapper>

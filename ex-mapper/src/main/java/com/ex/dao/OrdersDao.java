@@ -5,6 +5,7 @@ import com.ex.vo.OrderVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,4 +18,6 @@ public interface OrdersDao {
     public Map selectUserByMerchantIdCount(Long merchantId);
 
     Orders selectAll(@Param("id") long id);
+
+    int updateOrdersStatusById(@Param("updateTime") Date updateTime,@Param("status") int status,@Param("id") Long id);
 }

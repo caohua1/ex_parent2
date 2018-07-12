@@ -7,11 +7,11 @@ import java.util.Map;
 
 public interface UserAppOrderService {
     //按用户Id查询该用户所有订单信息
-    List<UserOrder> selectUserOrderByid(Map<String,Object> map);
+    List<UserOrder> selectUserOrderByid(long registUserId);
     //查询所有订单信息
-    List<UserOrder> selectUserOrderAll(UserOrder userOrder);
+    List<UserOrder> selectUserOrderAll();
     //修改订单信息
-    int updateUserOrder(UserOrder userOrder);
+    int updateUserOrder(int status, Long userOrderId,Long orderId);
     //添加订单信息
     int insertUserOrder(UserOrder userOrder);
 }
