@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.PaidlistProductDao">
+	<!-- 添加商户竞价排名数据-->
+	<insert id="insertPaidlistProduct" parameterType="java.util.Map">
+	INSERT INTO paidlist_product
+	(orderNumber,merchantId,uploadProductId,paidlist_product.type,money,payWay,createTime)
+	VALUES(#{orderNumber},#{merchantId},#{uploadProductId},#{type},#{money},#{payWay},#{createTime})
+	</insert>
+	<update id="updateState" parameterType="java.lang.String">
+		UPDATE paidlist_product
+		SET paidlist_product.state=1
+		WHERE paidlist_product.orderNumber=#{outTradeNo}
+	</update>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.UserAppVideoShareDao">
+<!-- 用户app视享视频-->
+    <select id="selectUserAppVideoShare" resultType="com.ex.vo.UserAppVideoShare" parameterType="java.util.Map">
+        SELECT p.*,d.headUrl, d.nickName
+        FROM merchantorperson_upload_product p
+        LEFT JOIN merchant_regist r
+        ON p.merchantId=r.id
+        LEFT JOIN merchant_person_data d
+        ON d.merchantId=r.id
+        WHERE p.fileType=#{fileType}
+    </select>
+    <!-- 修改点赞次数-->
+    <update id="updateDZNum" parameterType="java.util.Map">
+        UPDATE merchantorperson_upload_product  SET DZNum=DZNum+#{DZNum} WHERE id=#{id}
+    </update>
+</mapper>

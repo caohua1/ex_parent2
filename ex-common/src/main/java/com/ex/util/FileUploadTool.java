@@ -52,9 +52,9 @@ public class FileUploadTool {
         }
         //文件名（获取时间戳做文件名的唯一性）
         // 获得当前时间
-        DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        //DateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
         // 转换为字符串
-        String fileName = format.format(new Date());
+        String fileName = multipartFile.getOriginalFilename().toString();
         // 判断文件不为空
         if (multipartFile.getSize() != 0 && !multipartFile.isEmpty()) {
             bflag = true;
@@ -77,7 +77,7 @@ public class FileUploadTool {
             System.out.println("文件为空");
         }
         if (bflag) {
-            String logoPathDir = site+"/";
+            String logoPathDir = "/"+site+"/";
             //上传视频存入的路径
             //String logoRealPathDir = request.getSession().getServletContext().getRealPath(logoPathDir);
             // 上传到本地磁盘
@@ -90,11 +90,12 @@ public class FileUploadTool {
             String name = fileName.substring(0, fileName.lastIndexOf("."));
             System.out.println("文件名称：" + name);
             // 新的文件名
-            String newFileName = this.getName(fileName);
+            String newFileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + (int) (Math.random() * 90000 + 10000);
             // 文件扩展名
             String fileEnd = this.getFileExt(fileName);
             // 绝对路径
             String fileNamedirs = logoRealPathDir + File.separator + newFileName + fileEnd;
+            System.out.println("File.separator--------"+File.separator);
             System.out.println("保存的绝对路径：" + fileNamedirs);
             File filedirs = new File(fileNamedirs);
             // 转入文件

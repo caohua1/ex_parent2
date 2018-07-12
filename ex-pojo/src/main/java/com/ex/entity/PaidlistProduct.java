@@ -10,17 +10,20 @@ import java.util.Date;
 @Data
 public class PaidlistProduct {
     private Long id;
+    private String orderNumber;
     private Long merchantId;
     private Long uploadProductId;
     private int type;
-    private double money;
+    private Double money;
     private int payWay;
     private Date createTime;
     private Date updateTime;
     private String order;
+    private String state;
 
-    public PaidlistProduct(Long id, Long merchantId, Long uploadProductId, int type, double money, int payWay, Date createTime, Date updateTime, String order, int remainingTime) {
+    public PaidlistProduct(Long id,String orderNumber,Long merchantId, Long uploadProductId, int type, double money, int payWay, Date createTime, Date updateTime, String order, int remainingTime,String state) {
         this.id = id;
+        this.orderNumber=orderNumber;
         this.merchantId = merchantId;
         this.uploadProductId = uploadProductId;
         this.type = type;
@@ -29,7 +32,24 @@ public class PaidlistProduct {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.order = order;
+        this.state=state;
 
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public PaidlistProduct() {
@@ -69,11 +89,11 @@ public class PaidlistProduct {
         this.type = type;
     }
 
-    public double getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 
