@@ -25,6 +25,7 @@ public class MerchantorpersonUploadProduct {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
     private int status;
+    private int DZNum;
     private int playNum;
     private int storeNum;
     private int saleNum;
@@ -57,6 +58,18 @@ public class MerchantorpersonUploadProduct {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
+    }
+
+    public int getDZNum() {
+        return DZNum;
+    }
+
+    public void setDZNum(int DZNum) {
+        this.DZNum = DZNum;
+    }
+
+    public MerchantorpersonUploadProduct(int DZNum) {
+        this.DZNum = DZNum;
     }
 
     public MerchantorpersonUploadProduct(Long id, Long merchantId, Long productClassifyId, Long productInfoId, String productNo, String fileUrl, int fileType, String describe, Long musicId, String link, Date uploadfileTime, double price, Date updateTime, int status, int playNum, int storeNum, int saleNum, int distribution) {
