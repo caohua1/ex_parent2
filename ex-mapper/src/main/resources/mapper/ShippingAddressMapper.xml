@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.ShippingAddressDao">
+
+
+	<!--用户新增地址-->
+	<insert id="insertShippingAddress" parameterType="com.ex.entity.ShippingAddress">
+		insert into shipping_address(registUserId,area,address,realName,phone,postalCode,createTime)
+		values(#{registUserId},#{area},#{address},#{realName},#{phone}
+        #{postalCode},#{createTime})
+	</insert>
+
+	<!--查询某用户的所有收货地址-->
+	<select id="selectShippingAddress" parameterType="Long" resultType="com.ex.entity.ShippingAddress">
+		select * from shipping_address where registUserId = #{registUserId}
+	</select>
+</mapper>
