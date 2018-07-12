@@ -1,7 +1,7 @@
 package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+
 
 import java.util.Date;
 
@@ -13,7 +13,7 @@ import java.util.Date;
  * @Date 2018/5/31 18:02
  * @Version 1.0
  **/
-@Data
+
 public class UserAppRegist {
 
     private Long id;

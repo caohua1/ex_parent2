@@ -1,14 +1,14 @@
 package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+
 
 import java.util.Date;
 
 /**
  * 视图管理（视图配置）实体类
  */
-@Data
+
 public class ViewManage {
     public Long id;
     public int videoTime;

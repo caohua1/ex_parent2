@@ -53,6 +53,9 @@
 		<if test="endTime!=null">
 			endTime = #{endTime},
 		</if>
+		<if test="saleOrderNum!=null">
+			saleOrderNum = #{saleOrderNum} + saleOrderNum,
+		</if>
 		<if test="SHStatus!=null">
 			SXJStatus = #{SXJStatus},
 		</if>
@@ -118,19 +121,22 @@
 			and productName = #{productName}
 		</if>
 		<if test="startTime!=null and endTime==null">
-			and startTime &gt;= #{startTime}
+			and createTime &gt;= #{startTime}
 		</if>
 		<if test="endTime!=null and startTime==null">
-			and endTime &lt;= #{endTime}
+			and createTime &lt;= #{endTime}
+		</if>
+		<if test="endTime!=null and startTime!=null">
+			and createTime BETWEEN  #{startTime} AND #{endTime}
 		</if>
 		<if test="productClassifyId!=null and levelNum==1">
 			and productClassifyId in(select pc1.id from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyId}))
 		</if>
 		<if test="productClassifyId!=null and levelNum==2">
-			and productClassifyId in(select *.id from product_classify where parentId = #{productClassifyId})
+			and productClassifyId in(select pc2.id from product_classify pc2 where parentId = #{productClassifyId})
 		</if>
 		<if test="productClassifyId!=null and levelNum==3">
-			and productClassifyId in(select *.id from product_classify where id = #{productClassifyId})
+			and productClassifyId in(select pc3.id from product_classify pc3 where id = #{productClassifyId})
 		</if>
 	</select>
 
@@ -146,6 +152,9 @@
 		<if test="endTime!=null and startTime==null">
 			and endTime &lt;= #{endTime}
 		</if>
+		<if test="endTime!=null and startTime!=null">
+			and createTime BETWEEN  #{startTime} AND #{endTime}
+		</if>
 		<if test="productClassifyId!=null and levelNum==1">
 			and productClassifyId in(select pc1.id from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyId}))
 		</if>
@@ -155,5 +164,10 @@
 		<if test="productClassifyId!=null and levelNum==3">
 			and productClassifyId in(select *.id from product_classify where id = #{productClassifyId})
 		</if>
+	</select>
+
+	<!--查询某商家的所有的商品-->
+	<select id="selectProductsByMerchantId" parameterType="Long" resultType="com.ex.vo.ProductInfoManageVo">
+		select * from productinfo_manage where merchantId = #{merchantId} and SXJStatus != 0
 	</select>
 </mapper>

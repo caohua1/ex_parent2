@@ -25,4 +25,7 @@ public interface ProductInfoManageDao {
     public List<ProductInfoManageVo> selectCoreProductInfos(Map map);
 
     public Integer selectCoreProductInfosCount(Map map);
+
+    //根据merchantId查询某商家的所有的商品
+    public List<ProductInfoManageVo> selectProductsByMerchantId(Long merchantId);
 }

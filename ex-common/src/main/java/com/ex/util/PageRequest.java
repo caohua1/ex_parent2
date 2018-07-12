@@ -1,10 +1,10 @@
 package com.ex.util;
 
-import lombok.Data;
+
 
 import java.io.Serializable;
 
-@Data
+
 public class PageRequest implements Serializable {
 
   private int pageNum;

@@ -1,9 +1,11 @@
 package com.ex.service;
 
+import com.ex.entity.IndustryClassify;
 import com.ex.entity.MerchantorpersonCheckIn;
 import com.ex.util.PageRequest;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
 
 
 /**
@@ -20,4 +22,12 @@ public interface MerchantorpersonCheckInService {
     int insertMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
 
     PageInfo<MerchantorpersonCheckIn> byConditionsQuery(PageRequest page,MerchantorpersonCheckIn merchantorpersonCheckIn);
+
+    MerchantorpersonCheckIn selectByMerchantId(Long merchantId, Integer checkInType);
+
+    int updateMerchantorpersonCheckIn(MerchantorpersonCheckIn merchantorpersonCheckIn);
+
+    int auditTheMerchant(long id,int status,String causeby);
+
+    List<IndustryClassify> getIndustryClassifyAll();
 }

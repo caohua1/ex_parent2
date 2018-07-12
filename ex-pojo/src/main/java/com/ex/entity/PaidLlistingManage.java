@@ -1,12 +1,12 @@
 package com.ex.entity;
 
-import lombok.Data;
+
 
 
 /**
  *视享竞价排名管理实体类
  */
-@Data
+
 public class PaidLlistingManage extends PaidlistProduct{
 
     private String describe;

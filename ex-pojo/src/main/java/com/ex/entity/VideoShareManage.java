@@ -1,14 +1,14 @@
 package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+
 
 import java.util.Date;
 
 /**
  * 视享管理实体类/和
  */
-@Data
+
 public class VideoShareManage {
 
 

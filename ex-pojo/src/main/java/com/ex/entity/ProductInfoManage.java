@@ -30,6 +30,7 @@ public class ProductInfoManage implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;
     private Integer shareSet;//分享设置（0（1+2分享模式）1按比例返利模式 ）
+    private Integer saleOrderNum;//出售订单数量
     private Integer SHStatus;//审核状态（0待审核 1审核失败 2审核成功）
     private Integer SXJStatus;//上下架状态（0下架 1上架）
     private Integer DLStatus;//代理状态（0不可代理 1可代理）
@@ -184,6 +185,14 @@ public class ProductInfoManage implements Serializable {
 
     public void setShareSet(Integer shareSet) {
         this.shareSet = shareSet;
+    }
+
+    public Integer getSaleOrderNum() {
+        return saleOrderNum;
+    }
+
+    public void setSaleOrderNum(Integer saleOrderNum) {
+        this.saleOrderNum = saleOrderNum;
     }
 
     public Integer getSHStatus() {

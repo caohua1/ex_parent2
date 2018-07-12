@@ -183,7 +183,8 @@ public class ProductServiceImpl implements ProductService {
 
     //=============================商家app查询所有商品信息
     @Override
-    public List<ProductInfoManageVo> selectAppProductInfos(ProductInfoManageVo productInfoManageVo) {
+    public PageInfo<ProductInfoManageVo> selectAppProductInfos(ProductInfoManageVo productInfoManageVo,PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
         List<ProductInfoManageVo> productInfoManageVos = productInfoManageDao.selectProductInfos(productInfoManageVo);
         if(productInfoManageVos!=null && productInfoManageVos.size()>0){
             for(ProductInfoManageVo productInfoManage1 : productInfoManageVos){
@@ -192,7 +193,8 @@ public class ProductServiceImpl implements ProductService {
                 productInfoManage1.setProductPropertySetList(productPropertySets);
             }
         }
-        return productInfoManageVos;
+        PageInfo<ProductInfoManageVo> pageInfo = new PageInfo<>(productInfoManageVos);
+        return pageInfo;
     }
 
 

@@ -21,6 +21,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/coreProduct")
+//(已测试，成功)
 public class ProductCoreController {
     @Autowired
     private ProductService productService;

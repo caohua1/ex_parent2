@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.OrdersDao">
+
+	<!--&lt;!&ndash;查询某商家下的所有下订单的用户的订单信息&ndash;&gt;
+	<select id="selectOrdersByMerchantId" parameterType="Long" resultType="com.ex.entity.Orders">
+      select * from orders o
+      left join productinfo_manage pm on pm.id = o.productInfoId
+	</select>
+	private String nickName;//昵称
+    private String headUrl;//头像-->
+
+	<!--商家app首页的客户管理，根据merchantId查询购买过此商家商品的客户的信息（去重，一个用户在此商家有多个订单）(消费金额)，几笔待发货-->
+	<select id="selectUserByMerchantId" parameterType="Long" resultType="com.ex.vo.OrderVo">
+		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName,os.* from productinfo_manage pm
+		left join orders os on os.productInfoId = pm.id
+		left join user_order uo on uo.orderId = os.id
+		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		where pm.merchantId = #{merchantId}
+		order by upd.registUserId
+	</select>
+
+	<select id="selectUserByMerchantIdCount" parameterType="Long" resultType="java.util.Map">
+		select count(DISTINCT(upd.registUserId))userCount,count(os.id)ordersNum from productinfo_manage pm
+		left join orders os on os.productInfoId = pm.id
+		left join user_order uo on uo.orderId = os.id
+		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		where pm.merchantId = #{merchantId}
+	</select>
+
+	<select id="selectAll" resultType="com.ex.entity.Orders" parameterType="Long"  >
+		select * FROM orders WHERE id=#{id}
+	</select>
+</mapper>

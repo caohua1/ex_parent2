@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 认证信息
+ */
+
 @RestController
 @RequestMapping("/merchant/certification")
 public class BusinessLicenseInfoController {
@@ -28,32 +32,61 @@ public class BusinessLicenseInfoController {
      */
     @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
+        JsonView jsonView = new JsonView();
         try {
             logger.info("Request comming to find businessLicenseInfo list...");
             PageInfo<BusinessLicenseInfo> pageInfo = businessLicenseInfoService.findByPage(page);
-            return JsonView.success(pageInfo);
+            jsonView.setMessage("查询数据成功");
+            jsonView.setData(pageInfo);
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setTodoCount(pageInfo.getSize());
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 
     /**
      * 按条件查询认证信息
      * @param page
-     * @param businessLicenseInfo
+     * @param businessLicenseInfo 可选参数
+     *                            id
+     *                            type
+     *                            merchantid
+     *                            registuserid
+     *                            companyname
+     *                            legalperson
+     *                            companyaddress
+     *                            establishmentdate
+     *                            validityperiod
+     *                            merchantidnumber
+     *                            socialcreditcode
+     *                            idcard
+     *                            realname
+     *                            sex
+     *                            birthday
+     *                            address
+     *                            national
      * @return
      */
     @RequestMapping("/ConditionsQuery")
     public JsonView byConditionsQuery(PageRequest page,BusinessLicenseInfo businessLicenseInfo){
+        JsonView jsonView = new JsonView();
         try {
             logger.info("Request comming to by conditions query");
             PageInfo<BusinessLicenseInfo> pageInfo = businessLicenseInfoService.byConditionsQuery(page,businessLicenseInfo);
-            return JsonView.success(pageInfo);
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("请求数据成功!");
+            jsonView.setTodoCount(pageInfo.getSize());
+            jsonView.setData(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.ERROR, e.getMessage());
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
+        return jsonView;
     }
 
 }

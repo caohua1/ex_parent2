@@ -14,7 +14,7 @@ public class ProductClassify implements Serializable {
     private Long parentId;//父级id
     private Integer levelNum;//类目级别（0一级 1二级 3三级）
     private String IconStylePic;//图标样式
-    private String describe;//分类描述
+    private String describes;//分类描述
     private Integer sort;//分类排序（按默认的展示）
     private Integer status;//状态（0不显示 1显示）
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -64,11 +64,11 @@ public class ProductClassify implements Serializable {
     }
 
     public String getDescribe() {
-        return describe;
+        return describes;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setDescribe(String describes) {
+        this.describes = describes;
     }
 
     public Integer getSort() {

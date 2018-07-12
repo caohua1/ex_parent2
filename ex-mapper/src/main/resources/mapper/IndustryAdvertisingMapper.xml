@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.IndustryAdvertisingDao">
+
+	<!--添加首页广告-->
+	<insert id="insertIndustryAdvertising" parameterType="com.ex.entity.IndustryAdvertising">
+		insert into industry_advertising(industryId,advertiseName,link,advertisePicUrl,createTime) values(#{industryId},#{advertiseName},#{link},#{advertisePicUrl},#{createTime})
+	</insert>
+
+	<!--查询广告的所有信息-->
+	<select id="selectIndustryAdvertising" resultType="com.ex.vo.IndustryAdvertisingVo">
+		select industry_advertising.*,industry_classify.industryName industryName from industry_advertising
+		left join industry_classify on industry_classify.id = industry_advertising.industryId
+		where industry_advertising.status = 1
+	</select>
+
+	<!--查询总数量-->
+	<select id="selectIndustryAdvertisingCount" resultType="Integer">
+		select count(*) from industry_advertising where status =1
+	</select>
+
+	<!--编辑-->
+	<update id="updateIndustryAdvertising" parameterType="com.ex.entity.IndustryAdvertising">
+		update industry_advertising set
+		<if test="industryId!=null">
+			industryId = #{industryId}
+		</if>
+		<if test="advertiseName!=null and advertiseName!=''">
+			advertiseName = #{advertiseName},
+		</if>
+		<if test="link!=null and link!=''">
+			link = #{link},
+		</if>
+		<if test="advertisePicUrl!=null and advertisePicUrl!=''">
+			advertisePicUrl = #{advertisePicUrl},
+		</if>
+		<if test="status!=null">
+			status = #{status},
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		where id= #{id}
+	</update>
+
+	<!--根据id查询详情-->
+	<select id="selectIndustryAdvertisingById" parameterType="Long" resultType="com.ex.vo.IndustryAdvertisingVo">
+		select industry_advertising.*,industry_classify.industryName industryName from industry_advertising
+		left join industry_classify on industry_classify.id = industry_advertising.industryId
+		where industry_advertising.id = #{id}
+	</select>
+</mapper>

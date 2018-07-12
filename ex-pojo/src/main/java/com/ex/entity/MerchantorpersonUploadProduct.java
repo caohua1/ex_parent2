@@ -1,14 +1,13 @@
 package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 
 import java.util.Date;
 
 /**
  * 上传商品视频（图片）
  */
-@Data
+
 public class MerchantorpersonUploadProduct {
     private Long id;
     private Long merchantId;

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.IndustryClassifyDao">
+
+
+	<!--添加行业分类-->
+	<insert id="insertIndustry" parameterType="com.ex.entity.IndustryClassify">
+		insert into industry_classify(industryName,createTime,status) values(#{industryName},#{createTime},#{status})
+	</insert>
+	<!--查询所有可显示的行业分类-->
+	<select id="getAll" resultType="com.ex.entity.IndustryClassify">
+		SELECT * FROM industry_classify WHERE status=1
+	</select>
+	<!--分页查询-->
+	<select id="selectIndustry" parameterType="com.ex.entity.IndustryClassify" resultType="com.ex.entity.IndustryClassify">
+		select * from industry_classify where 1=1
+		<if test="industryName!=null and industryName!=''">
+			and industryName = #{industryName}
+		</if>
+	</select>
+	<!--查询总数量-->
+	<select id="selectIndustryCount" parameterType="com.ex.entity.IndustryClassify" resultType="Integer">
+		select count(*) from industry_classify where 1=1
+		<if test="industryName!=null and industryName!=''">
+			and industryName = #{industryName}
+		</if>
+	</select>
+	<!--修改-->
+	<update id="updateIndustry" parameterType="com.ex.entity.IndustryClassify">
+		update industry_classify set
+		<if test="industryName!=null and industryName!=''">
+			industryName = #{industryName},
+		</if>
+		<if test="status!=null">
+			status = #{status},
+		</if>
+		<if test="updateTime!=null">
+			updateTime= #{updateTime}
+		</if>
+		where id=#{id}
+	</update>
+	<!--删除-->
+	<delete id="deleteIndustry" parameterType="Long">
+		delete from industry_classify where id = #{id}
+	</delete>
+</mapper>

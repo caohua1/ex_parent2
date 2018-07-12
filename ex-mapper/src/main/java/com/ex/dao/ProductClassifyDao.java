@@ -9,4 +9,9 @@ import java.util.List;
 public interface ProductClassifyDao {
 
     public List<ProductClassify> selectProductClassify(ProductClassify productClassify);
+    public Integer insertProductClassify(ProductClassify productClassify);
+    public Integer updateProductClassify(ProductClassify productClassify);
+    public Integer deleteProductClassify(Long id);
+    public Integer selectProductClassifyCount(ProductClassify productClassify);
+    public List<ProductClassify> selectByLevelNum2(Long parentId);
 }
