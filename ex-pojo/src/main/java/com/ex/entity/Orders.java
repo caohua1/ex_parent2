@@ -25,7 +25,15 @@ public class Orders implements Serializable{
     private String backCauseBy;
     private String backNum;
     private Integer status;
+    private ProductInfoManage productInfoManage;
 
+    public ProductInfoManage getProductInfoManage() {
+        return productInfoManage;
+    }
+
+    public void setProductInfoManage(ProductInfoManage productInfoManage) {
+        this.productInfoManage = productInfoManage;
+    }
 
     public Long getId() {
         return id;

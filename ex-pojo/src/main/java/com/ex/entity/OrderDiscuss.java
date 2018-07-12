@@ -107,8 +107,5 @@ public class OrderDiscuss implements Serializable {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> origin/master
