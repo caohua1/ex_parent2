@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 @ComponentScan
 @ImportResource(value = {"classpath:dubbo-privider.xml"})
-public class PayApplication  extends SpringBootServletInitializer {
+public class  PayApplication  extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(

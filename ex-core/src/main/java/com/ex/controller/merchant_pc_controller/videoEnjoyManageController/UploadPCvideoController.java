@@ -23,7 +23,7 @@ public class UploadPCvideoController {
 
     /**
      * PC端商家上传视视频
-     * @param Files
+     * @param Path
      * @param describe
      * @param link
      * @param productInfoId
@@ -31,19 +31,16 @@ public class UploadPCvideoController {
      * @return
      */
     @RequestMapping("insertMerchantorpersonUploadProduct")
-    public JsonView insertMerchantorpersonUploadProduct(MultipartFile[] Files,String describe,String link,Long productInfoId,Long merchantId,HttpServletRequest request){
+    public JsonView insertMerchantorpersonUploadProduct(String Path,String describe,String link,Long productInfoId,Long merchantId,HttpServletRequest request){
         JsonView jsonView= new JsonView();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         MerchantorpersonUploadProduct merchantorpersonUploadProduct=new MerchantorpersonUploadProduct();
+
         FileEntity entity = new FileEntity();
         FileUploadTool fileUploadTool = new FileUploadTool();
         try{
-            if(Files!=null||Files.length>0){
-                for (MultipartFile multipartFile:Files
-                     ) {
-                    entity = fileUploadTool.createFile(multipartFile, request);
-                    merchantorpersonUploadProduct.setFileUrl(entity.getPath());
-                }
+            if(Path!=null&&Path!=""){
+                merchantorpersonUploadProduct.setFileUrl(Path);
             }if(merchantId!=null){
                 merchantorpersonUploadProduct.setMerchantId(merchantId);
             }if(describe!=null&&describe!=""){
@@ -59,7 +56,7 @@ public class UploadPCvideoController {
                 jsonView.setMessage("添加数据成功");
             }else {
                 jsonView.setMessage("添加数据失败");
-            }
+        }
         }catch (Exception e) {
              e.printStackTrace();
             jsonView.fail();

@@ -15,12 +15,13 @@ public class UploadFileController {
 
 
     /**
+     * ajxa提交
      * pc端，上传文件（上传多个）
      * @param Files
      * @param request
      * @return
      */
-    @RequestMapping("/files")
+    @RequestMapping("files")
     public JsonView uploadFile(MultipartFile[] Files,HttpServletRequest request){
         JsonView jsonView = new JsonView();
         try{

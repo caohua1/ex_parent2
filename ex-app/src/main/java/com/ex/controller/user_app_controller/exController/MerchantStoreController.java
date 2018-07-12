@@ -1,13 +1,21 @@
 package com.ex.controller.user_app_controller.exController;
 
+import com.ex.dao.ProductClassifyDao;
+import com.ex.dao.ProductInfoManageDao;
 import com.ex.dao.StoreInfoDao;
 import com.ex.entity.AppointmentOrder;
+import com.ex.entity.ProductClassify;
 import com.ex.entity.StoreInfo;
+import com.ex.service.AppOrderDiscussService;
 import com.ex.service.AppProductClassifyService;
 import com.ex.service.AppointmentOrder1Service;
+import com.ex.util.DateAndTimeUtil;
 import com.ex.util.JsonView;
+import com.ex.util.PageRequest;
 import com.ex.util.UUIDUtil;
+import com.ex.vo.OrderDiscussVo;
 import com.ex.vo.ProductInfoManageVo;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,32 +37,98 @@ public class MerchantStoreController {
     private AppProductClassifyService appProductClassifyService;
     @Autowired
     private StoreInfoDao storeInfoDao;
+    @Autowired
+    private AppOrderDiscussService appOrderDiscussService;
 
 
 
     /**
-     * 3.商家店铺，点击某个商家进入某商家店（包括此商家的商品）铺详情页
+     * 1.商家店铺，点击某个商家进入某商家店（包括此商家的商品,分页查询）铺详情页
+     * 按照分类查询此商店的商品
      * @param storeInfo（id）
      * @return
      */
     @RequestMapping("/selectStoreInfoById")
-    public JsonView selectStoreInfoById(StoreInfo storeInfo){
+    public JsonView selectStoreInfoById(StoreInfo storeInfo,PageRequest pageRequest){
         JsonView jsonView = new JsonView();
         try{
+            int orderNum = 0;
             Map map = new HashMap();
+            Map map1 = new HashMap();
             //1.查询此商家的店铺信息
             List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+            map.put("storeInfo",storeInfos.get(0));
             //2.查询此商家的商品
             if(storeInfos!=null && storeInfos.size()>0){
-                map.put("storeInfo",storeInfos.get(0));
-                List<ProductInfoManageVo> productInfoManageVos = appProductClassifyService.selectProductsByMerchantId(storeInfos.get(0).getMerchantid());
-                map.put("productInfoManageVos",productInfoManageVos);
-                jsonView.setMessage("查询此商家的商品成功");
-                jsonView.setCode(JsonView.SUCCESS);
-                jsonView.setData(map);
+                map1.put("merchantId",storeInfos.get(0).getMerchantid());
+                List<ProductInfoManageVo> productInfoManageVos = appProductClassifyService.selectProductsByMerchantId2(map1);
+                //计算店铺的销售量
+                if(productInfoManageVos!=null && productInfoManageVos.size()>0){
+                    for(int i=0;i<productInfoManageVos.size();i++){
+                        if(productInfoManageVos.get(i).getSaleOrderNum()!=null){
+                            orderNum += productInfoManageVos.get(i).getSaleOrderNum();
+                        }
+                    }
+                }
+                PageInfo<ProductInfoManageVo> productInfoManageVosPageInfo = appProductClassifyService.selectProductsByMerchantId(map,pageRequest);
+                map.put("productInfoManageVosPageInfo",productInfoManageVosPageInfo);
             }else{
                 jsonView.setMessage("数据为空");
             }
+            jsonView.setMessage("查询此店铺的信息成功");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setData(map);
+            jsonView.setTodoCount(orderNum);//销售总量
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
+        }
+        return jsonView;
+    }
+
+    /**
+     * 查询三级分类，分页查询
+     * @param productClassify
+     * @param pageRequest
+     * @return
+     */
+    @RequestMapping("/selectProductClassify")
+    public JsonView selectProductClassify( ProductClassify productClassify,PageRequest pageRequest){
+        JsonView jsonView = new JsonView();
+        try{
+            //3.查询三级分类
+            PageInfo<ProductClassify> productClassifyPageInfo = appProductClassifyService.selectProductClassify(productClassify, pageRequest);
+            jsonView.setMessage("查询三级分类");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setData(productClassifyPageInfo);
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
+        }
+        return jsonView;
+    }
+    /**
+     * 2.商家店铺，分类查询此店铺的商品（分页查询）
+     * 按照分类查询此商店的商品
+     * @param merchantId
+     * @param productClassifyId
+     * @return
+     */
+    @RequestMapping("/selectStoreProductsInfo")
+    public JsonView selectStoreProductsInfo(Long merchantId,Long productClassifyId,PageRequest pageRequest){
+        JsonView jsonView = new JsonView();
+        try{
+            Map map1 = new HashMap();
+            //查询此商家的商品
+            map1.put("merchantId",merchantId);
+            map1.put("productClassifyId",productClassifyId);
+            PageInfo<ProductInfoManageVo> pageInfo = appProductClassifyService.selectProductsByMerchantId(map1,pageRequest);
+            jsonView.setMessage("查询此商家的商品成功");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setData(pageInfo);
+
         }catch(Exception e){
             e.printStackTrace();
             jsonView.setCode(JsonView.ERROR);
@@ -62,6 +136,7 @@ public class MerchantStoreController {
         }
         return jsonView;
     }
+
 
     /**
      * 根据ids查询所有选择的商品的价格
@@ -85,18 +160,18 @@ public class MerchantStoreController {
 
     /**
      * 用户，预订商品
-     * registUserId,productInfoIds商品ids,registUsername用户账号,contactsName联系人,contactsPhone联系电话,
-     peopleNum预定人数,orderNum预定编号,merchantName商家名称,productName产品名称,appointmentMoney金额,appointmentTime时间,
+     * registUserId,merchantId 商家id，productInfoIds商品ids,registUsername用户账号,contactsName联系人,contactsPhone联系电话,
+     peopleNum预定人数,orderNum预定编号,merchantName商家名称(店铺名称),productName产品名称,appointmentMoney金额,YDTime时间,
      createTime,remark备注,payWay支付方式,payStatus支付状态
      * @param appointmentOrder
      * @return
      */
     @RequestMapping("/insertAppointmentOrder")
-    public JsonView insertAppointmentOrder(AppointmentOrder appointmentOrder){
+    public JsonView insertAppointmentOrder(AppointmentOrder appointmentOrder,String YDTime){
         try{
             appointmentOrder.setOrderNum(UUIDUtil.getOrderIdByUUId());
-            System.out.println(UUIDUtil.getOrderIdByUUId());
             appointmentOrder.setCreateTime(new Date());
+            appointmentOrder.setAppointmentTime(DateAndTimeUtil.convert(YDTime));
             JsonView jsonView = appointmentOrderService.insertAppointmentOrder(appointmentOrder);
             return jsonView;
         }catch(Exception e){
@@ -105,4 +180,79 @@ public class MerchantStoreController {
         return JsonView.fail("预订失败");
     }
 
+    /**
+     * 查询某商家的所有商品的评价
+     * @param merchantId
+     * @param registUserId
+     * @param pageRequest
+     * @return
+     */
+    @RequestMapping("/selectDiscussByMerchantIdAndProductInfoId")
+    public JsonView selectDiscussByMerchantIdAndProductInfoId(Long merchantId,PageRequest pageRequest){
+        JsonView jsonView = new JsonView();
+        try{
+            Map map = new HashMap();
+            map.put("merchantId",merchantId);
+            PageInfo<OrderDiscussVo> pageInfo = appOrderDiscussService.selectDiscussByMerchantIdAndProductInfoId(map, pageRequest);
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("查询成功");
+            jsonView.setData(pageInfo);
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
+        }
+        return jsonView;
+    }
+
+
+    /**
+     * 点击商品图片与名称，跳转到商品详情页（商品详情，商品评价merchantId，productInfoId）
+     * @param id
+     * @return
+     */
+    @RequestMapping("/selectProductInfo")
+    public JsonView selectProductInfo(Long id){
+        JsonView jsonView = new JsonView();
+        try{
+            ProductInfoManageVo productInfoManageVo = appProductClassifyService.selectProductInfoById(id);
+            if(productInfoManageVo.getSXJStatus()==0){
+                jsonView.setMessage("对不起，您查看的商品已经下架");
+                jsonView.setData(productInfoManageVo);
+            }else{
+                jsonView.setMessage("查询成功");
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setData(productInfoManageVo);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("查询异常");
+            jsonView.setCode(JsonView.ERROR);
+        }
+        return jsonView;
+    }
+
+    /**
+     * 查看某商品的评论
+     * @param ProductInfoId
+     * @param pageRequest
+     * @return
+     */
+    @RequestMapping("/selectDiscussByProductInfoId")
+    public JsonView selectDiscussByProductInfoId(Long productInfoId,PageRequest pageRequest){
+        JsonView jsonView = new JsonView();
+        try{
+            Map map = new HashMap();
+            map.put("productInfoId",productInfoId);
+            PageInfo<OrderDiscussVo> pageInfo = appOrderDiscussService.selectDiscussByMerchantIdAndProductInfoId(map, pageRequest);
+            jsonView.setMessage("查询成功");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setData(pageInfo);
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
+        }
+        return jsonView;
+    }
 }

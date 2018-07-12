@@ -80,8 +80,24 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
      * @return
      */
     @Override
-    public List<ProductInfoManageVo> selectProductsByMerchantId(Long merchantId) {
-        List<ProductInfoManageVo> productInfoManageVos = productInfoManageDao.selectProductsByMerchantId(merchantId);
+    public PageInfo<ProductInfoManageVo> selectProductsByMerchantId(Map map,PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<ProductInfoManageVo> productInfoManageVos = productInfoManageDao.selectProductsByMerchantId(map);
+        if(productInfoManageVos!=null && productInfoManageVos.size()>0){
+            for(ProductInfoManageVo productInfoManage1 : productInfoManageVos){
+                List<ProductPropertySet> productPropertySets = productPropertySetDao.selectPropertySet(productInfoManage1.getId());
+                //把商品规格set进去
+                productInfoManage1.setProductPropertySetList(productPropertySets);
+            }
+        }
+        PageInfo<ProductInfoManageVo> pageInfo = new PageInfo<>(productInfoManageVos);
+        return pageInfo;
+    }
+
+
+    @Override
+    public List<ProductInfoManageVo> selectProductsByMerchantId2(Map map) {
+        List<ProductInfoManageVo> productInfoManageVos = productInfoManageDao.selectProductsByMerchantId(map);
         if(productInfoManageVos!=null && productInfoManageVos.size()>0){
             for(ProductInfoManageVo productInfoManage1 : productInfoManageVos){
                 List<ProductPropertySet> productPropertySets = productPropertySetDao.selectPropertySet(productInfoManage1.getId());
@@ -90,6 +106,22 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
             }
         }
         return productInfoManageVos;
+    }
+
+    /**
+     * 查询商品详情
+     * @param id
+     * @return
+     */
+    @Override
+    public ProductInfoManageVo selectProductInfoById(Long id) {
+        ProductInfoManageVo productInfoManageVo = productInfoManageDao.selectProductInfoById(id);
+        if(productInfoManageVo!=null){
+            List<ProductPropertySet> productPropertySets = productPropertySetDao.selectPropertySet(productInfoManageVo.getId());
+            //规格
+            productInfoManageVo.setProductPropertySetList(productPropertySets);
+        }
+        return productInfoManageVo;
     }
 
 

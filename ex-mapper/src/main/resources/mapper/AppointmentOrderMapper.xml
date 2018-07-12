@@ -9,10 +9,10 @@
 	</select>
 	<!--设置预约配置，添加数据-->
 	<insert id="insertAppointmentOrder" parameterType="com.ex.entity.AppointmentOrder">
-		insert appointment_order (registUserId,productInfoIds,registUsername,contactsName,contactsPhone,
+		insert appointment_order (registUserId,merchantId,productInfoIds,registUsername,contactsName,contactsPhone,
 		peopleNum,orderNum,merchantName,productName,appointmentMoney,appointmentTime,
 		createTime,remark,payWay,payStatus)
-		values(#{registUserId},#{productInfoIds},#{registUsername},#{contactsName},
+		values(#{registUserId},#{merchantId},#{productInfoIds},#{registUsername},#{contactsName},
 		#{contactsPhone},#{peopleNum},#{orderNum},#{merchantName},#{productName},
 		#{appointmentMoney},#{appointmentTime},#{createTime},#{remark},#{payWay},
 		#{payStatus})

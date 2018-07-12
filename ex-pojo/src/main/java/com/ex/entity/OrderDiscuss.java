@@ -2,22 +2,23 @@ package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OrderDiscuss {
+public class OrderDiscuss implements Serializable {
     private Long id;
-    private Long orderId;//订单ID
-    private Long registUserId;//评论的用户的id
-    private Integer discussLevel;//描述相符
-    private String discuss;//用户对商品的评论
-    private Integer anonymity;//是否匿名
-    private Integer logisticsService;//物流服务（5星级别）
-    private Integer serviceAttitude;//服务态度（5星级别）
-    private String pictureUrl;//评论图片
+    private Long orderId;
+    private Long registUserId;
+    private Integer discussLevel;
+    private String discuss;
+    private Integer anonymity;
+    private Integer logisticsService;
+    private Integer serviceAttitude;
+    private String pictureUrl;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date discussTime;//评论的时间
+    private Date discussTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date updateTime;//修改时间
+    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -106,4 +107,8 @@ public class OrderDiscuss {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/master

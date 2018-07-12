@@ -6,34 +6,34 @@
         <where>
             1=1
             <if test="record.id != null">
-                AND id = #{record.id},
+                AND id = #{record.id}
             </if>
             <if test="record.productclassifyid != null">
-                AND productClassifyId = #{record.productclassifyid},
+                AND productClassifyId = #{record.productclassifyid}
             </if>
             <if test="record.merchantid != null">
-                AND merchantId = #{record.merchantid},
+                AND merchantId = #{record.merchantid}
             </if>
             <if test="record.storename != null">
-                AND storeName = #{record.storename},
+                AND storeName = #{record.storename}
             </if>
             <if test="record.describe != null">
-                AND describe = #{record.describe},
+                AND describe = #{record.describe}
             </if>
             <if test="record.advertisingpicurl != null">
-                AND advertisingPicUrl = #{record.advertisingpicurl},
+                AND advertisingPicUrl = #{record.advertisingpicurl}
             </if>
             <if test="record.createtime != null">
-                AND createTime = #{record.createtime},
+                AND createTime = #{record.createtime}
             </if>
             <if test="record.updatetime != null">
-                AND updateTime = #{record.updatetime},
+                AND updateTime = #{record.updatetime}
             </if>
             <if test="record.status != null">
-                AND status = #{record.status},
+                AND status = #{record.status}
             </if>
             <if test="record.paystatus != null">
-                AND payStatus = #{record.paystatus},
+                AND payStatus = #{record.paystatus}
             </if>
         </where>
     </sql>
