@@ -1,5 +1,6 @@
 package com.ex.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.ex.dao.ShareOrderDao;
 import com.ex.entity.ProductInfoManage;
 import com.ex.entity.ShareOrder;
@@ -9,36 +10,39 @@ import com.ex.util.PageRequest;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-@Service
+@Service(version = "1.0.0")
 public class ShareOrderServiceImpl implements ShareOrderService {
 
+    /**
+     * 分享订单Dao
+     */
     @Autowired
     private ShareOrderDao shareOrderDao;
 
     /**
      * 按条件查询所有分享信息
+     *
      * @param shareOrder
      * @param pageRequest
      * @return
      */
     @Override
-    public PageInfo<ShareOrder> selectShareOrderAll(ShareOrder shareOrder,PageRequest pageRequest) {
-        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+    public List<ShareOrder> selectShareOrderAll(ShareOrder shareOrder, PageRequest pageRequest) {
         List<ShareOrder> shareOrders = shareOrderDao.selectShareOrderAll(shareOrder);
-        PageInfo<ShareOrder> pageInfo = new PageInfo<>(shareOrders);
-        return pageInfo;
+        return shareOrders;
     }
 
     /**
      * 按条件id精确查找分享信息
+     *
      * @param id
      * @return
      */
@@ -49,6 +53,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
 
     /**
      * 添加分享信息
+     *
      * @param shareOrder
      * @return
      */
@@ -61,6 +66,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
 
     /**
      * 修改分享信息
+     *
      * @param shareOrder
      * @return
      */
@@ -72,12 +78,18 @@ public class ShareOrderServiceImpl implements ShareOrderService {
     }
 
     @Override
-    public ShareOrderInfo selectShareOrderInfo(long merchantId, int payStatus) {
+    public ShareOrderInfo selectShareOrderInfo(Map<String, Object> map) {
+        long merchantId = 1L;
+        if (map.get("merchantId") != null)
+            merchantId = (long) map.get("merchantId");
+        int payStatus = 1;
+        if (map.get("payStatus") != null)
+            payStatus = (int) map.get("payStatus");
         return shareOrderDao.selectShareOrderInfo(merchantId, payStatus);
     }
 
     @Override
-    public ProductInfoManage selectproductinfoById(long productinfoid) {
+    public ProductInfoManage selectproductinfoById(Long productinfoid) {
         return shareOrderDao.selectproductinfoById(productinfoid);
     }
 }

@@ -5,34 +5,34 @@
     <!--返回结果映射到实体类-->
     <resultMap id="ShareOrderResultMap" type="com.ex.entity.ShareOrder">
         <id column="id" property="id" jdbcType="BIGINT"/>
-        <result column="orderNum" property="ordernum"/>
-        <result column="buyUserId" property="buyuserid"/>
-        <result column="shareUserId" property="shareuserid"/>
-        <result column="shareUsername" property="shareusername"/>
-        <result column="buyUsername" property="buyusername"/>
-        <result column="shareMechanism" property="sharemechanism"/>
+        <result column="orderNum" property="orderNum"/>
+        <result column="buyUserId" property="buyUserId"/>
+        <result column="shareUserId" property="shareUserId"/>
+        <result column="shareUsername" property="shareUsername"/>
+        <result column="buyUsername" property="buyUsername"/>
+        <result column="shareMechanism" property="shareMechanism"/>
         <result column="commission" property="commission"/>
-        <result column="merchantName" property="merchantname"/>
-        <result column="orderMoney" property="ordermoney"/>
-        <result column="createTime" property="createtime"/>
-        <result column="updateTime" property="updatetime"/>
-        <result column="payStatus" property="paystatus"/>
+        <result column="merchantName" property="merchantName"/>
+        <result column="orderMoney" property="orderMoney"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="payStatus" property="payStatus"/>
         <result column="status" property="status"/>
         <association property="orders" javaType="com.ex.entity.Orders">
             <id column="id" property="id"/>
-            <result column="orderNum" property="ordernum"/>
-            <result column="productNum" property="productnum"/>
-            <result column="orderMoney" property="ordermoney"/>
-            <result column="productInfoId" property="productinfoid"/>
-            <result column="addressId" property="addressid"/>
-            <result column="createTime" property="createtime"/>
-            <result column="payTime" property="paytime"/>
-            <result column="sendTime" property="sendtime"/>
-            <result column="finishTime" property="finishtime"/>
+            <result column="orderNum" property="orderNum"/>
+            <result column="productNum" property="productNum"/>
+            <result column="orderMoney" property="orderMoney"/>
+            <result column="productInfoId" property="productInfoId"/>
+            <result column="addressId" property="addressId"/>
+            <result column="createTime" property="createTime"/>
+            <result column="payTime" property="payTime"/>
+            <result column="sendTime" property="sendTime"/>
+            <result column="finishTime" property="finishTime"/>
             <result column="money" property="money"/>
-            <result column="payStatus" property="paystatus"/>
-            <result column="backCauseBy" property="backcauseby"/>
-            <result column="backNum" property="backnum"/>
+            <result column="payStatus" property="payStatus"/>
+            <result column="backCauseBy" property="backCauseBy"/>
+            <result column="backNum" property="backNum"/>
             <result column="status" property="status"/>
             <association property="productInfoManage" javaType="com.ex.entity.ProductInfoManage">
                 <id column="id" property="id"/>
@@ -55,7 +55,7 @@
                 <result column="shareSet" property="shareSet"/>
                 <result column="saleOrderNum" property="saleOrderNum"/>
                 <result column="SHStatus" property="SHStatus"/>
-                <result column="SXJStatus" property="sxjstatus"/>
+                <result column="SXJStatus" property="SXJStatus"/>
                 <result column="DLStatus" property="DLStatus"/>
             </association>
         </association>
@@ -67,15 +67,15 @@
         <where>
             1=1
             <if test="id != null">AND so.id = #{id}</if>
-            <if test="ordernum != null">AND so.orderNum = #{ordernum}</if>
-            <if test="buyuserid != null">AND so.buyUserId = #{buyuserid}</if>
-            <if test="shareuserid != null">AND so.shareUserId = #{shareuserid}</if>
-            <if test="shareusername != null">AND so.shareUsername = #{shareusername}</if>
-            <if test="buyusername != null">AND so.buyUsername = #{buyusername}</if>
-            <if test="sharemechanism != null">AND so.shareMechanism = #{sharemechanism}</if>
+            <if test="orderNum != null">AND so.orderNum = #{orderNum}</if>
+            <if test="buyUserId != null">AND so.buyUserId = #{buyUserId}</if>
+            <if test="shareUserId != null">AND so.shareUserId = #{shareUserId}</if>
+            <if test="shareUsername != null">AND so.shareUsername = #{shareUsername}</if>
+            <if test="buyUsername != null">AND so.buyUsername = #{buyUsername}</if>
+            <if test="shareMechanism != null">AND so.shareMechanism = #{shareMechanism}</if>
             <if test="commission != null">AND so.commission = #{commission}</if>
-            <if test="merchantname != null">AND so.merchantName = #{merchantname}</if>
-            <if test="ordermoney != null">AND so.orderMoney = #{ordermoney}</if>
+            <if test="merchantName != null">AND so.merchantName = #{merchantName}</if>
+            <if test="orderMoney != null">AND so.orderMoney = #{orderMoney}</if>
             <if test="startTime!=null and endTime==null">
                 and so.createTime &gt;= #{startTime}
             </if>
@@ -85,40 +85,40 @@
             <if test="endTime!=null and startTime!=null">
                 and so.createTime BETWEEN #{startTime} AND #{endTime}
             </if>
-            <if test="updatetime != null">AND so.updateTime = #{updatetime}</if>
-            <if test="paystatus != null">AND so.payStatus = #{paystatus}</if>
+            <if test="updateTime != null">AND so.updateTime = #{updateTime}</if>
+            <if test="payStatus != null">AND so.payStatus = #{payStatus}</if>
             <if test="status != null">AND so.status = #{status}</if>
         </where>
     </sql>
     <!--按条件查询所有分享信息-->
     <select id="selectShareOrderAll" resultMap="ShareOrderResultMap" parameterType="com.ex.entity.ShareOrder">
-        SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum JOIN productinfo_manage pm ON o.productInfoId = pm.id
+        SELECT * FROM share_order  so LEFT JOIN orders o ON so.orderNum = o.orderNum LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
         <include refid="Example_Where_Clause"/>
     </select>
     <!--按条件id精确查找分享信息-->
     <select id="selectShareOrderById" resultMap="ShareOrderResultMap" parameterType="java.lang.Long">
-        SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum JOIN productinfo_manage pm ON o.productInfoId = pm.id WHERE so.id = #{id}
+        SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id WHERE so.id = #{id}
     </select>
     <!--添加分享信息-->
     <insert id="insertShareOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.ShareOrder">
         INSERT INTO share_order (orderNum, buyUserId, shareUserId, shareUsername, buyUsername, shareMechanism, commission, merchantName,orderMoney, createTime, updateTime, payStatus, status)
-        VALUES (#{ordernum}, #{buyuserid}, #{shareuserid}, #{shareusername}, #{buyusername}, #{sharemechanism}, #{commission}, #{merchantname}, #{ordermoney}, #{createtime}, #{updatetime}, #{paystatus}, #{status})
+        VALUES (#{orderNum}, #{buyUserId}, #{shareUserId}, #{shareUsername}, #{buyUsername}, #{shareMechanism}, #{commission}, #{merchantName}, #{orderMoney}, #{createTime}, #{updateTime}, #{payStatus}, #{status})
     </insert>
     <!--修改分享信息-->
     <update id="uodateShareOrder" parameterType="com.ex.entity.ShareOrder">
         update share_order
-        set orderNum = #{ordernum},
-        buyUserId = #{buyuserid},
-        shareUserId = #{shareuserid},
-        shareUsername = #{shareusername},
-        buyUsername = #{buyusername},
-        shareMechanism = #{sharemechanism},
+        set orderNum = #{orderNum},
+        buyUserId = #{buyUserId},
+        shareUserId = #{shareUserId},
+        shareUsername = #{shareUsername},
+        buyUsername = #{buyUsername},
+        shareMechanism = #{shareMechanism},
         commission = #{commission},
-        merchantName = #{merchantname},
-        orderMoney = #{ordermoney},
-        createTime = #{createtime},
-        updateTime = #{updatetime},
-        payStatus = #{paystatus},
+        merchantName = #{merchantName},
+        orderMoney = #{orderMoney},
+        createTime = #{createTime},
+        updateTime = #{updateTime},
+        payStatus = #{payStatus},
         status = #{status}
         where id = #{id}
     </update>
