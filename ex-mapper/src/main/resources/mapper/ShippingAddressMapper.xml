@@ -6,7 +6,7 @@
 	<!--用户新增地址-->
 	<insert id="insertShippingAddress" parameterType="com.ex.entity.ShippingAddress">
 		insert into shipping_address(registUserId,area,address,realName,phone,postalCode,createTime)
-		values(#{registUserId},#{area},#{address},#{realName},#{phone}
+		values(#{registUserId},#{area},#{address},#{realName},#{phone},
         #{postalCode},#{createTime})
 	</insert>
 

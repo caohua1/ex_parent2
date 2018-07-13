@@ -37,6 +37,7 @@
           <element id="archive" name="ex-pojo-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ex-pojo" />
           </element>
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.18" />
           <element id="archive" name="ex-redis-api-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ex-redis-api" />
           </element>
