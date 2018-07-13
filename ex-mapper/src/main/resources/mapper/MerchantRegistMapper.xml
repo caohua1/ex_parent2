@@ -34,4 +34,8 @@
     <select id="merchantLoginOrCheckUserName" resultType="com.ex.entity.MerchantRegist" parameterType="java.lang.String">
         SELECT * FROM merchant_regist WHERE username = #{username}
     </select>
+    <!--根据用户名查询互推商家id-->
+    <select id="selectMutualReferrringById" parameterType="java.lang.String" resultType="java.lang.Long">
+        SELECT id FROM merchant_regist WHERE username=#{username}
+    </select>
 </mapper>

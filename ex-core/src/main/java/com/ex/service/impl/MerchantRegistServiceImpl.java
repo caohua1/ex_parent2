@@ -72,4 +72,14 @@ public class MerchantRegistServiceImpl implements MerchantRegistService {
         PageInfo<MerchantRegist> pageInfo = new PageInfo<>(users);
         return pageInfo;
     }
+
+    /**
+     * 根据用户名查询互推商家id
+     * @param username
+     * @return
+     */
+    @Override
+    public Long selectMutualReferrringById(String username) {
+        return merchantRegistDao.selectMutualReferrringById(username);
+    }
 }

@@ -20,5 +20,7 @@ public interface MerchantRegistService {
     MerchantRegist merchantLoginOrCheckUserName(String username);
     //获取所有商家注册信息
     PageInfo<MerchantRegist> findByPage(PageRequest page);
+    //根据商家用户名查询商家id
+    public Long selectMutualReferrringById(String username);
 
 }

@@ -14,7 +14,7 @@
     <!-- 指定暴露接口，协议 -->
     <dubbo:protocol name="dubbo" port="20882"/>
     <!-- 声明需要暴露的服务接口 -->
-    <dubbo:service interface="com.ex.service.PayTestService" ref="redisUtilService" version="1.0.0"/>
+    <dubbo:service interface="com.ex.service.PcAlipayService" ref="pcAlipayService" version="1.0.0"/>
     <!-- 和本地bean一样实现服务 -->
-    <bean id="redisUtilService" class="com.ex.service.impl.PayTestServiceImpl"/>
+    <bean id="pcAlipayService" class="com.ex.service.impl.PcAlipayServiceimpl"/>
 </beans>

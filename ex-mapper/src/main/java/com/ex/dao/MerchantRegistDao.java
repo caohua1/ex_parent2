@@ -22,4 +22,6 @@ public interface MerchantRegistDao {
     int insertMerchantRegist(MerchantRegist merchantRegist);
 
     MerchantRegist merchantLoginOrCheckUserName(@Param("username") String username);
+
+    public Long selectMutualReferrringById(String username);
 }
