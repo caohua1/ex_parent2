@@ -35,6 +35,9 @@
             <if test="record.paystatus != null">
                 AND payStatus = #{record.paystatus}
             </if>
+            <if test="record.STJStatus != null">
+                AND STJStatus = #{record.STJStatus}
+            </if>
         </where>
     </sql>
 
@@ -42,10 +45,10 @@
     <insert id="insertStoreInfo"  useGeneratedKeys="true" keyProperty="id"   parameterType="com.ex.entity.StoreInfo">
       insert into store_info (productClassifyId, merchantId,
       storeName, describe, advertisingPicUrl,
-      createTime, updateTime, status,
+      createTime, updateTime, status,STJStatus,
       payStatus)
     values (#{productclassifyid}, #{merchantid}, #{storename}, #{describe}, #{advertisingpicurl},
-      #{createtime}, #{updatetime}, #{status}, #{paystatus})
+      #{createtime}, #{updatetime}, #{status},#{STJStatus},#{paystatus})
     </insert>
 
     <!--按条件查询店铺信息-->
@@ -64,9 +67,10 @@
             <if test="describe != null" >describe = #{describe},</if>
             <if test="advertisingpicurl != null" >advertisingPicUrl = #{advertisingpicurl},</if>
             <if test="createtime != null" >createTime = #{createtime},</if>
-            <if test="updatetime != null" >updateTime = #{updatetime},</if>
             <if test="status != null" >status = #{status},</if>
             <if test="paystatus != null" >payStatus = #{paystatus},</if>
+            <if test="STJStatus!=null">STJStatus = #{STJStatus},</if>
+            <if test="updatetime != null" >updateTime = #{updatetime}</if>
         </set>
         where id = #{id}
     </update>

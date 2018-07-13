@@ -6,9 +6,9 @@
 	<insert id="insertProductInfo" parameterType="com.ex.entity.ProductInfoManage">
 		insert into productinfo_manage(merchantId,productName,productClassifyId,
 		agentPrice,vipPrice,resalePrice,storeNum,storePrewarnNum,brandId,productPicUrl,appSlideshowPic,
-		pcSlideshowPic,productDescribe,startTime,endTime,SXJStatus,createTime)
+		pcSlideshowPic,productDescribe,startTime,endTime,SXJStatus,STJStatus,createTime)
 		values(#{merchantId},#{productName},#{productClassifyId},#{agentPrice},#{vipPrice},#{resalePrice},#{storeNum},#{storePrewarnNum},
-		#{brandId},#{productPicUrl},#{appSlideshowPic},#{pcSlideshowPic},#{productDescribe},#{startTime},#{endTime},#{SXJStatus},#{createTime})
+		#{brandId},#{productPicUrl},#{appSlideshowPic},#{pcSlideshowPic},#{productDescribe},#{startTime},#{endTime},#{SXJStatus},#{STJStatus},#{createTime})
 	</insert>
 
    <!--修改商品详情（分享设置）-->
@@ -64,6 +64,9 @@
 		</if>
 		<if test="DLStatus!=null">
 			SXJStatus = #{SXJStatus},
+		</if>
+		<if test="STJStatus!=null">
+			STJStatus = #{STJStatus},
 		</if>
 		<if test="updateTime!=null">
 			updateTime = #{updateTime}
