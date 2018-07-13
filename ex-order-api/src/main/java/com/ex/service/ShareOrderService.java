@@ -14,6 +14,7 @@ import java.util.Map;
  */
 public interface ShareOrderService {
     List<ShareOrder> selectShareOrderAll(ShareOrder shareOrder, PageRequest pageRequest);
+    List<ShareOrder> selectShareOrderByShareUserIdAll(long shareUserId);
     ShareOrder selectShareOrderById(Long id);
     int insertShareOrder(ShareOrder shareOrder);
     int uodateShareOrder(ShareOrder shareOrder);

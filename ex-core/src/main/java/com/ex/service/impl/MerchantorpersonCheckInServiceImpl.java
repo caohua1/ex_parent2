@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -106,9 +107,9 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
      */
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
-    public int auditTheMerchant(long id, int status, String causeby) {
+    public int auditTheMerchant(long id, int status, String causeby, Date updateTime) {
         //审核商家
-        return merchantorpersonCheckInDao.auditTheMerchant(id, status, causeby);
+        return merchantorpersonCheckInDao.auditTheMerchant(id, status, causeby,updateTime);
     }
 
     /**

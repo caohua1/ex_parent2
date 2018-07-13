@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface UserOrderDao {
     //按用户Id查询该用户所有订单信息
-    List<UserOrder> selectUserOrderByid(@Param("registUserId") long registUserId);
+    List<UserOrder> selectUserOrderByid(@Param("registUserId") long registUserId, @Param("status") Integer status);
     //查询所有订单信息
     List<UserOrder> selectUserOrderAll();
     //修改用户和订单表关联信息状态

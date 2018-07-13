@@ -4,6 +4,7 @@ import com.ex.entity.MerchantorpersonCheckIn;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,5 +60,5 @@ public interface MerchantorpersonCheckInDao {
      * @param causeby
      * @return
      */
-    int auditTheMerchant(Long id,int status,String causeby);
+    int auditTheMerchant(Long id,int status,String causeby,Date updateTime);
 }
