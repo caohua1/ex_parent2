@@ -26,7 +26,12 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
 
     @Override
     public List<UserOrder> selectUserOrderByid(long registUserId) {
-        return userOrderDao.selectUserOrderByid(registUserId);
+        return userOrderDao.selectUserOrderByid(registUserId,null);
+    }
+
+    @Override
+    public List<UserOrder> selectUserOrderByIdAndStatus(long registUserId,int status) {
+        return userOrderDao.selectUserOrderByid(registUserId,status);
     }
 
     @Override

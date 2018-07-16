@@ -32,20 +32,20 @@
 
     <!--添加商家代理-->
     <insert id="insertAgentMerchant" useGeneratedKeys="true" keyProperty="id"
-            parameterType="com.ex.entity.MerchantInviter">
+            parameterType="com.ex.entity.AgentMerchant">
         INSERT INTO agent_merchant (agentUserId, merchantId, productInfoId, agentTime, updateTime, status)
         VALUES (#{agentuserid}, #{merchantid}, #{productinfoid}, #{agenttime}, #{updatetime}, #{status})
     </insert>
 
     <!--按条件查询商家代理-->
-    <select id="byConditionsQuery" resultType="com.ex.entity.MerchantInviter"
+    <select id="byConditionsQuery" resultType="com.ex.entity.AgentMerchant"
             parameterType="com.ex.entity.MerchantInviter">
         SELECT * FROM agent_merchant
         <include refid="Example_Where_Clause"/>
     </select>
 
     <!--按ID修改商家代理-->
-    <update id="updateAgentMerchant" parameterType="com.ex.entity.MerchantInviter">
+    <update id="updateAgentMerchant" parameterType="com.ex.entity.AgentMerchant">
         UPDATE agent_merchant
         <set>
             <if test="agentuserid != null">agentUserId = #{agentuserid},</if>

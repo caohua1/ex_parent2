@@ -33,9 +33,10 @@ public class MerchantorpersonCheckInPCController {
     @RequestMapping(value = "/auditthemerchant", method = RequestMethod.POST)
     public JsonView auditTheMerchant(MerchantorpersonCheckIn merchantorpersonCheckIn) {
         JsonView jsonView = new JsonView();
+        merchantorpersonCheckIn.setUpdatetime(new Date());
         try {
             //审核商家
-            merchantorpersonCheckInService.auditTheMerchant(merchantorpersonCheckIn.getId(), merchantorpersonCheckIn.getStatus(), merchantorpersonCheckIn.getCauseby());
+            merchantorpersonCheckInService.auditTheMerchant(merchantorpersonCheckIn.getId(), merchantorpersonCheckIn.getStatus(), merchantorpersonCheckIn.getCauseby(),merchantorpersonCheckIn.getUpdatetime());
             //判断商家是否审核通过
             if (merchantorpersonCheckIn.getStatus() == 3) {
                 //审核通过生成邀请码

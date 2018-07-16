@@ -1,6 +1,8 @@
 package com.ex.controller.user_app_controller.orderController;
 
+import com.ex.entity.ShareOrder;
 import com.ex.entity.UserOrder;
+import com.ex.service.ShareOrderService;
 import com.ex.service.UserAppOrderService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
@@ -18,6 +20,8 @@ public class UserOrderController {
 
     @Autowired
     private UserAppOrderService userAppOrderService;
+    @Autowired
+    private ShareOrderService shareOrderService;
 
     /**
      * 按用户ID查询用户所有的订单信息
@@ -31,6 +35,56 @@ public class UserOrderController {
         try {
             PageHelper.startPage(page.getPageNum(),page.getPageSize());
             List<UserOrder> userOrders = userAppOrderService.selectUserOrderByid(registUserId);
+            PageInfo<UserOrder> pageInfo = new PageInfo<>(userOrders);
+            jsonView.setTodoCount(pageInfo.getSize());
+            jsonView.setMessage("查询数据成功!");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setData(pageInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
+        }
+        return jsonView;
+    }
+
+    /**
+     * 按用户ID查询用户所有的支出订单信息
+     * @param shareUserId 用户ID
+     * @param page 分页条件
+     * @return
+     */
+    @RequestMapping("/selectUserOrderByid")
+    public JsonView selectShareOrderByShareUserIdAll(long shareUserId, PageRequest page){
+        JsonView jsonView = new JsonView();
+        try {
+            PageHelper.startPage(page.getPageNum(),page.getPageSize());
+            List<ShareOrder> shareOrders = shareOrderService.selectShareOrderByShareUserIdAll(shareUserId);
+            PageInfo<ShareOrder> pageInfo = new PageInfo<>(shareOrders);
+            jsonView.setTodoCount(pageInfo.getSize());
+            jsonView.setMessage("查询数据成功!");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setData(pageInfo);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
+        }
+        return jsonView;
+    }
+
+    /**
+     * 按用户ID查询用户所有的收入订单信息
+     * @param registUserId 用户ID
+     * @param page 分页条件
+     * @return
+     */
+    @RequestMapping("/selectUserOrderByid")
+    public JsonView selectUserOrderByIdAndStatus(long registUserId, PageRequest page){
+        JsonView jsonView = new JsonView();
+        try {
+            PageHelper.startPage(page.getPageNum(),page.getPageSize());
+            List<UserOrder> userOrders = userAppOrderService.selectUserOrderByIdAndStatus(registUserId,4);
             PageInfo<UserOrder> pageInfo = new PageInfo<>(userOrders);
             jsonView.setTodoCount(pageInfo.getSize());
             jsonView.setMessage("查询数据成功!");
