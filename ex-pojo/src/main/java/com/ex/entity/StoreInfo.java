@@ -27,6 +27,8 @@ public class StoreInfo {
 
     private Integer paystatus;
 
+    private Integer STJStatus;
+
     public Long getId() {
         return id;
     }
@@ -105,5 +107,13 @@ public class StoreInfo {
 
     public void setPaystatus(Integer paystatus) {
         this.paystatus = paystatus;
+    }
+
+    public Integer getSTJStatus() {
+        return STJStatus;
+    }
+
+    public void setSTJStatus(Integer STJStatus) {
+        this.STJStatus = STJStatus;
     }
 }

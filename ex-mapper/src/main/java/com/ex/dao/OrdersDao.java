@@ -1,5 +1,6 @@
 package com.ex.dao;
 
+import com.ex.entity.AgentMerchant;
 import com.ex.entity.Orders;
 import com.ex.vo.OrderVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -37,5 +38,17 @@ public interface OrdersDao {
     //查询此用户在此商家的待发货的详情，分页查询
     public List<OrderVo> selectUserOrdersByMerchantId2(Map map);
 
-    int updateOrdersStatusById(@Param("updateTime") Date updateTime,@Param("status") int status,@Param("id") Long id);
+    int updateOrdersStatusById(Map map);
+
+    //添加订单
+    public Integer insertOrders(Orders orders);
+
+    //支付根据订单id查询订单金额
+    public Orders selectOrdersById(Long orderId);
+
+    //查询用户是否是此商家的代理
+    public AgentMerchant selectMerchantAgent(Map map);
+
+    //查询某商家的总销售单数
+    public Integer selectMerchantOrderNums(Long merchantId);
 }

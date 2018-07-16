@@ -10,7 +10,6 @@
           <element id="archive" name="ex-pojo-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ex-pojo" />
           </element>
-          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.18" />
           <element id="archive" name="ex-config-1.0-SNAPSHOT.jar">
             <element id="module-output" name="ex-config" />
           </element>

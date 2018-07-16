@@ -53,8 +53,14 @@
         </association>
     </resultMap>
     <!--根据用户Id查询该用户的所有订单信息-->
-    <select id="selectUserOrderByid" parameterType="java.lang.Long" resultMap="UserOrderResultMap">
-        SELECT * FROM user_order uo LEFT JOIN orders o ON uo.orderId = o.id LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id  WHERE registUserId = #{registUserId}
+    <select id="selectUserOrderByid" parameterType="map" resultMap="UserOrderResultMap">
+        SELECT * FROM user_order uo LEFT JOIN orders o ON uo.orderId = o.id LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
+        <where>
+            uo.registUserId = #{registUserId}
+            <if test="status!=null">
+                AND uo.status = #{status}
+            </if>
+        </where>
     </select>
 
     <!--查询所有订单信息-->
@@ -65,7 +71,7 @@
     <!--添加用户和订单表关联信息-->
     <insert id="insertUserOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.UserOrder">
         INSERT INTO user_order (orderId, registUserId, createTime, payTime, status)
-        VALUES ( #{orderId}, #{registUserId}, #{createTime}, #{payTime}, #{status)
+        VALUES ( #{orderId}, #{registUserId}, #{createTime}, #{payTime}, #{status})
     </insert>
 
     <!--修改用户和订单表关联信息状态-->
@@ -76,7 +82,7 @@
                 updateTime = #{updateTime},
             </if>
             <if test="status != null" >
-                status = #{status},
+                status = #{status}
             </if>
         </set>
         where id = #{id}

@@ -4,6 +4,7 @@ import com.ex.dao.StoreInfoDao;
 import com.ex.entity.StoreInfo;
 import com.ex.service.AppStoreInfoService;
 import com.ex.util.PageRequest;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,20 @@ public class AppStoreInfoServiceImpl implements AppStoreInfoService {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
         PageInfo<StoreInfo> pageInfo = new PageInfo<>(storeInfos);
+        return pageInfo;
+    }
+
+
+    /**
+     *  通过二级商品分类，查询所有的商家列表
+     * @param productClassifyId
+     * @return
+     */
+    @Override
+    public PageInfo<StoreInfoVo> selectStoreInfosByProductClassifyId2(Long productClassifyId, PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<StoreInfoVo> storeInfos = storeInfoDao.selectStoreInfosByProductClassifyId2(productClassifyId);
+        PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfos);
         return pageInfo;
     }
 }

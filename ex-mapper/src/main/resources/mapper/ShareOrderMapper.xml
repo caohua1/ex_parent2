@@ -95,6 +95,10 @@
         SELECT * FROM share_order  so LEFT JOIN orders o ON so.orderNum = o.orderNum LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
         <include refid="Example_Where_Clause"/>
     </select>
+    <!--按分享人id查询所有分享信息-->
+    <select id="selectShareOrderByShareUserIdAll" parameterType="java.lang.Long" resultType="com.ex.entity.ShareOrder">
+        SELECT * FROM share_order WHERE shareUserId = #{shareUserId} AND status = 5
+    </select>
     <!--按条件id精确查找分享信息-->
     <select id="selectShareOrderById" resultMap="ShareOrderResultMap" parameterType="java.lang.Long">
         SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id WHERE so.id = #{id}
@@ -123,6 +127,7 @@
         where id = #{id}
     </update>
 
+    <!--查询顶部统计数据-->
     <select id="selectShareOrderInfo" resultType="com.ex.entity.ShareOrderInfo" parameterType="map">
         select COUNT(buyUserId) AS buyUserIds,SUM(orderMoney) AS orderMoneys,SUM(commission) AS commissions,COUNT(*) AS counts FROM share_order where merchantId = #{merchantId} AND payStatus = #{payStatus}
     </select>

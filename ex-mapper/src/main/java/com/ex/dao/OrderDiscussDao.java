@@ -10,4 +10,7 @@ import java.util.Map;
 public interface OrderDiscussDao {
 
     public List<OrderDiscussVo> selectDiscussByMerchantIdAndProductInfoId(Map map);
+
+    //计算商家的平均评分，（所有订单的评论）
+    public Double selectMerchantDiscussAvg(Long merchantId);
 }

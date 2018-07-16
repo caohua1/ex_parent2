@@ -28,14 +28,16 @@ public class MerchantorpersonCheckInPCController {
      * 审核商家
      *
      * @param merchantorpersonCheckIn
+     *         id，status，causeby，
      * @return
      */
     @RequestMapping(value = "/auditthemerchant", method = RequestMethod.POST)
     public JsonView auditTheMerchant(MerchantorpersonCheckIn merchantorpersonCheckIn) {
         JsonView jsonView = new JsonView();
+        merchantorpersonCheckIn.setUpdatetime(new Date());
         try {
             //审核商家
-            merchantorpersonCheckInService.auditTheMerchant(merchantorpersonCheckIn.getId(), merchantorpersonCheckIn.getStatus(), merchantorpersonCheckIn.getCauseby());
+            merchantorpersonCheckInService.auditTheMerchant(merchantorpersonCheckIn.getId(), merchantorpersonCheckIn.getStatus(), merchantorpersonCheckIn.getCauseby(),merchantorpersonCheckIn.getUpdatetime());
             //判断商家是否审核通过
             if (merchantorpersonCheckIn.getStatus() == 3) {
                 //审核通过生成邀请码
@@ -47,12 +49,16 @@ public class MerchantorpersonCheckInPCController {
                 //检查商家入住时是否有邀请码
                 if (merchantorpersonCheckIn.getInvitercode() != null) {
                     MerchantInviter merchantInviter1 = merchantInviterService.selectInvitercodeByInvitercode(merchantorpersonCheckIn.getInvitercode());
+                    //查询当前邀请码的状态
                     if (merchantInviter1.getStatus() == 0) {
+                        //改邀请码成功邀请一人
                         merchantInviter1.setStatus(1);
                     } else if (merchantInviter1.getStatus() == 1) {
+                        //该邀请码成功邀请2人完成1+2分享模式进行返利操作
                         merchantInviter1.setStatus(2);
                         // TODO 商家完成1+2分享模式，进行返利
                     } else {
+                        //该邀请码已完成1+2分享模式不进行操作
                         merchantInviter1.setStatus(2);
                     }
                     merchantInviter1.setUpdatetime(new Date());
@@ -63,9 +69,10 @@ public class MerchantorpersonCheckInPCController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED, "审核失败!");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
-        return null;
+        return jsonView;
     }
 
     /**
@@ -86,7 +93,8 @@ public class MerchantorpersonCheckInPCController {
             jsonView.setTodoCount(pageInfo.getSize());
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED, "查询数据失败!");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }
@@ -108,7 +116,8 @@ public class MerchantorpersonCheckInPCController {
             jsonView.setTodoCount(1);
         } catch (Exception e) {
             e.printStackTrace();
-            return JsonView.fail(JsonView.EXPIRED, "查询数据失败!");
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
         }
         return jsonView;
     }

@@ -4,7 +4,9 @@ import com.ex.entity.MerchantorpersonCheckIn;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ProjectName ex_parent
@@ -54,10 +56,8 @@ public interface MerchantorpersonCheckInDao {
 
     /**
      * 商家PC端审核
-     * @param id
-     * @param status
-     * @param causeby
+     * @param map
      * @return
      */
-    int auditTheMerchant(Long id,int status,String causeby);
+    int auditTheMerchant(Map map);
 }

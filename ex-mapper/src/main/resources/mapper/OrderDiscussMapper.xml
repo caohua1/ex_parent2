@@ -39,4 +39,12 @@
 			and pm.id = #{productInfoId}
 		</if>
 	</select>
+
+	<!--计算商家的平均评分-->
+	<select id="selectMerchantDiscussAvg" parameterType="Long" resultType="Double">
+		select AVG (od.serviceAttitude) merchantDiscussAvg from order_discuss od
+		left join orders o on o.id = od.orderId
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		where pm.merchantId = #{merchantId}
+	</select>
 </mapper>

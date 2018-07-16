@@ -84,18 +84,50 @@
 		order by upd.registUserId
 	</select>
 
+	<!--修改orders表的状态-->
 	<update id="updateOrdersStatusById" parameterType="map">
 		UPDATE orders
 		<set >
-			<if test="updateTime != null" >
-				updateTime = #{updateTime},
-			</if>
 			<if test="status != null" >
 				status = #{status},
+			</if>
+			<if test="payStatus!=null">
+				payStatus = #{payStatus},
+			</if>
+			<if test="payWay!=null">
+				payWay  = #{payWay},
+			</if>
+			<if test="payTime!=null">
+				payTime  = #{payTime},
+			</if>
+			<if test="updateTime != null" >
+				updateTime = #{updateTime}
 			</if>
 		</set>
 		WHERE id = #{id}
 	</update>
 
 
+	<!--添加订单-->
+	<insert id="insertOrders" parameterType="com.ex.entity.Orders" useGeneratedKeys="true" keyProperty="id">
+		insert into orders(orderNum,productNum,orderMoney,productInfoId,productPropertyId,addressId,createTime)
+		values(#{orderNum},#{productNum},#{orderMoney},#{productInfoId},#{productPropertyId},#{addressId},#{createTime})
+	</insert>
+
+	<!--支付，根据订单id查询订单价格-->
+	<select id="selectOrdersById" parameterType="com.ex.entity.Orders" resultType="com.ex.entity.Orders">
+		select * from orders where id = #{id}
+	</select>
+
+	<!--查询用户是不是此商家的代理-->
+	<select id="selectMerchantAgent" parameterType="Map" resultType="com.ex.entity.AgentMerchant">
+		select * from agent_merchant where agentUserId = #{registUserId} and merchantId = #{merchantId}
+	</select>
+
+	<!--查询商家的总销售单数-->
+	<select id="selectMerchantOrderNums" parameterType="Long" resultType="Integer">
+		select count(o.id) from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		where pm.merchantId = #{mercantId}
+	</select>
 </mapper>
