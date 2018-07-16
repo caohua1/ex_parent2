@@ -1,5 +1,6 @@
 package com.ex.service;
 
+import com.ex.entity.Orders;
 import com.ex.entity.UserOrder;
 
 import java.util.List;
@@ -14,4 +15,5 @@ public interface UserAppOrderService {
     int updateUserOrder(int status, Long userOrderId,Long orderId);
     //添加订单信息
     int insertUserOrder(UserOrder userOrder);
+
 }

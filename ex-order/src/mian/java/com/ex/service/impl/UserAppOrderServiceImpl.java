@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,11 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
     @Override
     public int updateUserOrder(int status, Long userOrderId,Long orderId) {
         updateTime = new Date();
-        ordersDao.updateOrdersStatusById(updateTime,status,orderId);//修改订单表状态
+        Map map = new HashMap();
+        map.put("updateTime",updateTime);
+        map.put("status",status);
+        map.put("orderId",orderId);
+        ordersDao.updateOrdersStatusById(map);//修改订单表状态
         return userOrderDao.updateUserOrder(updateTime,status,orderId);//修改用户和订单关系表状态
     }
 

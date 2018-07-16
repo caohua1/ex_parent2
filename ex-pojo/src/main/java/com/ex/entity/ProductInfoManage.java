@@ -34,6 +34,7 @@ public class ProductInfoManage implements Serializable {
     private Integer SHStatus;//审核状态（0待审核 1审核失败 2审核成功）
     private Integer SXJStatus;//上下架状态（0下架 1上架）
     private Integer DLStatus;//代理状态（0不可代理 1可代理）
+    private Integer STJStatus;
 
     public Long getId() {
         return id;
@@ -217,5 +218,13 @@ public class ProductInfoManage implements Serializable {
 
     public void setDLStatus(Integer DLStatus) {
         this.DLStatus = DLStatus;
+    }
+
+    public Integer getSTJStatus() {
+        return STJStatus;
+    }
+
+    public void setSTJStatus(Integer STJStatus) {
+        this.STJStatus = STJStatus;
     }
 }

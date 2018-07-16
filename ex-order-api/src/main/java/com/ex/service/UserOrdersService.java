@@ -1,4 +1,6 @@
 package com.ex.service;
+import com.ex.entity.Orders;
+import com.ex.entity.UserOrder;
 import com.ex.util.PageRequest;
 import com.ex.vo.OrderVo;
 import com.github.pagehelper.PageInfo;
@@ -33,4 +35,19 @@ public interface UserOrdersService {
     //查询此用户在此商家的待发货的详情，分页查询
     public PageInfo<OrderVo> selectUserOrdersByMerchantId2(Map map,PageRequest pageRequest);
 
+    //添加订单
+    public Boolean insertOrders(Orders orders, UserOrder userOrder);
+
+    //修改订单的支付状态（orders表）
+    public int updateOrdersStatusById(Map map);
+
+
+    //支付根据订单id查询订单金额
+    public Orders selectOrdersById(Long orderId);
+
+    //计算商家的平均评分，（所有订单的评论）
+    public Double selectMerchantDiscussAvg(Long merchantId);
+
+    //查询某商家的总销售单数
+    public Integer selectMerchantOrderNums(Long merchantId);
 }

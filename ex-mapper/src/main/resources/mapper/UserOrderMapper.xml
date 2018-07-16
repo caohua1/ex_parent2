@@ -65,7 +65,7 @@
     <!--添加用户和订单表关联信息-->
     <insert id="insertUserOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.UserOrder">
         INSERT INTO user_order (orderId, registUserId, createTime, payTime, status)
-        VALUES ( #{orderId}, #{registUserId}, #{createTime}, #{payTime}, #{status)
+        VALUES ( #{orderId}, #{registUserId}, #{createTime}, #{payTime}, #{status})
     </insert>
 
     <!--修改用户和订单表关联信息状态-->

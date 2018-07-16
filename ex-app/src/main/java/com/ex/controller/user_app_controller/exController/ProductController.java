@@ -4,12 +4,17 @@ import com.ex.entity.ProductClassify;
 import com.ex.entity.StoreInfo;
 import com.ex.service.AppProductClassifyService;
 import com.ex.service.AppStoreInfoService;
+import com.ex.service.ExIndexService;
+import com.ex.service.UserOrdersService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @SuppressWarnings("ALL")
 @RestController
@@ -19,6 +24,8 @@ public class ProductController {
     private AppProductClassifyService appProductClassifyService;
     @Autowired
     private AppStoreInfoService appStoreInfoService;
+    @Autowired
+    private UserOrdersService userOrdersService;
 
     /**
      * 1.分类，查询所有的一级产品分类(levelNum=1)
@@ -50,11 +57,21 @@ public class ProductController {
                 jsonView.setData(productClassifyPageInfo);
             } else if(productClassify.getLevelNum()==2){
                 //点击二级分类名称与图标跳转到对应的商家列表页
-                StoreInfo storeInfo = new StoreInfo();
-                storeInfo.setProductclassifyid(productClassify.getId());
-                PageInfo<StoreInfo> storeInfoPageInfo = appStoreInfoService.byConditionsQuery(pageRequest, storeInfo);
+                PageInfo<StoreInfoVo> pageInfo = appStoreInfoService.selectStoreInfosByProductClassifyId2(productClassify.getId(), pageRequest);
+                if(pageInfo!=null && pageInfo.getSize()>0){
+                    List<StoreInfoVo> list = pageInfo.getList();
+                    for(int i=0;i<list.size();i++){
+                        //计算平均评论分数
+                        Double merchantDiscussAvg = userOrdersService.selectMerchantDiscussAvg(list.get(i).getMerchantid());
+                        list.get(i).setMerchantDiscussAvg(merchantDiscussAvg);//每个商家的平均评分
+                        //计算总销售单数
+                        Integer orderNums = userOrdersService.selectMerchantOrderNums(list.get(i).getMerchantid());
+                        list.get(i).setOrdersNums(orderNums);
+                    }
+                   pageInfo.setList(list);
+                }
                 jsonView.setMessage("二级分类，查询商家列表(店铺)");
-                jsonView.setData(storeInfoPageInfo);
+                jsonView.setData(pageInfo);
                 jsonView.setCode(JsonView.SUCCESS);
             }
         }catch(Exception e){

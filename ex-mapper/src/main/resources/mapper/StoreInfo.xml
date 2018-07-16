@@ -75,4 +75,19 @@
         where id = #{id}
     </update>
 
+
+    <!--通过二级商品分类，查询所有的商家列表-->
+    <select id="selectStoreInfosByProductClassifyId2" parameterType="Long" resultType="com.ex.vo.StoreInfoVo">
+        select si.* from store_info si where si.merchantId in(
+        select DISTINCT(pm.merchantId) from productinfo_manage pm where
+             pm.productClassifyId in(select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyId})
+      )
+    </select>
+
+    <!--通过一级商品分类查询所有的商家列表-->
+    <select id="selectStoreInfosByProductClassifyId1" parameterType="Long" resultType="com.ex.vo.StoreInfoVo">
+        select * from store_info  where productClassifyId = #{productClassifyId}
+    </select>
+
+
 </mapper>

@@ -12,6 +12,6 @@
 
 	<!--查询某用户的所有收货地址-->
 	<select id="selectShippingAddress" parameterType="Long" resultType="com.ex.entity.ShippingAddress">
-		select * from shipping_address where registUserId = #{registUserId}
+		select * from shipping_address where registUserId = #{registUserId} order by createTime desc
 	</select>
 </mapper>
