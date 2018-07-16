@@ -46,10 +46,11 @@ public class UserAppLoginController {
             if (user != null){
                 jsonView.setMessage("用户名已存在");
                 jsonView.setCode(JsonView.SUCCESS);
+                return jsonView;
             }
             jsonView.setMessage("用户名可用");
             jsonView.setTodoCount(1);
-            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setCode(JsonView.ERROR);
         } catch (Exception e) {
             e.printStackTrace();
             jsonView.setMessage("请求失败!");
@@ -75,7 +76,7 @@ public class UserAppLoginController {
             UserAppRegist user = userAppRegistService.userLoginOrCheckUserName(userAppRegist.getUsername());
             if (user != null) {
                 jsonView.setMessage("手机号已注册，请登录!");
-                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setCode(JsonView.ERROR);
                 return jsonView;
             }
             userAppRegistService.insertUserAppRegist(userAppRegist);
@@ -105,12 +106,12 @@ public class UserAppLoginController {
             UserAppRegist user = userAppRegistService.userLoginOrCheckUserName(username);
             if (user == null){
                 jsonView.setMessage("手机号未注册!");
-                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setCode(JsonView.ERROR);
                 return jsonView;
             }
             if (!CustomMD5.checkPassword(user.getPassword(), password, username)){
                 jsonView.setMessage("密码不正确!");
-                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setCode(JsonView.ERROR);
                 return jsonView;
             }
             //登陆成功获取ToKen

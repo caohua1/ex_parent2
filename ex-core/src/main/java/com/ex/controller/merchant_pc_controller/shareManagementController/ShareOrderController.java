@@ -23,6 +23,12 @@ public class ShareOrderController {
     @Autowired
     private ShareOrderService shareOrderService;
 
+    /**
+     * 按条件查询所有分享信息
+     * @param shareOrder
+     * @param page
+     * @return
+     */
     @RequestMapping("/selectShareOrderAll")
     public JsonView selectShareOrderAll(ShareOrder shareOrder, PageRequest page){
         JsonView jsonView = new JsonView();
@@ -42,6 +48,11 @@ public class ShareOrderController {
         return jsonView;
     }
 
+    /**
+     * 按分享人id查询所有分享信息
+     * @param id
+     * @return
+     */
     @RequestMapping("/selectShareOrderById")
     public JsonView selectShareOrderById(Long id){
         JsonView jsonView = new JsonView();
@@ -59,6 +70,11 @@ public class ShareOrderController {
         return jsonView;
     }
 
+    /**
+     * 添加分享信息
+     * @param shareOrder
+     * @return
+     */
     @RequestMapping(value = "/insertShareOrder",method = RequestMethod.POST)
     public JsonView insertShareOrder(ShareOrder shareOrder){
         JsonView jsonView = new JsonView();
@@ -76,6 +92,11 @@ public class ShareOrderController {
         return jsonView;
     }
 
+    /**
+     * 修改分享信息
+     * @param shareOrder
+     * @return
+     */
     @RequestMapping(value = "/uodateShareOrder",method = RequestMethod.POST)
     public JsonView uodateShareOrder(ShareOrder shareOrder){
         JsonView jsonView = new JsonView();
@@ -93,8 +114,14 @@ public class ShareOrderController {
         return jsonView;
     }
 
+    /**
+     * 查询顶部统计数据
+     * @param merchantId
+     * @param payStatus
+     * @return
+     */
     @RequestMapping("/selectShareOrderInfo")
-    public JsonView selectShareOrderInfo(long merchantId, int payStatus){
+    public JsonView selectShareOrderInfo(Long merchantId, Integer payStatus){
         JsonView jsonView = new JsonView();
         try {
             Map<String,Object> map = new HashMap<String,Object>();

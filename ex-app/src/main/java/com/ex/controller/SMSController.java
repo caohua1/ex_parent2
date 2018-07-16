@@ -78,12 +78,12 @@ public class SMSController {
             if (tamp.compareTo(sf.format(new Date())) > 0) {
                 if (!hashcose.equalsIgnoreCase(requestHash)) {
                     jsonView.setMessage("验证码错误!");
-                    jsonView.setCode(JsonView.SUCCESS);
+                    jsonView.setCode(JsonView.ERROR);
                     return jsonView;
                 }
             } else {
                 jsonView.setMessage("验证码超时!");
-                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setCode(JsonView.EXPIRED);
                 return jsonView;
             }
             jsonView.setMessage("验证成功!");
