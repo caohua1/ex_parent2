@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user/order")
-public class UserOrderController {
+    public class UserOrderController {
 
     @Autowired
     private UserAppOrderService userAppOrderService;
@@ -30,13 +30,13 @@ public class UserOrderController {
      * @return
      */
     @RequestMapping("/selectUserOrderByid")
-    public JsonView selectUserOrderByid(long registUserId, PageRequest page){
+    public JsonView selectUserOrderByid(Long registUserId, PageRequest page){
         JsonView jsonView = new JsonView();
         try {
             PageHelper.startPage(page.getPageNum(),page.getPageSize());
             List<UserOrder> userOrders = userAppOrderService.selectUserOrderByid(registUserId);
             PageInfo<UserOrder> pageInfo = new PageInfo<>(userOrders);
-            jsonView.setTodoCount(pageInfo.getSize());
+            jsonView.setTodoCount(userOrders.size());
             jsonView.setMessage("查询数据成功!");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setData(pageInfo);
@@ -49,13 +49,14 @@ public class UserOrderController {
     }
 
     /**
-     * 按用户ID查询用户所有的支出订单信息
+     * TODO 作废
+     * 按用户ID查询用户所有的收入订单信息
      * @param shareUserId 用户ID
      * @param page 分页条件
      * @return
      */
-    @RequestMapping("/selectUserOrderByid")
-    public JsonView selectShareOrderByShareUserIdAll(long shareUserId, PageRequest page){
+    @RequestMapping("/selectShareOrderByShareUserIdAll")
+    public JsonView selectShareOrderByShareUserIdAll(Long shareUserId, PageRequest page){
         JsonView jsonView = new JsonView();
         try {
             PageHelper.startPage(page.getPageNum(),page.getPageSize());
@@ -74,17 +75,18 @@ public class UserOrderController {
     }
 
     /**
-     * 按用户ID查询用户所有的收入订单信息
+     * TODO 作废
+     * 按用户ID查询用户所有的支出订单信息
      * @param registUserId 用户ID
      * @param page 分页条件
      * @return
      */
-    @RequestMapping("/selectUserOrderByid")
-    public JsonView selectUserOrderByIdAndStatus(long registUserId, PageRequest page){
+    @RequestMapping("/selectUserOrderByIdAndStatus")
+    public JsonView selectUserOrderByIdAndStatus(Long registUserId, PageRequest page){
         JsonView jsonView = new JsonView();
         try {
             PageHelper.startPage(page.getPageNum(),page.getPageSize());
-            List<UserOrder> userOrders = userAppOrderService.selectUserOrderByIdAndStatus(registUserId,4);
+            List<UserOrder> userOrders = userAppOrderService.selectUserOrderByIdAndStatus(registUserId);
             PageInfo<UserOrder> pageInfo = new PageInfo<>(userOrders);
             jsonView.setTodoCount(pageInfo.getSize());
             jsonView.setMessage("查询数据成功!");
@@ -99,7 +101,7 @@ public class UserOrderController {
     }
 
     /**
-     * 查询你所有分用户订单信息
+     * 查询所有订单信息
      * @param page 分页数据
      * @return
      */
