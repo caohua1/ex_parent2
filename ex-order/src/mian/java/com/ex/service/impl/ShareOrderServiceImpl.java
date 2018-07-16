@@ -86,6 +86,11 @@ public class ShareOrderServiceImpl implements ShareOrderService {
         return shareOrderDao.uodateShareOrder(shareOrder);
     }
 
+    /**
+     * 查询顶部统计数据
+     * @param map
+     * @return
+     */
     @Override
     public ShareOrderInfo selectShareOrderInfo(Map<String, Object> map) {
         long merchantId = 1L;
@@ -97,8 +102,4 @@ public class ShareOrderServiceImpl implements ShareOrderService {
         return shareOrderDao.selectShareOrderInfo(merchantId, payStatus);
     }
 
-    @Override
-    public ProductInfoManage selectproductinfoById(Long productinfoid) {
-        return shareOrderDao.selectproductinfoById(productinfoid);
-    }
 }

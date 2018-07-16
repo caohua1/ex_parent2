@@ -129,7 +129,7 @@
         where id = #{id}
     </update>
 
-    <update id="auditTheMerchant" parameterType="map" >
+    <update id="auditTheMerchant" parameterType="java.util.Map" >
         update merchantorperson_check_in
         set causeBy = #{causeby},
         status = #{status},

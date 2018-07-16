@@ -127,6 +127,7 @@
         where id = #{id}
     </update>
 
+    <!--查询顶部统计数据-->
     <select id="selectShareOrderInfo" resultType="com.ex.entity.ShareOrderInfo" parameterType="map">
         select COUNT(buyUserId) AS buyUserIds,SUM(orderMoney) AS orderMoneys,SUM(commission) AS commissions,COUNT(*) AS counts FROM share_order where merchantId = #{merchantId} AND payStatus = #{payStatus}
     </select>

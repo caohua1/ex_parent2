@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Service(version = "1.0.0")
 public class UserAppOrderServiceImpl implements UserAppOrderService {
@@ -23,14 +22,24 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
     @Autowired
     private OrdersDao ordersDao;
 
+    /**
+     * 按用户Id查询该用户所有订单信息
+     * @param registUserId
+     * @return
+     */
     @Override
-    public List<UserOrder> selectUserOrderByid(long registUserId) {
+    public List<UserOrder> selectUserOrderByid(Long registUserId) {
         return userOrderDao.selectUserOrderByid(registUserId,null);
     }
 
+    /**
+     * 按用户Id查询该用户所有订单信息
+     * @param registUserId
+     * @return
+     */
     @Override
-    public List<UserOrder> selectUserOrderByIdAndStatus(long registUserId,int status) {
-        return userOrderDao.selectUserOrderByid(registUserId,status);
+    public List<UserOrder> selectUserOrderByIdAndStatus(Long registUserId) {
+        return userOrderDao.selectUserOrderByid(registUserId,4);
     }
 
     @Override
@@ -40,6 +49,13 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
+    /**
+     * //修改用户和订单表关联信息状态
+     * @param status
+     * @param userOrderId
+     * @param orderId
+     * @return
+     */
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
     public int updateUserOrder(int status, Long userOrderId,Long orderId) {
