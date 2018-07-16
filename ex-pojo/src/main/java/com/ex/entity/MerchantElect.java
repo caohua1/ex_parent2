@@ -11,15 +11,6 @@ public class MerchantElect {
     private int BeElectMerchanStatus;//被互推的商家的状态（0待确认 1同意互推 2不同意互推 3取消互推）
     private Date createTime;//创建时间
 
-    public MerchantElect(Long id, Long merchantId, Long beMerchantId, Double commissionRate, int electMerchantStatus, int beElectMerchanStatus, Date createTime) {
-        this.id = id;
-        this.merchantId = merchantId;
-        BeMerchantId = beMerchantId;
-        this.commissionRate = commissionRate;
-        this.electMerchantStatus = electMerchantStatus;
-        BeElectMerchanStatus = beElectMerchanStatus;
-        this.createTime = createTime;
-    }
 
     public Long getId() {
         return id;

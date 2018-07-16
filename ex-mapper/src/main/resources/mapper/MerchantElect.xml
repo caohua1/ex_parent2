@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MerchantElectDao">
+	<!-- 添加互推数据-->
+	<select id="insertMerchantElect" parameterType="java.util.Map">
+		INSERT INTO merchant_elect (merchantId,BeMerchantId,commissionRate,electMerchantStatus,BeElectMerchantStatus,createTime)
+		VALUES (#{merchantId},#{BeMerchantId},#{commissionRate},#{electMerchantStatus},#{BeElectMerchantStatus},#{createTime})
+	</select>
+	<!-- 根据被互推商家id查询待确认状态-->
+	<select id="selectUnconfirmed" parameterType="java.lang.Long" resultType="com.ex.vo.MerchantElectVo">
+		SELECT e.*,r.username
+		FROM merchant_elect e
+		LEFT JOIN merchant_regist r
+		ON e.merchantId=r.id
+		WHERE e.BeMerchantId=#{BeMerchantId}
+		AND BeElectMerchantStatus=0
+	</select>
+
+	<!-- 根据互推商家id查询当前商家所有互推数据-->
+	<select id="selectElectManage" parameterType="java.lang.Long" resultType="com.ex.vo.MerchantElectVo">
+		SELECT e.*,r.username
+		FROM merchant_elect e
+		LEFT JOIN merchant_regist r
+		ON e.BeMerchantId=r.id
+		WHERE e.merchantId=#{merchantId}
+	</select>
+	<!-- 修改商家之间互推关系-->
+	<update id="updateMerchantElect" parameterType="java.util.Map" >
+		UPDATE merchant_elect
+		SET electMerchantStatus=#{state},BeElectMerchantStatus=#{state}
+		WHERE merchantId=#{merchantId}
+		AND BeMerchantId=#{BeMerchantId}
+	</update>
+</mapper>
