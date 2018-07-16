@@ -31,8 +31,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-stream:2.0.1.RELEASE" level="project" />
     <orderEntry type="module" module-name="ex-pojo" />
-    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.16.18" level="project" />
     <orderEntry type="module" module-name="ex-config" />
     <orderEntry type="module" module-name="ex-mapper" />
     <orderEntry type="module" module-name="ex-redis-api" />
