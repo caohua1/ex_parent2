@@ -112,7 +112,7 @@ import java.util.List;
             PageHelper.startPage(page.getPageNum(),page.getPageSize());
             List<UserOrder> userOrders = userAppOrderService.selectUserOrderAll();
             PageInfo<UserOrder> pageInfo = new PageInfo<>(userOrders);
-            jsonView.setTodoCount(pageInfo.getSize());
+            jsonView.setTodoCount(userOrders.size());
             jsonView.setMessage("查询数据成功!");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setData(pageInfo);
