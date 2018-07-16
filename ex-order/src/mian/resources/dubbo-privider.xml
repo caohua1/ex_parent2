@@ -10,15 +10,17 @@
     <!-- dubbo项目名称 -->
     <dubbo:application name="ex-order"/>
     <!-- 指定注册中心 -->
-    <dubbo:registry protocol="zookeeper" address="192.168.1.52:2181" />
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
     <!-- 指定暴露接口，协议 -->
     <dubbo:protocol name="dubbo" port="20884"/>
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.ex.service.OrderTestService" ref="redisUtilService" version="1.0.0"/>
     <dubbo:service interface="com.ex.service.UserOrdersService" ref="userOrdersService" version="1.0.0"/>
     <dubbo:service interface="com.ex.service.ShareOrderService" ref="shareOrderService" version="1.0.0"/>
+    <dubbo:service interface="com.ex.service.UserAppOrderService" ref="userAppOrderService" version="1.0.0"/>
     <!-- 和本地bean一样实现服务 -->
     <bean id="redisUtilService" class="com.ex.service.impl.OrderTestServiceImpl"/>
     <bean id="userOrdersService" class="com.ex.service.impl.UserOrdersServiceImpl"/>
     <bean id="shareOrderService" class="com.ex.service.impl.ShareOrderServiceImpl"/>
+    <bean id="userAppOrderService" class="com.ex.service.impl.UserAppOrderServiceImpl"/>
 </beans>
