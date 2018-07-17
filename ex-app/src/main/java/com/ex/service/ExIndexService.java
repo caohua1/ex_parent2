@@ -26,5 +26,7 @@ public interface ExIndexService {
     //查询推荐商家
     PageInfo<StoreInfo> byConditionsQuery(@Param("record") StoreInfo storeInfo,PageRequest pageRequest);
 
+    //模糊查询，根据店铺名称
+    public PageInfo<StoreInfoVo> selectStoreByStoreName(String storeName,PageRequest pageRequest);
 
 }

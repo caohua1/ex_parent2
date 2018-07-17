@@ -129,4 +129,40 @@ public class ExIndexController {
         }
         return jsonView;
     }
+
+
+    /**
+     * 搜索，按照商家名称模糊查询,进入商家列表页
+     * @param storeName
+     * @param pageRequest
+     * @return
+     */
+    @RequestMapping("/selectStoreByStoreName")
+    public JsonView selectStoreByStoreName(String storeName,PageRequest pageRequest){
+        JsonView jsonView = new JsonView();
+        try{
+            PageInfo<StoreInfoVo> pageInfo = exIndexService.selectStoreByStoreName(storeName, pageRequest);
+            if(pageInfo!=null && pageInfo.getSize()>0){
+                List<StoreInfoVo> list = pageInfo.getList();
+                for(int i=0;i<list.size();i++){
+                    //计算平均评论分数
+                    Double merchantDiscussAvg = userOrdersService.selectMerchantDiscussAvg(list.get(i).getMerchantid());
+                    list.get(i).setMerchantDiscussAvg(merchantDiscussAvg);//每个商家的平均评分
+                    //计算总销售单数
+                    Integer orderNums = userOrdersService.selectMerchantOrderNums(list.get(i).getMerchantid());
+                    list.get(i).setOrdersNums(orderNums);
+                }
+                pageInfo.setList(list);
+            }
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("查询成功");
+            jsonView.setData(pageInfo);
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
+        }
+        return jsonView;
+    }
+
 }
