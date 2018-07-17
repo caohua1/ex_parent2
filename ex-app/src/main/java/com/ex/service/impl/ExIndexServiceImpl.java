@@ -78,4 +78,18 @@ public class ExIndexServiceImpl implements ExIndexService {
         PageInfo<StoreInfo> pageInfo = new PageInfo<>(storeInfos);
         return pageInfo;
     }
+
+    /**
+     * 模糊查询，根据商家店铺名称，查询进入商家列表页
+     * @param storeName
+     * @param pageRequest
+     * @return
+     */
+    @Override
+    public PageInfo<StoreInfoVo> selectStoreByStoreName(String storeName, PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<StoreInfoVo> storeInfoVos = storeInfoDao.selectStoreByStoreName(storeName);
+        PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfoVos);
+        return pageInfo;
+    }
 }

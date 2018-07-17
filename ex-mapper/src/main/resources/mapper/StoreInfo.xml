@@ -89,5 +89,9 @@
         select * from store_info  where productClassifyId = #{productClassifyId}
     </select>
 
+    <!--模糊查询，根据商家店铺名称like CONCAT(CONCAT('%', #{goodsCode}), '%');-->
+    <select id="selectStoreByStoreName" parameterType="String" resultType="com.ex.vo.StoreInfoVo">
+        select * from store_info where storeName like CONCAT(CONCAT('%', #{storeName}), '%')
+    </select>
 
 </mapper>

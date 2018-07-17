@@ -24,6 +24,9 @@ public interface StoreInfoDao {
    //通过二级商品分类，查询所有的商家列表
    public List<StoreInfoVo>  selectStoreInfosByProductClassifyId2(Long productClassifyId);
 
+   //模糊查询，根据店铺名称
+    public List<StoreInfoVo> selectStoreByStoreName(String storeName);
+
 
 
 
