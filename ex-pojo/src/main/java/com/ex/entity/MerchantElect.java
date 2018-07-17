@@ -1,5 +1,7 @@
 package com.ex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class MerchantElect {
@@ -9,8 +11,10 @@ public class MerchantElect {
     private Double commissionRate;//佣金比例
     private int electMerchantStatus;//互推商家状态（0待确认 1互推同意 2不同意互推 3取消互推）
     private int BeElectMerchanStatus;//被互推的商家的状态（0待确认 1同意互推 2不同意互推 3取消互推）
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;//创建时间
-
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date modificationTime;//修改时间
 
     public Long getId() {
         return id;

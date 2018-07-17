@@ -3,6 +3,7 @@ package com.ex.service.impl;
 import com.ex.dao.MerchantElectDao;
 import com.ex.service.MerchantElectService;
 import com.ex.util.PageRequest;
+import com.ex.vo.MerchantCoreVo;
 import com.ex.vo.MerchantElectVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -61,5 +62,17 @@ public class MerchantElectServiceimpl implements MerchantElectService {
     @Override
     public int updateMerchantElect(Map termMap) {
         return merchantElectDao.updateMerchantElect(termMap);
+    }
+
+    /**
+     * 运营后台查询所有互推数据
+     * @return
+     */
+    @Override
+    public PageInfo<MerchantCoreVo> selectAllMerchant(PageRequest page) {
+        PageHelper.startPage(page.getPageNum(),page.getPageSize());
+        List<MerchantCoreVo> merchantCoreVos = merchantElectDao.selectAllMerchant();
+        PageInfo<MerchantCoreVo> merchantCoreVoPageInfo = new PageInfo<>(merchantCoreVos);
+        return merchantCoreVoPageInfo;
     }
 }

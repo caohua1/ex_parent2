@@ -1,6 +1,7 @@
 package com.ex.service;
 
 import com.ex.util.PageRequest;
+import com.ex.vo.MerchantCoreVo;
 import com.ex.vo.MerchantElectVo;
 import com.github.pagehelper.PageInfo;
 
@@ -16,4 +17,6 @@ public interface MerchantElectService {
     public PageInfo<MerchantElectVo> selectElectManage(PageRequest page,Long merchantId);
 
     public int updateMerchantElect(Map termMap);
+
+    public PageInfo<MerchantCoreVo> selectAllMerchant(PageRequest page);
 }

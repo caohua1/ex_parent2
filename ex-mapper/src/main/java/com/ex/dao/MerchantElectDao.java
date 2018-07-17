@@ -1,5 +1,6 @@
 package com.ex.dao;
 
+import com.ex.vo.MerchantCoreVo;
 import com.ex.vo.MerchantElectVo;
 
 import java.util.List;
@@ -14,5 +15,7 @@ public interface MerchantElectDao {
     public List<MerchantElectVo> selectElectManage(Long merchantId);
 
     public int updateMerchantElect(Map termMap);
+
+    public List<MerchantCoreVo> selectAllMerchant();
 
 }

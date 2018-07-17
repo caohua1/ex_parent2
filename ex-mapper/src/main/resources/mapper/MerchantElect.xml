@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.MerchantElectDao">
 	<!-- 添加互推数据-->
-	<select id="insertMerchantElect" parameterType="java.util.Map">
+	<insert id="insertMerchantElect" parameterType="java.util.Map" >
 		INSERT INTO merchant_elect (merchantId,BeMerchantId,commissionRate,electMerchantStatus,BeElectMerchantStatus,createTime)
 		VALUES (#{merchantId},#{BeMerchantId},#{commissionRate},#{electMerchantStatus},#{BeElectMerchantStatus},#{createTime})
-	</select>
+	</insert>
 	<!-- 根据被互推商家id查询待确认状态-->
 	<select id="selectUnconfirmed" parameterType="java.lang.Long" resultType="com.ex.vo.MerchantElectVo">
 		SELECT e.*,r.username
@@ -31,4 +31,10 @@
 		WHERE merchantId=#{merchantId}
 		AND BeMerchantId=#{BeMerchantId}
 	</update>
+	<!-- 查询互推所有数据-->
+	<select id="selectAllMerchant" resultType="com.ex.vo.MerchantCoreVo">
+		select mr1.username merchantUsername,mr2.username BeMerchantUsername,me.* from merchant_elect me
+		left join merchant_regist mr1 on mr1.id =me.BeMerchantId
+		left join merchant_regist mr2 on mr2.id = me.merchantId
+	</select>
 </mapper>
