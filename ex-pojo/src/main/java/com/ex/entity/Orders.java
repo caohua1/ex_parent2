@@ -25,6 +25,8 @@ public class Orders implements Serializable{
     private String backCauseBy;
     private String backNum;
     private Integer status;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date updateTime;
     private ProductInfoManage productInfoManage;
 
     public ProductInfoManage getProductInfoManage() {
@@ -33,6 +35,14 @@ public class Orders implements Serializable{
 
     public void setProductInfoManage(ProductInfoManage productInfoManage) {
         this.productInfoManage = productInfoManage;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Long getId() {
