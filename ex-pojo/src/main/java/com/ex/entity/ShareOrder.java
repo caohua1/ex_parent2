@@ -15,6 +15,7 @@ public class ShareOrder implements Serializable {
     private String shareMechanism;
     private Double commission;
     private Long merchantId;
+    private Integer IsCommission;
     private String merchantName;
     private Double orderMoney;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -26,9 +27,16 @@ public class ShareOrder implements Serializable {
     private Orders orders;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date startTime;
-
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date endTime;
+
+    public Integer getIsCommission() {
+        return IsCommission;
+    }
+
+    public void setIsCommission(Integer isCommission) {
+        IsCommission = isCommission;
+    }
 
     public Date getStartTime() {
         return startTime;
