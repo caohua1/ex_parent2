@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.AppointmentMeetDao">
+	<!--查询享约管理所有数据,享约申请-->
+	<select id="selectAppointmentMeetVo" parameterType="java.util.Map" resultType="com.ex.vo.AppointmentMeetVo">
+		SELECT mrci.username appointmentPersonUsername,mrci1.username BeAppointmentPersonUsername,mrci.companyName appointmentComName, mrci1.companyName BeAppointmentComName,am.*
+		FROM appointment_meet am
+		LEFT JOIN
+		(SELECT mr.*,mci.companyName FROM merchant_regist mr LEFT JOIN merchantorperson_check_in mci ON mr.id=mci.merchantId) mrci
+		ON am.appointmentPersonId=mrci.id
+		LEFT JOIN
+		(SELECT mr.*,mci.companyName FROM merchant_regist mr LEFT JOIN merchantorperson_check_in mci ON mr.id=mci.merchantId) mrci1
+		ON am.BeAppointmentPersonId=mrci1.id
+		<if test="status==0">
+			WHERE am.appointmentPersonStatus=0 AND am.BeAppointmentPersonStatus=0
+		</if>
+	</select>
+
+</mapper>
