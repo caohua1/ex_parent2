@@ -10,6 +10,7 @@ public class ShareOrder implements Serializable {
     private String orderNum;
     private Long buyUserId;
     private Long shareUserId;
+    private Long productInfoId;
     private String shareUsername;
     private String buyUsername;
     private String shareMechanism;
@@ -29,6 +30,14 @@ public class ShareOrder implements Serializable {
     private Date startTime;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date endTime;
+
+    public Long getProductInfoId() {
+        return productInfoId;
+    }
+
+    public void setProductInfoId(Long productInfoId) {
+        this.productInfoId = productInfoId;
+    }
 
     public Integer getIsCommission() {
         return IsCommission;
