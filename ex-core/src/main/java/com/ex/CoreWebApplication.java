@@ -22,11 +22,11 @@ public class CoreWebApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(
-            SpringApplicationBuilder builder) {
+            SpringApplicationBuilder builder){
         return builder.sources(com.ex.CoreWebApplication.class);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         logger.info("服务开始运行");
         SpringApplication.run(com.ex.CoreWebApplication.class, args);
     }

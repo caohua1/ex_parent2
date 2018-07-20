@@ -82,4 +82,15 @@ public class MerchantRegistServiceImpl implements MerchantRegistService {
     public Long selectMutualReferrringById(String username) {
         return merchantRegistDao.selectMutualReferrringById(username);
     }
+
+    /**
+     * 后台修改商家密码，注销帐号
+     * @param merchantRegist
+     * @return
+     */
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
+    @Override
+    public Integer updateMerchantRegist(MerchantRegist merchantRegist) {
+        return merchantRegistDao.updateMerchantRegist(merchantRegist);
+    }
 }

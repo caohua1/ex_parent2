@@ -10,8 +10,12 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,9 +30,9 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public PageInfo<UserAppRegist> findAll(PageRequest page) {
+    public PageInfo<UserAppRegist> findAll(Map map, PageRequest page) {
         PageHelper.startPage(page.getPageNum(),page.getPageSize());
-        List<UserAppRegist> users = userDao.findByPage();
+        List<UserAppRegist> users = userDao.findByPage(map);
         PageInfo<UserAppRegist> pageInfo = new PageInfo<>(users);
         return pageInfo;
     }
@@ -48,7 +52,18 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public Integer findUserCount() {
-        return userDao.findUserCount();
+    public Integer findUserCount(Map map) {
+        return userDao.findUserCount(map);
+    }
+
+    /**
+     * 后台修改用户密码，注销账号
+     * @param userAppRegist
+     * @return
+     */
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
+    @Override
+    public Integer updateUserInfo(UserAppRegist userAppRegist) {
+        return userDao.updateUserInfo(userAppRegist);
     }
 }

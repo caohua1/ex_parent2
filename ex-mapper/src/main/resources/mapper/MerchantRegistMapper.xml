@@ -38,4 +38,19 @@
     <select id="selectMutualReferrringById" parameterType="java.lang.String" resultType="java.lang.Long">
         SELECT id FROM merchant_regist WHERE username=#{username}
     </select>
+
+    <!--修改密码，注销-->
+    <update id="updateMerchantRegist" parameterType="com.ex.entity.MerchantRegist">
+        update merchant_regist SET
+        <if test="password!=null and password!=''">
+            password = #{password},
+        </if>
+        <if test="status!=null">
+            status = #{status},
+        </if>
+        <if test="updatetime!=null">
+            updateTime = #{updatetime}
+        </if>
+        where id = #{id}
+    </update>
 </mapper>

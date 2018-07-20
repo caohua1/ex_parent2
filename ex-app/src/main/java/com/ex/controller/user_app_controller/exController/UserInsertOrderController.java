@@ -1,9 +1,7 @@
 package com.ex.controller.user_app_controller.exController;
 import com.ex.dao.OrdersDao;
 import com.ex.dao.ProductInfoManageDao;
-import com.ex.entity.AgentMerchant;
-import com.ex.entity.Orders;
-import com.ex.entity.UserOrder;
+import com.ex.entity.*;
 import com.ex.service.UserOrdersService;
 import com.ex.util.JsonView;
 import com.ex.vo.ProductInfoManageVo;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,15 +25,19 @@ public class UserInsertOrderController {
     @Autowired
     private OrdersDao ordersDao;
 
+
     /**
      * 用户下单，选择支付方式，先支付（从数据库重新查询支付金额），添加oders表，再添加user_order表
      * @param orders
      * @param userOrder(传参：registUserId)
+     * @param shareUserId (分享者id，是否是其他用户分享的订单)
+     * @param shareUsername 分享着的用户名
+     * @param buyUsername 购买者的用户名
      * @return
      */
     @RequestMapping("/userInsertOrder")
     @ResponseBody
-    public JsonView userInsertOrder(Orders orders, UserOrder userOrder){
+    public JsonView userInsertOrder(Orders orders, UserOrder userOrder,Long shareUserId,String shareUsername,String buyUsername){
         JsonView jsonView = new JsonView();
         try{
             if(orders!=null && orders.getProductInfoId()!=null){
@@ -47,6 +48,7 @@ public class UserInsertOrderController {
                 map.put("registUserId",userOrder.getRegistUserId());
                 map.put("merchantId",productInfoManageVo.getMerchantId());
                 AgentMerchant agentMerchant = ordersDao.selectMerchantAgent(map);
+
                 //3.再计算价格
                 if(agentMerchant!=null){//是代理，按代理价计算
                    Double orderMoney = productInfoManageVo.getAgentPrice()*orders.getProductNum();
@@ -55,8 +57,9 @@ public class UserInsertOrderController {
                     Double orderMoney = productInfoManageVo.getResalePrice()*orders.getProductNum();
                     orders.setOrderMoney(orderMoney);
                 }
+
                 //4.提交订单
-                Boolean b = userOrdersService.insertOrders(orders, userOrder);
+                Boolean b = userOrdersService.insertOrders(orders, userOrder,shareUserId,shareUsername,buyUsername,productInfoManageVo);
                 if(b==true){
                     jsonView.setCode(JsonView.SUCCESS);
                     jsonView.setMessage("提交订单成功");

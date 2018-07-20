@@ -124,5 +124,19 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
         return productInfoManageVo;
     }
 
+    /**
+     * 根据店铺id查询此店铺的商品类别，（三级分类）
+     * @param storeId
+     * @param pageRequest
+     * @return
+     */
+    @Override
+    public PageInfo<ProductClassify> selectProductClassifyByStoreId(Long storeId, PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<ProductClassify> productClassifies = productClassifyDao.selectProductClassifyByStoreId(storeId);
+        PageInfo<ProductClassify> pageInfo = new PageInfo<>(productClassifies);
+        return pageInfo;
+    }
+
 
 }

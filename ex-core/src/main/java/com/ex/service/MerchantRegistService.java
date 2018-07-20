@@ -22,5 +22,7 @@ public interface MerchantRegistService {
     PageInfo<MerchantRegist> findByPage(PageRequest page);
     //根据商家用户名查询商家id
     public Long selectMutualReferrringById(String username);
+    //后台修改商家密码，注销账号
+    public Integer updateMerchantRegist(MerchantRegist merchantRegist);
 
 }

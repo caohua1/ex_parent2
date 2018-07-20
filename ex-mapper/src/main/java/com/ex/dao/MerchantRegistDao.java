@@ -24,4 +24,7 @@ public interface MerchantRegistDao {
     MerchantRegist merchantLoginOrCheckUserName(@Param("username") String username);
 
     public Long selectMutualReferrringById(String username);
+
+    //后台修改商家密码，注销账号
+    public Integer updateMerchantRegist(MerchantRegist merchantRegist);
 }

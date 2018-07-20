@@ -70,7 +70,7 @@
 
 	<!--根据一级分类来查-->
 	<select id="selectByLevelNum3" parameterType="Long" resultType="com.ex.entity.ProductClassify">
-		select pc1.* from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{parentId}
+		select pc1.* from product_classify pc1 where pc1.parentId in (select pc2.id from product_classify pc2 where pc2.parentId = #{parentId})
 	</select>
 
 	<!--根据二级分类来查-->
@@ -83,4 +83,11 @@
 		select * from product_classify where id = #{id}
 	</select>
 
+	<!--根据店铺id查询此店铺的商品类别，（三级分类）-->
+	<select id="selectProductClassifyByStoreId" parameterType="Long" resultType="com.ex.entity.ProductClassify">
+		select pc1.* from product_classify pc1
+		where pc1.parentId in (select pc2.id from product_classify pc2
+		                       where pc2.parentId in (select si.productClassifyId from store_info si where si.id = #{storeId}))
+		                       and pc1.levelNum =3
+	</select>
 </mapper>

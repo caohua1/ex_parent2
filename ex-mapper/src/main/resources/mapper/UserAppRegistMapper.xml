@@ -37,4 +37,5 @@
     <select id="userLoginOrCheckUserName" resultType="com.ex.entity.UserAppRegist" parameterType="java.lang.String">
         SELECT * FROM userapp_regist WHERE username = #{username}
     </select>
+
 </mapper>

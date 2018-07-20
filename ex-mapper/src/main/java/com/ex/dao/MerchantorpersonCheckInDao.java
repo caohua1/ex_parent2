@@ -1,6 +1,7 @@
 package com.ex.dao;
 
 import com.ex.entity.MerchantorpersonCheckIn;
+import com.ex.vo.MerchantCheckInVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -60,4 +61,19 @@ public interface MerchantorpersonCheckInDao {
      * @return
      */
     int auditTheMerchant(Map map);
+
+
+    /**
+     * 查询商家列表（入驻信息）
+     * @param map
+     * @return
+     */
+    public List<MerchantCheckInVo> selectMerchantList(Map map);
+
+    /**
+     * 根据id查询商家详情
+     * @param id
+     * @return
+     */
+    public MerchantCheckInVo selectMerchantById(Long id);
 }

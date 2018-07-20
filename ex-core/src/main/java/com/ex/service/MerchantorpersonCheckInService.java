@@ -3,10 +3,12 @@ package com.ex.service;
 import com.ex.entity.IndustryClassify;
 import com.ex.entity.MerchantorpersonCheckIn;
 import com.ex.util.PageRequest;
+import com.ex.vo.MerchantCheckInVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -31,4 +33,19 @@ public interface MerchantorpersonCheckInService {
     int auditTheMerchant(long id,int status,String causeby, Date updateTime);
 
     List<IndustryClassify> getIndustryClassifyAll();
+
+    //=============================后台商家管理
+    /**
+     * 查询商家列表（入驻信息）
+     * @param map
+     * @return
+     */
+    public PageInfo<MerchantCheckInVo> selectMerchantList(Map map,PageRequest pageRequest);
+
+    /**
+     * 根据id查询商家详情
+     * @param id
+     * @return
+     */
+    public MerchantCheckInVo selectMerchantById(Long id);
 }

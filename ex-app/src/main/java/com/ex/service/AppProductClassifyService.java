@@ -22,5 +22,7 @@ public interface AppProductClassifyService {
 
     //查询商品详情
     public ProductInfoManageVo selectProductInfoById(Long id);
+    //根据店铺id查询此店铺的商品类别，（三级分类）
+    public PageInfo<ProductClassify> selectProductClassifyByStoreId(Long storeId,PageRequest pageRequest);
 
 }

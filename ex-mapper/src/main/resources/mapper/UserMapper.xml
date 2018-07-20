@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.UserDao">
-	<select id="findByPage" resultType="com.ex.entity.UserAppRegist">
-		SELECT
-		  *
-		FROM userapp_regist
+	<select id="findByPage" parameterType="java.util.Map" resultType="com.ex.entity.UserAppRegist">
+		SELECT * FROM userapp_regist where 1=1
+		<if test="username!=null and username!=''">
+			and username = #{username}
+		</if>
+		<if test="startTime!=null and endTime==null">
+			and registTime &gt;= #{startTime}
+		</if>
+		<if test="endTime!=null and startTime==null">
+			and registTime &lt;= #{endTime}
+		</if>
+		<if test="endTime!=null and startTime!=null">
+			and registTime BETWEEN #{startTime} AND #{endTime}
+		</if>
 	</select>
 
 	<!--查询注册用户的数量-->
-	<select id="findUserCount" resultType="Integer">
+	<select id="findUserCount" parameterType="java.util.Map" resultType="Integer">
 		SELECT
 		  count(*)
-		FROM userapp_regist
+		FROM userapp_regist where 1=1
+		<if test="username!=null and username!=''">
+			and username = #{username}
+		</if>
+		<if test="startTime!=null and endTime==null">
+			and registTime &gt;= #{startTime}
+		</if>
+		<if test="endTime!=null and startTime==null">
+			and registTime &lt;= #{endTime}
+		</if>
+		<if test="endTime!=null and startTime!=null">
+			and registTime BETWEEN #{startTime} AND #{endTime}
+		</if>
 	</select>
+
+	<!--后台修改用户密码，注销用户账号-->
+	<update id="updateUserInfo" parameterType="com.ex.entity.UserAppRegist">
+		update userapp_regist SET
+		<if test="password!=null and password!=''">
+			password = #{password},
+		</if>
+		<if test="status!=null">
+			status = #{status},
+		</if>
+		<if test="updatetime!=null">
+			updateTime = #{updatetime}
+		</if>
+		where 1=1
+		<if test="id!=null">
+			and id = #{id}
+		</if>
+		<if test="username!=null and username!=''">
+			and username = #{username}
+		</if>
+
+	</update>
+
 </mapper>
