@@ -8,10 +8,12 @@
         <result column="orderNum" property="orderNum"/>
         <result column="buyUserId" property="buyUserId"/>
         <result column="shareUserId" property="shareUserId"/>
+        <result column="productInfoId" property="productInfoId"/>
         <result column="shareUsername" property="shareUsername"/>
         <result column="buyUsername" property="buyUsername"/>
         <result column="shareMechanism" property="shareMechanism"/>
         <result column="commission" property="commission"/>
+        <result column="IsCommission" property="IsCommission"/>
         <result column="merchantName" property="merchantName"/>
         <result column="orderMoney" property="orderMoney"/>
         <result column="createTime" property="createTime"/>
@@ -74,6 +76,7 @@
             <if test="buyUsername != null">AND so.buyUsername = #{buyUsername}</if>
             <if test="shareMechanism != null">AND so.shareMechanism = #{shareMechanism}</if>
             <if test="commission != null">AND so.commission = #{commission}</if>
+            <if test="IsCommission != null">AND so.IsCommission = #{IsCommission}</if>
             <if test="merchantName != null">AND so.merchantName = #{merchantName}</if>
             <if test="orderMoney != null">AND so.orderMoney = #{orderMoney}</if>
             <if test="startTime!=null and endTime==null">
@@ -96,14 +99,28 @@
         <include refid="Example_Where_Clause"/>
     </select>
     <!--按分享人id查询所有分享信息-->
-    <select id="selectShareOrderByShareUserIdAll" parameterType="java.lang.Long" resultType="com.ex.entity.ShareOrder">
-        SELECT * FROM share_order WHERE shareUserId = #{shareUserId} AND status = 5
+    <select id="selectShareOrderByShareUserIdAll" parameterType="map" resultType="com.ex.vo.ShareOrderVo">
+        SELECT
+            so.shareMechanism shareMechanism,
+            o.orderNum orderNum,
+            o.orderMoney orderMoney,
+            o.productNum productNum,
+            o.finishTime finishTime,
+            o.createTime createTime,
+            pm.productName productName,
+            pm.productPicUrl productPicUrl,
+            upd.nickName nickName
+        FROM share_order so
+        LEFT JOIN orders o ON so.orderNum = o.orderNum
+        LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
+        LEFT JOIN userapp_person_data upd ON so.buyUserId = upd.registUserId
+        WHERE so.shareUserId = #{shareUserId} AND so.productInfoId = #{productInfoId}
     </select>
     <!--按条件id精确查找分享信息-->
     <select id="selectShareOrderById" resultMap="ShareOrderResultMap" parameterType="java.lang.Long">
         SELECT * FROM share_order  so  JOIN orders o ON so.orderNum = o.orderNum LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id WHERE so.id = #{id}
     </select>
-    <!--添加分享信息-->
+    <!--添加分享订单信息-->
     <insert id="insertShareOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.ShareOrder">
         INSERT INTO share_order (orderNum, buyUserId, shareUserId, shareUsername, buyUsername, shareMechanism, commission, merchantName,orderMoney, createTime, updateTime, payStatus, status)
         VALUES (#{orderNum}, #{buyUserId}, #{shareUserId}, #{shareUsername}, #{buyUsername}, #{shareMechanism}, #{commission}, #{merchantName}, #{orderMoney}, #{createTime}, #{updateTime}, #{payStatus}, #{status})
@@ -118,6 +135,7 @@
         buyUsername = #{buyUsername},
         shareMechanism = #{shareMechanism},
         commission = #{commission},
+        IsCommission = #{IsCommission},
         merchantName = #{merchantName},
         orderMoney = #{orderMoney},
         createTime = #{createTime},

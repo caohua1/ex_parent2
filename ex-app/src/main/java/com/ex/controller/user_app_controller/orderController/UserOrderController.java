@@ -55,24 +55,24 @@ import java.util.List;
      * @param page 分页条件
      * @return
      */
-    @RequestMapping("/selectShareOrderByShareUserIdAll")
-    public JsonView selectShareOrderByShareUserIdAll(Long shareUserId, PageRequest page){
-        JsonView jsonView = new JsonView();
-        try {
-            PageHelper.startPage(page.getPageNum(),page.getPageSize());
-            List<ShareOrder> shareOrders = shareOrderService.selectShareOrderByShareUserIdAll(shareUserId);
-            PageInfo<ShareOrder> pageInfo = new PageInfo<>(shareOrders);
-            jsonView.setTodoCount(pageInfo.getSize());
-            jsonView.setMessage("查询数据成功!");
-            jsonView.setCode(JsonView.SUCCESS);
-            jsonView.setData(pageInfo);
-        }catch (Exception e){
-            e.printStackTrace();
-            jsonView.setMessage("请求失败!");
-            jsonView.setCode(JsonView.EXPIRED);
-        }
-        return jsonView;
-    }
+//    @RequestMapping("/selectShareOrderByShareUserIdAll")
+//    public JsonView selectShareOrderByShareUserIdAll(Long shareUserId, PageRequest page){
+//        JsonView jsonView = new JsonView();
+//        try {
+//            PageHelper.startPage(page.getPageNum(),page.getPageSize());
+//            List<ShareOrder> shareOrders = shareOrderService.selectShareOrderByShareUserIdAll(shareUserId);
+//            PageInfo<ShareOrder> pageInfo = new PageInfo<>(shareOrders);
+//            jsonView.setTodoCount(pageInfo.getSize());
+//            jsonView.setMessage("查询数据成功!");
+//            jsonView.setCode(JsonView.SUCCESS);
+//            jsonView.setData(pageInfo);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            jsonView.setMessage("请求失败!");
+//            jsonView.setCode(JsonView.EXPIRED);
+//        }
+//        return jsonView;
+//    }
 
     /**
      * TODO 作废
@@ -81,24 +81,24 @@ import java.util.List;
      * @param page 分页条件
      * @return
      */
-    @RequestMapping("/selectUserOrderByIdAndStatus")
-    public JsonView selectUserOrderByIdAndStatus(Long registUserId, PageRequest page){
-        JsonView jsonView = new JsonView();
-        try {
-            PageHelper.startPage(page.getPageNum(),page.getPageSize());
-            List<UserOrder> userOrders = userAppOrderService.selectUserOrderByIdAndStatus(registUserId);
-            PageInfo<UserOrder> pageInfo = new PageInfo<>(userOrders);
-            jsonView.setTodoCount(pageInfo.getSize());
-            jsonView.setMessage("查询数据成功!");
-            jsonView.setCode(JsonView.SUCCESS);
-            jsonView.setData(pageInfo);
-        }catch (Exception e){
-            e.printStackTrace();
-            jsonView.setMessage("请求失败!");
-            jsonView.setCode(JsonView.EXPIRED);
-        }
-        return jsonView;
-    }
+//    @RequestMapping("/selectUserOrderByIdAndStatus")
+//    public JsonView selectUserOrderByIdAndStatus(Long registUserId, PageRequest page){
+//        JsonView jsonView = new JsonView();
+//        try {
+//            PageHelper.startPage(page.getPageNum(),page.getPageSize());
+//            List<UserOrder> userOrders = userAppOrderService.selectUserOrderByIdAndStatus(registUserId);
+//            PageInfo<UserOrder> pageInfo = new PageInfo<>(userOrders);
+//            jsonView.setTodoCount(pageInfo.getSize());
+//            jsonView.setMessage("查询数据成功!");
+//            jsonView.setCode(JsonView.SUCCESS);
+//            jsonView.setData(pageInfo);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            jsonView.setMessage("请求失败!");
+//            jsonView.setCode(JsonView.EXPIRED);
+//        }
+//        return jsonView;
+//    }
 
     /**
      * 查询所有订单信息
@@ -132,7 +132,7 @@ import java.util.List;
      * @return
      */
     @RequestMapping("/updateUserOrder")
-    public JsonView updateUserOrder(int status, Long userOrderId,Long orderId){
+    public JsonView updateUserOrder(Integer status, Long userOrderId,Long orderId){
         JsonView jsonView = new JsonView();
         try {
             userAppOrderService.updateUserOrder(status, userOrderId, orderId);
