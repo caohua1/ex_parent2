@@ -55,7 +55,7 @@ public class ProductController {
                 jsonView.setMessage("查询某一级分类下的二级分类成功");
                 jsonView.setCode(JsonView.SUCCESS);
                 jsonView.setData(productClassifyPageInfo);
-            } else if(productClassify.getLevelNum()==2){
+            } else if(productClassify.getLevelNum()==2 && productClassify.getId()!=null){
                 //点击二级分类名称与图标跳转到对应的商家列表页
                 PageInfo<StoreInfoVo> pageInfo = appStoreInfoService.selectStoreInfosByProductClassifyId2(productClassify.getId(), pageRequest);
                 if(pageInfo!=null && pageInfo.getSize()>0){

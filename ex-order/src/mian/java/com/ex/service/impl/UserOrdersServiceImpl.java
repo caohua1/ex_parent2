@@ -3,13 +3,18 @@ package com.ex.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.ex.dao.OrderDiscussDao;
 import com.ex.dao.OrdersDao;
+import com.ex.dao.StoreInfoDao;
 import com.ex.dao.UserOrderDao;
 import com.ex.entity.Orders;
+import com.ex.entity.ShareOrder;
+import com.ex.entity.StoreInfo;
 import com.ex.entity.UserOrder;
+import com.ex.service.ShareOrderService;
 import com.ex.service.UserOrdersService;
 import com.ex.util.PageRequest;
 import com.ex.util.UUIDUtil;
 import com.ex.vo.OrderVo;
+import com.ex.vo.ProductInfoManageVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +37,10 @@ public class UserOrdersServiceImpl implements UserOrdersService{
     private UserOrderDao userOrderDao;
     @Autowired
     private OrderDiscussDao orderDiscussDao;
+    @Autowired
+    private ShareOrderService shareOrderService;
+    @Autowired
+    private StoreInfoDao storeInfoDao;
 
     /**
      * 商家app首页的客户管理，根据merchantId查询购买过此商家商品的客户的信息（去重，一个用户在此商家有多个订单）(消费金额)，几笔待发货
@@ -125,7 +134,7 @@ public class UserOrdersServiceImpl implements UserOrdersService{
      */
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
-    public Boolean insertOrders(Orders orders,UserOrder userOrder) {
+    public Boolean insertOrders(Orders orders, UserOrder userOrder, Long shareUserId, String shareUsername, String buyUsername, ProductInfoManageVo productInfoManageVo) {
         orders.setOrderNum(UUIDUtil.getOrderIdByUUId());
         Integer i = ordersDao.insertOrders(orders);
         if(i>0){
@@ -133,6 +142,26 @@ public class UserOrdersServiceImpl implements UserOrdersService{
             userOrder.setOrderId(orders.getId());
             userOrder.setStatus(1);
             int j = userOrderDao.insertUserOrder(userOrder);
+            //如果是分享订单，添加分享订单
+            if(shareUserId!=null && shareUsername!=null){
+                //5.如果是分享订单，添加分享订单表
+                ShareOrder shareOrder = new ShareOrder();
+                shareOrder.setBuyUserId(userOrder.getRegistUserId());//购买者id
+                shareOrder.setBuyUsername(buyUsername); //购买者账号
+                shareOrder.setShareUserId(shareUserId);//分享者id
+                shareOrder.setShareUsername(shareUsername);//分享者账号
+                shareOrder.setProductInfoId(orders.getProductInfoId()); //商品id
+                shareOrder.setMerchantId(productInfoManageVo.getMerchantId()); //商家id
+                shareOrder.setCreateTime(new Date());//下单时间
+                StoreInfo storeInfo = new StoreInfo();
+                storeInfo.setMerchantid(productInfoManageVo.getMerchantId());
+                List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+                shareOrder.setMerchantName(storeInfos.get(0).getStorename());//商家名称
+                shareOrder.setOrderMoney(orders.getOrderMoney());//订单金额
+                shareOrder.setOrderNum(orders.getOrderNum());//订单编号
+                int k = shareOrderService.insertShareOrder(shareOrder);
+                return j>0 && i>0 && k>0;
+            }
             return j>0 && i>0;
         }else{
             userOrder.setCreateTime(new Date());

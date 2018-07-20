@@ -105,8 +105,8 @@
     </select>
     <!--添加分享信息-->
     <insert id="insertShareOrder" useGeneratedKeys="true" keyProperty="id" parameterType="com.ex.entity.ShareOrder">
-        INSERT INTO share_order (orderNum, buyUserId, shareUserId, shareUsername, buyUsername, shareMechanism, commission, merchantName,orderMoney, createTime, updateTime, payStatus, status)
-        VALUES (#{orderNum}, #{buyUserId}, #{shareUserId}, #{shareUsername}, #{buyUsername}, #{shareMechanism}, #{commission}, #{merchantName}, #{orderMoney}, #{createTime}, #{updateTime}, #{payStatus}, #{status})
+        INSERT INTO share_order (orderNum, buyUserId, shareUserId, shareUsername, buyUsername, productInfoId,shareMechanism, commission, merchantName,orderMoney, createTime, updateTime, payStatus, status)
+        VALUES (#{orderNum}, #{buyUserId}, #{shareUserId}, #{shareUsername}, #{buyUsername},#{productInfoId}, #{shareMechanism}, #{commission}, #{merchantName}, #{orderMoney}, #{createTime}, #{updateTime}, #{payStatus}, #{status})
     </insert>
     <!--修改分享信息-->
     <update id="uodateShareOrder" parameterType="com.ex.entity.ShareOrder">

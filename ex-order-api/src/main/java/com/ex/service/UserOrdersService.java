@@ -3,6 +3,7 @@ import com.ex.entity.Orders;
 import com.ex.entity.UserOrder;
 import com.ex.util.PageRequest;
 import com.ex.vo.OrderVo;
+import com.ex.vo.ProductInfoManageVo;
 import com.github.pagehelper.PageInfo;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public interface UserOrdersService {
     public PageInfo<OrderVo> selectUserOrdersByMerchantId2(Map map,PageRequest pageRequest);
 
     //添加订单
-    public Boolean insertOrders(Orders orders, UserOrder userOrder);
+    public Boolean insertOrders(Orders orders, UserOrder userOrder,Long shareUserId,String shareUsername,String buyUsername, ProductInfoManageVo productInfoManageVo);
 
     //修改订单的支付状态（orders表）
     public int updateOrdersStatusById(Map map);

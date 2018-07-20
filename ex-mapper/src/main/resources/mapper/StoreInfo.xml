@@ -94,4 +94,19 @@
         select * from store_info where storeName like CONCAT(CONCAT('%', #{storeName}), '%')
     </select>
 
+
+    <!--商家列表页/搜索结果页，搜索功能（商家名称，地理位置，分类，销量最高，综合评价,productClassifyId=5）-->
+    <select id="selectMerchantsByParam" parameterType="java.util.Map" resultType="com.ex.vo.StoreInfoVo">
+        select si.* from store_info si where 1=1
+        <if test="productClassifyid!=null">
+             and si.merchantId in(
+              select DISTINCT(pm.merchantId) from productinfo_manage pm where
+              pm.productClassifyId in(select pc2.id from product_classify pc2 where pc2.parentId = #{productClassifyid})
+              )
+        </if>
+        <if test="storename!=null and storename!=''">
+            and si.storeName like CONCAT(CONCAT('%', #{storename}), '%')
+        </if>
+    </select>
+
 </mapper>

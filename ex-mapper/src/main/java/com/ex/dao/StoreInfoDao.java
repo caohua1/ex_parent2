@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -26,6 +27,9 @@ public interface StoreInfoDao {
 
    //模糊查询，根据店铺名称
     public List<StoreInfoVo> selectStoreByStoreName(String storeName);
+
+    //商家列表页/搜索结果页，搜索功能（商家名称，地理位置，分类，销量最高，综合评价,productClassifyId=5）
+    public List<StoreInfoVo> selectMerchantsByParam(Map map);
 
 
 

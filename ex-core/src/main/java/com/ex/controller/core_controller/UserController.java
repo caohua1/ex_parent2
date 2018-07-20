@@ -33,12 +33,12 @@ public class UserController {
      * @param page
      * @return
      */
-    @RequestMapping("/all")
+   /* @RequestMapping("/all")
     public JsonView findAll(PageRequest page) {
         logger.info("Request comming to find user list...");
         PageInfo<UserAppRegist> pageInfo = userService.findAll(page);
         return JsonView.success(pageInfo);
-    }
+    }*/
 
     @Autowired
     private RedisUtilService redisUtilService;

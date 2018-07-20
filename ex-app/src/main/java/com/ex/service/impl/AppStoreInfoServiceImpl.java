@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("ALL")
 @Service
@@ -43,6 +44,20 @@ public class AppStoreInfoServiceImpl implements AppStoreInfoService {
         PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
         List<StoreInfoVo> storeInfos = storeInfoDao.selectStoreInfosByProductClassifyId2(productClassifyId);
         PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfos);
+        return pageInfo;
+    }
+
+    /**
+     * 商家列表页/搜索结果页，搜索功能（商家名称，地理位置，分类，销量最高，综合评价,productClassifyId=5）
+     * @param map
+     * @param pageRequest
+     * @return
+     */
+    @Override
+    public PageInfo<StoreInfoVo> selectMerchantsByParam(Map map, PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<StoreInfoVo> storeInfoVos = storeInfoDao.selectMerchantsByParam(map);
+        PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfoVos);
         return pageInfo;
     }
 }

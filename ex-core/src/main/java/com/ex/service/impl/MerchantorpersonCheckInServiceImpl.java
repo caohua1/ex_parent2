@@ -7,6 +7,7 @@ import com.ex.entity.IndustryClassify;
 import com.ex.entity.MerchantorpersonCheckIn;
 import com.ex.service.MerchantorpersonCheckInService;
 import com.ex.util.PageRequest;
+import com.ex.vo.MerchantCheckInVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,5 +127,31 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
     @Override
     public List<IndustryClassify> getIndustryClassifyAll() {
         return industryClassifyDao.getAll();
+    }
+
+
+    /**
+     *  查询商家列表（入驻信息）
+     * @param map
+     * @param pageRequest
+     * @return
+     */
+    @Override
+    public PageInfo<MerchantCheckInVo> selectMerchantList(Map map, PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<MerchantCheckInVo> merchantCheckInVos = merchantorpersonCheckInDao.selectMerchantList(map);
+        PageInfo<MerchantCheckInVo> pageInfo = new PageInfo<>(merchantCheckInVos);
+        pageInfo.setSize(merchantCheckInVos.size());
+        return pageInfo;
+    }
+
+    /**
+     * 根据id查询商家详情
+     * @param id
+     * @return
+     */
+    @Override
+    public MerchantCheckInVo selectMerchantById(Long id) {
+        return merchantorpersonCheckInDao.selectMerchantById(id);
     }
 }

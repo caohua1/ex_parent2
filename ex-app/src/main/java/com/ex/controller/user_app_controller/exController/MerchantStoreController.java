@@ -1,29 +1,22 @@
 package com.ex.controller.user_app_controller.exController;
-
-import com.ex.dao.ProductClassifyDao;
-import com.ex.dao.ProductInfoManageDao;
 import com.ex.dao.StoreInfoDao;
 import com.ex.entity.AppointmentOrder;
 import com.ex.entity.ProductClassify;
 import com.ex.entity.StoreInfo;
-import com.ex.service.AppOrderDiscussService;
-import com.ex.service.AppProductClassifyService;
-import com.ex.service.AppointmentOrder1Service;
+import com.ex.service.*;
 import com.ex.util.DateAndTimeUtil;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
 import com.ex.util.UUIDUtil;
 import com.ex.vo.OrderDiscussVo;
 import com.ex.vo.ProductInfoManageVo;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("ALL")
 @RestController
@@ -39,6 +32,10 @@ public class MerchantStoreController {
     private StoreInfoDao storeInfoDao;
     @Autowired
     private AppOrderDiscussService appOrderDiscussService;
+    @Autowired
+    private AppStoreInfoService appStoreInfoService;
+    @Autowired
+    private UserOrdersService userOrdersService;
 
 
 
@@ -89,16 +86,18 @@ public class MerchantStoreController {
 
     /**
      * 查询三级分类，分页查询
-     * @param productClassify
      * @param pageRequest
+     * @param storeId 商家店铺id
      * @return
      */
     @RequestMapping("/selectProductClassify")
-    public JsonView selectProductClassify( ProductClassify productClassify,PageRequest pageRequest){
+    public JsonView selectProductClassify(PageRequest pageRequest,Long storeId){
         JsonView jsonView = new JsonView();
         try{
             //3.查询三级分类
-            PageInfo<ProductClassify> productClassifyPageInfo = appProductClassifyService.selectProductClassify(productClassify, pageRequest);
+            Map map = new HashMap();
+            map.put("storeId",storeId);
+            PageInfo<ProductClassify> productClassifyPageInfo = appProductClassifyService.selectProductClassifyByStoreId(storeId, pageRequest);
             jsonView.setMessage("查询三级分类");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setData(productClassifyPageInfo);
@@ -216,7 +215,7 @@ public class MerchantStoreController {
         JsonView jsonView = new JsonView();
         try{
             ProductInfoManageVo productInfoManageVo = appProductClassifyService.selectProductInfoById(id);
-            if(productInfoManageVo.getSXJStatus()==0){
+            if(productInfoManageVo.getSXJStatus()!=null&&productInfoManageVo.getSXJStatus()==0){
                 jsonView.setMessage("对不起，您查看的商品已经下架");
                 jsonView.setData(productInfoManageVo);
             }else{
@@ -255,4 +254,76 @@ public class MerchantStoreController {
         }
         return jsonView;
     }
+
+
+    /**
+     * 商家列表页/搜索结果页，搜索功能（商家名称，地理位置，分类，销量最高，综合评价）
+     * @param storename 按商家名称（店铺名称）搜索
+     * @param productClassifyid 按二级分类搜索商家列表
+     * @param isOrderNum ===1 按销量排序
+     * @param isDiscussAvg ===1 按综合排名排序
+     * @param pageRequest
+     * @return
+     */
+    @RequestMapping("/selectMerchantsByParam")
+    public JsonView selectMerchantsByParam(String storename,Long productClassifyid,Integer isOrderNum,Integer isDiscussAvg,PageRequest pageRequest){
+        JsonView jsonView = new JsonView();
+        try{
+            Map map = new HashMap();
+            if(storename!=null && !("").equals(storename)){
+                map.put("storename",storename);
+            }
+            if(productClassifyid!=null){
+                map.put("productClassifyid",productClassifyid);
+            }
+            PageInfo<StoreInfoVo> pageInfo = appStoreInfoService.selectMerchantsByParam(map, pageRequest);
+            if(pageInfo!=null && pageInfo.getSize()>0){
+                List<StoreInfoVo> list = pageInfo.getList();
+                for(int i=0;i<list.size();i++){
+                    //计算平均评论分数
+                    Double merchantDiscussAvg = userOrdersService.selectMerchantDiscussAvg(list.get(i).getMerchantid());
+                    if(merchantDiscussAvg==null){
+                        list.get(i).setMerchantDiscussAvg(0.0);
+                    }else{
+                        list.get(i).setMerchantDiscussAvg(merchantDiscussAvg);//每个商家的平均评分
+                    }
+                    //计算总销售单数(包括分享订单)
+                    Integer orderNums = userOrdersService.selectMerchantOrderNums(list.get(i).getMerchantid());
+                    if(orderNums==null){
+                        list.get(i).setOrdersNums(0);
+                    }else{
+                        list.get(i).setOrdersNums(orderNums);
+                    }
+                }
+                pageInfo.setList(list);
+            }
+            //如果按销量排序
+            if(isOrderNum!=null){
+                pageInfo.getList().sort(new Comparator<StoreInfoVo>() {//Comparator 比较器. 需要实现比较方法
+                    @Override
+                    public int compare(StoreInfoVo o1, StoreInfoVo o2) {
+                        return o2.getOrdersNums()-o1.getOrdersNums();//从大到小
+                    }
+                });
+            }
+            //如果按综合评价排序
+            if(isDiscussAvg!=null){
+                pageInfo.getList().sort(new Comparator<StoreInfoVo>() {//Comparator 比较器. 需要实现比较方法
+                    @Override
+                    public int compare(StoreInfoVo o1, StoreInfoVo o2) {
+                        return (int) (o2.getMerchantDiscussAvg()-o1.getMerchantDiscussAvg());//从大到小
+                    }
+                });
+            }
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("返回数据成功");
+            jsonView.setData(pageInfo);
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("查询异常");
+            jsonView.setCode(JsonView.ERROR);
+        }
+        return jsonView;
+    }
+
 }

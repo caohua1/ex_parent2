@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user/order")
-    public class UserOrderController {
+public class UserOrderController {
 
     @Autowired
     private UserAppOrderService userAppOrderService;
