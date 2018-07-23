@@ -37,7 +37,7 @@ public class SMSController {
         JsonView jsonView = new JsonView();
         try {
             //发送验证码
-            String code = SMSUtil.sendSMS(phone);
+            String code = SMSUtil.sendSMS(phone,null,null,1);
             System.out.println(sf.format(new Date()));
             if (code == null) {
                 jsonView.setMessage("短信验证码发送失败");
