@@ -1,5 +1,6 @@
 package com.ex.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.ex.dao.ProductClassifyDao;
 import com.ex.entity.ProductClassify;
 import com.ex.service.ProductClassifyService;
@@ -7,7 +8,6 @@ import com.ex.util.PageRequest;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;

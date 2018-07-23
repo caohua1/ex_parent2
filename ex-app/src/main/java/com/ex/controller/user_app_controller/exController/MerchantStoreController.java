@@ -297,7 +297,7 @@ public class MerchantStoreController {
         JsonView jsonView = new JsonView();
         try{
             Map map = new HashMap();
-            if(storename!=null && !("").equals(storename)){
+            if(!storename.isEmpty() && storename!=null && !("").equals(storename) ){
                 map.put("storename",storename);
             }
             if(productClassifyid!=null){

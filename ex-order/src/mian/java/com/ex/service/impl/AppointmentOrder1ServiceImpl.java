@@ -88,7 +88,7 @@ public class AppointmentOrder1ServiceImpl implements AppointmentOrder1Service {
                 UserVo user = userAppInfoDao.findByUserId(appointmentOrderVo1.getRegistUserId());
                 String phone = user.getPhone(); //用户的电话
                 String realName = user.getRealName(); //用户的真实姓名
-                String content = "取消的预约订单，已退款给您，请注意查收您的余额，退款金额为："+appointmentOrderVo1.getAppointmentMoney();
+                String content = String.valueOf(appointmentOrderVo1.getAppointmentMoney());
                 SMSUtil.sendSMS(phone,content,realName,2);
             }*/
            return i>0 && j>0;
