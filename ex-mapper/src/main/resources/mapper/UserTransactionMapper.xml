@@ -3,6 +3,6 @@
 <mapper namespace="com.ex.dao.UserTransactionDao">
     <!--按ID查询所有的支出和收入信息-->
     <select id="selectUserTransactionAll" parameterType="java.lang.Long" resultType="com.ex.entity.UserTransaction">
-        SELECT * FROM user_transaction WHERE registUserId = #{registUserId}
+        SELECT * FROM user_transaction WHERE registUserId = #{registUserId} ORDER BY createTime
     </select>
 </mapper>

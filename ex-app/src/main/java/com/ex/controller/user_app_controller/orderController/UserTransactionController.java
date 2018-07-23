@@ -17,6 +17,12 @@ public class UserTransactionController {
     @Autowired
     private UserTransactionService userTransactionService;
 
+    /**
+     * 查询所有收入和支出
+     * @param registUserId
+     * @param page
+     * @return
+     */
     @RequestMapping("/selectUserTransactionAll")
     public JsonView selectUserTransactionAll(Long registUserId, PageRequest page){
         JsonView jsonView = new JsonView();

@@ -38,6 +38,7 @@ public interface OrdersDao {
     //查询此用户在此商家的待发货的详情，分页查询
     public List<OrderVo> selectUserOrdersByMerchantId2(Map map);
 
+    //修改订单状态
     int updateOrdersStatusById(Map map);
 
     //添加订单
