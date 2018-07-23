@@ -297,10 +297,10 @@ public class MerchantStoreController {
         JsonView jsonView = new JsonView();
         try{
             Map map = new HashMap();
-            if(!storename.isEmpty() && storename!=null && !("").equals(storename) ){
+            if(!storename.equals(null) && storename!=null && !("").equals(storename)){
                 map.put("storename",storename);
             }
-            if(productClassifyid!=null){
+            if(productClassifyid!=null && !productClassifyid.equals(null)){
                 map.put("productClassifyid",productClassifyid);
             }
             PageInfo<StoreInfoVo> pageInfo = appStoreInfoService.selectMerchantsByParam(map, pageRequest);
@@ -325,7 +325,7 @@ public class MerchantStoreController {
                 pageInfo.setList(list);
             }
             //如果按销量排序
-            if(isOrderNum!=null){
+            if(isOrderNum!=null && !isOrderNum.equals(null)){
                 pageInfo.getList().sort(new Comparator<StoreInfoVo>() {//Comparator 比较器. 需要实现比较方法
                     @Override
                     public int compare(StoreInfoVo o1, StoreInfoVo o2) {
@@ -334,7 +334,7 @@ public class MerchantStoreController {
                 });
             }
             //如果按综合评价排序
-            if(isDiscussAvg!=null){
+            if(isDiscussAvg!=null && !isDiscussAvg.equals(null)){
                 pageInfo.getList().sort(new Comparator<StoreInfoVo>() {//Comparator 比较器. 需要实现比较方法
                     @Override
                     public int compare(StoreInfoVo o1, StoreInfoVo o2) {
