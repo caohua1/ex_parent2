@@ -9,8 +9,7 @@ public class AppointmentSet implements Serializable {
 
    private Long id;
    private Long merchantId;
-   @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-   private Date appointmentTime;
+   private String appointmentTime;
    private Integer minPeople;
    private Integer maxPeople;
    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -34,11 +33,11 @@ public class AppointmentSet implements Serializable {
         this.merchantId = merchantId;
     }
 
-    public Date getAppointmentTime() {
+    public String getAppointmentTime() {
         return appointmentTime;
     }
 
-    public void setAppointmentTime(Date appointmentTime) {
+    public void setAppointmentTime(String appointmentTime) {
         this.appointmentTime = appointmentTime;
     }
 

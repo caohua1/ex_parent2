@@ -1,6 +1,7 @@
 package com.ex.service;
 
 
+import com.ex.entity.IndexAdvertising;
 import com.ex.entity.ProductClassify;
 import com.ex.entity.StoreInfo;
 import com.ex.util.PageRequest;
@@ -28,5 +29,8 @@ public interface ExIndexService {
 
     //模糊查询，根据店铺名称
     public PageInfo<StoreInfoVo> selectStoreByStoreName(String storeName,PageRequest pageRequest);
+
+    //广告图片，跳转路径
+    public List<IndexAdvertising> selectAdvertising();
 
 }

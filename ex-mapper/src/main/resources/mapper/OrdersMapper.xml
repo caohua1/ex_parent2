@@ -106,6 +106,9 @@
 			<if test="finishTime!=null">
 				finishTime  = #{finishTime},
 			</if>
+			<if test="WuLiuNum!=null and WuLiuNum!=''">
+				WuLiuNum = #{WuLiuNum},
+			</if>
 			<if test="updateTime != null" >
 				updateTime = #{updateTime}
 			</if>

@@ -14,7 +14,7 @@ public interface UserAppOrderService {
     //查询所有订单信息
     List<UserOrder> selectUserOrderAll();
     //修改订单信息
-    int updateUserOrder(Integer status, Long userOrderId,Long orderId) throws ParseException;
+    int updateUserOrder(int status, Long userOrderId,Long orderId,String wuLiuNum);
     //添加订单信息
     int insertUserOrder(UserOrder userOrder);
 

@@ -37,4 +37,16 @@
 		left join merchant_regist mr1 on mr1.id =me.BeMerchantId
 		left join merchant_regist mr2 on mr2.id = me.merchantId
 	</select>
+
+	<!-- 根据互推商家id查询当前商家所有互推数据-->
+	<select id="selectMerchantElect" parameterType="java.lang.Long" resultType="com.ex.entity.StoreInfo">
+		SELECT si.*
+		FROM  store_info si where si.merchantId in(
+		select e.merchantId
+		from merchant_elect e
+		WHERE e.merchantId=#{merchantId}
+		and e.electMerchantStatus=1
+		and e.BeElectMerchantStatus=1)
+	</select>
+
 </mapper>

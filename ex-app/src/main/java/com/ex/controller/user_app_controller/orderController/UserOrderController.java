@@ -130,13 +130,14 @@ public class UserOrderController {
      * @param status 订单状态
      * @param userOrderId 用户ID 用户产生订单（中间表）
      * @param orderId 订单ID
+     * @param wuLiuNum 商家发货后添加物流编号
      * @return
      */
     @RequestMapping(value = "/updateUserOrder",method = RequestMethod.POST)
-    public JsonView updateUserOrder(Integer status, Long userOrderId,Long orderId){
+    public JsonView updateUserOrder(Integer status, Long userOrderId,Long orderId,String wuLiuNum){
         JsonView jsonView = new JsonView();
         try {
-            userAppOrderService.updateUserOrder(status, userOrderId, orderId);
+            userAppOrderService.updateUserOrder(status, userOrderId, orderId,wuLiuNum);
             jsonView.setMessage("修改成功!");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setTodoCount(1);

@@ -1,16 +1,21 @@
 package com.ex.controller.user_app_controller.exController;
+import com.ex.dao.MerchantElectDao;
 import com.ex.dao.OrdersDao;
 import com.ex.dao.ProductInfoManageDao;
 import com.ex.entity.*;
 import com.ex.service.UserOrdersService;
 import com.ex.util.JsonView;
+import com.ex.vo.MerchantElectVo;
 import com.ex.vo.ProductInfoManageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -24,6 +29,8 @@ public class UserInsertOrderController {
     private ProductInfoManageDao productInfoManageDao;
     @Autowired
     private OrdersDao ordersDao;
+    @Autowired
+    private MerchantElectDao merchantElectDao;
 
 
     /**
@@ -110,6 +117,35 @@ public class UserInsertOrderController {
         }else{
             return "操作失败";
         }
+    }
+
+
+
+    /**
+     * 确认付款后，显示此商家推荐的商家的店铺(无分页)
+     * @param merchantId(产生订单的商家id)
+     * @return
+     */
+    @RequestMapping("/selectMechantByElect")
+    @ResponseBody
+    public JsonView selectMechantByElect(Long merchantId){
+        JsonView jsonView = new JsonView();
+        try{
+            List<StoreInfo> storeInfos = merchantElectDao.selectMerchantElect(merchantId);
+            if(storeInfos!=null && storeInfos.size()>0){
+                jsonView.setMessage("查询成功");
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setData(storeInfos);
+            }else{
+                jsonView.setCode(JsonView.ERROR);
+                jsonView.setMessage("暂无推荐商家");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
+        }
+        return jsonView;
     }
 
 }

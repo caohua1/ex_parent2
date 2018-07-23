@@ -57,4 +57,21 @@
 		</if>
 		and ao.merchantId = #{merchantId}
 	</select>
+
+	<!--取消预约订单，修改status状态（取消订单，退钱）-->
+	<update id="updateAppointmentOrder" parameterType="com.ex.vo.AppointmentOrderVo">
+		update appointment_order SET
+		<if test="status!=null">
+			status = #{status},
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		where id = #{id}
+	</update>
+
+	<!--查询预订订单详情，根据id-->
+	<select id="selectAppAppointmentById" parameterType="Long" resultType="com.ex.vo.AppointmentOrderVo">
+		select * from appointment_order where id = #{id}
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package com.ex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,12 +19,16 @@ public class AppointmentOrder implements Serializable{
     private String merchantName;
     private String productName;
     private Double appointmentMoney;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date appointmentTime;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
     private String remark;
     private Integer payWay;
     private Integer payStatus;
     private Integer status;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date updateTime;
 
     public Long getId() {
         return id;
@@ -166,5 +172,13 @@ public class AppointmentOrder implements Serializable{
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }

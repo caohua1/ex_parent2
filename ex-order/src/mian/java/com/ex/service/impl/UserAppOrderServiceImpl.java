@@ -5,7 +5,6 @@ import com.ex.dao.OrdersDao;
 import com.ex.dao.UserOrderDao;
 import com.ex.entity.UserOrder;
 import com.ex.service.UserAppOrderService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -67,11 +66,14 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
      */
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
-    public int updateUserOrder(Integer status, Long userOrderId, Long orderId) throws ParseException {
+    public int updateUserOrder(Integer status, Long userOrderId,Long orderId,String wuLiuNum) throws ParseException {
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("updateTime", new Date());
         map.put("status", status);
         map.put("id", orderId);
+        if(wuLiuNum!=null && !("").equals(wuLiuNum)){//发货后，商家填写物流编号
+            map.put("WuLiuNum",wuLiuNum);
+        }
         if (status == 4) {
             //生成十天后后的时间
             Calendar c = Calendar.getInstance();
