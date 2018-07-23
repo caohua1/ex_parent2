@@ -91,6 +91,9 @@
 			<if test="status != null" >
 				status = #{status},
 			</if>
+			<if test="orderId!=null">
+				orderId = #{orderId},
+			</if>
 			<if test="payStatus!=null">
 				payStatus = #{payStatus},
 			</if>
@@ -99,6 +102,9 @@
 			</if>
 			<if test="payTime!=null">
 				payTime  = #{payTime},
+			</if>
+			<if test="finishTime!=null">
+				finishTime  = #{finishTime},
 			</if>
 			<if test="updateTime != null" >
 				updateTime = #{updateTime}

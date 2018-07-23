@@ -10,6 +10,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -127,16 +128,16 @@ public class UserOrderController {
     /**
      * 修改订单状态
      * @param status 订单状态
-     * @param userOrderId 用户ID
+     * @param userOrderId 用户ID 用户产生订单（中间表）
      * @param orderId 订单ID
      * @return
      */
-    @RequestMapping("/updateUserOrder")
+    @RequestMapping(value = "/updateUserOrder",method = RequestMethod.POST)
     public JsonView updateUserOrder(Integer status, Long userOrderId,Long orderId){
         JsonView jsonView = new JsonView();
         try {
             userAppOrderService.updateUserOrder(status, userOrderId, orderId);
-            jsonView.setMessage("请求成功!");
+            jsonView.setMessage("修改成功!");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setTodoCount(1);
         }catch (Exception e){

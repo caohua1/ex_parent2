@@ -11,10 +11,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service(version = "1.0.0")
 public class UserAppOrderServiceImpl implements UserAppOrderService {
@@ -24,50 +23,64 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
     @Autowired
     private OrdersDao ordersDao;
 
+    private SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+
     /**
      * 按用户Id查询该用户所有订单信息
+     *
      * @param registUserId
      * @return
      */
     @Override
     public List<UserOrder> selectUserOrderByid(Long registUserId) {
-        return userOrderDao.selectUserOrderByid(registUserId,null);
+        return userOrderDao.selectUserOrderByid(registUserId, null);
     }
 
     /**
      * 按用户Id查询该用户所有订单信息
+     *
      * @param registUserId
      * @return
      */
     @Override
     public List<UserOrder> selectUserOrderByIdAndStatus(Long registUserId) {
-        return userOrderDao.selectUserOrderByid(registUserId,4);
+        return userOrderDao.selectUserOrderByid(registUserId, 4);
     }
 
+    /**
+     * 查询所有订单信息
+     *
+     * @return
+     */
     @Override
     public List<UserOrder> selectUserOrderAll() {
         return userOrderDao.selectUserOrderAll();
     }
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date updateTime;
 
     /**
      * //修改用户和订单表关联信息状态
+     *
      * @param status
      * @param userOrderId
-     * @param orderId
+     * @param orderId 订单Id
      * @return
      */
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
-    public int updateUserOrder(int status, Long userOrderId,Long orderId) {
-        updateTime = new Date();
-        Map map = new HashMap();
-        map.put("updateTime",updateTime);
-        map.put("status",status);
-        map.put("orderId",orderId);
+    public int updateUserOrder(Integer status, Long userOrderId, Long orderId) throws ParseException {
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("updateTime", new Date());
+        map.put("status", status);
+        map.put("id", orderId);
+        if (status == 4) {
+            //生成十天后后的时间
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.MINUTE, 14400);
+            String currentTime = sf.format(c.getTime());
+            map.put("finishTime",sf.parse(currentTime));
+        }
         ordersDao.updateOrdersStatusById(map);//修改订单表状态
-        return userOrderDao.updateUserOrder(updateTime,status,orderId);//修改用户和订单关系表状态
+        return userOrderDao.updateUserOrder(new Date(), status, userOrderId);//修改用户和订单关系表状态
     }
 
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)

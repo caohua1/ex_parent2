@@ -1,5 +1,6 @@
 package com.ex.dao;
 
+import com.ex.entity.OrderDiscuss;
 import com.ex.vo.OrderDiscussVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,4 +14,6 @@ public interface OrderDiscussDao {
 
     //计算商家的平均评分，（所有订单的评论）
     public Double selectMerchantDiscussAvg(Long merchantId);
+
+    int insertOrderDiscuss(OrderDiscuss orderDiscuss);
 }

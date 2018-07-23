@@ -1,10 +1,10 @@
 package com.ex.service;
 
-import com.ex.entity.ProductInfoManage;
 import com.ex.entity.ShareOrder;
 import com.ex.entity.ShareOrderInfo;
 import com.ex.util.PageRequest;
-import com.github.pagehelper.PageInfo;
+import com.ex.vo.ShareOrderInfoVo;
+import com.ex.vo.ShareOrderVo;
 
 import java.util.List;
 import java.util.Map;
@@ -14,9 +14,10 @@ import java.util.Map;
  */
 public interface ShareOrderService {
     List<ShareOrder> selectShareOrderAll(ShareOrder shareOrder, PageRequest pageRequest);
-    List<ShareOrder> selectShareOrderByShareUserIdAll(long shareUserId);
+    List<ShareOrderVo> selectShareOrderByShareUserIdAll(Long shareUserId,Long productInfoId);
     ShareOrder selectShareOrderById(Long id);
     int insertShareOrder(ShareOrder shareOrder);
     int uodateShareOrder(ShareOrder shareOrder);
     ShareOrderInfo selectShareOrderInfo(Map<String,Object> map);
+    ShareOrderInfoVo selectShareOrederInfoVo(Long userId);
 }

@@ -150,4 +150,34 @@
         select COUNT(buyUserId) AS buyUserIds,SUM(orderMoney) AS orderMoneys,SUM(commission) AS commissions,COUNT(*) AS counts FROM share_order where merchantId = #{merchantId} AND payStatus = #{payStatus}
     </select>
 
+    <select id="selectShareOrederInfoVo" resultType="com.ex.vo.ShareOrderInfoVo" parameterType="map">
+        select
+        (
+        select SUM(so.orderMoney)
+        FROM share_order so
+        LEFT JOIN orders o ON so.orderNum = o.orderNum
+        where so.shareUserId = #{userId}
+        ) total ,
+        (
+        select SUM(so.orderMoney)
+        FROM share_order so
+        LEFT JOIN orders o ON so.orderNum = o.orderNum
+        where so.shareUserId = #{userId}
+        AND o.finishTime > '2018-07-04 08:36:04'
+        ) waitRevenue ,
+        (
+        select COUNT(*)
+        FROM share_order so
+        LEFT JOIN orders o ON so.orderNum = o.orderNum
+        where so.shareUserId = #{userId}
+        AND o.finishTime &gt; #{finishTime}
+        ) completeOrder ,
+        (
+        select COUNT(*)
+        FROM share_order so
+        LEFT JOIN orders o ON so.orderNum = o.orderNum
+        where so.shareUserId = #{userId}
+        AND o.finishTime &lt; #{finishTime}
+        ) orderInTransaction
+    </select>
 </mapper>

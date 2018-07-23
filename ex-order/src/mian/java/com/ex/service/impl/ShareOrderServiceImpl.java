@@ -7,6 +7,8 @@ import com.ex.entity.ShareOrder;
 import com.ex.entity.ShareOrderInfo;
 import com.ex.service.ShareOrderService;
 import com.ex.util.PageRequest;
+import com.ex.vo.ShareOrderInfoVo;
+import com.ex.vo.ShareOrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -44,8 +46,8 @@ public class ShareOrderServiceImpl implements ShareOrderService {
      * @return
      */
     @Override
-    public List<ShareOrder> selectShareOrderByShareUserIdAll(long shareUserId) {
-        List<ShareOrder> shareOrders = shareOrderDao.selectShareOrderByShareUserIdAll(shareUserId);
+    public List<ShareOrderVo> selectShareOrderByShareUserIdAll(Long shareUserId,Long productInfoId) {
+        List<ShareOrderVo> shareOrders = shareOrderDao.selectShareOrderByShareUserIdAll(shareUserId,productInfoId);
         return shareOrders;
     }
 
@@ -100,6 +102,16 @@ public class ShareOrderServiceImpl implements ShareOrderService {
         if (map.get("payStatus") != null)
             payStatus = (int) map.get("payStatus");
         return shareOrderDao.selectShareOrderInfo(merchantId, payStatus);
+    }
+
+    /**
+     * 用户APP我的分享顶部数据
+     * @param userId
+     * @return
+     */
+    @Override
+    public ShareOrderInfoVo selectShareOrederInfoVo(Long userId) {
+        return shareOrderDao.selectShareOrederInfoVo(userId,new Date());
     }
 
 }
