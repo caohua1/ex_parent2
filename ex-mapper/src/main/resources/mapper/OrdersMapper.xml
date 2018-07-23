@@ -100,6 +100,9 @@
 			<if test="payTime!=null">
 				payTime  = #{payTime},
 			</if>
+			<if test="WuLiuNum!=null and WuLiuNum!=''">
+				WuLiuNum = #{WuLiuNum},
+			</if>
 			<if test="updateTime != null" >
 				updateTime = #{updateTime}
 			</if>

@@ -3,10 +3,22 @@
 <mapper namespace="com.ex.dao.UserAppInfoDao">
 
 	<!--根据用户id，查询用户详细信息-->
-	<select id="findByUserId" resultType="com.ex.vo.UserVo">
+	<select id="findByUserId" parameterType="Long" resultType="com.ex.vo.UserVo">
 		select ui.*,upd.headUrl headUrl,upd.MyQRCode MyQRCode,upd.nickName nickName,upd.sex sex,upd.marriage marriage,upd.job job,upd.email email
 		from userapp_info ui
 		left join userapp_person_data upd on upd.registUserId = ui.registUserId
-		where ui.registUserId = #{id}
+		where ui.registUserId = #{registUserId}
 	</select>
+
+	<!--修改用户信息-->
+	<update id="updateUserAppInfo" parameterType="com.ex.vo.UserVo">
+		update userapp_info SET
+		<if test="YuE!=null">
+			YuE = #{YuE} + YuE,
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		where registUserId = #{registUserId}
+	</update>
 </mapper>

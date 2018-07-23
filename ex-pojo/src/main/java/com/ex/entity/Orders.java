@@ -27,6 +27,7 @@ public class Orders implements Serializable{
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
+    private String WuLiuNum;//物流编号
     private ProductInfoManage productInfoManage;
 
     public ProductInfoManage getProductInfoManage() {
@@ -165,5 +166,11 @@ public class Orders implements Serializable{
         this.status = status;
     }
 
+    public String getWuLiuNum() {
+        return WuLiuNum;
+    }
 
+    public void setWuLiuNum(String wuLiuNum) {
+        WuLiuNum = wuLiuNum;
+    }
 }

@@ -60,12 +60,15 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
      */
     @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, rollbackFor = Exception.class, timeout = 36000)
     @Override
-    public int updateUserOrder(int status, Long userOrderId,Long orderId) {
+    public int updateUserOrder(int status, Long userOrderId,Long orderId,String wuLiuNum) {
         updateTime = new Date();
         Map map = new HashMap();
         map.put("updateTime",updateTime);
         map.put("status",status);
         map.put("orderId",orderId);
+        if(wuLiuNum!=null && !("").equals(wuLiuNum)){//发货后，商家填写物流编号
+            map.put("WuLiuNum",wuLiuNum);
+        }
         ordersDao.updateOrdersStatusById(map);//修改订单表状态
         return userOrderDao.updateUserOrder(updateTime,status,orderId);//修改用户和订单关系表状态
     }

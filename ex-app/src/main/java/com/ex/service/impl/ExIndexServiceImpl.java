@@ -1,8 +1,10 @@
 package com.ex.service.impl;
 
+import com.ex.dao.IndexAdvertisingDao;
 import com.ex.dao.ProductClassifyDao;
 import com.ex.dao.ProductInfoManageDao;
 import com.ex.dao.StoreInfoDao;
+import com.ex.entity.IndexAdvertising;
 import com.ex.entity.ProductClassify;
 import com.ex.entity.StoreInfo;
 import com.ex.service.ExIndexService;
@@ -25,6 +27,8 @@ public class ExIndexServiceImpl implements ExIndexService {
     private ProductClassifyDao productClassifyDao;
     @Autowired
     private ProductInfoManageDao productInfoManageDao;
+    @Autowired
+    private IndexAdvertisingDao indexAdvertisingDao;
 
     /**
      * 用户app端，二享模块，查询所有的一级商品分类
@@ -91,5 +95,14 @@ public class ExIndexServiceImpl implements ExIndexService {
         List<StoreInfoVo> storeInfoVos = storeInfoDao.selectStoreByStoreName(storeName);
         PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfoVos);
         return pageInfo;
+    }
+
+    /**
+     * 首页广告
+     * @return
+     */
+    @Override
+    public List<IndexAdvertising> selectAdvertising() {
+        return indexAdvertisingDao.selectAdvertising();
     }
 }
