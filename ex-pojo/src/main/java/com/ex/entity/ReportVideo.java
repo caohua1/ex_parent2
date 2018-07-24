@@ -3,13 +3,14 @@ package com.ex.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 举报视频实体类
  */
 @Data
-public class ReportVideo {
+public class ReportVideo implements Serializable {
 
     private Long id;
     private Long uploadFileId;//被举报的视频/图片id（与merchantorperson_upload_product主键关联）

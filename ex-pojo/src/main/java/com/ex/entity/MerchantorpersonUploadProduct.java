@@ -2,13 +2,14 @@ package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 上传商品视频（图片）
  */
 
-public class MerchantorpersonUploadProduct {
+public class MerchantorpersonUploadProduct implements Serializable {
     private Long id;
     private Long merchantId;
     private Long productClassifyId;

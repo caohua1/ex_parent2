@@ -3,13 +3,14 @@ package com.ex.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 视图管理（视图配置）实体类
  */
 
-public class ViewManage {
+public class ViewManage implements Serializable {
     public Long id;
     public int videoTime;
     public int fileKb;

@@ -1,8 +1,9 @@
 package com.ex.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MerchantInviter {
+public class MerchantInviter implements Serializable{
     private Long invitercode;
 
     private Long invitermerchantid;

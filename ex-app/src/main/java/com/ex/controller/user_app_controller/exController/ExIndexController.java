@@ -1,5 +1,6 @@
 package com.ex.controller.user_app_controller.exController;
 
+import com.ex.entity.IndexAdvertising;
 import com.ex.entity.ProductClassify;
 import com.ex.entity.StoreInfo;
 import com.ex.service.ExIndexService;
@@ -24,6 +25,31 @@ public class ExIndexController {
     private UserOrdersService userOrdersService;
 
 
+
+    /**
+     * 广告轮播图
+     * @return
+     */
+    @RequestMapping("/selectIndexAdvertising")
+    public JsonView selectIndexAdvertising(){
+        JsonView jsonView = new JsonView();
+        try{
+            List<IndexAdvertising> indexAdvertisings = exIndexService.selectAdvertising();
+            if(indexAdvertisings!=null && indexAdvertisings.size()>0){
+                jsonView.setMessage("查询成功");
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setData(indexAdvertisings);
+            }else{
+                jsonView.setMessage("暂无数据");
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("查询异常");
+            jsonView.setCode(JsonView.ERROR);
+        }
+        return jsonView;
+    }
 
     /**
      * 用户app端，二享模块(首页)，查询所有的一级商品分类

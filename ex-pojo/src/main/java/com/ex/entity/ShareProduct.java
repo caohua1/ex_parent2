@@ -3,11 +3,12 @@ package com.ex.entity;
 import com.ex.vo.ShareOrderVo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 //用户分享商品表（主表）
-public class ShareProduct {
+public class ShareProduct implements Serializable{
     private Long id;//主键
     private Long shareUserId;//分享用户id
     private Integer finishOrderNum;//此次1+2分享完成交易（完成订单数，最大2，最小0）

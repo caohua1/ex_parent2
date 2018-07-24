@@ -35,7 +35,7 @@ public class SMSUtil {
     // TODO 签名和模板（在阿里云访问控制台寻找）
     static final String signName = "二享";
     static final String TemplateCode1 = "SMS_136720102";
-    static final String TemplateCode2 = "SMS_136720102";
+    static final String TemplateCode2 = "SMS_140115138";
 
     // TODO KEY为自定义秘钥
     private static final String KEY = "abc123";
@@ -46,7 +46,7 @@ public class SMSUtil {
      * @return
      * @throws ClientException
      */
-    public static String sendSMS(String phone) throws ClientException {
+    public static String sendSMS(String phone,String content,String name,int state) throws ClientException {
         //设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -59,19 +59,21 @@ public class SMSUtil {
         request.setMethod(MethodType.POST);
         request.setPhoneNumbers(phone);
         request.setSignName(signName);
-        request.setTemplateCode(TemplateCode1);
-        String code = MathUtil.getRandom(6);
-        request.setTemplateParam("{\"code\":\""+code+"\"}");
+        if(state==1) {
+            request.setTemplateCode(TemplateCode1);
+            String code = MathUtil.getRandom(6);
+            request.setTemplateParam("{\"code\":\"" + code + "\"}"); //短信验证码发送
+        }else if(state==2){
+            request.setTemplateCode(TemplateCode2);
+            //你好：${name}，${content}
+            request.setTemplateParam("{\"name\":\"" + name + "\",\"content\":\"" + content + "\"}");  //自定义短信发送
+        }
         //可选-上行短信扩展码(扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
         request.setOutId("yourOutId");
         //请求失败这里会抛ClientException异常
         try{
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
-            if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
-                System.out.println("验证码为=============>"+code);
-                return code;
-            }
         }catch (ClientException e){
             e.printStackTrace();
             return null;

@@ -3,6 +3,7 @@ package com.ex.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Date;
  * @Date 2018/6/6 10:02
  * @Version 1.0
  **/
-public class MerchantRegist {
+public class MerchantRegist implements Serializable {
     private Long id;
 
     private String username;

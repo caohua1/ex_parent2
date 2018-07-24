@@ -8,6 +8,7 @@ import com.ex.util.DateAndTimeUtil;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
 import com.ex.util.UUIDUtil;
+import com.ex.vo.AppointmentOrderVo;
 import com.ex.vo.OrderDiscussVo;
 import com.ex.vo.ProductInfoManageVo;
 import com.ex.vo.StoreInfoVo;
@@ -158,7 +159,7 @@ public class MerchantStoreController {
     }
 
     /**
-     * 用户，预订商品
+     * 用户，预订商品(产生预约订单)
      * registUserId,merchantId 商家id，productInfoIds商品ids,registUsername用户账号,contactsName联系人,contactsPhone联系电话,
      peopleNum预定人数,orderNum预定编号,merchantName商家名称(店铺名称),productName产品名称,appointmentMoney金额,YDTime时间,
      createTime,remark备注,payWay支付方式,payStatus支付状态
@@ -177,6 +178,32 @@ public class MerchantStoreController {
             e.printStackTrace();
         }
         return JsonView.fail("预订失败");
+    }
+
+    /**
+     * 取消预约订单（用户取消3，商家取消4）
+     * @param appointmentOrderVo( 取消订单,退款 status=3/4,预订订单id)
+     * @return
+     */
+    @RequestMapping("/updateAppointmentOrder")
+    public JsonView updateAppointmentOrder(AppointmentOrderVo appointmentOrderVo){
+        JsonView jsonView = new JsonView();
+        try{
+            appointmentOrderVo.setUpdateTime(new Date());
+            Boolean b = appointmentOrderService.updateAppointmentOrder(appointmentOrderVo);
+            if(b==true){
+               jsonView.setCode(JsonView.SUCCESS);
+               jsonView.setMessage("取消订单成功，并退款成功");
+            }else{
+                jsonView.setCode(JsonView.ERROR);
+                jsonView.setMessage("取消订单失败");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("操作异常");
+            jsonView.setCode(JsonView.ERROR);
+        }
+        return jsonView;
     }
 
     /**
@@ -270,10 +297,10 @@ public class MerchantStoreController {
         JsonView jsonView = new JsonView();
         try{
             Map map = new HashMap();
-            if(storename!=null && !("").equals(storename)){
+            if(storename!=null && !storename.equals(null) && !("").equals(storename)){
                 map.put("storename",storename);
             }
-            if(productClassifyid!=null){
+            if(productClassifyid!=null && !productClassifyid.equals(null)){
                 map.put("productClassifyid",productClassifyid);
             }
             PageInfo<StoreInfoVo> pageInfo = appStoreInfoService.selectMerchantsByParam(map, pageRequest);
@@ -298,7 +325,7 @@ public class MerchantStoreController {
                 pageInfo.setList(list);
             }
             //如果按销量排序
-            if(isOrderNum!=null){
+            if(isOrderNum!=null && !isOrderNum.equals(null)){
                 pageInfo.getList().sort(new Comparator<StoreInfoVo>() {//Comparator 比较器. 需要实现比较方法
                     @Override
                     public int compare(StoreInfoVo o1, StoreInfoVo o2) {
@@ -307,7 +334,7 @@ public class MerchantStoreController {
                 });
             }
             //如果按综合评价排序
-            if(isDiscussAvg!=null){
+            if(isDiscussAvg!=null && !isDiscussAvg.equals(null)){
                 pageInfo.getList().sort(new Comparator<StoreInfoVo>() {//Comparator 比较器. 需要实现比较方法
                     @Override
                     public int compare(StoreInfoVo o1, StoreInfoVo o2) {

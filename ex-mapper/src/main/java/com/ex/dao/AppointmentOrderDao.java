@@ -14,4 +14,6 @@ public interface AppointmentOrderDao {
     public List<AppointmentOrderVo> selectAppointmentOrder(Map map);
     public Integer selectAppointmentOrderCount(Map map);
     public ProductInfoManageVo selectProductPrice(Long id);
+    public Integer updateAppointmentOrder(AppointmentOrderVo appointmentOrderVo);
+    public AppointmentOrderVo selectAppAppointmentById(Long id);
 }

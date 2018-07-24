@@ -2,13 +2,14 @@ package com.ex.entity;
 
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 音乐管理实体类
  */
 
-public class MusicManage {
+public class MusicManage implements Serializable {
     private Long id;
     private String musicName;
     private String singer;

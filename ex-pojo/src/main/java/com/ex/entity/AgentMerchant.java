@@ -1,8 +1,9 @@
 package com.ex.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AgentMerchant {
+public class AgentMerchant implements Serializable {
     private Long id;
 
     private Long agentuserid;

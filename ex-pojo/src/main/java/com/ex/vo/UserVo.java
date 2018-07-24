@@ -4,7 +4,7 @@ import com.ex.entity.UserAppInfo;
 
 public class UserVo extends UserAppInfo{
 
- //个人资料
+      //个人资料
       private String headUrl;
       private String MyQRCode;
       private String nickName;

@@ -6,5 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserAppInfoDao {
 
-    public UserVo findByUserId(Long id);
+    public UserVo findByUserId(Long registUserId);
+    public Integer updateUserAppInfo(UserVo userVo);
 }

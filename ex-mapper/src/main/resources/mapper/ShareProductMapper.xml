@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.ShareProductDao">
+    <insert id="insertShareProduct" parameterType="com.ex.entity.ShareProduct">
+        INSERT INTO share_product (shareUserId,finishOrderNum,commissionMoney,shareMechanism,productInfoId)
+        VALUES( #{shareUserId}, #{finishOrderNum},#{commissionMoney},#{shareMechanism},#{productInfoId})
+    </insert>
+
+    <select id="selectShareProductById" parameterType="java.lang.Long" resultType="com.ex.vo.ShareProductVo">
+        SELECT
+            *
+        FROM share_product
+        WHERE shareUserId = #{shareUserId}
+        ORDER BY createTime
+    </select>
+
+</mapper>

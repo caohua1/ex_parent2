@@ -6,22 +6,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserAppInfo implements Serializable {
-   /* CREATE TABLE `userapp_info` (
-            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-            `registUserId` bigint(20) DEFAULT NULL COMMENT '用户id（与userapp_regist主键关联）',
-            `realName` varchar(50) DEFAULT NULL COMMENT '真实姓名',
-            `bankName` varchar(50) DEFAULT NULL COMMENT '开户行（哪个银行的银行卡）',
-            `bankNum` varchar(50) DEFAULT NULL COMMENT '银行卡号',
-            `bankAddress` varchar(100) DEFAULT NULL COMMENT '开户地区',
-            `YuE` double(10,2) DEFAULT NULL COMMENT '余额',
-            `address` varchar(100) DEFAULT NULL COMMENT '住址',
-            `phone` varchar(20) DEFAULT NULL COMMENT '联系手机号',
-            `idCard` varchar(20) DEFAULT NULL COMMENT '身份证号',
-            `status` int(2) DEFAULT '1' COMMENT '状态（0冻结1解绑 ）',
-            `createTime` datetime DEFAULT NULL COMMENT '创建时间',
-            `updateTime` datetime DEFAULT NULL COMMENT '修改时间',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户绑定银行卡信息';*/
 
     private Long id;
     private Long registUserId;

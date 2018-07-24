@@ -2,9 +2,10 @@ package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BusinessLicenseInfo {
+public class BusinessLicenseInfo implements Serializable {
     private Integer id;
 
     private Integer type;

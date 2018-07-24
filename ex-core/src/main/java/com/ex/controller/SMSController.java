@@ -38,7 +38,7 @@ public class SMSController {
         JsonView view = new JsonView();
             try {
                 //发送验证码
-                String code = SMSUtil.sendSMS(phone);
+                String code = SMSUtil.sendSMS(phone,null,null,1);
                 if (code == null)
                     return JsonView.fail(JsonView.ERROR, "短信验证码发送失败！");
                 //对验证码进行自定义加密

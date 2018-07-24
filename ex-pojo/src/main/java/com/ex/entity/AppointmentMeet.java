@@ -1,8 +1,9 @@
 package com.ex.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AppointmentMeet {
+public class AppointmentMeet implements Serializable {
     private Long id;//主键
     private Long appointmentPersonId;//约见人id（商家id）
     private Long BeAppointmentPersonId;//被约见人的id
