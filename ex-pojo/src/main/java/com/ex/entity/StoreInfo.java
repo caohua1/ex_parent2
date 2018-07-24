@@ -2,9 +2,10 @@ package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class StoreInfo {
+public class StoreInfo implements Serializable {
     private Long id;
 
     private Long productclassifyid;

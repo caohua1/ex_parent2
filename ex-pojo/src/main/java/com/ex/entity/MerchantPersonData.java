@@ -2,10 +2,11 @@ package com.ex.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class MerchantPersonData {
+public class MerchantPersonData implements Serializable {
     private Long id;
     private Long merchantld;
     private String herdUrl;

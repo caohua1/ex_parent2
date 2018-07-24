@@ -1,6 +1,8 @@
 package com.ex.vo;
 
-public class ShareOrderInfoVo {
+import java.io.Serializable;
+
+public class ShareOrderInfoVo implements Serializable {
     private Double total;//总计
     private Double waitRevenue;//待收益
     private Integer completeOrder;//完成订单

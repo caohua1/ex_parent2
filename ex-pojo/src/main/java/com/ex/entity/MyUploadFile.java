@@ -3,13 +3,14 @@ package com.ex.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户App上传文件实体类
  */
 @Data
-public class MyUploadFile {
+public class MyUploadFile implements Serializable {
 
     private Long id;
     private Long registUserId;//用户id（与userapp_regist主键关联）

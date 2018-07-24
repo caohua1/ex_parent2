@@ -3,13 +3,14 @@ package com.ex.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 视享管理实体类/和
  */
 
-public class VideoShareManage {
+public class VideoShareManage implements Serializable {
 
 
     private Long uid;//商家上传视频文件信息id

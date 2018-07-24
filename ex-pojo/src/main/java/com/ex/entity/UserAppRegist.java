@@ -3,6 +3,7 @@ package com.ex.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  * @Version 1.0
  **/
 
-public class UserAppRegist {
+public class UserAppRegist implements Serializable {
 
     private Long id;
     private String username;

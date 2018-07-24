@@ -2,9 +2,10 @@ package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MerchantorpersonCheckIn {
+public class MerchantorpersonCheckIn implements Serializable{
     private Long id;
 
     private Long merchantId;

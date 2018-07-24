@@ -2,9 +2,10 @@ package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class MerchantElect {
+public class MerchantElect implements Serializable {
     private Long id;//主键
     private Long merchantId;//互推商家id（与merchant_regist主键关联）
     private Long BeMerchantId;//被互推的商家id

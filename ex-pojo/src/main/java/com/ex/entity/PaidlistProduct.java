@@ -1,12 +1,13 @@
 package com.ex.entity;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 视享竞价排名实体类
  */
-public class PaidlistProduct {
+public class PaidlistProduct implements Serializable {
     private Long id;
     private String orderNumber;
     private Long merchantId;

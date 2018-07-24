@@ -2,9 +2,10 @@ package com.ex.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserTransaction {
+public class UserTransaction implements Serializable {
     private Long id;//主键
     private Long registUserId;//用户id
     private Double money;//交易金额（例如：下单）
