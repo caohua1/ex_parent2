@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.AppointmentMeetDao">
-	<!--查询享约管理所有数据,享约申请-->
+	<!--运营后台查询享约管理所有数据,享约申请-->
 	<select id="selectAppointmentMeetVo" parameterType="java.util.Map" resultType="com.ex.vo.AppointmentMeetVo">
 		SELECT mrci.username appointmentPersonUsername,mrci1.username BeAppointmentPersonUsername,mrci.companyName appointmentComName, mrci1.companyName BeAppointmentComName,am.*
 		FROM appointment_meet am
@@ -15,5 +15,24 @@
 			WHERE am.appointmentPersonStatus=0 AND am.BeAppointmentPersonStatus=0
 		</if>
 	</select>
-
+	<!--PC端享约管理查询我加的享友-->
+	<select id="selectFriend" parameterType="java.lang.Long" resultType="com.ex.vo.FriendVo">
+		SELECT mpd.headUrl,mpd.nickName,mr.username,f.createTime,f.merchantId,f.invitStatus
+		FROM friend f
+		LEFT JOIN merchant_regist mr
+		ON f.merchantId=mr.id
+		LEFT JOIN merchant_person_data mpd
+		ON mr.id=mpd.merchantId
+		where f.merchantId=#{merchantId}
+	</select>
+	<!-- PC端享约管理查询加我的享友-->
+	<select id="selectFriendAdd"parameterType="java.lang.Long" resultType="com.ex.vo.FriendVo">
+		SELECT mpd.headUrl,mpd.nickName,mr.username,f.createTime,f.merchantId,f.invitStatus
+		FROM friend f
+		LEFT JOIN merchant_regist mr
+		ON f.merchantId=mr.id
+		LEFT JOIN merchant_person_data mpd
+		ON mr.id=mpd.merchantId
+		f.friendId=#{merchantId}
+	</select>
 </mapper>
