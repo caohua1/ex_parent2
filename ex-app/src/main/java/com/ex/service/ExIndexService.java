@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface ExIndexService {
@@ -31,6 +32,6 @@ public interface ExIndexService {
     public PageInfo<StoreInfoVo> selectStoreByStoreName(String storeName,PageRequest pageRequest);
 
     //广告图片，跳转路径
-    public List<IndexAdvertising> selectAdvertising();
+    public List<IndexAdvertising> selectAdvertising(Map map);
 
 }

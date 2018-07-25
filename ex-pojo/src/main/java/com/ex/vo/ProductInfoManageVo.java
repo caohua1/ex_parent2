@@ -8,12 +8,21 @@ import java.util.List;
 
 public class ProductInfoManageVo extends ProductInfoManage implements Serializable{
 
+    private String storeName;//商家名称
     private String typeName;
     private String IconStylePic;//商品类型图标样式
     private String brandName;//品牌名称
     private String brandPicUrl;//品牌图标
 
     List<ProductPropertySet> productPropertySetList;
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
 
     public String getTypeName() {
         return typeName;

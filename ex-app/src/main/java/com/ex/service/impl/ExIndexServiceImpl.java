@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ExIndexServiceImpl implements ExIndexService {
@@ -102,7 +103,7 @@ public class ExIndexServiceImpl implements ExIndexService {
      * @return
      */
     @Override
-    public List<IndexAdvertising> selectAdvertising() {
-        return indexAdvertisingDao.selectAdvertising();
+    public List<IndexAdvertising> selectAdvertising(Map map) {
+        return indexAdvertisingDao.selectAdvertising(map);
     }
 }

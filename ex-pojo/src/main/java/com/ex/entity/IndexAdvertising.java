@@ -6,6 +6,7 @@ import java.util.Date;
 public class IndexAdvertising implements Serializable {
 
     private Long id;
+    private Integer type;//广告类型
     private String advertiseName;
     private String link;
     private String advertisePicUrl;
@@ -21,6 +22,14 @@ public class IndexAdvertising implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getAdvertiseName() {

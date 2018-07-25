@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IndexAdvertisingServiceImpl implements IndexAdvertisingService {
@@ -36,9 +38,9 @@ public class IndexAdvertisingServiceImpl implements IndexAdvertisingService {
      * @return
      */
     @Override
-    public PageInfo<IndexAdvertising> selectAdvertising(PageRequest pageRequest) {
+    public PageInfo<IndexAdvertising> selectAdvertising(Map map,PageRequest pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
-        List<IndexAdvertising> indexAdvertisings = indexAdvertisingDao.selectAdvertising();
+        List<IndexAdvertising> indexAdvertisings = indexAdvertisingDao.selectAdvertising(map);
         PageInfo<IndexAdvertising> pageInfo = new PageInfo<>(indexAdvertisings);
         return pageInfo;
     }
@@ -48,8 +50,8 @@ public class IndexAdvertisingServiceImpl implements IndexAdvertisingService {
      * @return
      */
     @Override
-    public Integer selectAdvertisingCount() {
-        return indexAdvertisingDao.selectAdvertisingCount();
+    public Integer selectAdvertisingCount(Map map) {
+        return indexAdvertisingDao.selectAdvertisingCount(map);
     }
 
     /**
