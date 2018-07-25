@@ -130,7 +130,7 @@
 
 	<!--查询用户是不是此商家的代理-->
 	<select id="selectMerchantAgent" parameterType="Map" resultType="com.ex.entity.AgentMerchant">
-		select * from agent_merchant where agentUserId = #{registUserId} and merchantId = #{merchantId}
+		select * from agent_merchant where agentUserId = #{registUserId} and merchantId = #{merchantId} and status = 2
 	</select>
 
 	<!--查询商家的总销售单数-->

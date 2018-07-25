@@ -56,7 +56,7 @@ public class UserInsertOrderController {
                 map.put("merchantId",productInfoManageVo.getMerchantId());
                 AgentMerchant agentMerchant = ordersDao.selectMerchantAgent(map);
 
-                //3.再计算价格
+                //3.再计算价格（包括邮费）
                 if(agentMerchant!=null){//是代理，按代理价计算
                    Double orderMoney = productInfoManageVo.getAgentPrice()*orders.getProductNum();
                    orders.setOrderMoney(orderMoney+productInfoManageVo.getPostage());
