@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 运营后台享约管理类
+ */
 @RestController
 @RequestMapping("/enioyContractManage")
-public class enioyContractManageController {
+public class EnioyContractManageController {
 
     @Autowired
     private AppointmentMeetService appointmentMeetService;
@@ -43,7 +46,7 @@ public class enioyContractManageController {
     }
 
     /**
-     * 查询享约管理所有数据
+     * 查询享约申请所有数据
      * @param page
      * @return
      */
