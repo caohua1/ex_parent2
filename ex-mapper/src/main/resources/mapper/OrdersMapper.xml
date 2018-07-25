@@ -119,8 +119,8 @@
 
 	<!--添加订单-->
 	<insert id="insertOrders" parameterType="com.ex.entity.Orders" useGeneratedKeys="true" keyProperty="id">
-		insert into orders(orderNum,productNum,orderMoney,productInfoId,productPropertyId,addressId,createTime)
-		values(#{orderNum},#{productNum},#{orderMoney},#{productInfoId},#{productPropertyId},#{addressId},#{createTime})
+		insert into orders(orderNum,productNum,orderMoney,productInfoId,productPropertyId,addressId,createTime,PSWay,postage)
+		values(#{orderNum},#{productNum},#{orderMoney},#{productInfoId},#{productPropertyId},#{addressId},#{createTime},#{PSWay},#{postage})
 	</insert>
 
 	<!--支付，根据订单id查询订单价格-->

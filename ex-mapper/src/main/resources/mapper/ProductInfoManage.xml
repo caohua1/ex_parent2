@@ -31,7 +31,7 @@
 			resalePrice = #{resalePrice},
 		</if>
 		<if test="storeNum!=null">
-			storeNum = #{storeNum},
+			storeNum = #{storeNum}+storeNum,
 		</if>
 		<if test="storePrewarnNum!=null">
 			storePrewarnNum = #{storePrewarnNum},

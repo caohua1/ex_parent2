@@ -13,7 +13,7 @@
 	<dubbo:registry protocol="zookeeper" address="192.168.1.34:2181" />
 	<!-- 引用服务 -->
 	<dubbo:reference interface="com.ex.service.UserAppOrderService" id="userAppOrderService" version="1.0.0" />
-	<dubbo:reference interface="com.ex.service.UserOrdersService" id="userOrdersService" version="1.0.0" />
+	<dubbo:reference interface="com.ex.service.UserOrdersService" id="userOrdersService" version="1.0.1" />
 	<dubbo:reference interface="com.ex.service.ShareOrderService" id="shareOrderService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.OrderDiscussService" id="orderDiscussService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.ShareProductService" id="shareProductService" version="1.0.0" />

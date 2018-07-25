@@ -15,7 +15,7 @@
     <dubbo:protocol name="dubbo" port="20884"/>
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.ex.service.OrderTestService" ref="redisUtilService" version="1.0.0"/>
-    <dubbo:service interface="com.ex.service.UserOrdersService" ref="userOrdersService" version="1.0.0"/>
+    <dubbo:service interface="com.ex.service.UserOrdersService" ref="userOrdersService" version="1.0.1"/>
     <dubbo:service interface="com.ex.service.ShareOrderService" ref="shareOrderService" version="1.0.0"/>
     <dubbo:service interface="com.ex.service.UserAppOrderService" ref="userAppOrderService" version="1.0.0"/>
     <dubbo:service interface="com.ex.service.AppointmentOrder1Service" ref="appointmentOrder1Service" version="1.0.0"/>

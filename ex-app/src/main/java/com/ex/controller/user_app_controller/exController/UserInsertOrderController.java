@@ -48,7 +48,7 @@ public class UserInsertOrderController {
         JsonView jsonView = new JsonView();
         try{
             if(orders!=null && orders.getProductInfoId()!=null){
-                //1.查询价格
+                //1.查询价格,是否包邮
                 ProductInfoManageVo productInfoManageVo = productInfoManageDao.selectProductInfoById(orders.getProductInfoId());
                 //2.先判断是不是代理商（agent_merchant），是代理按照代理价格计算，不是代理按零售价计算（registUserId和merchamtId查询）
                 Map map = new HashMap();
@@ -59,13 +59,15 @@ public class UserInsertOrderController {
                 //3.再计算价格
                 if(agentMerchant!=null){//是代理，按代理价计算
                    Double orderMoney = productInfoManageVo.getAgentPrice()*orders.getProductNum();
-                   orders.setOrderMoney(orderMoney);
+                   orders.setOrderMoney(orderMoney+productInfoManageVo.getPostage());
                 }else{
                     Double orderMoney = productInfoManageVo.getResalePrice()*orders.getProductNum();
-                    orders.setOrderMoney(orderMoney);
+                    orders.setOrderMoney(orderMoney+productInfoManageVo.getPostage());
                 }
 
-                //4.提交订单
+                //4.提交订单,添加配送方式，邮费
+                orders.setPSWay(productInfoManageVo.getPSWay());
+                orders.setPostage(productInfoManageVo.getPostage());
                 Boolean b = userOrdersService.insertOrders(orders, userOrder,shareUserId,shareUsername,buyUsername,productInfoManageVo);
                 if(b==true){
                     jsonView.setCode(JsonView.SUCCESS);
