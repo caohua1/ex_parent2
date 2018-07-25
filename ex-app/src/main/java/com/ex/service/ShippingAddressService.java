@@ -7,4 +7,5 @@ import java.util.List;
 public interface ShippingAddressService {
     public Integer insertShippingAddress(ShippingAddress shippingAddress);
     public List<ShippingAddress> selectShippingAddress(Long registUserId);
+    public Integer updateAddressById(ShippingAddress shippingAddress);
 }

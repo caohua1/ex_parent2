@@ -9,4 +9,5 @@ import java.util.List;
 public interface ShippingAddressDao {
     public Integer insertShippingAddress(ShippingAddress shippingAddress);
     public List<ShippingAddress> selectShippingAddress(Long registUserId);
+    public Integer updateAddressById(ShippingAddress shippingAddress);
 }

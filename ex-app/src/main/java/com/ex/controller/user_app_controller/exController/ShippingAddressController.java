@@ -67,4 +67,30 @@ public class ShippingAddressController {
         }
         return jsonView;
     }
+
+    /**
+     * 编辑收货地址（删除status=0）
+     * @param shippingAddress
+     * @return
+     */
+    @RequestMapping("/updateAddress")
+    public JsonView updateAddress(ShippingAddress shippingAddress){
+        JsonView jsonView = new JsonView();
+        try{
+            shippingAddress.setUpdateTime(new Date());
+            Integer i = shippingAddressService.updateAddressById(shippingAddress);
+            if(i>0){
+                jsonView.setMessage("操作成功");
+                jsonView.setCode(JsonView.SUCCESS);
+            }else{
+                jsonView.setCode(JsonView.ERROR);
+                jsonView.setMessage("操作失败");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("操作异常");
+        }
+        return jsonView;
+    }
 }

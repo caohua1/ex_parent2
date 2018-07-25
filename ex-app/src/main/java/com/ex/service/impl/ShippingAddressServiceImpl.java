@@ -37,4 +37,16 @@ public class ShippingAddressServiceImpl implements ShippingAddressService {
     public List<ShippingAddress> selectShippingAddress(Long registUserId) {
         return shippingAddressDao.selectShippingAddress(registUserId);
     }
+
+    /**
+     * 编辑地址
+     * @param shippingAddress
+     * @return
+     */
+    @Transactional(value = "transactionManager", isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED,rollbackFor = Exception.class,timeout=36000)
+    @Override
+    public Integer updateAddressById(ShippingAddress shippingAddress) {
+        return shippingAddressDao.updateAddressById(shippingAddress);
+    }
+
 }
