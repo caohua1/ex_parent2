@@ -26,7 +26,7 @@
 		where f.merchantId=#{merchantId}
 	</select>
 	<!-- PC端享约管理查询加我的享友-->
-	<select id="selectFriendAdd"parameterType="java.lang.Long" resultType="com.ex.vo.FriendVo">
+	<select id="selectFriendAdd" parameterType="java.lang.Long" resultType="com.ex.vo.FriendVo">
 		SELECT mpd.headUrl,mpd.nickName,mr.username,f.createTime,f.merchantId,f.invitStatus
 		FROM friend f
 		LEFT JOIN merchant_regist mr
