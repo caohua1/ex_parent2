@@ -245,10 +245,12 @@ public class MerchantStoreController {
             if(productInfoManageVo.getSXJStatus()!=null&&productInfoManageVo.getSXJStatus()==0){
                 jsonView.setMessage("对不起，您查看的商品已经下架");
                 jsonView.setData(productInfoManageVo);
+                System.out.println(productInfoManageVo.getPostage()+"========"+productInfoManageVo.getPSWay());
             }else{
                 jsonView.setMessage("查询成功");
                 jsonView.setCode(JsonView.SUCCESS);
                 jsonView.setData(productInfoManageVo);
+                System.out.println(productInfoManageVo.getPostage()+"========"+productInfoManageVo.getPSWay());
             }
         }catch(Exception e){
             e.printStackTrace();

@@ -113,6 +113,7 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
     @Override
     public ProductInfoManageVo selectProductInfoById(Long id) {
         ProductInfoManageVo productInfoManageVo = productInfoManageDao.selectProductInfoById(id);
+        System.out.println(productInfoManageVo.getPostage()+"&&&&&"+productInfoManageVo.getPSWay());
         if(productInfoManageVo!=null){
             List<ProductPropertySet> productPropertySets = productPropertySetDao.selectPropertySet(productInfoManageVo.getId());
             //规格
