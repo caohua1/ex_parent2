@@ -29,6 +29,7 @@ public class StoreInfo implements Serializable {
     private Integer paystatus;
 
     private Integer STJStatus;
+    private Integer isAppointment;//是否可预订
 
     public Long getId() {
         return id;
@@ -116,5 +117,13 @@ public class StoreInfo implements Serializable {
 
     public void setSTJStatus(Integer STJStatus) {
         this.STJStatus = STJStatus;
+    }
+
+    public Integer getIsAppointment() {
+        return isAppointment;
+    }
+
+    public void setIsAppointment(Integer isAppointment) {
+        this.isAppointment = isAppointment;
     }
 }

@@ -77,10 +77,10 @@ public class ExIndexServiceImpl implements ExIndexService {
      * @return
      */
     @Override
-    public PageInfo<StoreInfo> byConditionsQuery(StoreInfo storeInfo, PageRequest pageRequest) {
+    public PageInfo<StoreInfoVo> byConditionsQuery(StoreInfoVo storeInfo, PageRequest pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
-        List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
-        PageInfo<StoreInfo> pageInfo = new PageInfo<>(storeInfos);
+        List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+        PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfos);
         return pageInfo;
     }
 

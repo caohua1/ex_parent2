@@ -12,6 +12,7 @@ import com.ex.util.PageRequest;
 import com.ex.util.UUIDUtil;
 import com.ex.vo.OrderVo;
 import com.ex.vo.ProductInfoManageVo;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -158,9 +159,9 @@ public class UserOrdersServiceImpl implements UserOrdersService{
                 shareOrder.setProductInfoId(orders.getProductInfoId()); //商品id
                 shareOrder.setMerchantId(productInfoManageVo.getMerchantId()); //商家id
                 shareOrder.setCreateTime(new Date());//下单时间
-                StoreInfo storeInfo = new StoreInfo();
-                storeInfo.setMerchantid(productInfoManageVo.getMerchantId());
-                List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+                StoreInfoVo storeInfoVo = new StoreInfoVo();
+                storeInfoVo.setMerchantid(productInfoManageVo.getMerchantId());
+                List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfoVo);
                 shareOrder.setMerchantName(storeInfos.get(0).getStorename());//商家名称
                 shareOrder.setOrderMoney(orders.getOrderMoney());//订单金额
                 shareOrder.setOrderNum(orders.getOrderNum());//订单编号

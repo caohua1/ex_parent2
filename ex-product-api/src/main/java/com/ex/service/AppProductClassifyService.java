@@ -4,6 +4,7 @@ import com.ex.entity.ProductClassify;
 import com.ex.entity.StoreInfo;
 import com.ex.util.PageRequest;
 import com.ex.vo.ProductInfoManageVo;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface AppProductClassifyService {
     public PageInfo<ProductClassify> selectProductClassify(ProductClassify productClassify, PageRequest pageRequest);
     public Integer selectProductClassifyCount(ProductClassify productClassify);
     //根据二级分类查询商家列表（商家店铺）
-    public PageInfo<StoreInfo> byConditionsQuery(PageRequest page, StoreInfo storeInfo);
+    public PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfoVo storeInfoVo);
 
     //根据merchantId查询某商家的所有的商品
     public PageInfo<ProductInfoManageVo> selectProductsByMerchantId(Map map,PageRequest pageRequest);

@@ -47,27 +47,26 @@ public class MerchantStoreController {
      * @return
      */
     @RequestMapping("/selectStoreInfoById")
-    public JsonView selectStoreInfoById(StoreInfo storeInfo,PageRequest pageRequest){
+    public JsonView selectStoreInfoById(StoreInfoVo storeInfoVo,PageRequest pageRequest){
         JsonView jsonView = new JsonView();
         try{
             int orderNum = 0;
             Map map = new HashMap();
             Map map1 = new HashMap();
+            Map map2 = new HashMap();
             //1.查询此商家的店铺信息
-            List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+            List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfoVo);
             map.put("storeInfo",storeInfos.get(0));
+            //计算平均评论分数
+            Double merchantDiscussAvg = userOrdersService.selectMerchantDiscussAvg( storeInfos.get(0).getMerchantid());
+            storeInfos.get(0).setMerchantDiscussAvg(merchantDiscussAvg);
+            //计算总销售单数
+            Integer orderNums = userOrdersService.selectMerchantOrderNums( storeInfos.get(0).getMerchantid());
+            storeInfos.get(0).setOrdersNums(orderNums);
             //2.查询此商家的商品
             if(storeInfos!=null && storeInfos.size()>0){
                 map1.put("merchantId",storeInfos.get(0).getMerchantid());
                 List<ProductInfoManageVo> productInfoManageVos = appProductClassifyService.selectProductsByMerchantId2(map1);
-                //计算店铺的销售量
-                if(productInfoManageVos!=null && productInfoManageVos.size()>0){
-                    for(int i=0;i<productInfoManageVos.size();i++){
-                        if(productInfoManageVos.get(i).getSaleOrderNum()!=null){
-                            orderNum += productInfoManageVos.get(i).getSaleOrderNum();
-                        }
-                    }
-                }
                 PageInfo<ProductInfoManageVo> productInfoManageVosPageInfo = appProductClassifyService.selectProductsByMerchantId(map,pageRequest);
                 map.put("productInfoManageVosPageInfo",productInfoManageVosPageInfo);
             }else{
@@ -76,7 +75,6 @@ public class MerchantStoreController {
             jsonView.setMessage("查询此店铺的信息成功");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setData(map);
-            jsonView.setTodoCount(orderNum);//销售总量
         }catch(Exception e){
             e.printStackTrace();
             jsonView.setCode(JsonView.ERROR);

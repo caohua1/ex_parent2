@@ -10,6 +10,7 @@ import com.ex.entity.StoreInfo;
 import com.ex.service.AppProductClassifyService;
 import com.ex.util.PageRequest;
 import com.ex.vo.ProductInfoManageVo;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,10 +65,10 @@ public class AppProductClassifyServiceImpl implements AppProductClassifyService 
      * @return
      */
     @Override
-    public PageInfo<StoreInfo> byConditionsQuery(PageRequest pageRequest, StoreInfo storeInfo) {
+    public PageInfo<StoreInfoVo> byConditionsQuery(PageRequest pageRequest, StoreInfoVo storeInfoVo) {
         PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
-        List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
-        PageInfo<StoreInfo> pageInfo = new PageInfo<>(storeInfos);
+        List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfoVo);
+        PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfos);
         return pageInfo;
     }
 

@@ -15,7 +15,7 @@ public interface StoreInfoDao {
 
     int insertStoreInfo(StoreInfo storeInfo);
 
-    List<StoreInfo> byConditionsQuery(@Param("record") StoreInfo storeInfo);
+    List<StoreInfoVo> byConditionsQuery(@Param("record") StoreInfoVo storeInfoVo);
 
     int updateStoreInfo(StoreInfo storeInfo);
 

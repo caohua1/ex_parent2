@@ -174,10 +174,10 @@ public class ExIndexController {
      * @return
      */
     @RequestMapping("/selectStore_TJ")
-    public JsonView selectStore_TJ(StoreInfo storeInfo,PageRequest pageRequest){
+    public JsonView selectStore_TJ(StoreInfoVo storeInfo,PageRequest pageRequest){
         JsonView jsonView = new JsonView();
         try{
-            PageInfo<StoreInfo> storeInfoPageInfo = exIndexService.byConditionsQuery(storeInfo, pageRequest);
+            PageInfo<StoreInfoVo> storeInfoPageInfo = exIndexService.byConditionsQuery(storeInfo, pageRequest);
             jsonView.setMessage("查询成功");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setData(storeInfoPageInfo);
