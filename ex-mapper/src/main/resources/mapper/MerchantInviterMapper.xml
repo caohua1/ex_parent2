@@ -27,8 +27,8 @@
     <!--生成邀请码-->
     <insert id="insertMerchantInviter" useGeneratedKeys="true" keyProperty="invitercode"
             parameterType="com.ex.entity.MerchantInviter">
-    INSERT INTO merchant_inviter (inviterCode,inviterMerchantId,createTime, updateTime, status)
-    VALUES (#{inviterCode},#{inviterMerchantId},#{createTime}, #{updateTime}, #{status})
+    INSERT INTO merchant_inviter (inviterMerchantId,createTime, updateTime, status)
+    VALUES (#{inviterMerchantId},#{createTime}, #{updateTime}, #{status})
     </insert>
 
     <!--按条件查询邀请码信息-->
