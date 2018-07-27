@@ -6,6 +6,7 @@ import com.ex.entity.AppointmentOrder;
 import com.ex.service.AppointmentOrder1Service;
 import com.ex.util.JsonView;
 import com.ex.util.SMSUtil;
+import com.ex.vo.AppointmentOrderByUserAppVo;
 import com.ex.vo.AppointmentOrderVo;
 import com.ex.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("ALL")
 @com.alibaba.dubbo.config.annotation.Service
@@ -95,5 +97,15 @@ public class AppointmentOrder1ServiceImpl implements AppointmentOrder1Service {
         }else{
             return false;
         }
+    }
+
+    /**
+     * 根据用户Id查询该用户所有的预定信息
+     * @param registUserId
+     * @return
+     */
+    @Override
+    public List<AppointmentOrderByUserAppVo> selectAppointmentOrderByUserApp(Long registUserId) {
+        return appointmentOrderDao.selectAppointmentOrderByUserApp(registUserId);
     }
 }

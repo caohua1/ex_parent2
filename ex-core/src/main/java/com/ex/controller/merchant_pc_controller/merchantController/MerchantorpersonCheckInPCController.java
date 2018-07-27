@@ -42,8 +42,8 @@ public class MerchantorpersonCheckInPCController {
             if (merchantorpersonCheckIn.getStatus() == 3) {
                 //审核通过生成邀请码
                 MerchantInviter merchantInviter = new MerchantInviter();
-                merchantInviter.setInvitermerchantid(merchantorpersonCheckIn.getMerchantId());
-                merchantInviter.setCreatetime(new Date());
+                merchantInviter.setInviterMerchantId(merchantorpersonCheckIn.getMerchantId());
+                merchantInviter.setCreateTime(new Date());
                 merchantInviter.setStatus(0);
                 merchantInviterService.insertMerchantInviter(merchantInviter);
                 //检查商家入住时是否有邀请码
@@ -61,7 +61,7 @@ public class MerchantorpersonCheckInPCController {
                         //该邀请码已完成1+2分享模式不进行操作
                         merchantInviter1.setStatus(2);
                     }
-                    merchantInviter1.setUpdatetime(new Date());
+                    merchantInviter1.setUpdateTime(new Date());
                     merchantInviterService.updateInvitercode(merchantInviter1);
                 }
                 jsonView.setCode(JsonView.SUCCESS);

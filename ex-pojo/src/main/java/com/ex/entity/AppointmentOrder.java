@@ -7,28 +7,28 @@ import java.util.Date;
 
 public class AppointmentOrder implements Serializable{
 
-    private Long id;
-    private Long registUserId;
-    private Long merchantId;
-    private String productInfoIds;
-    private String registUsername;
-    private String contactsName;
-    private String contactsPhone;
-    private String orderNum;
-    private Integer peopleNum;
-    private String merchantName;
-    private String productName;
-    private Double appointmentMoney;
+    private Long id;//主键
+    private Long registUserId;//用户id
+    private Long merchantId;//商家id
+    private String productInfoIds;//商品ids,以分号隔开
+    private String registUsername;//用户账号
+    private String contactsName;//联系人姓名
+    private String contactsPhone;//联系人电话
+    private String orderNum;//订单编号
+    private Integer peopleNum;//预约人数
+    private String merchantName;//商家名称
+    private String productName;//商品名称
+    private Double appointmentMoney;//预约金额
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date appointmentTime;
+    private Date appointmentTime;//预约时间
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date createTime;
-    private String remark;
-    private Integer payWay;
-    private Integer payStatus;
-    private Integer status;
+    private Date createTime;//创建时间（提交时间）
+    private String remark;//备注（可填写需求）
+    private Integer payWay;//支付方式（0微信支付 1支付宝支付）
+    private Integer payStatus;//支付状态（ 1待支付 2已支付）
+    private Integer status;//状态
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date updateTime;
+    private Date updateTime;//修改时间
 
     public Long getId() {
         return id;
