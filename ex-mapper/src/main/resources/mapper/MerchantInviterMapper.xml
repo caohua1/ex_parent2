@@ -6,17 +6,17 @@
     <sql id="Example_Where_OR_Clause">
         <where>
             1 = 1
-            <if test="record.invitercode != null" >
+            <if test="record.inviterCode != null" >
                 AND inviterCode = #{record.invitercode}
             </if>
-            <if test="record.invitermerchantid != null" >
-                AND inviterMerchantId = #{record.invitermerchantid}
+            <if test="record.inviterMerchantId != null" >
+                AND inviterMerchantId = #{record.inviterMerchantId}
             </if>
-            <if test="record.createtime != null" >
-                AND createTime = #{record.createtime}
+            <if test="record.createTime != null" >
+                AND createTime = #{record.createTime}
             </if>
-            <if test="record.updatetime != null" >
-                AND updateTime = #{record.updatetime}
+            <if test="record.updateTime != null" >
+                AND updateTime = #{record.updateTime}
             </if>
             <if test="record.status != null" >
                 AND status = #{record.status}
@@ -27,8 +27,8 @@
     <!--生成邀请码-->
     <insert id="insertMerchantInviter" useGeneratedKeys="true" keyProperty="invitercode"
             parameterType="com.ex.entity.MerchantInviter">
-    INSERT INTO merchant_inviter (createTime, updateTime, status)
-    VALUES (#{createtime}, #{updatetime}, #{status})
+    INSERT INTO merchant_inviter (inviterCode,inviterMerchantId,createTime, updateTime, status)
+    VALUES (#{inviterCode},#{inviterMerchantId},#{createTime}, #{updateTime}, #{status})
     </insert>
 
     <!--按条件查询邀请码信息-->
@@ -40,18 +40,18 @@
 
     <!--按商家id查询邀请码-->
     <select id="selectByMerchantid" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
-        SELECT * FROM merchant_inviter WHERE inviterMerchantId = #{invitermerchantid}
+        SELECT * FROM merchant_inviter WHERE inviterMerchantId = #{inviterMerchantId}
     </select>
 
     <!--按邀请码查询邀请码信息-->
     <select id="selectByInvitercode" resultType="com.ex.entity.MerchantInviter" parameterType="java.lang.Long">
-        SELECT * FROM merchant_inviter WHERE inviterCode = #{invitercode}
+        SELECT * FROM merchant_inviter WHERE inviterCode = #{inviterCode}
     </select>
 
     <!--修改邀请码状态-->
     <update id="selectInvitercodeByMerchantid" parameterType="com.ex.entity.MerchantInviter">
         UPDATE merchant_inviter
-        SET updateTime = #{updatetime},status = #{status}
-        WHERE inviterCode = #{invitercode}
+        SET updateTime = #{updateTime},status = #{status}
+        WHERE inviterCode = #{inviterCode}
     </update>
 </mapper>

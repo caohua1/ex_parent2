@@ -4,6 +4,8 @@ import com.ex.entity.UserAppRegist;
 import com.github.pagehelper.PageInfo;
 import com.ex.util.PageRequest;
 
+import java.util.Date;
+
 
 /**
  * @ClassName UserAppRegistService
@@ -19,4 +21,6 @@ public interface UserAppRegistService {
     UserAppRegist userLoginOrCheckUserName(String username);
     //查询所有注册用户信息
     PageInfo<UserAppRegist> findByPage(PageRequest page);
+    //重置密码
+    int updateUserAppRegistPassword(String username, String password);
 }

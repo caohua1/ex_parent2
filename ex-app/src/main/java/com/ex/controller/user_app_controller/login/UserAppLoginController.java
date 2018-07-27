@@ -155,4 +155,32 @@ public class UserAppLoginController {
         return jsonView;
     }
 
+    /**
+     * 重置密码
+     * @param phone
+     * @param password
+     * @return
+     */
+    @RequestMapping(value = "/resetPassword",method = RequestMethod.POST)
+    public JsonView resetPassword(String phone,String password){
+        JsonView jsonView = new JsonView();
+        try{
+            int i = userAppRegistService.updateUserAppRegistPassword(phone,password);
+            if (i>0){
+                jsonView.setTodoCount(i);
+                jsonView.setMessage("修改成功!");
+                jsonView.setCode(JsonView.SUCCESS);
+            }else{
+                jsonView.setTodoCount(i);
+                jsonView.setMessage("修改失败!");
+                jsonView.setCode(JsonView.ERROR);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("请求失败!");
+            jsonView.setCode(JsonView.EXPIRED);
+        }
+        return jsonView;
+    }
+
 }
