@@ -74,4 +74,12 @@
 	<select id="selectAppAppointmentById" parameterType="Long" resultType="com.ex.vo.AppointmentOrderVo">
 		select * from appointment_order where id = #{id}
 	</select>
+
+	<!--根据用户Id查询该用户所有的预定信息-->
+	<select id="selectAppointmentOrderByUserApp" parameterType="java.lang.Long" resultType="com.ex.vo.AppointmentOrderByUserAppVo">
+		select ao.*,si.storeName storeName,si.advertisingPicUrl picUrl from appointment_order ao
+		left join store_info si on  si.merchantId = ao.merchantId
+		where ao.registUserId = #{registUserId}
+	</select>
+
 </mapper>

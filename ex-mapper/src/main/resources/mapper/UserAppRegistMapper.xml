@@ -38,4 +38,12 @@
         SELECT * FROM userapp_regist WHERE username = #{username}
     </select>
 
+    <!--重置密码-->
+    <update id="updateUserAppRegistPassword" parameterType="map">
+        UPDATE userapp_regist
+        SET
+            password = #{password},
+            updateTime = #{updateTime}
+        WHERE username = #{username}
+    </update>
 </mapper>
