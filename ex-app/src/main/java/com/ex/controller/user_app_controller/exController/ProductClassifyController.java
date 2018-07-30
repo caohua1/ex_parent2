@@ -19,7 +19,7 @@ import java.util.List;
 @SuppressWarnings("ALL")
 @RestController
 @RequestMapping("/apiProduct")
-public class ProductController {
+public class ProductClassifyController {
     @Autowired
     private AppProductClassifyService appProductClassifyService;
     @Autowired

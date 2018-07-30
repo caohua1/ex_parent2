@@ -12,6 +12,8 @@ public class StoreInfo implements Serializable {
 
     private Long merchantid;
 
+    private Double YuE;//商家的余额
+
     private String storename;
 
     private String describe;
@@ -53,6 +55,14 @@ public class StoreInfo implements Serializable {
 
     public void setMerchantid(Long merchantid) {
         this.merchantid = merchantid;
+    }
+
+    public Double getYuE() {
+        return YuE;
+    }
+
+    public void setYuE(Double yuE) {
+        YuE = yuE;
     }
 
     public String getStorename() {

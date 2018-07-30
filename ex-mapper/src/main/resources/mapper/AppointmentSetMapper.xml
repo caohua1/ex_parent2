@@ -4,7 +4,12 @@
 
 	<!--设置预约配置，添加数据-->
 	<insert id="insertAppointmentSet" parameterType="com.ex.entity.AppointmentSet">
-		insert appointment_set (merchantId,appointmentTime,minPeople,maxPeople,createTime,price)
-		values(#{merchantId},#{appointmentTime},#{minPeople},#{maxPeople},#{createTime},#{price})
+		insert appointment_set (merchantId,appointmentDays,appointmentStartTime,appointmentEndTime,minPeople,maxPeople,createTime,price)
+		values(#{merchantId},#{appointmentDays},#{appointmentStartTime},#{appointmentEndTime},#{minPeople},#{maxPeople},#{createTime},#{price})
 	</insert>
+
+	<!--查询商家的预约设置-->
+	<select id="selectAppointmentSet" parameterType="Long" resultType="com.ex.entity.AppointmentSet">
+		select * from appointment_set where merchantId = #{merchantId}
+	</select>
 </mapper>

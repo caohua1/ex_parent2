@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MerchantPersonDataDao">
+
+	<!--添加商家个人资料-->
+	<insert id="insertMerchantPersonData" parameterType="com.ex.entity.MerchantPersonData">
+		insert into merchant_person_data(merchantId,headUrl,nickName,sex,address,job,marrige,email,createTime) values(
+          #{merchantId},#{headUrl},#{nickName},#{sex},#{address},#{job},#{marrige},#{email},#{createTime}
+		)
+	</insert>
+
+	<!--查询某商家的个人资料-->
+	<select id="selectPersonDataByMerchantId" parameterType="Long" resultType="com.ex.vo.MerchantPersonDataVo">
+		select mpd.*,mci.companyName,mi.inviterCode from merchant_person_data mpd
+		left join merchant_inviter mi on mi.inviterMerchantId = mpd.merchantId
+		left join merchantorperson_check_in mci on mci.merchantId = mpd.merchantId
+        where mpd.merchantId = #{merchantId}
+	</select>
+</mapper>

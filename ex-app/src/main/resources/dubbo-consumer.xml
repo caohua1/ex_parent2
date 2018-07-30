@@ -19,6 +19,7 @@
 	<dubbo:reference interface="com.ex.service.ShareProductService" id="shareProductService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.AppProductClassifyService" id="appProductClassifyService" version="1.0.1" />
 	<dubbo:reference interface="com.ex.service.AppointmentOrder1Service" id="appointmentOrder1Service" version="1.0.0" />
+	<dubbo:reference interface="com.ex.service.MyCollectService" id="myCollectService" version="1.0.0" />
 	<!--<dubbo:reference interface="com.ex.service.PayTestService" id="payTestService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.ProduceTestService" id="produceTestService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.SolrTestService" id="solrTestService" version="1.0.0" />-->

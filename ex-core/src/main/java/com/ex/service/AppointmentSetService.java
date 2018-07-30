@@ -4,5 +4,5 @@ import com.ex.entity.AppointmentSet;
 
 public interface AppointmentSetService {
 
-    public Integer insertAppointmentSet(AppointmentSet appointmentSet);
+    public Boolean insertAppointmentSet(AppointmentSet appointmentSet);
 }

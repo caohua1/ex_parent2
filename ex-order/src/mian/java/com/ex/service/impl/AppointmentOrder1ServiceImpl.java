@@ -3,6 +3,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.ex.dao.AppointmentOrderDao;
 import com.ex.dao.UserAppInfoDao;
 import com.ex.entity.AppointmentOrder;
+import com.ex.entity.ProductInfoManage;
 import com.ex.service.AppointmentOrder1Service;
 import com.ex.util.JsonView;
 import com.ex.util.SMSUtil;
@@ -97,6 +98,16 @@ public class AppointmentOrder1ServiceImpl implements AppointmentOrder1Service {
         }else{
             return false;
         }
+    }
+
+    /**
+     * 查询预约订单下预约的所有商品信息
+     * @param ProductInfoIds
+     * @return
+     */
+    @Override
+    public List<ProductInfoManage> selectProductsByIds(String ProductInfoIds) {
+        return appointmentOrderDao.selectProductsByIds(ProductInfoIds);
     }
 
     /**
