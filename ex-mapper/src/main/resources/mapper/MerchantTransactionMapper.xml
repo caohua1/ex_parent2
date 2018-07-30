@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MerchantTransactionDao">
+
+	<!--添加商家交易表-->
+	<insert id="insertMerchantTransaction" parameterType="com.ex.entity.MerchantTransaction">
+		insert into merchant_transaction(merchantId,money,type,createTime,status) values(
+		  #{merchantId},#{money},#{type},#{createTime},#{createTime}
+		)
+	</insert>
+
+	<!--查询用户已某项交易的金额-->
+	<select id="selectJYMoney" parameterType="java.util.Map" resultType="Double">
+		select sum(money) from merchant_transaction where merchantId = #{merchantId} and type = #{type} and status =1
+	</select>
+</mapper>

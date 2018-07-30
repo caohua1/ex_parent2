@@ -114,6 +114,7 @@ public class UserInsertOrderController {
         //如果支付失败
        // map.put("payStatus",2);
         int i = userOrdersService.updateOrdersStatusById(map);
+        //添加user_transaction表（用户交易表）
         if(i>0){
             return "修改成功";
         }else{

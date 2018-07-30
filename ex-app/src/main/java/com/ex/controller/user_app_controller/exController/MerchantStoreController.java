@@ -1,8 +1,7 @@
 package com.ex.controller.user_app_controller.exController;
+import com.ex.dao.AppointmentSetDao;
 import com.ex.dao.StoreInfoDao;
-import com.ex.entity.AppointmentOrder;
-import com.ex.entity.ProductClassify;
-import com.ex.entity.StoreInfo;
+import com.ex.entity.*;
 import com.ex.service.*;
 import com.ex.util.DateAndTimeUtil;
 import com.ex.util.JsonView;
@@ -37,6 +36,10 @@ public class MerchantStoreController {
     private AppStoreInfoService appStoreInfoService;
     @Autowired
     private UserOrdersService userOrdersService;
+    @Autowired
+    private MyCollectService myCollectService;
+    @Autowired
+    private AppointmentSetDao appointmentSetDao;
 
 
 
@@ -156,6 +159,34 @@ public class MerchantStoreController {
         return jsonView;
     }
 
+    //==========================================================================================
+    //==========================================================================================
+    /**
+     * 用户预定商品，进入预定页面，查询商家的预约设置
+     * @param merchantId
+     * @return
+     */
+    @RequestMapping("/selectAppointmentSet")
+    public JsonView selectAppointmentSet(Long merchantId){
+        JsonView jsonView = new JsonView();
+        try{
+            AppointmentSet appointmentSet = appointmentSetDao.selectAppointmentSet(merchantId);
+            if(appointmentSet!=null){
+                jsonView.setMessage("查询成功");
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setData(appointmentSet);
+            }else{
+                jsonView.setCode(JsonView.ERROR);
+                jsonView.setMessage("商家还未设定");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
+        }
+        return jsonView;
+    }
+
     /**
      * 用户，预订商品(产生预约订单)
      * registUserId,merchantId 商家id，productInfoIds商品ids,registUsername用户账号,contactsName联系人,contactsPhone联系电话,
@@ -255,6 +286,38 @@ public class MerchantStoreController {
         }
         return jsonView;
     }
+
+
+    //============================================================================================
+    //============================================================================================
+    /**
+     * 点击收藏此商品
+     * @param myCollect
+     * @return
+     */
+    @RequestMapping("/insertMyCollect")
+    public JsonView insertMyCollect(MyCollect myCollect){
+        JsonView jsonView = new JsonView();
+        try{
+            myCollect.setCreateTime(new Date());
+            Integer i = myCollectService.insertMyCollect(myCollect);
+            if(i>0){
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setMessage("收藏成功");
+            }else{
+                jsonView.setCode(JsonView.ERROR);
+                jsonView.setMessage("收藏失败");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("添加收藏异常");
+        }
+        return jsonView;
+    }
+
+
+    //点击分享此商品
 
     /**
      * 查看某商品的评论

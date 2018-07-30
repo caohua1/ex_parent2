@@ -52,7 +52,7 @@
     </insert>
 
     <!--按条件查询店铺信息-->
-    <select id="byConditionsQuery" resultType="com.ex.vo.StoreInfoVo" parameterType="com.ex.entity.StoreInfo">
+    <select id="byConditionsQuery" resultType="com.ex.vo.StoreInfoVo" parameterType="com.ex.vo.StoreInfoVo">
         SELECT * FROM store_info
         <include refid="Example_Where_OR_Clause"/>
     </select>
@@ -63,6 +63,7 @@
         <set >
             <if test="productclassifyid != null" >productClassifyId = #{productclassifyid},</if>
             <if test="merchantid != null" >merchantId = #{merchantid},</if>
+            <if test="YuE != null" >YuE = #{YuE},</if>
             <if test="storename != null" >storeName = #{storename},</if>
             <if test="describe != null" >describe = #{describe},</if>
             <if test="advertisingpicurl != null" >advertisingPicUrl = #{advertisingpicurl},</if>
@@ -70,6 +71,7 @@
             <if test="status != null" >status = #{status},</if>
             <if test="paystatus != null" >payStatus = #{paystatus},</if>
             <if test="STJStatus!=null">STJStatus = #{STJStatus},</if>
+            <if test="isAppointment!=null">isAppointment = #{isAppointment},</if>
             <if test="updatetime != null" >updateTime = #{updatetime}</if>
         </set>
         where id = #{id}

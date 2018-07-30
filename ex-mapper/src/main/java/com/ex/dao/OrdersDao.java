@@ -52,4 +52,13 @@ public interface OrdersDao {
 
     //查询某商家的总销售单数
     public Integer selectMerchantOrderNums(Long merchantId);
+
+    //某商家所有订单中支付完成，但未交易成功的金额（冻结金额）
+    public Double selectMerchantDJMoney(Long merchantId);
+
+    //查询某商家的客户量
+    public Integer selectUserNum(Long merchantId);
+
+    //商家七日内的订单量
+    public Integer selectOrderNumsIn7(Long merchantId);
 }

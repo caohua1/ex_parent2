@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.MyCollectDao">
+
+	<!--添加我的收藏-->
+	<insert id="insertMyCollect" parameterType="com.ex.entity.MyCollect">
+		insert into my_collect(registUserId,productInfoId,createTime) values(#{registUserId},#{productInfoId},#{createTime})
+	</insert>
+</mapper>

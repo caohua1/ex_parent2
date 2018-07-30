@@ -139,4 +139,32 @@
 		left join productinfo_manage pm on pm.id = o.productInfoId
 		where pm.merchantId = #{mercantId}
 	</select>
+
+
+	<!--商家app，首页-->
+	<!--某商家所有订单中支付完成，但未交易成功的金额（冻结金额）-->
+	<select id="selectMerchantDJMoney" parameterType="Long" resultType="Double">
+	    select sum(o.orderMoney) from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		where pm.merchantId = 1
+		and o.payStatus = 1
+		and o.status not in(7,12)
+		and #{newDate} &lt;= o.finishTime
+	</select>
+
+	<!--查询某商家的客户量-->
+	<select id="selectUserNum" parameterType="Long" resultType="Integer">
+		select sum(DISTINCT (uo.registUserId)) from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		left join user_order uo on uo.orderId = o.id
+		where pm.merchantId = #{merchantId}
+	</select>
+
+	<!--商家七日内的订单量-->
+	<select id="selectOrderNumsIn7" parameterType="Long" resultType="Integer">
+		select count(o.id) from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		where pm.merchantId = #{merchantId}
+		and TIMESTAMPDIFF(DAY,o.createTime,now()) &lt;= 7
+	</select>
 </mapper>

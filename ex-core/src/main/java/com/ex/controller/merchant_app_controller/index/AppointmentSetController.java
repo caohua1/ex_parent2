@@ -37,8 +37,8 @@ public class AppointmentSetController {
         JsonView jsonView = new JsonView();
         try{
             appointmentSet.setCreateTime(new Date());
-            Integer i = appointmentSetService.insertAppointmentSet(appointmentSet);
-            if(i>0){
+            Boolean b = appointmentSetService.insertAppointmentSet(appointmentSet);
+            if(b==true){
                 jsonView.setCode(JsonView.SUCCESS);
                 jsonView.setMessage("设置成功");
             }else{
@@ -55,7 +55,7 @@ public class AppointmentSetController {
 
 
     /**
-     * 商家首页，app端，分页查询所有的
+     * 商家首页，app端，分页查询所有的预约单
      * @param username 商家账号
      * @param startTime 预约时间（开始）
      * @param endTime 预约时间（结束）
@@ -94,6 +94,9 @@ public class AppointmentSetController {
     }
 
 
-    //点击预约商品，展示预约的所有的商品productInfoIds（）
+    //根据预约订单id，查询订单详情
+
+
+
 
 }
