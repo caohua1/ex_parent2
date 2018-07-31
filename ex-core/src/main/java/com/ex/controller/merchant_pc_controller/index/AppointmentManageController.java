@@ -37,8 +37,8 @@ public class AppointmentManageController {
         JsonView jsonView = new JsonView();
         try{
             appointmentSet.setCreateTime(new Date());
-            Integer i = appointmentSetService.insertAppointmentSet(appointmentSet);
-            if(i>0){
+            Boolean b = appointmentSetService.insertAppointmentSet(appointmentSet);
+            if(b==true){
                 jsonView.setCode(JsonView.SUCCESS);
                 jsonView.setMessage("设置成功");
             }else{

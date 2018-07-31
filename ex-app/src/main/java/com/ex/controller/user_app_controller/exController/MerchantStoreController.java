@@ -40,8 +40,13 @@ public class MerchantStoreController {
     private MyCollectService myCollectService;
     @Autowired
     private AppointmentSetDao appointmentSetDao;
+    @Autowired
+    private UserBrowseService userBrowseService;
 
 
+    //====================================================================================
+    //====================================================================================
+    //用户进入商家店铺，记录浏览，参数：Long registUserId
 
     /**
      * 1.商家店铺，点击某个商家进入某商家店（包括此商家的商品,分页查询）铺详情页
@@ -50,9 +55,10 @@ public class MerchantStoreController {
      * @return
      */
     @RequestMapping("/selectStoreInfoById")
-    public JsonView selectStoreInfoById(StoreInfoVo storeInfoVo,PageRequest pageRequest){
+    public JsonView selectStoreInfoById(StoreInfoVo storeInfoVo,PageRequest pageRequest,Long registUserId){
         JsonView jsonView = new JsonView();
         try{
+
             int orderNum = 0;
             Map map = new HashMap();
             Map map1 = new HashMap();
@@ -60,6 +66,12 @@ public class MerchantStoreController {
             //1.查询此商家的店铺信息
             List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfoVo);
             map.put("storeInfo",storeInfos.get(0));
+            //用户进入商家店铺，记录浏览
+            UserBrowse userBrowse = new UserBrowse();
+            userBrowse.setCreateTime(new Date());
+            userBrowse.setMerchantId(storeInfos.get(0).getMerchantid());
+            userBrowse.setRegistUserId(registUserId);
+            userBrowseService.insertUserBrowse(userBrowse);
             //计算平均评论分数
             Double merchantDiscussAvg = userOrdersService.selectMerchantDiscussAvg( storeInfos.get(0).getMerchantid());
             storeInfos.get(0).setMerchantDiscussAvg(merchantDiscussAvg);
@@ -267,10 +279,16 @@ public class MerchantStoreController {
      * @return
      */
     @RequestMapping("/selectProductInfo")
-    public JsonView selectProductInfo(Long id){
+    public JsonView selectProductInfo(Long id,Long registUserId){
         JsonView jsonView = new JsonView();
         try{
             ProductInfoManageVo productInfoManageVo = appProductClassifyService.selectProductInfoById(id);
+            //用户进入商家某商品详情页，记录浏览
+            UserBrowse userBrowse = new UserBrowse();
+            userBrowse.setCreateTime(new Date());
+            userBrowse.setMerchantId(productInfoManageVo.getMerchantId());
+            userBrowse.setRegistUserId(registUserId);
+            userBrowseService.insertUserBrowse(userBrowse);
             if(productInfoManageVo.getSXJStatus()!=null&&productInfoManageVo.getSXJStatus()==0){
                 jsonView.setMessage("对不起，您查看的商品已经下架");
                 jsonView.setData(productInfoManageVo);

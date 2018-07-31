@@ -1,5 +1,6 @@
 package com.ex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -7,54 +8,21 @@ import java.util.Date;
 
 @Data
 public class MerchantPersonData implements Serializable {
+
     private Long id;
-    private Long merchantld;
-    private String herdUrl;
+    private Long merchantId;
+    private String headUrl;
     private String nickName;
     private int sex;
     private String address;
     private String job;
     private int marrige;
     private String email;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
     private int status;
-
-    @Override
-    public String toString() {
-        return "MerchantPersonData{" +
-                "id=" + id +
-                ", merchantld=" + merchantld +
-                ", herdUrl='" + herdUrl + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", sex=" + sex +
-                ", address='" + address + '\'' +
-                ", job='" + job + '\'' +
-                ", marrige=" + marrige +
-                ", email='" + email + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", status=" + status +
-                '}';
-    }
-
-    public MerchantPersonData() {
-    }
-
-    public MerchantPersonData(Long id, Long merchantld, String herdUrl, String nickName, int sex, String address, String job, int marrige, String email, Date createTime, Date updateTime, int status) {
-        this.id = id;
-        this.merchantld = merchantld;
-        this.herdUrl = herdUrl;
-        this.nickName = nickName;
-        this.sex = sex;
-        this.address = address;
-        this.job = job;
-        this.marrige = marrige;
-        this.email = email;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-        this.status = status;
-    }
 
     public Long getId() {
         return id;
@@ -64,20 +32,20 @@ public class MerchantPersonData implements Serializable {
         this.id = id;
     }
 
-    public Long getMerchantld() {
-        return merchantld;
+    public Long getMerchantId() {
+        return merchantId;
     }
 
-    public void setMerchantld(Long merchantld) {
-        this.merchantld = merchantld;
+    public void setMerchantId(Long merchantId) {
+        this.merchantId = merchantId;
     }
 
-    public String getHerdUrl() {
-        return herdUrl;
+    public String getHeadUrl() {
+        return headUrl;
     }
 
-    public void setHerdUrl(String herdUrl) {
-        this.herdUrl = herdUrl;
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 
     public String getNickName() {

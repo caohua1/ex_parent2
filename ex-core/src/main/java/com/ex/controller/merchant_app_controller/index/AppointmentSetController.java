@@ -67,6 +67,7 @@ public class AppointmentSetController {
         JsonView jsonView = new JsonView();
         try{
             Map map = new HashMap();
+            Map map1 = new HashMap();
             if(merchantId!=null){
                 map.put("merchantId",merchantId);
             }
@@ -81,10 +82,11 @@ public class AppointmentSetController {
             }
             PageInfo<AppointmentOrderVo> pageInfo = appointmentOrderService.pcSelectAppointmentOrder(map, pageRequest);
             Integer count = appointmentOrderService.selectAppointmentOrderCount(map);
+            map1.put("pageInfo",pageInfo);
+            map1.put("userCount",count);
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setMessage("返回数据成功");
-            jsonView.setData(pageInfo);
-            jsonView.setTodoCount(count);
+            jsonView.setData(map1);
         }catch(Exception e){
             e.printStackTrace();
             jsonView.setMessage("查询数据失败");
