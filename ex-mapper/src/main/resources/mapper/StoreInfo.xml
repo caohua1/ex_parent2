@@ -57,6 +57,14 @@
         <include refid="Example_Where_OR_Clause"/>
     </select>
 
+    <!--按商家ID查询用户APP可代理店铺的详细信息-->
+    <select id="selectUserAppAgentStoreInfo" resultType="com.ex.vo.UserAppAgentStoreInfoVo" parameterType="java.lang.Long">
+        SELECT si.*, pc.typeName,mci.companyName,mci.companyAddress,mci.linkmanName  FROM store_info si
+        LEFT JOIN product_classify pc ON pc.id = si.productClassifyId
+        LEFT JOIN merchantorperson_check_in mci ON mci.merchantId = si.merchantId
+        WHERE si.merchantId = #{merchantId}
+    </select>
+
     <!--修改店铺信息-->
     <update id="updateStoreInfo" parameterType="com.ex.entity.StoreInfo">
         update store_info
