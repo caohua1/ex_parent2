@@ -7,7 +7,7 @@
 	<select id="selectProductPrice" parameterType="Long" resultType="com.ex.vo.ProductInfoManageVo">
 		select * from productinfo_manage where id = #{id}
 	</select>
-	<!--设置预约配置，添加数据-->
+	<!--添加预约订单，添加数据-->
 	<insert id="insertAppointmentOrder" parameterType="com.ex.entity.AppointmentOrder">
 		insert appointment_order (registUserId,merchantId,productInfoIds,registUsername,contactsName,contactsPhone,
 		peopleNum,orderNum,merchantName,productName,appointmentMoney,appointmentTime,
@@ -74,4 +74,17 @@
 	<select id="selectAppAppointmentById" parameterType="Long" resultType="com.ex.vo.AppointmentOrderVo">
 		select * from appointment_order where id = #{id}
 	</select>
+
+	<!--查询某个订单预定的所有商品信息-->
+	<select id="selectProductsByIds" parameterType="String" resultType="com.ex.entity.ProductInfoManage">
+		select * from product_info where id in(#{productInfoIds})
+	</select>
+
+	<!--根据用户Id查询该用户所有的预定信息-->
+	<select id="selectAppointmentOrderByUserApp" parameterType="java.lang.Long" resultType="com.ex.vo.AppointmentOrderByUserAppVo">
+		select ao.*,si.storeName storeName,si.advertisingPicUrl picUrl from appointment_order ao
+		left join store_info si on  si.merchantId = ao.merchantId
+		where ao.registUserId = #{registUserId}
+	</select>
+
 </mapper>

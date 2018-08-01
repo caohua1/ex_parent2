@@ -7,9 +7,12 @@ import java.util.Date;
 
 public class AppointmentSet implements Serializable {
 
+
    private Long id;
    private Long merchantId;
-   private String appointmentTime;
+   private Integer appointmentDays;
+   private String appointmentStartTime;
+   private String appointmentEndTime;
    private Integer minPeople;
    private Integer maxPeople;
    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -33,12 +36,28 @@ public class AppointmentSet implements Serializable {
         this.merchantId = merchantId;
     }
 
-    public String getAppointmentTime() {
-        return appointmentTime;
+    public Integer getAppointmentDays() {
+        return appointmentDays;
     }
 
-    public void setAppointmentTime(String appointmentTime) {
-        this.appointmentTime = appointmentTime;
+    public void setAppointmentDays(Integer appointmentDays) {
+        this.appointmentDays = appointmentDays;
+    }
+
+    public String getAppointmentStartTime() {
+        return appointmentStartTime;
+    }
+
+    public void setAppointmentStartTime(String appointmentStartTime) {
+        this.appointmentStartTime = appointmentStartTime;
+    }
+
+    public String getAppointmentEndTime() {
+        return appointmentEndTime;
+    }
+
+    public void setAppointmentEndTime(String appointmentEndTime) {
+        this.appointmentEndTime = appointmentEndTime;
     }
 
     public Integer getMinPeople() {

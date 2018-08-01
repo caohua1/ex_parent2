@@ -8,7 +8,7 @@ import java.util.Map;
 public interface AppStoreInfoService {
 
 
-    PageInfo<StoreInfo> byConditionsQuery(PageRequest page, StoreInfo storeInfo);
+    PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfoVo storeInfo);
     //通过二级商品分类，查询所有的商家列表
     public PageInfo<StoreInfoVo> selectStoreInfosByProductClassifyId2(Long productClassifyId, PageRequest pageRequest);
 

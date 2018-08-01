@@ -21,6 +21,8 @@ public class ProductInfoManage implements Serializable {
     private String appSlideshowPic;//app端轮播图
     private String pcSlideshowPic;//pc端轮播图
     private String productDescribe;//商品详情
+    private Integer PSWay;//配送方式
+    private Double postage;//邮费
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date startTime;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -146,6 +148,22 @@ public class ProductInfoManage implements Serializable {
 
     public void setProductDescribe(String productDescribe) {
         this.productDescribe = productDescribe;
+    }
+
+    public Integer getPSWay() {
+        return PSWay;
+    }
+
+    public void setPSWay(Integer PSWay) {
+        this.PSWay = PSWay;
+    }
+
+    public Double getPostage() {
+        return postage;
+    }
+
+    public void setPostage(Double postage) {
+        this.postage = postage;
     }
 
     public Date getStartTime() {

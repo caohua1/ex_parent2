@@ -2,6 +2,7 @@ package com.ex.service;
 
 import com.ex.entity.StoreInfo;
 import com.ex.util.PageRequest;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageInfo;
 
 
@@ -14,7 +15,7 @@ public interface StoreInfoService {
      */
     int insertStoreInfo(StoreInfo storeInfo);
 
-    PageInfo<StoreInfo> byConditionsQuery(PageRequest page, StoreInfo storeInfo);
+    PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfoVo storeInfo);
 
     int updateStoreInfo(StoreInfo storeInfo);
 

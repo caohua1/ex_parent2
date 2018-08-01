@@ -13,7 +13,10 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/exIndex")
@@ -34,7 +37,9 @@ public class ExIndexController {
     public JsonView selectIndexAdvertising(){
         JsonView jsonView = new JsonView();
         try{
-            List<IndexAdvertising> indexAdvertisings = exIndexService.selectAdvertising();
+            Map map = new HashMap();
+            map.put("type",0);//banner图
+            List<IndexAdvertising> indexAdvertisings = exIndexService.selectAdvertising(map);
             if(indexAdvertisings!=null && indexAdvertisings.size()>0){
                 jsonView.setMessage("查询成功");
                 jsonView.setCode(JsonView.SUCCESS);
@@ -50,6 +55,34 @@ public class ExIndexController {
         }
         return jsonView;
     }
+
+    /**
+     * 2的分享（广告图片）
+     * @return
+     */
+    @RequestMapping("/selectIndexAdvertising2")
+    public JsonView selectIndexAdvertising2(){
+        JsonView jsonView = new JsonView();
+        try{
+            Map map = new HashMap();
+            map.put("type",2);//首页广告（2的分享）
+            List<IndexAdvertising> indexAdvertisings = exIndexService.selectAdvertising(map);
+            if(indexAdvertisings!=null && indexAdvertisings.size()>0){
+                jsonView.setMessage("查询成功");
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setData(indexAdvertisings);
+            }else{
+                jsonView.setMessage("暂无数据");
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setMessage("查询异常");
+            jsonView.setCode(JsonView.ERROR);
+        }
+        return jsonView;
+    }
+
 
     /**
      * 用户app端，二享模块(首页)，查询所有的一级商品分类
@@ -141,10 +174,10 @@ public class ExIndexController {
      * @return
      */
     @RequestMapping("/selectStore_TJ")
-    public JsonView selectStore_TJ(StoreInfo storeInfo,PageRequest pageRequest){
+    public JsonView selectStore_TJ(StoreInfoVo storeInfo,PageRequest pageRequest){
         JsonView jsonView = new JsonView();
         try{
-            PageInfo<StoreInfo> storeInfoPageInfo = exIndexService.byConditionsQuery(storeInfo, pageRequest);
+            PageInfo<StoreInfoVo> storeInfoPageInfo = exIndexService.byConditionsQuery(storeInfo, pageRequest);
             jsonView.setMessage("查询成功");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setData(storeInfoPageInfo);

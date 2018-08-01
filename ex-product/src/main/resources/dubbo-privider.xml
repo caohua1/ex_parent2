@@ -10,17 +10,20 @@
     <!-- dubbo项目名称 -->
     <dubbo:application name="ex-product"/>
     <!-- 指定注册中心 -->
-    <dubbo:registry protocol="zookeeper" address="192.168.1.41:2181" />
+    <dubbo:registry protocol="zookeeper" address="192.168.1.4:2181" />
     <!-- 指定暴露接口，协议 -->
     <dubbo:protocol name="dubbo" port="20881"/>
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.ex.service.ProduceTestService" ref="redisUtilService" version="1.0.0"/>
     <dubbo:service interface="com.ex.service.ProductService" ref="productService" version="1.0.0"/>
-    <dubbo:service interface="com.ex.service.AppProductClassifyService" ref="appProductClassifyService" version="1.0.0"/>
+    <dubbo:service interface="com.ex.service.AppProductClassifyService" ref="appProductClassifyService" version="1.0.1"/>
     <dubbo:service interface="com.ex.service.ProductClassifyService" ref="productClassifyService" version="1.0.0"/>
+    <dubbo:service interface="com.ex.service.MyCollectService" ref="myCollectService" version="1.0.0"/>
+
     <!-- 和本地bean一样实现服务 -->
     <bean id="redisUtilService" class="com.ex.service.impl.ProduceTestServiceImpl"/>
     <bean id="productService" class="com.ex.service.impl.ProductServiceImpl"/>
     <bean id="appProductClassifyService" class="com.ex.service.impl.AppProductClassifyServiceImpl"/>
     <bean id="productClassifyService" class="com.ex.service.impl.ProductClassifyServiceImpl"/>
+    <bean id="myCollectService" class="com.ex.service.impl.MyCollectServiceImpl"/>
 </beans>

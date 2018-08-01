@@ -1,10 +1,7 @@
 package com.ex.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.ex.dao.OrderDiscussDao;
-import com.ex.dao.OrdersDao;
-import com.ex.dao.StoreInfoDao;
-import com.ex.dao.UserOrderDao;
+import com.ex.dao.*;
 import com.ex.entity.Orders;
 import com.ex.entity.ShareOrder;
 import com.ex.entity.StoreInfo;
@@ -15,6 +12,7 @@ import com.ex.util.PageRequest;
 import com.ex.util.UUIDUtil;
 import com.ex.vo.OrderVo;
 import com.ex.vo.ProductInfoManageVo;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Service(version = "1.0.0")
+@Service(version = "1.0.1")
 public class UserOrdersServiceImpl implements UserOrdersService{
 
 
@@ -41,6 +39,8 @@ public class UserOrdersServiceImpl implements UserOrdersService{
     private ShareOrderService shareOrderService;
     @Autowired
     private StoreInfoDao storeInfoDao;
+    @Autowired
+    private ProductInfoManageDao productInfoManageDao;
 
     /**
      * 商家app首页的客户管理，根据merchantId查询购买过此商家商品的客户的信息（去重，一个用户在此商家有多个订单）(消费金额)，几笔待发货
@@ -137,7 +137,13 @@ public class UserOrdersServiceImpl implements UserOrdersService{
     public Boolean insertOrders(Orders orders, UserOrder userOrder, Long shareUserId, String shareUsername, String buyUsername, ProductInfoManageVo productInfoManageVo) {
         orders.setOrderNum(UUIDUtil.getOrderIdByUUId());
         Integer i = ordersDao.insertOrders(orders);
-        if(i>0){
+        //下单成功后，商品的库存量减少
+        ProductInfoManageVo productInfoManageVo1 = new ProductInfoManageVo();
+        productInfoManageVo1.setId(productInfoManageVo.getId());
+        productInfoManageVo1.setStoreNum(0-orders.getProductNum());
+        productInfoManageVo1.setUpdateTime(new Date());
+        Integer n = productInfoManageDao.updateProductInfo(productInfoManageVo1);
+        if(i>0 && n>0){
             userOrder.setCreateTime(new Date());
             userOrder.setOrderId(orders.getId());
             userOrder.setStatus(1);
@@ -153,22 +159,22 @@ public class UserOrdersServiceImpl implements UserOrdersService{
                 shareOrder.setProductInfoId(orders.getProductInfoId()); //商品id
                 shareOrder.setMerchantId(productInfoManageVo.getMerchantId()); //商家id
                 shareOrder.setCreateTime(new Date());//下单时间
-                StoreInfo storeInfo = new StoreInfo();
-                storeInfo.setMerchantid(productInfoManageVo.getMerchantId());
-                List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+                StoreInfoVo storeInfoVo = new StoreInfoVo();
+                storeInfoVo.setMerchantid(productInfoManageVo.getMerchantId());
+                List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfoVo);
                 shareOrder.setMerchantName(storeInfos.get(0).getStorename());//商家名称
                 shareOrder.setOrderMoney(orders.getOrderMoney());//订单金额
                 shareOrder.setOrderNum(orders.getOrderNum());//订单编号
                 int k = shareOrderService.insertShareOrder(shareOrder);
-                return j>0 && i>0 && k>0;
+                return j>0 && i>0 && k>0 && n>0;
             }
-            return j>0 && i>0;
+            return j>0 && i>0 && n>0;
         }else{
             userOrder.setCreateTime(new Date());
             userOrder.setOrderId(orders.getId());
             userOrder.setStatus(0);
             int j = userOrderDao.insertUserOrder(userOrder);
-            return j>0 && i>0;
+            return j>0 && i>0 && n>0;
         }
     }
 

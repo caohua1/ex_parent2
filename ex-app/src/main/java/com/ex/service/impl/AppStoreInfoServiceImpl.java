@@ -26,10 +26,10 @@ public class AppStoreInfoServiceImpl implements AppStoreInfoService {
      * @return
      */
     @Override
-    public PageInfo<StoreInfo> byConditionsQuery(PageRequest page, StoreInfo storeInfo) {
+    public PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfoVo storeInfo) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
-        PageInfo<StoreInfo> pageInfo = new PageInfo<>(storeInfos);
+        List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+        PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfos);
         return pageInfo;
     }
 

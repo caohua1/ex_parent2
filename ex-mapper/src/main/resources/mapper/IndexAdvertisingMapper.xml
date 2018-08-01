@@ -4,17 +4,26 @@
 
 	<!--添加首页广告-->
 	<insert id="insertAdvertising" parameterType="com.ex.entity.IndexAdvertising">
-		insert into index_advertising(advertiseName,link,advertisePicUrl,createTime) values(#{advertiseName},#{link},#{advertisePicUrl},#{createTime})
+		insert into index_advertising(type,advertiseName,link,advertisePicUrl,createTime) values(#{type},#{advertiseName},#{link},#{advertisePicUrl},#{createTime})
 	</insert>
 
-	<!--查询广告的所有信息-->
-	<select id="selectAdvertising" resultType="com.ex.entity.IndexAdvertising">
+	<!--查询banner图的所有信息-->
+	<select id="selectAdvertising" parameterType="java.util.Map" resultType="com.ex.entity.IndexAdvertising">
 		select * from index_advertising where status = 1
+		<if test="type!=null">
+			and type = #{type}
+		</if>
+
 	</select>
 
+
+
 	<!--查询总数量-->
-	<select id="selectAdvertisingCount" resultType="Integer">
+	<select id="selectAdvertisingCount" parameterType="java.util.Map" resultType="Integer">
 		select count(*) from index_advertising where status =1
+		<if test="type!=null">
+			and type = #{type}
+		</if>
 	</select>
 
 	<!--编辑-->

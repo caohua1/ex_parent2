@@ -21,6 +21,8 @@ public class Orders implements Serializable{
     private Date sendTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date finishTime;
+    private Integer PSWay;//配送方式
+    private Double postage;//邮费
     private Integer payStatus;
     private String backCauseBy;
     private String backNum;
@@ -132,6 +134,22 @@ public class Orders implements Serializable{
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public Integer getPSWay() {
+        return PSWay;
+    }
+
+    public void setPSWay(Integer PSWay) {
+        this.PSWay = PSWay;
+    }
+
+    public Double getPostage() {
+        return postage;
+    }
+
+    public void setPostage(Double postage) {
+        this.postage = postage;
     }
 
     public Integer getPayStatus() {

@@ -1,8 +1,7 @@
 package com.ex.controller.user_app_controller.exController;
+import com.ex.dao.AppointmentSetDao;
 import com.ex.dao.StoreInfoDao;
-import com.ex.entity.AppointmentOrder;
-import com.ex.entity.ProductClassify;
-import com.ex.entity.StoreInfo;
+import com.ex.entity.*;
 import com.ex.service.*;
 import com.ex.util.DateAndTimeUtil;
 import com.ex.util.JsonView;
@@ -37,8 +36,17 @@ public class MerchantStoreController {
     private AppStoreInfoService appStoreInfoService;
     @Autowired
     private UserOrdersService userOrdersService;
+    @Autowired
+    private MyCollectService myCollectService;
+    @Autowired
+    private AppointmentSetDao appointmentSetDao;
+    @Autowired
+    private UserBrowseService userBrowseService;
 
 
+    //====================================================================================
+    //====================================================================================
+    //用户进入商家店铺，记录浏览，参数：Long registUserId
 
     /**
      * 1.商家店铺，点击某个商家进入某商家店（包括此商家的商品,分页查询）铺详情页
@@ -47,27 +55,33 @@ public class MerchantStoreController {
      * @return
      */
     @RequestMapping("/selectStoreInfoById")
-    public JsonView selectStoreInfoById(StoreInfo storeInfo,PageRequest pageRequest){
+    public JsonView selectStoreInfoById(StoreInfoVo storeInfoVo,PageRequest pageRequest,Long registUserId){
         JsonView jsonView = new JsonView();
         try{
+
             int orderNum = 0;
             Map map = new HashMap();
             Map map1 = new HashMap();
+            Map map2 = new HashMap();
             //1.查询此商家的店铺信息
-            List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+            List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfoVo);
             map.put("storeInfo",storeInfos.get(0));
+            //用户进入商家店铺，记录浏览
+            UserBrowse userBrowse = new UserBrowse();
+            userBrowse.setCreateTime(new Date());
+            userBrowse.setMerchantId(storeInfos.get(0).getMerchantid());
+            userBrowse.setRegistUserId(registUserId);
+            userBrowseService.insertUserBrowse(userBrowse);
+            //计算平均评论分数
+            Double merchantDiscussAvg = userOrdersService.selectMerchantDiscussAvg( storeInfos.get(0).getMerchantid());
+            storeInfos.get(0).setMerchantDiscussAvg(merchantDiscussAvg);
+            //计算总销售单数
+            Integer orderNums = userOrdersService.selectMerchantOrderNums( storeInfos.get(0).getMerchantid());
+            storeInfos.get(0).setOrdersNums(orderNums);
             //2.查询此商家的商品
             if(storeInfos!=null && storeInfos.size()>0){
                 map1.put("merchantId",storeInfos.get(0).getMerchantid());
                 List<ProductInfoManageVo> productInfoManageVos = appProductClassifyService.selectProductsByMerchantId2(map1);
-                //计算店铺的销售量
-                if(productInfoManageVos!=null && productInfoManageVos.size()>0){
-                    for(int i=0;i<productInfoManageVos.size();i++){
-                        if(productInfoManageVos.get(i).getSaleOrderNum()!=null){
-                            orderNum += productInfoManageVos.get(i).getSaleOrderNum();
-                        }
-                    }
-                }
                 PageInfo<ProductInfoManageVo> productInfoManageVosPageInfo = appProductClassifyService.selectProductsByMerchantId(map,pageRequest);
                 map.put("productInfoManageVosPageInfo",productInfoManageVosPageInfo);
             }else{
@@ -76,7 +90,6 @@ public class MerchantStoreController {
             jsonView.setMessage("查询此店铺的信息成功");
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setData(map);
-            jsonView.setTodoCount(orderNum);//销售总量
         }catch(Exception e){
             e.printStackTrace();
             jsonView.setCode(JsonView.ERROR);
@@ -154,6 +167,34 @@ public class MerchantStoreController {
         }catch(Exception e){
             e.printStackTrace();
             jsonView.setMessage("查询失败");
+        }
+        return jsonView;
+    }
+
+    //==========================================================================================
+    //==========================================================================================
+    /**
+     * 用户预定商品，进入预定页面，查询商家的预约设置
+     * @param merchantId
+     * @return
+     */
+    @RequestMapping("/selectAppointmentSet")
+    public JsonView selectAppointmentSet(Long merchantId){
+        JsonView jsonView = new JsonView();
+        try{
+            AppointmentSet appointmentSet = appointmentSetDao.selectAppointmentSet(merchantId);
+            if(appointmentSet!=null){
+                jsonView.setMessage("查询成功");
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setData(appointmentSet);
+            }else{
+                jsonView.setCode(JsonView.ERROR);
+                jsonView.setMessage("商家还未设定");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("查询异常");
         }
         return jsonView;
     }
@@ -238,10 +279,16 @@ public class MerchantStoreController {
      * @return
      */
     @RequestMapping("/selectProductInfo")
-    public JsonView selectProductInfo(Long id){
+    public JsonView selectProductInfo(Long id,Long registUserId){
         JsonView jsonView = new JsonView();
         try{
             ProductInfoManageVo productInfoManageVo = appProductClassifyService.selectProductInfoById(id);
+            //用户进入商家某商品详情页，记录浏览
+            UserBrowse userBrowse = new UserBrowse();
+            userBrowse.setCreateTime(new Date());
+            userBrowse.setMerchantId(productInfoManageVo.getMerchantId());
+            userBrowse.setRegistUserId(registUserId);
+            userBrowseService.insertUserBrowse(userBrowse);
             if(productInfoManageVo.getSXJStatus()!=null&&productInfoManageVo.getSXJStatus()==0){
                 jsonView.setMessage("对不起，您查看的商品已经下架");
                 jsonView.setData(productInfoManageVo);
@@ -257,6 +304,38 @@ public class MerchantStoreController {
         }
         return jsonView;
     }
+
+
+    //============================================================================================
+    //============================================================================================
+    /**
+     * 点击收藏此商品
+     * @param myCollect
+     * @return
+     */
+    @RequestMapping("/insertMyCollect")
+    public JsonView insertMyCollect(MyCollect myCollect){
+        JsonView jsonView = new JsonView();
+        try{
+            myCollect.setCreateTime(new Date());
+            Integer i = myCollectService.insertMyCollect(myCollect);
+            if(i>0){
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setMessage("收藏成功");
+            }else{
+                jsonView.setCode(JsonView.ERROR);
+                jsonView.setMessage("收藏失败");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.ERROR);
+            jsonView.setMessage("添加收藏异常");
+        }
+        return jsonView;
+    }
+
+
+    //点击分享此商品
 
     /**
      * 查看某商品的评论

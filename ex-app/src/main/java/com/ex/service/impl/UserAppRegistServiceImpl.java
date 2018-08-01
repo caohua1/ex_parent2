@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,6 +74,12 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
         List<UserAppRegist> users = userAppRegistDao.findByPage();
         PageInfo<UserAppRegist> pageInfo = new PageInfo<>(users);
         return pageInfo;
+    }
+
+    @Override
+    public int updateUserAppRegistPassword(String username, String password) {
+        password = CustomMD5.passwordAndSalt(password,username);
+        return userAppRegistDao.updateUserAppRegistPassword(username, password, new Date());
     }
 
 }

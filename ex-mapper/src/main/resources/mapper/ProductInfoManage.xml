@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.ProductInfoManageDao">
 
-	<!--添加商品信息-->
+	<!--添加商品信息private Integer PSWay;//配送方式
+    private Double postage;//邮费-->
 	<insert id="insertProductInfo" parameterType="com.ex.entity.ProductInfoManage">
 		insert into productinfo_manage(merchantId,productName,productClassifyId,
 		agentPrice,vipPrice,resalePrice,storeNum,storePrewarnNum,brandId,productPicUrl,appSlideshowPic,
-		pcSlideshowPic,productDescribe,startTime,endTime,SXJStatus,STJStatus,createTime)
+		pcSlideshowPic,productDescribe,PSWay,postage,startTime,endTime,SXJStatus,STJStatus,createTime)
 		values(#{merchantId},#{productName},#{productClassifyId},#{agentPrice},#{vipPrice},#{resalePrice},#{storeNum},#{storePrewarnNum},
-		#{brandId},#{productPicUrl},#{appSlideshowPic},#{pcSlideshowPic},#{productDescribe},#{startTime},#{endTime},#{SXJStatus},#{STJStatus},#{createTime})
+		#{brandId},#{productPicUrl},#{appSlideshowPic},#{pcSlideshowPic},#{productDescribe},#{PSWay},#{postage},#{startTime},#{endTime},#{SXJStatus},#{STJStatus},#{createTime})
 	</insert>
 
    <!--修改商品详情（分享设置）-->
@@ -30,7 +31,7 @@
 			resalePrice = #{resalePrice},
 		</if>
 		<if test="storeNum!=null">
-			storeNum = #{storeNum},
+			storeNum = #{storeNum}+storeNum,
 		</if>
 		<if test="storePrewarnNum!=null">
 			storePrewarnNum = #{storePrewarnNum},
@@ -122,9 +123,10 @@
     private String brandName;//品牌名称
     private String brandPicUrl;//品牌图标-->
 	<select id="selectProductInfoById" parameterType="Long" resultType="com.ex.vo.ProductInfoManageVo">
-		select pm.*,pc.typeName,pc.IconStylePic,b.brandName,b.brandPicUrl from productinfo_manage pm
+		select pm.*,pc.typeName,pc.IconStylePic,b.brandName,b.brandPicUrl,si.storeName from productinfo_manage pm
 		left join product_classify pc on pc.id = pm.productClassifyId
 		left join brand b on b.id = pm.brandId
+		left join store_info si on si.merchantId = pm.merchantId
 		 where pm.id = #{id}
 	</select>
 

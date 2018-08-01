@@ -14,4 +14,31 @@
 	<select id="selectShippingAddress" parameterType="Long" resultType="com.ex.entity.ShippingAddress">
 		select * from shipping_address where registUserId = #{registUserId} order by createTime desc
 	</select>
+
+	<!--修改收货地址-->
+	<update id="updateAddressById" parameterType="com.ex.entity.ShippingAddress">
+		update shipping_address set
+		<if test="area!=null and area!=''">
+			area = #{area},
+		</if>
+		<if test="address!=null and address!=''">
+			address = #{address},
+		</if>
+		<if test="realName!=null and realName!=''">
+			realName = #{realName},
+		</if>
+		<if test="phone!=null and phone!=''">
+			phone = #{phone},
+		</if>
+		<if test="postalCode!=null and postalCode!=''">
+			postalCode = #{postalCode},
+		</if>
+		<if test="status!=null">
+			status = #{status},
+		</if>
+		<if test="updateTime!=null">
+			updateTime = #{updateTime}
+		</if>
+		where id = #{id}
+	</update>
 </mapper>

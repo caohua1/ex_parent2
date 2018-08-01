@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ExIndexServiceImpl implements ExIndexService {
@@ -76,10 +77,10 @@ public class ExIndexServiceImpl implements ExIndexService {
      * @return
      */
     @Override
-    public PageInfo<StoreInfo> byConditionsQuery(StoreInfo storeInfo, PageRequest pageRequest) {
+    public PageInfo<StoreInfoVo> byConditionsQuery(StoreInfoVo storeInfo, PageRequest pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
-        List<StoreInfo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
-        PageInfo<StoreInfo> pageInfo = new PageInfo<>(storeInfos);
+        List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
+        PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfos);
         return pageInfo;
     }
 
@@ -102,7 +103,7 @@ public class ExIndexServiceImpl implements ExIndexService {
      * @return
      */
     @Override
-    public List<IndexAdvertising> selectAdvertising() {
-        return indexAdvertisingDao.selectAdvertising();
+    public List<IndexAdvertising> selectAdvertising(Map map) {
+        return indexAdvertisingDao.selectAdvertising(map);
     }
 }

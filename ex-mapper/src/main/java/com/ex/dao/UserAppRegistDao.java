@@ -4,6 +4,7 @@ import com.ex.entity.UserAppRegist;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,4 +24,8 @@ public interface UserAppRegistDao {
     int insertUserAppRegist(UserAppRegist userAppRegist);
 
     UserAppRegist userLoginOrCheckUserName(@Param("username") String username);
+
+    int updateUserAppRegistPassword(@Param("username")String username, @Param("password")String password, @Param("updateTime")Date updateTime);
+
+
 }

@@ -46,15 +46,23 @@
       insert into store_info (productClassifyId, merchantId,
       storeName, describe, advertisingPicUrl,
       createTime, updateTime, status,STJStatus,
-      payStatus)
+      payStatus,isAppointment)
     values (#{productclassifyid}, #{merchantid}, #{storename}, #{describe}, #{advertisingpicurl},
-      #{createtime}, #{updatetime}, #{status},#{STJStatus},#{paystatus})
+      #{createtime}, #{updatetime}, #{status},#{STJStatus},#{paystatus},#{isAppointment})
     </insert>
 
     <!--按条件查询店铺信息-->
-    <select id="byConditionsQuery" resultType="com.ex.entity.StoreInfo" parameterType="com.ex.entity.StoreInfo">
+    <select id="byConditionsQuery" resultType="com.ex.vo.StoreInfoVo" parameterType="com.ex.vo.StoreInfoVo">
         SELECT * FROM store_info
         <include refid="Example_Where_OR_Clause"/>
+    </select>
+
+    <!--按商家ID查询用户APP可代理店铺的详细信息-->
+    <select id="selectUserAppAgentStoreInfo" resultType="com.ex.vo.UserAppAgentStoreInfoVo" parameterType="java.lang.Long">
+        SELECT si.*, pc.typeName,mci.companyName,mci.companyAddress,mci.linkmanName  FROM store_info si
+        LEFT JOIN product_classify pc ON pc.id = si.productClassifyId
+        LEFT JOIN merchantorperson_check_in mci ON mci.merchantId = si.merchantId
+        WHERE si.merchantId = #{merchantId}
     </select>
 
     <!--修改店铺信息-->
@@ -63,6 +71,7 @@
         <set >
             <if test="productclassifyid != null" >productClassifyId = #{productclassifyid},</if>
             <if test="merchantid != null" >merchantId = #{merchantid},</if>
+            <if test="YuE != null" >YuE = #{YuE},</if>
             <if test="storename != null" >storeName = #{storename},</if>
             <if test="describe != null" >describe = #{describe},</if>
             <if test="advertisingpicurl != null" >advertisingPicUrl = #{advertisingpicurl},</if>
@@ -70,6 +79,7 @@
             <if test="status != null" >status = #{status},</if>
             <if test="paystatus != null" >payStatus = #{paystatus},</if>
             <if test="STJStatus!=null">STJStatus = #{STJStatus},</if>
+            <if test="isAppointment!=null">isAppointment = #{isAppointment},</if>
             <if test="updatetime != null" >updateTime = #{updatetime}</if>
         </set>
         where id = #{id}
@@ -106,7 +116,7 @@
         </if>
         <if test="storename!=null and storename!=''">
             and si.storeName like CONCAT(CONCAT('%', #{storename}), '%')
-        </if>
+    </if>
     </select>
 
 </mapper>

@@ -12,6 +12,8 @@ public class StoreInfo implements Serializable {
 
     private Long merchantid;
 
+    private Double YuE;//商家的余额
+
     private String storename;
 
     private String describe;
@@ -29,6 +31,7 @@ public class StoreInfo implements Serializable {
     private Integer paystatus;
 
     private Integer STJStatus;
+    private Integer isAppointment;//是否可预订
 
     public Long getId() {
         return id;
@@ -52,6 +55,14 @@ public class StoreInfo implements Serializable {
 
     public void setMerchantid(Long merchantid) {
         this.merchantid = merchantid;
+    }
+
+    public Double getYuE() {
+        return YuE;
+    }
+
+    public void setYuE(Double yuE) {
+        YuE = yuE;
     }
 
     public String getStorename() {
@@ -116,5 +127,13 @@ public class StoreInfo implements Serializable {
 
     public void setSTJStatus(Integer STJStatus) {
         this.STJStatus = STJStatus;
+    }
+
+    public Integer getIsAppointment() {
+        return isAppointment;
+    }
+
+    public void setIsAppointment(Integer isAppointment) {
+        this.isAppointment = isAppointment;
     }
 }

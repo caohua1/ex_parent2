@@ -44,6 +44,25 @@
         <include refid="Example_Where_Clause"/>
     </select>
 
+    <!--按条件查询可代理商品的商家信息-->
+    <select id="byConditionsQueryAndMerchantInfo" resultType="com.ex.vo.AgentMerchantVo" parameterType="java.lang.Long">
+        SELECT DISTINCT(si.merchantId),am.agentUserId,si.storeName,si.advertisingPicUrl,pc.typeName
+        FROM agent_merchant am
+        LEFT JOIN store_info si ON am.merchantId = si.merchantId
+        LEFT JOIN product_classify pc ON pc.id = si.productClassifyId
+        WHERE am.agentUserId = #{agentUserId}
+        ORDER BY merchantId
+    </select>
+
+    <!--按条件查询可代理商品的商家信息-->
+    <select id="byConditionsQueryAndProductinfo" resultType="com.ex.vo.AgentMerchantProductinfoVo" parameterType="java.lang.Long">
+        SELECT am.* ,pm.productName,pm.productPicUrl,pm.resalePrice,pm.vipPrice
+        FROM agent_merchant am
+        LEFT JOIN productinfo_manage pm ON pm.id = am.productInfoId AND pm.merchantId = am.merchantId
+        WHERE am.agentUserId = #{agentUserId}
+        ORDER BY merchantId
+    </select>
+
     <!--按ID修改商家代理-->
     <update id="updateAgentMerchant" parameterType="com.ex.entity.AgentMerchant">
         UPDATE agent_merchant
@@ -56,5 +75,16 @@
             <if test="status != null">status = #{status},</if>
         </set>
         where id = #{id}
+    </update>
+
+    <!--按ID和用户ID修改商家代理-->
+    <update id="updateAgentMerchantByAgentUserId" parameterType="com.ex.entity.AgentMerchant">
+        UPDATE agent_merchant
+        <set>
+            <if test="agenttime != null">agentTime = #{agenttime},</if>
+            <if test="updatetime != null">updateTime = #{updatetime},</if>
+            <if test="status != null">status = #{status},</if>
+        </set>
+        where id = #{id} and agentUserId = #{agentUserId}
     </update>
 </mapper>

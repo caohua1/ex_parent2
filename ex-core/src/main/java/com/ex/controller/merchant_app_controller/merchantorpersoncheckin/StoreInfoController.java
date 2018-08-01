@@ -4,6 +4,7 @@ import com.ex.entity.StoreInfo;
 import com.ex.service.StoreInfoService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
+import com.ex.vo.StoreInfoVo;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,10 +71,10 @@ public class StoreInfoController {
      * @param storeInfo
      * @return
      */
-    public JsonView byConditionsQuery(PageRequest page, StoreInfo storeInfo) {
+    public JsonView byConditionsQuery(PageRequest page, StoreInfoVo storeInfo) {
         JsonView jsonView = new JsonView();
         try {
-            PageInfo<StoreInfo> pageInfo = storeInfoService.byConditionsQuery(page, storeInfo);
+            PageInfo<StoreInfoVo> pageInfo = storeInfoService.byConditionsQuery(page, storeInfo);
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setMessage("请求数据成功!");
             jsonView.setData(pageInfo);

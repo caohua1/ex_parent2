@@ -12,8 +12,8 @@
 
 	<!--商家app首页的客户管理，根据merchantId查询购买过此商家商品的客户的信息（去重，一个用户在此商家有多个订单）(消费金额)，几笔待发货-->
 	<select id="selectUserByMerchantId" parameterType="Long" resultType="com.ex.vo.OrderVo">
-		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName,os.* from productinfo_manage pm
-		left join orders os on os.productInfoId = pm.id
+		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName,os.* from orders os
+		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		where pm.merchantId = #{merchantId}
@@ -21,8 +21,8 @@
 	</select>
 
 	<select id="selectUserByMerchantIdCount" parameterType="Long" resultType="java.util.Map">
-		select count(DISTINCT(upd.registUserId))userCount,count(os.id)ordersNum from productinfo_manage pm
-		left join orders os on os.productInfoId = pm.id
+		select count(DISTINCT(upd.registUserId))userCount,count(os.id)ordersNum from orders os
+		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		where pm.merchantId = #{merchantId}
@@ -31,8 +31,8 @@
 	<!--===================================================-->
 	<!--第二种查询方式，先查询所有的用户，分页查询-->
 	<select id="selectUserByMerchantId2" parameterType="Long" resultType="com.ex.vo.OrderVo">
-		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName from productinfo_manage pm
-		left join orders os on os.productInfoId = pm.id
+		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName from orders os
+		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		where pm.merchantId = #{merchantId}
@@ -40,8 +40,8 @@
 	</select>
 	<!--查询用户的累计消费-->
 	<select id="selectUserMoneyByMerchantId2" parameterType="java.util.Map" resultType="Double">
-		select sum(os.orderMoney) from productinfo_manage pm
-		left join orders os on os.productInfoId = pm.id
+		select sum(os.orderMoney) from  orders os
+		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		where pm.merchantId = #{merchantId} and uo.registUserId = #{registUserId}
@@ -50,8 +50,8 @@
 
 	<!--某用户的待发货量总数-->
 	<select id="selectUserOrdersCountByMerchantId2" parameterType="java.util.Map" resultType="Integer">
-		select count(os.id) ordersNum from productinfo_manage pm
-		left join orders os on os.productInfoId = pm.id
+		select count(os.id) ordersNum from orders os
+		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		left join shipping_address sa on sa.id = os.addressId
@@ -62,8 +62,8 @@
 	</select>
 	 <!--查询用户的总数-->
 	<select id="selectUserCountByMerchantId2" parameterType="Long" resultType="Integer">
-		select count(DISTINCT(upd.registUserId))userCount from productinfo_manage pm
-		left join orders os on os.productInfoId = pm.id
+		select count(DISTINCT(upd.registUserId))userCount from orders os
+		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		where pm.merchantId = #{merchantId}
@@ -73,8 +73,8 @@
 	<!--点击查看代发货商品的详情-->
 	<!--查询此用户在此商家的待发货的详情，分页查询-->
 	<select id="selectUserOrdersByMerchantId2" parameterType="java.util.Map" resultType="com.ex.vo.OrderVo">
-		select DISTINCT(upd.registUserId),os.*,sa.address,sa.phone,sa.realName,pm.productPicUrl,pps.typeName from productinfo_manage pm
-		left join orders os on os.productInfoId = pm.id
+		select DISTINCT(upd.registUserId),os.*,sa.address,sa.phone,sa.realName,pm.productPicUrl,pps.typeName from orders os
+		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		left join shipping_address sa on sa.id = os.addressId
@@ -119,8 +119,8 @@
 
 	<!--添加订单-->
 	<insert id="insertOrders" parameterType="com.ex.entity.Orders" useGeneratedKeys="true" keyProperty="id">
-		insert into orders(orderNum,productNum,orderMoney,productInfoId,productPropertyId,addressId,createTime)
-		values(#{orderNum},#{productNum},#{orderMoney},#{productInfoId},#{productPropertyId},#{addressId},#{createTime})
+		insert into orders(orderNum,productNum,orderMoney,productInfoId,productPropertyId,addressId,createTime,PSWay,postage)
+		values(#{orderNum},#{productNum},#{orderMoney},#{productInfoId},#{productPropertyId},#{addressId},#{createTime},#{PSWay},#{postage})
 	</insert>
 
 	<!--支付，根据订单id查询订单价格-->
@@ -130,7 +130,7 @@
 
 	<!--查询用户是不是此商家的代理-->
 	<select id="selectMerchantAgent" parameterType="Map" resultType="com.ex.entity.AgentMerchant">
-		select * from agent_merchant where agentUserId = #{registUserId} and merchantId = #{merchantId}
+		select * from agent_merchant where agentUserId = #{registUserId} and merchantId = #{merchantId} and status = 2
 	</select>
 
 	<!--查询商家的总销售单数-->
@@ -138,5 +138,33 @@
 		select count(o.id) from orders o
 		left join productinfo_manage pm on pm.id = o.productInfoId
 		where pm.merchantId = #{mercantId}
+	</select>
+
+
+	<!--商家app，首页-->
+	<!--某商家所有订单中支付完成，但未交易成功的金额（冻结金额）-->
+	<select id="selectMerchantDJMoney" parameterType="Long" resultType="Double">
+	    select sum(o.orderMoney) from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		where pm.merchantId = 1
+		and o.payStatus = 1
+		and o.status not in(7,12)
+		and #{newDate} &lt;= o.finishTime
+	</select>
+
+	<!--查询某商家的客户量-->
+	<select id="selectUserNum" parameterType="Long" resultType="Integer">
+		select sum(DISTINCT (uo.registUserId)) from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		left join user_order uo on uo.orderId = o.id
+		where pm.merchantId = #{merchantId}
+	</select>
+
+	<!--商家七日内的订单量-->
+	<select id="selectOrderNumsIn7" parameterType="Long" resultType="Integer">
+		select count(o.id) from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		where pm.merchantId = #{merchantId}
+		and TIMESTAMPDIFF(DAY,o.createTime,now()) &lt;= 7
 	</select>
 </mapper>

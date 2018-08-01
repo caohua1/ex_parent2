@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("indexAdvertising")
@@ -20,7 +22,7 @@ public class IndexAdvertisingController {
 
     /**
      * 添加首页广告
-     * @param indexAdvertising
+     * @param indexAdvertising (type（0 .banner图 1.弹框图 2.首页广告（2的分享））)
      * @return
      */
     @RequestMapping("/insertAdvertising")
@@ -49,11 +51,15 @@ public class IndexAdvertisingController {
      * @return
      */
     @RequestMapping("/selectAdvertising")
-    public JsonView selectAdvertising(PageRequest pageRequest){
+    public JsonView selectAdvertising(IndexAdvertising indexAdvertising,PageRequest pageRequest){
         JsonView jsonView = new JsonView();
         try{
-            PageInfo<IndexAdvertising> pageInfo = indexAdvertisingService.selectAdvertising(pageRequest);
-            Integer count = indexAdvertisingService.selectAdvertisingCount();
+            Map map = new HashMap();
+            if(indexAdvertising!=null && indexAdvertising.getType()!=null){
+                map.put("type",indexAdvertising.getType());
+            }
+            PageInfo<IndexAdvertising> pageInfo = indexAdvertisingService.selectAdvertising(map,pageRequest);
+            Integer count = indexAdvertisingService.selectAdvertisingCount(map);
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setTodoCount(count);
             jsonView.setMessage("查询成功");

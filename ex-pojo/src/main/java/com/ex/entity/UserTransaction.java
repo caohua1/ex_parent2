@@ -8,8 +8,8 @@ import java.util.Date;
 public class UserTransaction implements Serializable {
     private Long id;//主键
     private Long registUserId;//用户id
-    private Double money;//交易金额（例如：下单）
-    private String describe;//交易描述
+    private Double money;//交易金额
+    private Integer type;//交易类型（0提现 1充值 2分享，得到的佣金）
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;//交易时间
     private Integer status;//交易状态（0交易失败 1交易成功）
@@ -38,12 +38,12 @@ public class UserTransaction implements Serializable {
         this.money = money;
     }
 
-    public String getDescribe() {
-        return describe;
+    public Integer getType() {
+        return type;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Date getCreateTime() {

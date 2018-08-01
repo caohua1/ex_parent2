@@ -4,46 +4,46 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MerchantInviter implements Serializable{
-    private Long invitercode;
+    private Long inviterCode;
 
-    private Long invitermerchantid;
+    private Long inviterMerchantId;
 
-    private Date createtime;
+    private Date createTime;
 
-    private Date updatetime;
+    private Date updateTime;
 
     private Integer status;
 
-    public Long getInvitercode() {
-        return invitercode;
+    public Long getInviterCode() {
+        return inviterCode;
     }
 
-    public void setInvitercode(Long invitercode) {
-        this.invitercode = invitercode;
+    public void setInviterCode(Long inviterCode) {
+        this.inviterCode = inviterCode;
     }
 
-    public Long getInvitermerchantid() {
-        return invitermerchantid;
+    public Long getInviterMerchantId() {
+        return inviterMerchantId;
     }
 
-    public void setInvitermerchantid(Long invitermerchantid) {
-        this.invitermerchantid = invitermerchantid;
+    public void setInviterMerchantId(Long inviterMerchantId) {
+        this.inviterMerchantId = inviterMerchantId;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdatetime() {
-        return updatetime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Integer getStatus() {

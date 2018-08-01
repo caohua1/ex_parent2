@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * @ProjectName ex_parent
  * @ClassName userapp_regist
- * @Description TODO Appy用户注册表
+ * @Description TODO App用户注册表
  * @Author sanmu
  * @Date 2018/5/31 18:02
  * @Version 1.0

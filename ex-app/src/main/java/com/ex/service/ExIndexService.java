@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface ExIndexService {
@@ -25,12 +26,12 @@ public interface ExIndexService {
     public PageInfo<ProductInfoManageVo> selectProductInfos(ProductInfoManageVo productInfoManageVo,PageRequest pageRequest);
 
     //查询推荐商家
-    PageInfo<StoreInfo> byConditionsQuery(@Param("record") StoreInfo storeInfo,PageRequest pageRequest);
+    PageInfo<StoreInfoVo> byConditionsQuery(@Param("record") StoreInfoVo storeInfo,PageRequest pageRequest);
 
     //模糊查询，根据店铺名称
     public PageInfo<StoreInfoVo> selectStoreByStoreName(String storeName,PageRequest pageRequest);
 
     //广告图片，跳转路径
-    public List<IndexAdvertising> selectAdvertising();
+    public List<IndexAdvertising> selectAdvertising(Map map);
 
 }
