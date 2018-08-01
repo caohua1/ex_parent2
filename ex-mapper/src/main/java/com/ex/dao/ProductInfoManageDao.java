@@ -28,4 +28,6 @@ public interface ProductInfoManageDao {
 
     //根据merchantId查询某商家的所有的商品
     public List<ProductInfoManageVo> selectProductsByMerchantId(Map map);
+
+    public List<ProductInfoManage> selectProductInfoManageByMerchantId(Map map);
 }

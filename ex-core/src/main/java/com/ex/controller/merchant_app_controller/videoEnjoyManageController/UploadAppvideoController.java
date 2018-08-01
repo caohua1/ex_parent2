@@ -1,7 +1,9 @@
 package com.ex.controller.merchant_app_controller.videoEnjoyManageController;
 
 import com.ex.entity.MerchantorpersonUploadProduct;
+import com.ex.entity.ProductInfoManage;
 import com.ex.service.MerchantorpersonUploadProductService;
+import com.ex.service.ProductInfoManageService;
 import com.ex.util.FileUploadTool;
 import com.ex.util.JsonView;
 import com.ex.vo.FileEntity;
@@ -13,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * App商家视享
@@ -24,8 +29,11 @@ public class UploadAppvideoController {
     @Autowired
     private MerchantorpersonUploadProductService merchantorpersonUploadProductService;
 
+    @Autowired
+    private ProductInfoManageService productInfoManageService;
+
     /**
-     * app端商家上传视视频
+     * app端商家上传视频
      * @param Files
      * @param describe
      * @param link
@@ -42,8 +50,8 @@ public class UploadAppvideoController {
         FileUploadTool fileUploadTool = new FileUploadTool();
         try{
             if(Files!=null||Files.length>0){
-                for (MultipartFile multipartFile:Files
-                     ) {
+                for(MultipartFile multipartFile:Files
+                     ){
                     entity = fileUploadTool.createFile(multipartFile, request);
                     merchantorpersonUploadProduct.setFileUrl(entity.getPath());
                 }
@@ -71,19 +79,28 @@ public class UploadAppvideoController {
         }
         return jsonView;
     }
-
     /**
      * 根据商家id查询商品
      * @param merchantId
      * @return
      */
+    @RequestMapping("selectProductList")
     public JsonView selectProductList(Long merchantId){
         JsonView jsonView= new JsonView();
+        Map Map = new HashMap<String, Object>();
         try{
-
+            if(merchantId!=null){
+                Map.put("merchantId",merchantId);
+                Map.put("SXJStatus",1);
+            }
+            List<ProductInfoManage> productInfoManages = productInfoManageService.selectProductInfoManageByMerchantId(Map);
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setMessage("查询成功");
+            jsonView.setData(productInfoManages);
         }catch (Exception e) {
             e.printStackTrace();
-            jsonView.fail();
+            jsonView.setMessage("查询异常");
+            jsonView.setCode(JsonView.ERROR);
         }
         return jsonView;
     }
