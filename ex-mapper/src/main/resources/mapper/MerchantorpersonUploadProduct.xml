@@ -32,8 +32,8 @@
     <!-- 商家PC端上传视频-->
     <insert id="insertMerchantorpersonUploadProduct" parameterType="com.ex.entity.MerchantorpersonUploadProduct">
         INSERT INTO merchantorperson_upload_product
-        (merchantId,productClassifyId,productInfoId,productNo,fileUrl,fileType,merchantorperson_upload_product.`describe`,musicId,link,uploadfileTime,price,updateTime,status,playNum,storeNum,saleNum,distribution)
+        (merchantId,productClassifyId,productInfoId,productNo,fileUrl,fileType,merchantorperson_upload_product.`describe`,musicId,link,uploadfileTime,price,updateTime,status,playNum,storeNum,saleNum,distribution,jumpType)
         VALUES
-        (#{merchantId},#{productClassifyId},#{productInfoId},#{productNo},#{fileUrl},#{fileType},#{describe},#{musicId},#{link},#{uploadfileTime},#{price},#{updateTime},#{status},#{playNum},#{storeNum},#{saleNum},#{distribution})
+        (#{merchantId},#{productClassifyId},#{productInfoId},#{productNo},#{fileUrl},#{fileType},#{describe},#{musicId},#{link},#{uploadfileTime},#{price},#{updateTime},#{status},#{playNum},#{storeNum},#{saleNum},#{distribution},#{jumpType})
     </insert>
 </mapper>

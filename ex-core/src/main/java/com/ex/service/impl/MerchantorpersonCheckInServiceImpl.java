@@ -40,7 +40,6 @@ public class MerchantorpersonCheckInServiceImpl implements MerchantorpersonCheck
 
     /**
      * 查询所有入驻信息
-     *
      * @param page
      * @return
      */

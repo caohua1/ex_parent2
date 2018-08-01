@@ -135,7 +135,7 @@ public class mutualReferringController {
             }
         }catch (Exception e) {
             e.printStackTrace();
-            jsonView.setMessage("查询异常");
+            jsonView.setMessage("修改异常");
             jsonView.setCode(JsonView.ERROR);
         }
         return jsonView;

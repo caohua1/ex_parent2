@@ -1,21 +1,22 @@
 package com.ex.vo;
 
-import com.ex.entity.MerchantorpersonUploadProduct;
-import lombok.Data;
+import com.ex.entity.MyUploadFile;
 
-import java.util.Date;
-@Data
-public class UserAppVideoShare extends MerchantorpersonUploadProduct {
+/**
+ * 我享
+ */
+public class MyUploadFileVo extends MyUploadFile {
 
-    private String headUrl;//头像路径
+    private String username;//用户名（手机号注册）
+    private String headUrl;//头像保存路径
     private String nickName;//用户昵称
 
-    public UserAppVideoShare(String headUrl, String nickName){
-        this.headUrl = headUrl;
-        this.nickName = nickName;
+    public String getUsername() {
+        return username;
     }
-    public UserAppVideoShare(){
 
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getHeadUrl() {

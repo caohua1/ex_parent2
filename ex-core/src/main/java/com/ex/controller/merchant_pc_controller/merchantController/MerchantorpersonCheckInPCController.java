@@ -28,7 +28,7 @@ public class MerchantorpersonCheckInPCController {
      * 审核商家
      *
      * @param merchantorpersonCheckIn
-     *         id，status，causeby，
+     * id，status，causeby，
      * @return
      */
     @RequestMapping(value = "/auditthemerchant", method = RequestMethod.POST)

@@ -15,4 +15,16 @@ public interface AppointmentMeetDao {
     public List<FriendVo> selectFriend(Long merchantId);
 
     public List<FriendVo> selectFriendAdd(Long merchantId);
+
+    public List<AppointmentMeetVo> selectMyAppoinmentMeet(Long merchantId);
+
+    public int updateMyAppoinmentMeet(Long id);
+
+    public List<AppointmentMeetVo> selectApplyAppoinmentMeet(Long merchantId);
+
+    public int updateApplyAppoinmentMeet(Map  conditionMap);
+
+    public int insertFriend(Map  conditionMap);
+
+
 }

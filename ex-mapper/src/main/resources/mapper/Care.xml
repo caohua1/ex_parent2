@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.CareDao">
+	<!-- 添加关注数据-->
+	<insert id="insertCare" parameterType="java.util.Map">
+		INSERT INTO
+		care (careUserId,beCareUserId,type,createTime,care.`status`)
+		VALUES
+		(#{careUserId},#{beCareUserId},#{type},#{createTime},#{status})
+	</insert>
+	<!-- 修改关注状态（取消）-->
+	<update id="updateCare" parameterType="java.util.Map">
+		UPDATE care
+		SET `status`=#{status},updateTime=#{updateTime}
+		WHERE careUserId=#{careUserId}
+		AND beCareUserId=#{beCareUserId}
+		AND type=#{type}
+	</update>
+</mapper>

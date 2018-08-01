@@ -13,6 +13,7 @@ public class AppointmentMeet implements Serializable {
     private Date createTime;//创建时间
     private int appointmentPersonStatus;//约见人状态（0申请约见(待确认) 1已确认（同意约见）2已确认（不同意约见））
     private int BeAppointmentPersonStatus;//被约见人的状态（0待确认 1通过（同意约见）2未通过（拒绝约见)）
+    private int videoStatus;//视频通话状态（0:未开始，1:已结束）
 
     public Long getId() {
         return id;

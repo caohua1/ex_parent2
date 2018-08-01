@@ -12,5 +12,15 @@
     <select id="selectListMyUploadFile" parameterType="java.util.Map" resultType="com.ex.entity.MyUploadFile">
         SELECT * FROM my_upload_file WHERE registUserId=#{registUserId}
     </select>
-
+    <!-- 展示所有用户上传数据-->
+    <select id="selectMyUpload" parameterType="java.util.Map" resultType="com.ex.vo.MyUploadFileVo">
+        SELECT mf.*,ur.username,upd.headUrl,upd.nickName FROM my_upload_file mf
+        LEFT JOIN userapp_regist ur ON mf.registUserId=ur.id
+        LEFT JOIN  userapp_person_data upd ON upd.registUserId=ur.id
+        WHERE fileUrl=#{fileType}
+    </select>
+    <!-- 修改点赞次数-->
+    <update id="updateLikeCont" parameterType="java.util.Map" >
+            UPDATE my_upload_file  SET DZNum=DZNum+#{DZNum} WHERE id=#{id}
+    </update>
 </mapper>
