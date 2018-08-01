@@ -26,7 +26,7 @@
 		where f.merchantId=#{merchantId}
 	</select>
 	<!-- PC端享约管理查询加我的享友-->
-	<select id="selectFriendAdd"parameterType="java.lang.Long" resultType="com.ex.vo.FriendVo">
+	<select id="selectFriendAdd" parameterType="java.lang.Long" resultType="com.ex.vo.FriendVo">
 		SELECT mpd.headUrl,mpd.nickName,mr.username,f.createTime,f.merchantId,f.invitStatus
 		FROM friend f
 		LEFT JOIN merchant_regist mr
@@ -35,4 +35,32 @@
 		ON mr.id=mpd.merchantId
 		f.friendId=#{merchantId}
 	</select>
+	<!-- 查询PC端相约管理我的享约数据-->
+	<select id="selectMyAppoinmentMeet" parameterType="java.lang.Long" resultType="com.ex.vo.AppointmentMeetVo">
+		SELECT mrci.merchantId,mrci.username,mrci.companyName,mrci.companyAddress,am.* FROM appointment_meet am LEFT JOIN
+		(select mci.merchantId,mr.username,mci.companyName,mci.companyAddress FROM  merchantorperson_check_in mci
+		 LEFT JOIN merchant_regist mr  ON mci.merchantId=mr.id) mrci
+		ON am.BeAppointmentPersonId=mrci.merchantId
+		WHERE am.appointmentPersonId=#{merchantId}
+	</select>
+	<!-- 修改我的享约数据状态（取消享约数据）-->
+	<update id="updateMyAppoinmentMeet" parameterType="java.lang.Long">
+		UPDATE appointment_meet SET appointmentPersonStatus=2 WHERE id=#{id}
+	</update>
+	<!-- 查询享约申请数据-->
+	<select id="selectApplyAppoinmentMeet" parameterType="java.lang.Long" resultType="com.ex.vo.AppointmentMeetVo">
+		SELECT mrci.merchantId,mrci.username,mrci.companyName,mrci.companyAddress,am.* FROM appointment_meet am LEFT JOIN
+		(select mci.merchantId,mr.username,mci.companyName,mci.companyAddress FROM  merchantorperson_check_in mci
+		 LEFT JOIN merchant_regist mr  ON mci.merchantId=mr.id) mrci
+		ON am.appointmentPersonId=mrci.merchantId
+		WHERE am.BeAppointmentPersonId=#{merchantId}
+	</select>
+	<!--修改享约申请数据状态（修改通过或者不通过）-->
+	<update id="updateApplyAppoinmentMeet" parameterType="java.util.Map" >
+	UPDATE appointment_meet SET appointmentPersonStatus=#{BeAppointmentPersonStatus} WHERE id=#{id}
+	</update>
+	<!-- 添加享友数据-->
+	<insert id="insertFriend" parameterType="java.util.Map" >
+		INSERT INTO friend (merchantId,friendId,invitStatus,BeInvitStatus)VALUES (#{merchantId},#{friendId},#{invitStatus},#{BeInvitStatus})
+	</insert>
 </mapper>

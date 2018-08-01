@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * App商家视享
+ */
 @RestController
 @RequestMapping("/UploadAPPvideo")
 public class UploadAppvideoController {
@@ -31,7 +34,7 @@ public class UploadAppvideoController {
      * @return
      */
     @RequestMapping("insertAPPUploadProduct")
-    public JsonView insertMerchantorpersonUploadProduct(MultipartFile[] Files,String describe,String link,Long productInfoId,Long merchantId,HttpServletRequest request){
+    public JsonView insertMerchantorpersonUploadProduct(MultipartFile[] Files,String describe,String link,Long productInfoId,Long merchantId,Integer jumpType,HttpServletRequest request){
         JsonView jsonView= new JsonView();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         MerchantorpersonUploadProduct merchantorpersonUploadProduct=new MerchantorpersonUploadProduct();
@@ -52,6 +55,8 @@ public class UploadAppvideoController {
                 merchantorpersonUploadProduct.setLink(link);
             }if(productInfoId!=null){
                 merchantorpersonUploadProduct.setProductInfoId(productInfoId);
+            }if(jumpType!=null){
+                merchantorpersonUploadProduct.setJumpType(jumpType);
             }
             merchantorpersonUploadProduct.setUploadfileTime(df.parse(df.format(new Date())));//获取系统当前时间
             int i = merchantorpersonUploadProductService.insertMerchantorpersonUploadProduct(merchantorpersonUploadProduct);
@@ -62,6 +67,22 @@ public class UploadAppvideoController {
             }
         }catch (Exception e) {
              e.printStackTrace();
+            jsonView.fail();
+        }
+        return jsonView;
+    }
+
+    /**
+     * 根据商家id查询商品
+     * @param merchantId
+     * @return
+     */
+    public JsonView selectProductList(Long merchantId){
+        JsonView jsonView= new JsonView();
+        try{
+
+        }catch (Exception e) {
+            e.printStackTrace();
             jsonView.fail();
         }
         return jsonView;

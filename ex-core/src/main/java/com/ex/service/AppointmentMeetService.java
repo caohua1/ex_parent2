@@ -17,4 +17,14 @@ public interface AppointmentMeetService {
     public PageInfo<FriendVo> selectFriend(PageRequest page,Long merchantId);
 
     public PageInfo<FriendVo> selectFriendAdd(PageRequest page,Long merchantId);
+
+    public PageInfo<AppointmentMeetVo> selectMyAppoinmentMeet(PageRequest page,Long merchantId);
+
+    public int updateMyAppoinmentMeet(Long id);
+
+    public PageInfo<AppointmentMeetVo> selectApplyAppoinmentMeet(PageRequest page,Long merchantId);
+
+    public int updateApplyAppoinmentMeet(Map  conditionMap);
+
+    public int insertFriend(Map conditionMap);
 }

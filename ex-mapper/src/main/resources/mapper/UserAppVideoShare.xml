@@ -12,7 +12,7 @@
         WHERE p.fileType=#{fileType}
     </select>
     <!-- 修改点赞次数-->
-    <update id="updateDZNum" parameterType="java.util.Map">
+    <update id="updateUserAppVideoShare" parameterType="java.util.Map">
         UPDATE merchantorperson_upload_product  SET DZNum=DZNum+#{DZNum} WHERE id=#{id}
     </update>
 </mapper>

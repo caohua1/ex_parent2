@@ -23,10 +23,33 @@ public class MyUploadFile implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateTime;//修改时间
     private int status;//状态（0删除 1存在）
+    private int type;//标识（1用户发表视频）
+    private Integer fileType;//文件类型（0视频 1图片）
+    private int DZNum;//点赞次数
 
+    public int getDZNum() {
+        return DZNum;
+    }
 
+    public void setDZNum(int DZNum) {
+        this.DZNum = DZNum;
+    }
 
+    public Integer getFileType() {
+        return fileType;
+    }
 
+    public void setFileType(Integer fileType) {
+        this.fileType = fileType;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;

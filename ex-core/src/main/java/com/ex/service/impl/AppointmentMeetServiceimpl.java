@@ -71,4 +71,66 @@ public class AppointmentMeetServiceimpl implements AppointmentMeetService {
         PageInfo<FriendVo> voPageInfo = new PageInfo<>(friendVs);
         return voPageInfo;
     }
+
+    /**
+     * 查询PC端相约管理我的享约数据
+     * @param page
+     * @param merchantId
+     * @return
+     */
+    @Override
+    public PageInfo<AppointmentMeetVo> selectMyAppoinmentMeet(PageRequest page, Long merchantId) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<AppointmentMeetVo> appointmentMeetVos = appointmentMeetDao.selectMyAppoinmentMeet(merchantId);
+        PageInfo<AppointmentMeetVo> appointmentMeetVoPageInfo = new PageInfo<>(appointmentMeetVos);
+        return appointmentMeetVoPageInfo;
+    }
+
+    /**
+     * 约见人取消享约
+     * @param id
+     * @return
+     */
+    @Override
+    public int updateMyAppoinmentMeet(Long id) {
+        return appointmentMeetDao.updateMyAppoinmentMeet(id);
+    }
+
+    /**
+     * 查询享约申请数据
+     * @param page
+     * @param merchantId
+     * @return
+     */
+    @Override
+    public PageInfo<AppointmentMeetVo> selectApplyAppoinmentMeet(PageRequest page, Long merchantId) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        List<AppointmentMeetVo> appointmentMeetVos = appointmentMeetDao.selectApplyAppoinmentMeet(merchantId);
+        PageInfo<AppointmentMeetVo> appointmentMeetVoPageInfo = new PageInfo<>(appointmentMeetVos);
+        return appointmentMeetVoPageInfo;
+    }
+
+    /**
+     * 修改享约申请数据状态（修改通过或者不通过）
+     * @param conditionMap
+     * @return
+     */
+    @Override
+    public int updateApplyAppoinmentMeet(Map conditionMap) {
+        return appointmentMeetDao.updateApplyAppoinmentMeet(conditionMap);
+    }
+
+
+    /**
+     * 添加享友
+     * @param conditionMap
+     * @return
+     */
+    @Override
+    public int insertFriend(Map conditionMap) {
+        return appointmentMeetDao.insertFriend(conditionMap);
+    }
+
+
+
 }

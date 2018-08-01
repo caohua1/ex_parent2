@@ -79,6 +79,7 @@ public class MyUploadFileController {
      * @param page
      * @return
      */
+    @RequestMapping("videoRelease")
     public JsonView videoRelease(Long registUserId,PageRequest page){
         JsonView jsonView = new JsonView();
         Map factorMap = new HashMap();

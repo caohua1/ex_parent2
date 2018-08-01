@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 上传商品视频（图片）
+ * 商家上传商品视频（图片）
  */
 
 public class MerchantorpersonUploadProduct implements Serializable {
@@ -31,6 +31,24 @@ public class MerchantorpersonUploadProduct implements Serializable {
     private int storeNum;
     private int saleNum;
     private int distribution;
+    private int type;//标识（商家发表视频）
+    private Integer jumpType;//跳转状态（0，跳转店铺，1跳转商品详情）
+
+    public Integer getJumpType() {
+        return jumpType;
+    }
+
+    public void setJumpType(Integer jumpType) {
+        this.jumpType = jumpType;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public MerchantorpersonUploadProduct() {
         super();

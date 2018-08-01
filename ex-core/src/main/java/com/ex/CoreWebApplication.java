@@ -30,7 +30,6 @@ public class CoreWebApplication extends SpringBootServletInitializer {
         logger.info("服务开始运行");
         SpringApplication.run(com.ex.CoreWebApplication.class, args);
     }
-    //商户订单号：20187516472458    订单名称：测试     金额：0.01    描述：qqq
 }
 
 

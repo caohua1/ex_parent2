@@ -8,6 +8,8 @@ public class AppointmentMeetVo extends AppointmentMeet {
 
     private String companyName;//公司名称
 
+    private String address;//住址
+
     public String getUsername() {
         return username;
     }

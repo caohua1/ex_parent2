@@ -16,4 +16,7 @@ public interface MyUploadFileDao {
 
     public List<MyUploadFile> selectListMyUploadFile(Map factorMap);
 
+    public List<MyUploadFile> selectMyUpload(Map typeMap);
+
+    public int updateLikeCont(Map contMap);
 }
