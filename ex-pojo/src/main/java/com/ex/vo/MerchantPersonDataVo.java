@@ -1,8 +1,10 @@
 package com.ex.vo;
 
+import com.ex.entity.MerchantPersonData;
+
 import java.io.Serializable;
 
-public class MerchantPersonDataVo implements Serializable {
+public class MerchantPersonDataVo extends MerchantPersonData implements Serializable {
 
     private Long inviterCode;//推广码（邀请码）
     private String companyName;//企业名称

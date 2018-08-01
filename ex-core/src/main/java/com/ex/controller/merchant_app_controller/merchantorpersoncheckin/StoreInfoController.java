@@ -71,7 +71,7 @@ public class StoreInfoController {
      * @param storeInfo
      * @return
      */
-    public JsonView byConditionsQuery(PageRequest page, StoreInfo storeInfo) {
+    public JsonView byConditionsQuery(PageRequest page, StoreInfoVo storeInfo) {
         JsonView jsonView = new JsonView();
         try {
             PageInfo<StoreInfoVo> pageInfo = storeInfoService.byConditionsQuery(page, storeInfo);

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ex.dao.UserBrowseDao">
+
+	<!--用户浏览此商家记录-->
+	<insert id="insertUserBrowse" parameterType="com.ex.entity.UserBrowse">
+		insert into user_browse(registUserId,merchantId,createTime) values(
+		   #{registUserId},#{merchantId},#{createTime}
+		)
+	</insert>
+
+	<!--查询此商家的今日浏览量-->
+	<select id="selectBrowsesByMerchantId" parameterType="Long" resultType="Integer">
+		select count(id) from user_browse where merchantId = #{merchantId} and TIMESTAMPDIFF(DAY,createTime,now()) = 0
+	</select>
+</mapper>

@@ -121,22 +121,26 @@ public class UsersManageController {
             PageInfo<OrderVo> pageInfo = userOrdersService.selectUserByMerchantId2(merchantId, pageRequest);
             //查询某用户的累计消费，待发货量
             List<OrderVo> list = pageInfo.getList();
-            for(int i=0;i<list.size();i++){
-                Map map = new HashMap();
-                map.put("registUserId",list.get(i).getRegistUserId());
-                map.put("merchantId",merchantId);
-                Double consumption = userOrdersService.selectUserMoneyByMerchantId2(map);
-                list.get(i).setConsumption(consumption);//累计消费
-                Integer shipmentNum = userOrdersService.selectUserOrdersCountByMerchantId2(map);
-                list.get(i).setShipmentNum(shipmentNum);//待发货量
+            if(list!=null && list.size()>0){
+                for(int i=0;i<list.size();i++){
+                    Map map = new HashMap();
+                    map.put("registUserId",list.get(i).getRegistUserId());
+                    map.put("merchantId",merchantId);
+                    Double consumption = userOrdersService.selectUserMoneyByMerchantId2(map);
+                    list.get(i).setConsumption(consumption);//累计消费
+                    Integer shipmentNum = userOrdersService.selectUserOrdersCountByMerchantId2(map);
+                    list.get(i).setShipmentNum(shipmentNum);//待发货量
+                }
             }
             pageInfo.setList(list);
             //查询用户总数
             Integer userCount = userOrdersService.selectUserCountByMerchantId2(merchantId);
+            Map map1 = new HashMap();
+            map1.put("userCount",userCount);
+            map1.put("pageInfo",pageInfo);
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setMessage("查询成功");
             jsonView.setData(pageInfo);
-            jsonView.setTodoCount(userCount);//用户总数
         }catch(Exception e){
             e.printStackTrace();
             jsonView.setCode(JsonView.ERROR);

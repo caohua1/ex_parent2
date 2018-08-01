@@ -116,7 +116,7 @@
         </if>
         <if test="storename!=null and storename!=''">
             and si.storeName like CONCAT(CONCAT('%', #{storename}), '%')
-        </if>
+    </if>
     </select>
 
 </mapper>

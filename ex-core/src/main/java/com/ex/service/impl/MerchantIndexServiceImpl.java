@@ -1,16 +1,16 @@
 package com.ex.service.impl;
-import com.ex.dao.MerchantPersonDataDao;
-import com.ex.dao.MerchantTransactionDao;
-import com.ex.dao.OrdersDao;
-import com.ex.dao.StoreInfoDao;
+import com.ex.dao.*;
 import com.ex.service.MerchantIndexService;
 import com.ex.vo.MerchantPersonDataVo;
 import com.ex.vo.StoreInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class MerchantIndexServiceImpl implements MerchantIndexService {
 
     @Autowired
@@ -21,6 +21,8 @@ public class MerchantIndexServiceImpl implements MerchantIndexService {
     private OrdersDao ordersDao;
     @Autowired
     private MerchantTransactionDao merchantTransactionDao;
+    @Autowired
+    private UserBrowseDao userBrowseDao;
 
 
     /**
@@ -38,8 +40,12 @@ public class MerchantIndexServiceImpl implements MerchantIndexService {
         StoreInfoVo storeInfo = new StoreInfoVo();
         storeInfo.setMerchantid(merchantId);
         List<StoreInfoVo> storeInfoVos = storeInfoDao.byConditionsQuery(storeInfo);
-        Double merchantStoreYuE = storeInfoVos.get(0).getYuE();
-        map.put("merchantStoreYuE",merchantStoreYuE);
+        if(storeInfoVos!=null && storeInfoVos.size()>0){
+            Double merchantStoreYuE = storeInfoVos.get(0).getYuE();
+            map.put("merchantStoreYuE",merchantStoreYuE);
+        }else{
+            map.put("merchantStoreYuE",0.00);
+        }
         //3.冻结金额(用户下单完成并支付，但未交易完成)
         Double DJMoney = ordersDao.selectMerchantDJMoney(merchantId);
         map.put("DJMoney",DJMoney);
@@ -50,7 +56,8 @@ public class MerchantIndexServiceImpl implements MerchantIndexService {
         Double merchantTXMoney = merchantTransactionDao.selectJYMoney(merhantJYMap);
         map.put("merchantTXMoney",merchantTXMoney);
         //5.今日浏览量（店铺）
-
+        Integer browses = userBrowseDao.selectBrowsesByMerchantId(merchantId);
+        map.put("browses",browses);
         //6.总客户量
         Integer userNum = ordersDao.selectUserNum(merchantId);
         map.put("userNum",userNum);
