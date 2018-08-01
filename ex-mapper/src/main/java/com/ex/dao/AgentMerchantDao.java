@@ -4,8 +4,10 @@ import com.ex.entity.AgentMerchant;
 import com.ex.vo.AgentMerchantProductinfoVo;
 import com.ex.vo.AgentMerchantVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface AgentMerchantDao {
@@ -29,14 +31,14 @@ public interface AgentMerchantDao {
      * @param agentUserId
      * @return
      */
-    List<AgentMerchantVo> byConditionsQueryAndMerchantInfo(Long agentUserId);
+    List<AgentMerchantVo> byConditionsQueryAndMerchantInfo(@Param("agentUserId") Long agentUserId, @Param("storeName") String storeName, @Param("productClassifyId") Long productClassifyId);
 
     /**
      * 按条件查询可代理商品的详细信息
-     * @param agentUserId
+     * @param map
      * @return
      */
-    List<AgentMerchantProductinfoVo> byConditionsQueryAndProductinfo(Long agentUserId);
+    List<AgentMerchantProductinfoVo> byConditionsQueryAndProductinfo(Map map);
 
     /**
      * 按条件修改商家代理

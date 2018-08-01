@@ -7,6 +7,7 @@ import com.ex.entity.UserAppRegist;
 import com.ex.service.UserAppRegistService;
 import com.ex.util.CustomMD5;
 import com.ex.util.PageRequest;
+import com.ex.vo.UserAppVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -81,5 +82,11 @@ public class UserAppRegistServiceImpl implements UserAppRegistService {
         password = CustomMD5.passwordAndSalt(password,username);
         return userAppRegistDao.updateUserAppRegistPassword(username, password, new Date());
     }
+
+    @Override
+    public UserAppVo selectUserAppInfo(Long registUserId) {
+        return userAppRegistDao.selectUserAppInfo(registUserId);
+    }
+
 
 }

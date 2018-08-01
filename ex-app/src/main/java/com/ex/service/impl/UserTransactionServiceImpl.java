@@ -18,16 +18,22 @@ public class UserTransactionServiceImpl implements UserTransactionService {
     private UserTransactionDao userTransactionDao;
 
     /**
-     * 按ID查询所有的支出和收入信息
+     * 按ID查询所有的收入信息
      * @param registUserId
-     * @param page
      * @return
      */
     @Override
-    public PageInfo<UserTransaction> selectUserTransactionAll(Long registUserId, PageRequest page) {
-        PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<UserTransaction> userTransactions = userTransactionDao.selectUserTransactionAll(registUserId);
-        PageInfo<UserTransaction> pageInfo = new PageInfo<>(userTransactions);
-        return pageInfo;
+    public List<UserTransaction> selectUserTransactionIncome(Long registUserId) {
+        return userTransactionDao.selectUserTransactionIncome(registUserId);
+    }
+
+    /**
+     * 按ID查询所有的支出信息
+     * @param registUserId
+     * @return
+     */
+    @Override
+    public List<UserTransaction> selectUserTransactionDisburse(Long registUserId) {
+        return userTransactionDao.selectUserTransactionDisburse(registUserId);
     }
 }

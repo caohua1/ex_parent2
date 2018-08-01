@@ -46,4 +46,14 @@
             updateTime = #{updateTime}
         WHERE username = #{username}
     </update>
+
+    <!--会员信息-->
+    <select id="selectUserAppInfo" parameterType="java.lang.Long" resultType="com.ex.vo.UserAppVo">
+        SELECT ur.Rphone,upd.headUrl,upd.nickName, upd.vxName,upd.phone,ui.realName
+        FROM userapp_regist ur
+        LEFT JOIN userapp_person_data upd ON upd.registUserId = ur.id
+        LEFT JOIN userapp_info ui ON ui.registUserId = ur.id
+        WHERE ur.id = #{registUserId}
+    </select>
+
 </mapper>

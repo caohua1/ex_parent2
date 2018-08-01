@@ -10,7 +10,9 @@ public class UserAppPersonData {
     private Long registUserId;//用户id(与userapp_regist主键关联)
     private String headUrl;//头像保存路径
     private String MyQRCode;//我的二维码
+    private String vxName;//微信昵称
     private String nickName;//昵称
+    private String phone;//联系手机号
     private Integer sex;//性别（0女 1男）
     private Integer marriage;//'婚否（0未婚 1已婚）
     private String job;//工作
@@ -49,6 +51,22 @@ public class UserAppPersonData {
 
     public void setMyQRCode(String myQRCode) {
         MyQRCode = myQRCode;
+    }
+
+    public String getVxName() {
+        return vxName;
+    }
+
+    public void setVxName(String vxName) {
+        this.vxName = vxName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getNickName() {
