@@ -211,7 +211,7 @@ public class UserAppLoginController {
         return  jsonView;
     }
 
-    @RequestMapping("/updateUserAppPersonData")
+    @RequestMapping(value = "/updateUserAppPersonData",method = RequestMethod.POST)
     public JsonView updateUserAppPersonData(UserAppPersonData userAppPersonData){
         JsonView jsonView = new JsonView();
         try {
