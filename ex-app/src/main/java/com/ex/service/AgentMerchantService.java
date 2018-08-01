@@ -6,6 +6,7 @@ import com.ex.vo.AgentMerchantProductinfoVo;
 import com.ex.vo.AgentMerchantVo;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface AgentMerchantService {
@@ -14,14 +15,14 @@ public interface AgentMerchantService {
      * @param agentUserId
      * @return
      */
-    List<AgentMerchantVo> byConditionsQueryAndMerchantInfo(Long agentUserId);
+    List<AgentMerchantVo> byConditionsQueryAndMerchantInfo(Long agentUserId,String storeName,Long productClassifyId);
 
     /**
      * 按条件查询可代理商品的详细信息
-     * @param agentUserId
+     * @param map
      * @return
      */
-    List<AgentMerchantProductinfoVo> byConditionsQueryAndProductinfo(Long agentUserId);
+    List<AgentMerchantProductinfoVo> byConditionsQueryAndProductinfo(Map map);
 
     /**
      * 按ID和用户ID修改商家代理

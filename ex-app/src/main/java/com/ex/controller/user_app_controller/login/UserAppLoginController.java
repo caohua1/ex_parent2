@@ -1,11 +1,14 @@
 package com.ex.controller.user_app_controller.login;
 
+import com.ex.entity.UserAppPersonData;
 import com.ex.entity.UserAppRegist;
+import com.ex.service.UserAppPersonDataService;
 import com.ex.service.UserAppRegistService;
 import com.ex.util.CustomMD5;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
 import com.ex.util.TokenUtil;
+import com.ex.vo.UserAppVo;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +33,9 @@ public class UserAppLoginController {
 
     @Autowired
     private UserAppRegistService userAppRegistService;
+
+    @Autowired
+    private UserAppPersonDataService userAppPersonDataService;
 
     /**
      * 检查用户名是否存在
@@ -179,6 +185,48 @@ public class UserAppLoginController {
             e.printStackTrace();
             jsonView.setMessage("请求失败!");
             jsonView.setCode(JsonView.EXPIRED);
+        }
+        return jsonView;
+    }
+
+    /**
+     * 会员信息
+     * @param registUserId
+     * @return
+     */
+    @RequestMapping("/selectUserAppInfo")
+    public JsonView selectUserAppInfo(Long registUserId){
+        JsonView jsonView = new JsonView();
+        try{
+            UserAppVo userAppVo = userAppRegistService.selectUserAppInfo(registUserId);
+            jsonView.setMessage("请求成功!");
+            jsonView.setCode(JsonView.SUCCESS);
+            jsonView.setData(userAppVo);
+            jsonView.setTodoCount(1);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.EXPIRED);
+            jsonView.setMessage("请求失败!");
+        }
+        return  jsonView;
+    }
+
+    @RequestMapping("/updateUserAppPersonData")
+    public JsonView updateUserAppPersonData(UserAppPersonData userAppPersonData){
+        JsonView jsonView = new JsonView();
+        try {
+            int i = userAppPersonDataService.updateUserAppPersonData(userAppPersonData);
+            if (i>0){
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setMessage("修改成功!");
+            }else {
+                jsonView.setCode(JsonView.SUCCESS);
+                jsonView.setMessage("修改成功!");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonView.setCode(JsonView.EXPIRED);
+            jsonView.setMessage("请求失败!");
         }
         return jsonView;
     }

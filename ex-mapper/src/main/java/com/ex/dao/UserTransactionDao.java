@@ -8,7 +8,9 @@ import java.util.List;
 @Mapper
 public interface UserTransactionDao {
 
-    //按ID查询所有的支出和收入信息
-    List<UserTransaction> selectUserTransactionAll(Long registUserId);
+    //按ID查询所有的收入信息
+    List<UserTransaction> selectUserTransactionIncome(Long registUserId);
 
+    //按ID查询所有的支出信息
+    List<UserTransaction> selectUserTransactionDisburse(Long registUserId);
 }

@@ -35,13 +35,13 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     /**
      * 按条件查询店铺信息
      * @param page
-     * @param storeInfoVo
+     * @param storeInfo
      * @return
      */
     @Override
-    public PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfoVo storeInfoVo) {
+    public PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfo storeInfo) {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
-        List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfoVo);
+        List<StoreInfoVo> storeInfos = storeInfoDao.byConditionsQuery(storeInfo);
         PageInfo<StoreInfoVo> pageInfo = new PageInfo<>(storeInfos);
         return pageInfo;
     }

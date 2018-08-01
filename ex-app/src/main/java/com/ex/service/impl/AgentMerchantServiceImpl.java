@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AgentMerchantServiceImpl implements AgentMerchantService {
@@ -23,18 +24,18 @@ public class AgentMerchantServiceImpl implements AgentMerchantService {
      * @return
      */
     @Override
-    public List<AgentMerchantVo> byConditionsQueryAndMerchantInfo(Long agentUserId) {
-        return agentMerchantDao.byConditionsQueryAndMerchantInfo(agentUserId);
+    public List<AgentMerchantVo> byConditionsQueryAndMerchantInfo(Long agentUserId,String storeName,Long productClassifyId) {
+        return agentMerchantDao.byConditionsQueryAndMerchantInfo(agentUserId, storeName, productClassifyId);
     }
 
     /**
      * 按条件查询可代理商品的详细信息
-     * @param agentUserId
+     * @param map
      * @return
      */
     @Override
-    public List<AgentMerchantProductinfoVo> byConditionsQueryAndProductinfo(Long agentUserId) {
-        return agentMerchantDao.byConditionsQueryAndProductinfo(agentUserId);
+    public List<AgentMerchantProductinfoVo> byConditionsQueryAndProductinfo(Map map) {
+        return agentMerchantDao.byConditionsQueryAndProductinfo(map);
     }
 
     /**

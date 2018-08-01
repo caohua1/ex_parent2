@@ -15,7 +15,7 @@ public interface StoreInfoService {
      */
     int insertStoreInfo(StoreInfo storeInfo);
 
-    PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfoVo storeInfo);
+    PageInfo<StoreInfoVo> byConditionsQuery(PageRequest page, StoreInfo storeInfo);
 
     int updateStoreInfo(StoreInfo storeInfo);
 

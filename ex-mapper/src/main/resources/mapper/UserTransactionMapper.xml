@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.UserTransactionDao">
-    <!--按ID查询所有的支出和收入信息-->
-    <select id="selectUserTransactionAll" parameterType="java.lang.Long" resultType="com.ex.entity.UserTransaction">
-        SELECT * FROM user_transaction WHERE registUserId = #{registUserId} ORDER BY createTime
+    <!--按ID查询所有的收入信息-->
+    <select id="selectUserTransactionIncome" parameterType="java.lang.Long" resultType="com.ex.entity.UserTransaction">
+        SELECT * FROM user_transaction WHERE registUserId = #{registUserId} AND money&gt;=0 ORDER BY createTime
+    </select>
+    <!--按ID查询所有的支出信息-->
+    <select id="selectUserTransactionDisburse" parameterType="java.lang.Long" resultType="com.ex.entity.UserTransaction">
+        SELECT * FROM user_transaction WHERE registUserId = #{registUserId} AND money&lt;0 ORDER BY createTime
     </select>
 </mapper>

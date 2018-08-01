@@ -1,6 +1,7 @@
 package com.ex.dao;
 
 import com.ex.entity.UserAppRegist;
+import com.ex.vo.UserAppVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,5 +28,6 @@ public interface UserAppRegistDao {
 
     int updateUserAppRegistPassword(@Param("username")String username, @Param("password")String password, @Param("updateTime")Date updateTime);
 
+    UserAppVo selectUserAppInfo(Long registUserId);
 
 }
