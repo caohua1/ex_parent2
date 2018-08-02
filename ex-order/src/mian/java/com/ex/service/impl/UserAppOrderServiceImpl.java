@@ -75,9 +75,9 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
             map.put("WuLiuNum",wuLiuNum);
         }
         if (status == 4) {
-            //生成十天后后的时间
+            //生成七天后后的时间
             Calendar c = Calendar.getInstance();
-            c.add(Calendar.MINUTE, 14400);
+            c.add(Calendar.MINUTE, 10080);
             String currentTime = sf.format(c.getTime());
             map.put("finishTime",sf.parse(currentTime));
         }

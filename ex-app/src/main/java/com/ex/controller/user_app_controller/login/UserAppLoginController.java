@@ -4,10 +4,8 @@ import com.ex.entity.UserAppPersonData;
 import com.ex.entity.UserAppRegist;
 import com.ex.service.UserAppPersonDataService;
 import com.ex.service.UserAppRegistService;
-import com.ex.util.CustomMD5;
-import com.ex.util.JsonView;
-import com.ex.util.PageRequest;
-import com.ex.util.TokenUtil;
+import com.ex.util.*;
+import com.ex.vo.FileEntity;
 import com.ex.vo.UserAppVo;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -16,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -212,9 +212,12 @@ public class UserAppLoginController {
     }
 
     @RequestMapping(value = "/updateUserAppPersonData",method = RequestMethod.POST)
-    public JsonView updateUserAppPersonData(UserAppPersonData userAppPersonData){
+    public JsonView updateUserAppPersonData(UserAppPersonData userAppPersonData, MultipartFile Files, HttpServletRequest request){
         JsonView jsonView = new JsonView();
         try {
+            FileUploadTool fileUploadTool = new FileUploadTool();
+            FileEntity entity = fileUploadTool.createFile(Files, request);//上传文件
+            userAppPersonData.setHeadUrl(entity.getPath());//文件上传的地址
             int i = userAppPersonDataService.updateUserAppPersonData(userAppPersonData);
             if (i>0){
                 jsonView.setCode(JsonView.SUCCESS);

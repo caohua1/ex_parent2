@@ -2,7 +2,6 @@ package com.ex.controller.user_app_controller.orderController;
 
 import com.ex.entity.OrderDiscuss;
 import com.ex.service.OrderDiscussService;
-import com.ex.service.UserOrdersService;
 import com.ex.util.FileUploadTool;
 import com.ex.util.JsonView;
 import com.ex.vo.FileEntity;
@@ -13,9 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/user/order")
 public class OrderDiscussController {
@@ -23,8 +19,6 @@ public class OrderDiscussController {
     @Autowired
     private OrderDiscussService orderDiscussService;
 
-    @Autowired
-    private UserOrdersService UserOrdersService;
 
     /**
      * 用户对订单进行评论
@@ -47,10 +41,6 @@ public class OrderDiscussController {
             orderDiscuss.setPictureUrl(pictureUrl);
             int i = orderDiscussService.insertOrderDiscuss(orderDiscuss);
             if (i>0){
-                Map<String,Object> map = new HashMap<>();
-                map.put("id",orderDiscuss.getOrderId());
-                map.put("status",14);
-                UserOrdersService.updateOrdersStatusById(map);
                 jsonView.setMessage("评论成功!");
                 jsonView.setCode(JsonView.SUCCESS);
                 jsonView.setTodoCount(i);
