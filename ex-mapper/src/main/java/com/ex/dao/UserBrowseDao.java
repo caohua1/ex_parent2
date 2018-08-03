@@ -11,4 +11,7 @@ public interface UserBrowseDao {
 
     //此商家的用户今日浏览量
     public Integer selectBrowsesByMerchantId(Long merchantId);
+
+    //定时删除数据库数据
+    public Integer deleteBrowse();
 }
