@@ -4,11 +4,20 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
-public class ScheduledJob2 implements Job{
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@Component
+public class ScheduledJob2 implements Job {
     @Autowired
     private UserBrowseDao userBrowseDao;
     @Override
+    @Transactional
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
         // TODO Auto-generated method stub
            try{
@@ -22,4 +31,4 @@ public class ScheduledJob2 implements Job{
 
     }
 
-    }
+}

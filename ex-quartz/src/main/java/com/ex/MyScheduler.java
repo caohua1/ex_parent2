@@ -17,6 +17,7 @@ public class MyScheduler {
     @Autowired
     SchedulerFactoryBean schedulerFactoryBean;
 
+
     public void scheduleJobs() throws SchedulerException {
         Scheduler scheduler = schedulerFactoryBean.getScheduler();
         //startJob1(scheduler);
