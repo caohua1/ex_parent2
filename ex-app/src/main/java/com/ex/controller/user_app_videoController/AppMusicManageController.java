@@ -35,7 +35,7 @@ public class AppMusicManageController {
         }catch(Exception e){
             e.printStackTrace();
             jsonView.setCode(JsonView.ERROR);
-            jsonView.setMessage("上传失败");
+            jsonView.setMessage("访问异常");
         }
         return jsonView;
     }
