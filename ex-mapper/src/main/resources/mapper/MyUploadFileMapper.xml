@@ -4,9 +4,9 @@
 	<!-- 用户app视享上传文件-->
     <insert id="insertMyUploadFile" parameterType="com.ex.entity.MyUploadFile" >
 	INSERT INTO my_upload_file
-        (registUserId,fileUrl,musicId,my_upload_file.`describe`,link,createTime,updateTime,status)
+        (registUserId,fileUrl,musicId,my_upload_file.`describe`,fileType,createTime,updateTime,status)
         VALUES
-        (#{registUserId},#{fileUrl},#{musicId},#{describe},#{link},#{createTime},#{updateTime},#{status})
+        (#{registUserId},#{fileUrl},#{musicId},#{describe},#{fileType},#{createTime},#{updateTime},#{status})
 	</insert>
     <!-- 用户App 我享查询已发布效果-->
     <select id="selectListMyUploadFile" parameterType="java.util.Map" resultType="com.ex.entity.MyUploadFile">

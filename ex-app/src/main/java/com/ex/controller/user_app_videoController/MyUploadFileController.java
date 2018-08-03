@@ -31,12 +31,12 @@ public class MyUploadFileController {
      * @param registUserId
      * @param musicId
      * @param describe
-     * @param link
+     * @param fileType
      * @param request
      * @return
      */
     @RequestMapping("insertMyUploadFile")
-    public JsonView insertMyUploadFile(MultipartFile[] Files,Long registUserId,Long musicId,String describe,String link,HttpServletRequest request) {
+    public JsonView insertMyUploadFile(MultipartFile[] Files,Long registUserId,Long musicId,String describe,Integer fileType,HttpServletRequest request) {
         JsonView jsonView = new JsonView();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         MyUploadFile myUploadFile = new MyUploadFile();
@@ -55,8 +55,8 @@ public class MyUploadFileController {
                 myUploadFile.setMusicId(musicId);
             }if(describe!=null&&describe!=""){
                 myUploadFile.setDescribe(describe);
-            }if(link!=null&&link!=""){
-                myUploadFile.setLink(link);
+            }if(fileType!=null){
+                myUploadFile.setFileType(fileType);
             }
             myUploadFile.setCreateTime(df.parse(df.format(new Date())));
             int i = myUploadFileService.insertMyUploadFile(myUploadFile);
