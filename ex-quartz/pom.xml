@@ -16,12 +16,17 @@
 
         <dependency>
             <groupId>com.ex</groupId>
-            <artifactId>ex-parent</artifactId>
+            <artifactId>ex-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.ex</groupId>
-            <artifactId>ex-common</artifactId>
+            <artifactId>ex-mapper</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ex</groupId>
+            <artifactId>ex-pojo</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
