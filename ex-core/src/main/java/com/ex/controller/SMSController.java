@@ -1,9 +1,9 @@
 package com.ex.controller;
 
 import com.aliyuncs.exceptions.ClientException;
+import com.ex.util.ALiYunUtil;
 import com.ex.util.CustomMD5;
 import com.ex.util.JsonView;
-import com.ex.util.SMSUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +38,7 @@ public class SMSController {
         JsonView view = new JsonView();
             try {
                 //发送验证码
-                String code = SMSUtil.sendSMS(phone,null,null,1);
+                String code = ALiYunUtil.sendSMS(phone,null,null,1);
                 if (code == null)
                     return JsonView.fail(JsonView.ERROR, "短信验证码发送失败！");
                 //对验证码进行自定义加密

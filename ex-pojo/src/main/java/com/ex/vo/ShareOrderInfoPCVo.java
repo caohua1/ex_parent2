@@ -1,8 +1,8 @@
-package com.ex.entity;
+package com.ex.vo;
 
 import java.io.Serializable;
 
-public class ShareOrderInfo implements Serializable {
+public class ShareOrderInfoPCVo implements Serializable {
     private int buyUserIds;//分享用户数总计
     private double orderMoneys;//订单总金额总计
     private double commissions;//佣金总计

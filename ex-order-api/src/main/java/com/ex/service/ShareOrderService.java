@@ -1,7 +1,7 @@
 package com.ex.service;
 
 import com.ex.entity.ShareOrder;
-import com.ex.entity.ShareOrderInfo;
+import com.ex.vo.ShareOrderInfoPCVo;
 import com.ex.util.PageRequest;
 import com.ex.vo.ShareOrderInfoVo;
 import com.ex.vo.ShareOrderVo;
@@ -18,6 +18,6 @@ public interface ShareOrderService {
     ShareOrder selectShareOrderById(Long id);
     int insertShareOrder(ShareOrder shareOrder);
     int uodateShareOrder(ShareOrder shareOrder);
-    ShareOrderInfo selectShareOrderInfo(Map<String,Object> map);
+    ShareOrderInfoPCVo selectShareOrderInfo(Map<String,Object> map);
     ShareOrderInfoVo selectShareOrederInfoVo(Long userId);
 }
