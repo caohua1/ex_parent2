@@ -13,4 +13,7 @@ public interface ProductPropertySetDao {
     public List<ProductPropertySet> selectPropertySet(Long productinfoId);
 
     public Integer updatePropertySet(ProductPropertySet productPropertySet);
+
+    //根据订单查询购买的规格
+    public List<ProductPropertySet> selectSetByOrder(List ids);
 }

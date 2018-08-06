@@ -3,6 +3,7 @@ package com.ex.dao;
 import com.ex.entity.AgentMerchant;
 import com.ex.entity.Orders;
 import com.ex.vo.OrderVo;
+import com.ex.vo.PCOrderVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -61,4 +62,12 @@ public interface OrdersDao {
 
     //商家七日内的订单量
     public Integer selectOrderNumsIn7(Long merchantId);
+
+
+    //==================================后台，订单模块
+
+    //分享订单（销售订单详情）
+    public OrderVo selectShareOrderInfoById(Long id);
+    //后台查询所有的订单
+    public List<PCOrderVo> selectAllOrder(PCOrderVo pcOrderVo);
 }

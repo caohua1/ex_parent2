@@ -1,8 +1,8 @@
 package com.ex.dao;
 
-import com.ex.entity.ProductInfoManage;
 import com.ex.entity.ShareOrder;
 import com.ex.entity.ShareOrderInfo;
+import com.ex.vo.OrderVo;
 import com.ex.vo.ShareOrderInfoVo;
 import com.ex.vo.ShareOrderVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,4 +31,9 @@ public interface ShareOrderDao {
     ShareOrderInfo selectShareOrderInfo(@Param("merchantId") Long merchantId,@Param("payStatus") Integer payStatus);
     //查询顶部统计数据----UserAPP
     ShareOrderInfoVo selectShareOrederInfoVo(@Param("userId")Long userId, @Param("finishTime")Date date);
+
+    //=================================后台订单管理，分享订单
+    public List<ShareOrderInfoVo> selectAllShareOrderByParam(ShareOrderInfoVo shareOrderInfoVo);
+
+
 }

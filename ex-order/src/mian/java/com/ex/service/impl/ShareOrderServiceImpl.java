@@ -1,31 +1,45 @@
 package com.ex.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.ex.dao.OrdersDao;
+import com.ex.dao.ProductInfoManageDao;
+import com.ex.dao.ProductPropertySetDao;
 import com.ex.dao.ShareOrderDao;
-import com.ex.entity.ProductInfoManage;
+import com.ex.entity.ProductPropertySet;
 import com.ex.entity.ShareOrder;
 import com.ex.entity.ShareOrderInfo;
 import com.ex.service.ShareOrderService;
 import com.ex.util.PageRequest;
+import com.ex.vo.OrderVo;
+import com.ex.vo.ProductInfoManageVo;
 import com.ex.vo.ShareOrderInfoVo;
 import com.ex.vo.ShareOrderVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Service(version = "1.0.0")
+@Service(version = "1.1.0")
 public class ShareOrderServiceImpl implements ShareOrderService {
 
     /**
      * 分享订单Dao
      */
     @Autowired
+    private OrdersDao ordersDao;
+    @Autowired
     private ShareOrderDao shareOrderDao;
+    @Autowired
+    private ProductPropertySetDao productPropertySetDao;
+    @Autowired
+    private ProductInfoManageDao productInfoManageDao;
 
     /**
      * 按条件查询所有分享信息
@@ -113,5 +127,21 @@ public class ShareOrderServiceImpl implements ShareOrderService {
     public ShareOrderInfoVo selectShareOrederInfoVo(Long userId) {
         return shareOrderDao.selectShareOrederInfoVo(userId,new Date());
     }
+
+    /**
+     * 后台，订单管理，分享订单
+     * @param shareOrderInfoVo
+     * @param pageRequest
+     * @return
+     */
+    @Override
+    public PageInfo<ShareOrderInfoVo> selectAllShareOrderByParam(ShareOrderInfoVo shareOrderInfoVo, PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<ShareOrderInfoVo> shareOrderInfoVos = shareOrderDao.selectAllShareOrderByParam(shareOrderInfoVo);
+        PageInfo<ShareOrderInfoVo> pageInfo = new PageInfo<>(shareOrderInfoVos);
+        pageInfo.setSize(shareOrderInfoVos.size());
+        return pageInfo;
+    }
+
 
 }

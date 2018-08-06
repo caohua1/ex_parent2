@@ -19,7 +19,11 @@ public interface AppointmentOrderDao {
     public Integer updateAppointmentOrder(AppointmentOrderVo appointmentOrderVo);
     public AppointmentOrderVo selectAppAppointmentById(Long id);
     //查询预约订单下预约的所有商品信息
-    public List<ProductInfoManage> selectProductsByIds(String ProductInfoIds);
+    public List<ProductInfoManage> selectProductsByIds (List ProductInfoIds);
+    public List<ProductInfoManage> selectProductsByIds1 (String ids);
     //根据用户Id查询该用户所有的预定信息↓
     List<AppointmentOrderByUserAppVo> selectAppointmentOrderByUserApp(Long registUserId);
+    //=====================================
+    //订单管理模块，查询所有的预约订单
+    public List<AppointmentOrderVo> selectAppontmentOrdersByParam(AppointmentOrderVo appointmentOrderVo);
 }

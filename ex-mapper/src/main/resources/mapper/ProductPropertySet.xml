@@ -41,5 +41,9 @@
 
 
 
+	<!--查询下单的规格-->
+	<select id="selectSetByOrder" parameterType="List" resultType="com.ex.entity.ProductPropertySet">
+		select * from product_property_set where id in(<foreach item="item" index="index" collection="list" separator=",">#{item}</foreach>)
+	</select>
 
 </mapper>

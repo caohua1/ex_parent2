@@ -11,7 +11,7 @@ public class Orders implements Serializable{
     private Integer productNum;
     private Double orderMoney;
     private Long productInfoId;
-    private Long productPropertyId;//商品规格
+    private String productPropertyId;//商品规格
     private Long addressId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
@@ -26,19 +26,12 @@ public class Orders implements Serializable{
     private Integer payStatus;
     private String backCauseBy;
     private String backNum;
+    private Integer isKFP;
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
     private String WuLiuNum;//物流编号
-    private ProductInfoManage productInfoManage;
 
-    public ProductInfoManage getProductInfoManage() {
-        return productInfoManage;
-    }
-
-    public void setProductInfoManage(ProductInfoManage productInfoManage) {
-        this.productInfoManage = productInfoManage;
-    }
 
     public Date getUpdateTime() {
         return updateTime;
@@ -88,11 +81,11 @@ public class Orders implements Serializable{
         this.productInfoId = productInfoId;
     }
 
-    public Long getProductPropertyId() {
+    public String getProductPropertyId() {
         return productPropertyId;
     }
 
-    public void setProductPropertyId(Long productPropertyId) {
+    public void setProductPropertyId(String productPropertyId) {
         this.productPropertyId = productPropertyId;
     }
 
@@ -174,6 +167,14 @@ public class Orders implements Serializable{
 
     public void setBackNum(String backNum) {
         this.backNum = backNum;
+    }
+
+    public Integer getIsKFP() {
+        return isKFP;
+    }
+
+    public void setIsKFP(Integer isKFP) {
+        this.isKFP = isKFP;
     }
 
     public Integer getStatus() {

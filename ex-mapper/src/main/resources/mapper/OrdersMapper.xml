@@ -31,10 +31,11 @@
 	<!--===================================================-->
 	<!--第二种查询方式，先查询所有的用户，分页查询-->
 	<select id="selectUserByMerchantId2" parameterType="Long" resultType="com.ex.vo.OrderVo">
-		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName from orders os
+		select DISTINCT(upd.registUserId),upd.headUrl,upd.nickName,ur.username from orders os
 		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
+		left join userapp_regist ur on ur.id = upd.registUserId
 		where pm.merchantId = #{merchantId}
 		order by upd.registUserId
 	</select>
@@ -55,7 +56,6 @@
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		left join shipping_address sa on sa.id = os.addressId
-		left join product_property_set pps on pps.id = os.productPropertyId
 		where pm.merchantId = #{merchantId} and upd.registUserId = #{registUserId}
 		and os.status in(0,2)
 		order by upd.registUserId
@@ -73,12 +73,11 @@
 	<!--点击查看代发货商品的详情-->
 	<!--查询此用户在此商家的待发货的详情，分页查询-->
 	<select id="selectUserOrdersByMerchantId2" parameterType="java.util.Map" resultType="com.ex.vo.OrderVo">
-		select DISTINCT(upd.registUserId),os.*,sa.address,sa.phone,sa.realName,pm.productPicUrl,pps.typeName from orders os
+		select DISTINCT(upd.registUserId),os.*,sa.address,sa.phone,sa.realName,pm.productPicUrl from orders os
 		left join productinfo_manage pm on os.productInfoId = pm.id
 		left join user_order uo on uo.orderId = os.id
 		left join userapp_person_data upd on upd.registUserId = uo.registUserId
 		left join shipping_address sa on sa.id = os.addressId
-        left join product_property_set pps on pps.id = os.productPropertyId
 		where pm.merchantId = #{merchantId} and upd.registUserId = #{registUserId}
 		and os.status in(0,2)
 		order by upd.registUserId
@@ -119,8 +118,8 @@
 
 	<!--添加订单-->
 	<insert id="insertOrders" parameterType="com.ex.entity.Orders" useGeneratedKeys="true" keyProperty="id">
-		insert into orders(orderNum,productNum,orderMoney,productInfoId,productPropertyId,addressId,createTime,PSWay,postage)
-		values(#{orderNum},#{productNum},#{orderMoney},#{productInfoId},#{productPropertyId},#{addressId},#{createTime},#{PSWay},#{postage})
+		insert into orders(orderNum,productNum,orderMoney,productInfoId,productPropertyId,addressId,createTime,PSWay,postage,isKFP)
+		values(#{orderNum},#{productNum},#{orderMoney},#{productInfoId},#{productPropertyId},#{addressId},#{createTime},#{PSWay},#{postage},#{isKFP})
 	</insert>
 
 	<!--支付，根据订单id查询订单价格-->
@@ -146,9 +145,9 @@
 	<select id="selectMerchantDJMoney" parameterType="Long" resultType="Double">
 	    select sum(o.orderMoney) from orders o
 		left join productinfo_manage pm on pm.id = o.productInfoId
-		where pm.merchantId = 1
+		where pm.merchantId = #{merchantId}
 		and o.payStatus = 1
-		and o.status not in(7,12)
+		and o.status not in(1,8)
 		and #{newDate} &lt;= o.finishTime
 	</select>
 
@@ -166,5 +165,48 @@
 		left join productinfo_manage pm on pm.id = o.productInfoId
 		where pm.merchantId = #{merchantId}
 		and TIMESTAMPDIFF(DAY,o.createTime,now()) &lt;= 7
+	</select>
+
+	<!--运营后台，查询所有的销售订单-->
+	<select id="selectAllOrder" parameterType="com.ex.vo.PCOrderVo" resultType="com.ex.vo.PCOrderVo">
+		select o.*,mr.username,si.storeName,ur.username registUserName from orders o
+		left join productinfo_manage pm on pm.id = o.productInfoId
+		left join merchant_regist mr on mr.id = pm.merchantId
+		left join store_info si on si.merchantId = pm.merchantId
+		left join user_order uo on uo.orderId = o.id
+		left join userapp_regist ur on ur.id = uo.registUserId
+		where 1=1
+		<if test="username!=null and username !=''">
+			and mr.username = #{username}
+		</if>
+		<if test="orderNum !=null and orderNum !=''">
+			and o.orderNum = #{orderNum}
+		</if>
+		<if test="startTime!=null and startTime ==null">
+			and o.createTime &gt;= #{startTime}
+		</if>
+		<if test="startTime==null and endTime !=null">
+			and o.createTime &lt;= #{endTime}
+		</if>
+		<if test="startTime!=null and endTime!=null">
+			and o.createTime BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="status !=null">
+			and o.status = #{status}
+		</if>
+		<if test="merchantId!=null">
+			and pm.merchantId = #{merchantId}
+		</if>
+		order by o.createTime
+	</select>
+
+	<!--分享订单（销售）的详情-->
+	<select id="selectShareOrderInfoById" parameterType="Long" resultType="com.ex.vo.OrderVo">
+		select o.* ,sa.address,sa.phone,sa.realName from orders o
+		left join share_order so on so.orderNum = o.orderNum
+		left join shipping_address sa on sa.id = o.addressId
+		left join productinfo_manage pm on o.productInfoId = pm.id
+		left join product_property_set pps on pps.id = o.productPropertyId
+		where so.id = #{id}
 	</select>
 </mapper>

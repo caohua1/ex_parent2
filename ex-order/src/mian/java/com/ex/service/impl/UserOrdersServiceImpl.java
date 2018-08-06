@@ -2,10 +2,7 @@ package com.ex.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.ex.dao.*;
-import com.ex.entity.Orders;
-import com.ex.entity.ShareOrder;
-import com.ex.entity.StoreInfo;
-import com.ex.entity.UserOrder;
+import com.ex.entity.*;
 import com.ex.service.ShareOrderService;
 import com.ex.service.UserOrdersService;
 import com.ex.util.PageRequest;
@@ -21,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +39,8 @@ public class UserOrdersServiceImpl implements UserOrdersService{
     private StoreInfoDao storeInfoDao;
     @Autowired
     private ProductInfoManageDao productInfoManageDao;
+    @Autowired
+    private ProductPropertySetDao productPropertySetDao;
 
     /**
      * 商家app首页的客户管理，根据merchantId查询购买过此商家商品的客户的信息（去重，一个用户在此商家有多个订单）(消费金额)，几笔待发货
@@ -68,7 +68,7 @@ public class UserOrdersServiceImpl implements UserOrdersService{
 
 
 
-   //=========================================第二种方式
+   //=========================================第二种方式selectUserOrdersByMerchantId2
 
     /**
      * 先查询所有的用户，分页查询
@@ -122,6 +122,20 @@ public class UserOrdersServiceImpl implements UserOrdersService{
     public PageInfo<OrderVo> selectUserOrdersByMerchantId2(Map map,PageRequest pageRequest) {
         PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
         List<OrderVo> orderVos = ordersDao.selectUserOrdersByMerchantId2(map);
+        List list = new ArrayList();
+        if(orderVos!=null){
+            for(int i=0;i<orderVos.size();i++){
+                String[] split = orderVos.get(i).getProductPropertyId().split(",");
+                for(String s:split){
+                    list.add(Long.parseLong(s));
+                }
+                List<ProductPropertySet> productPropertySets = productPropertySetDao.selectSetByOrder(list);
+                ProductInfoManageVo productInfoManageVo = productInfoManageDao.selectProductInfoById(orderVos.get(i).getProductInfoId());
+
+                productInfoManageVo.setProductPropertySetList(productPropertySets);
+                orderVos.get(i).setProductInfoManageVo(productInfoManageVo);
+            }
+        }
         PageInfo<OrderVo> pageInfo = new PageInfo<>(orderVos);
         return pageInfo;
     }

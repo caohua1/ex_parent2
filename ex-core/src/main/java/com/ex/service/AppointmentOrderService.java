@@ -16,4 +16,7 @@ public interface AppointmentOrderService {
     //pc端需要分页
     public PageInfo<AppointmentOrderVo> pcSelectAppointmentOrder(Map map, PageRequest pageRequest);
     public Integer selectAppointmentOrderCount(Map map);
+
+    //查询某预约订单的详情
+    public AppointmentOrderVo selectAppointOrderInfo(Long id);
 }

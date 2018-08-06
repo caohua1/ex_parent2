@@ -1,31 +1,44 @@
 package com.ex.service.impl;
+import com.alibaba.dubbo.config.annotation.Service;
 import com.aliyuncs.exceptions.ClientException;
 import com.ex.dao.AppointmentOrderDao;
+import com.ex.dao.ProductInfoManageDao;
+import com.ex.dao.ProductPropertySetDao;
 import com.ex.dao.UserAppInfoDao;
 import com.ex.entity.AppointmentOrder;
 import com.ex.entity.ProductInfoManage;
+import com.ex.entity.ProductPropertySet;
 import com.ex.service.AppointmentOrder1Service;
 import com.ex.util.JsonView;
+import com.ex.util.PageRequest;
 import com.ex.util.SMSUtil;
 import com.ex.vo.AppointmentOrderByUserAppVo;
 import com.ex.vo.AppointmentOrderVo;
+import com.ex.vo.ProductInfoManageVo;
 import com.ex.vo.UserVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("ALL")
-@com.alibaba.dubbo.config.annotation.Service
+@Service(version = "1.1.0")
 public class AppointmentOrder1ServiceImpl implements AppointmentOrder1Service {
 
     @Autowired
     private AppointmentOrderDao appointmentOrderDao;
     @Autowired
     private UserAppInfoDao userAppInfoDao;
+    @Autowired
+    private ProductInfoManageDao productInfoManageDao;
+    @Autowired
+    private ProductPropertySetDao productPropertySetDao;
 
     /**
      * 预订，并支付
@@ -106,7 +119,7 @@ public class AppointmentOrder1ServiceImpl implements AppointmentOrder1Service {
      * @return
      */
     @Override
-    public List<ProductInfoManage> selectProductsByIds(String ProductInfoIds) {
+    public List<ProductInfoManage> selectProductsByIds(List ProductInfoIds) {
         return appointmentOrderDao.selectProductsByIds(ProductInfoIds);
     }
 
@@ -119,4 +132,45 @@ public class AppointmentOrder1ServiceImpl implements AppointmentOrder1Service {
     public List<AppointmentOrderByUserAppVo> selectAppointmentOrderByUserApp(Long registUserId) {
         return appointmentOrderDao.selectAppointmentOrderByUserApp(registUserId);
     }
+
+    //=====================================订单管理模块
+    /**
+     * 订单管理模块，查询所有的预约订单
+     * @param appointmentOrderVo
+     * @param pageRequest
+     * @return
+     */
+    @Override
+    public PageInfo<AppointmentOrderVo> selectAppontmentOrdersByParam(AppointmentOrderVo appointmentOrderVo, PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<AppointmentOrderVo> appointmentOrderVos = appointmentOrderDao.selectAppontmentOrdersByParam(appointmentOrderVo);
+        PageInfo<AppointmentOrderVo> pageInfo = new PageInfo<>(appointmentOrderVos);
+        pageInfo.setSize(appointmentOrderVos.size());
+        return pageInfo;
+    }
+
+    /**
+     * 查询预约订单详情
+     * @param id
+     * @return
+     */
+    @Override
+    public AppointmentOrderVo selectAppAppointmentById(Long id) {
+        AppointmentOrderVo appointmentOrderVo = appointmentOrderDao.selectAppAppointmentById(id);
+        if(appointmentOrderVo!=null){
+            /*String productInfoIds = appointmentOrderVo.getProductInfoIds();
+            List<ProductInfoManage> productInfoManages = appointmentOrderDao.selectProductsByIds1(productInfoIds);
+            appointmentOrderVo.setProductInfoManageList(productInfoManages);*/
+            String[] split = appointmentOrderVo.getProductInfoIds().split(",");
+            List list = new ArrayList();
+            for(String s:split){
+                list.add(Long.parseLong(s));
+            }
+            List<ProductInfoManage> productInfoManages = appointmentOrderDao.selectProductsByIds(list);
+            appointmentOrderVo.setProductInfoManageList(productInfoManages);
+        }
+        return appointmentOrderVo;
+    }
+
+
 }
