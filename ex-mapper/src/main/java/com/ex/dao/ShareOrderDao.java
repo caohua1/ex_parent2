@@ -3,6 +3,7 @@ package com.ex.dao;
 import com.ex.entity.ShareOrder;
 import com.ex.entity.ShareOrderInfo;
 import com.ex.vo.OrderVo;
+import com.ex.vo.ShareOrderInfoPCVo;
 import com.ex.vo.ShareOrderInfoVo;
 import com.ex.vo.ShareOrderVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -28,7 +29,7 @@ public interface ShareOrderDao {
     //修改分享信息
     int uodateShareOrder(ShareOrder shareOrder);
     //查询顶部统计数据----PC
-    ShareOrderInfo selectShareOrderInfo(@Param("merchantId") Long merchantId,@Param("payStatus") Integer payStatus);
+    ShareOrderInfoPCVo selectShareOrderInfo(@Param("merchantId") Long merchantId, @Param("payStatus") Integer payStatus);
     //查询顶部统计数据----UserAPP
     ShareOrderInfoVo selectShareOrederInfoVo(@Param("userId")Long userId, @Param("finishTime")Date date);
 

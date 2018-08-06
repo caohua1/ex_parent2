@@ -1,13 +1,10 @@
 package com.ex.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.ex.dao.OrdersDao;
-import com.ex.dao.ProductInfoManageDao;
-import com.ex.dao.ProductPropertySetDao;
 import com.ex.dao.ShareOrderDao;
 import com.ex.entity.ProductPropertySet;
 import com.ex.entity.ShareOrder;
-import com.ex.entity.ShareOrderInfo;
+import com.ex.vo.ShareOrderInfoPCVo;
 import com.ex.service.ShareOrderService;
 import com.ex.util.PageRequest;
 import com.ex.vo.OrderVo;
@@ -108,7 +105,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
      * @return
      */
     @Override
-    public ShareOrderInfo selectShareOrderInfo(Map<String, Object> map) {
+    public ShareOrderInfoPCVo selectShareOrderInfo(Map<String, Object> map) {
         long merchantId = 1L;
         if (map.get("merchantId") != null)
             merchantId = (long) map.get("merchantId");
