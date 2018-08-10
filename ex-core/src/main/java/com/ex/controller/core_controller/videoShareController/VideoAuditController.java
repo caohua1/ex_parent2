@@ -88,12 +88,15 @@ public class VideoAuditController {
                 int i = merchantorpersonUploadProductService.updateStatus(statusMap);
                 if(i>0){
                     map.put("entity",i);
-                    map.put("result","访问成功");
+                    map.put("result","修改成功");
                     jsonView.setData(map);
                 }else {
                     map.put("result", "未修改数据库任何数据");
                     jsonView.setData(map);
                 }
+            }else {
+                map.put("result", "用户id或者修改状态为空");
+                jsonView.setData(map);
             }
         }catch (Exception e) {
             e.printStackTrace();

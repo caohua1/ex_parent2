@@ -20,21 +20,31 @@ public class MerchantPCvideoController {
     @Autowired
     private VideoShareManageService videoShareManageService;
 
-
+    /**
+     * PC商家视享管理
+     * @param page
+     * @param firstDate
+     * @param lastDate
+     * @param describe
+     * @param fileType
+     * @return
+     */
     @RequestMapping("/selectPCvideoShareManage")
-    public JsonView selectPCvideoShareManage(PageRequest page,String firstDate,String lastDate,String describe,String fileType){
+    public JsonView selectPCvideoShareManage(PageRequest page,String firstDate,String lastDate,String describe,String fileType,Long rid){
         Map termMap = new HashMap<String, Object>();
         Map Map = new HashMap<String, Object>();
         JsonView jsonView= new JsonView();
         try{
-        if(firstDate!=null&&firstDate!=""){
+         if(rid!=null){
+             termMap.put("rid",rid);
+         }if(firstDate!=null&&firstDate!=""){
             termMap.put("firstDate", DateAndTimeUtil.convert(firstDate));
         }if(lastDate!=null&&lastDate!=""){
             termMap.put("lastDate", DateAndTimeUtil.convert(lastDate));
         }if(describe!=null&&describe!=""){
             termMap.put("describe", describe);
         }if(fileType!=null&&fileType!=""){
-            termMap.put("describe", Integer.parseInt(fileType));
+            termMap.put("fileType", Integer.parseInt(fileType));
         }
         PageInfo<VideoShareManage> videoShareManagePageInfo = videoShareManageService.selectPCvideoShareManage(page, termMap);
             Integer integer = videoShareManageService.selectPCvideoShareManageCount(termMap);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ex.dao.PCvideoShareManageDao">
+	<!-- PC端商家视享查询-->
 	<select id="selectPCvideoShareManage" parameterType="java.util.Map" resultType="com.ex.entity.VideoShareManage">
 		SELECT r.id rid,u.id uid,p.id,r.username,u.fileUrl,u.fileType,u.playNum,u.uploadfileTime,u.`describe`,p.`order`,p.money
 		FROM merchant_regist r
@@ -9,7 +10,6 @@
 		LEFT JOIN paidlist_product p
 		ON u.id=p.uploadProductId
 		WHERE r.id=#{rid}
-
 		<if test="id!=null and id!=''">
 			AND p.id=#{id}
 		</if>
@@ -26,9 +26,10 @@
 			AND u.uploadfileTime BETWEEN #{firstDate} and #{lastDate}
 		</if>
 		<if test="describe!=null and describe!=''">
-			AND u.`describe` LIKE '%'#{describe}'%'
+			AND u.`describe` LIKE CONCAT('%', #{describe}, '%')
 		</if>
 	</select>
+	<!-- PC端商家视享查询计数-->
 	<select id="selectPCvideoShareManageCount" parameterType="java.util.Map" resultType="Integer">
 		SELECT count(*)
 		FROM merchant_regist r
@@ -54,9 +55,10 @@
 			AND u.uploadfileTime BETWEEN #{firstDate} and #{lastDate}
 		</if>
 		<if test="describe!=null and describe!=''">
-			AND u.`describe` LIKE '%'#{describe}'%'
+			AND u.`describe` LIKE CONCAT('%', #{describe}, '%')
 		</if>
 	</select>
+	<!--删除商家商家上传信息-->
 	<delete id="deletePCvideoShareManage" parameterType="java.lang.Long" >
 		DELETE FROM merchantorperson_upload_product WHERE id=#{uid}
 	</delete>

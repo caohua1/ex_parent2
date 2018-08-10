@@ -2,6 +2,7 @@ package com.ex.controller.core_controller.videoShareController;
 
 import com.ex.entity.ViewManage;
 import com.ex.service.ViewManageService;
+import com.ex.util.DateAndTimeUtil;
 import com.ex.util.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -19,20 +20,38 @@ public class ViewManageController {
 
     /**
      *视享配置（增加一条配置数据）
-     * @param viewManage
+     * @param
      * @return
      */
     @RequestMapping("addViewManage")
-    public JsonView addViewManage(ViewManage viewManage,ModelMap map){
+    public JsonView addViewManage(Integer videoTime,Integer fileKb,Integer bidTime,Integer videoInitialize,Integer pictureInitialize,String createTime,Integer status){
         JsonView jsonView = new JsonView();
-        int i = viewManageService.addViewManage(viewManage);
-        if(i>0){
-            map.put("entity",i);
-            map.put("result","添加成虫");
-            jsonView.setData(map);
-        }else {
-            map.put("result", "添加失败");
-            jsonView.setData(map);
+        ViewManage viewManage = new ViewManage();
+        try{
+            if(videoTime!=null){
+                viewManage.setVideoTime(videoTime);
+            }if(fileKb!=null){
+                viewManage.setFileKb(fileKb);
+            }if(bidTime!=null){
+                viewManage.setBidTime(bidTime);
+            }if(videoInitialize!=null){
+                viewManage.setVideoInitialize(videoInitialize);
+            }if(pictureInitialize!=null){
+                viewManage.setPictureInitialize(pictureInitialize);
+            }if(createTime!=null&&createTime!=""){
+                viewManage.setCreateTime(DateAndTimeUtil.convert(createTime));
+            }if(status!=null){
+                viewManage.setStatus(status);
+            }
+            int i = viewManageService.addViewManage(viewManage);
+            if(i>0){
+                jsonView.setMessage("增加成功");
+            }else {
+                jsonView.setMessage("增加失败");
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+            jsonView.fail();
         }
         return jsonView;
     }

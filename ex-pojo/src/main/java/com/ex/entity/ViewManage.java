@@ -12,69 +12,16 @@ import java.util.Date;
 
 public class ViewManage implements Serializable {
     public Long id;
-    public int videoTime;
-    public int fileKb;
-    public int bidTime;
-    public int videoInitialize;
-    public int pictureInitialize;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    public Integer videoTime;
+    public Integer fileKb;
+    public Integer bidTime;
+    public Integer videoInitialize;
+    public Integer pictureInitialize;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date createTime;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date updateTime;
-    public int status;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public ViewManage(int status) {
-        this.status = status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public ViewManage(Long id, int videoTime, int fileKb, int bidTime, int videoInitialize, int pictureInitialize, Date createTime, Date updateTime) {
-        this.id = id;
-        this.videoTime = videoTime;
-        this.fileKb = fileKb;
-        this.bidTime = bidTime;
-        this.videoInitialize = videoInitialize;
-
-        this.pictureInitialize = pictureInitialize;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
-
-    public ViewManage() {
-        super();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
+    public Integer status;
 
     public Long getId() {
         return id;
@@ -84,43 +31,43 @@ public class ViewManage implements Serializable {
         this.id = id;
     }
 
-    public int getVideoTime() {
+    public Integer getVideoTime() {
         return videoTime;
     }
 
-    public void setVideoTime(int videoTime) {
+    public void setVideoTime(Integer videoTime) {
         this.videoTime = videoTime;
     }
 
-    public int getFileKb() {
+    public Integer getFileKb() {
         return fileKb;
     }
 
-    public void setFileKb(int fileKb) {
+    public void setFileKb(Integer fileKb) {
         this.fileKb = fileKb;
     }
 
-    public int getBidTime() {
+    public Integer getBidTime() {
         return bidTime;
     }
 
-    public void setBidTime(int bidTime) {
+    public void setBidTime(Integer bidTime) {
         this.bidTime = bidTime;
     }
 
-    public int getVideoInitialize() {
+    public Integer getVideoInitialize() {
         return videoInitialize;
     }
 
-    public void setVideoInitialize(int videoInitialize) {
+    public void setVideoInitialize(Integer videoInitialize) {
         this.videoInitialize = videoInitialize;
     }
 
-    public int getPictureInitialize() {
+    public Integer getPictureInitialize() {
         return pictureInitialize;
     }
 
-    public void setPictureInitialize(int pictureInitialize) {
+    public void setPictureInitialize(Integer pictureInitialize) {
         this.pictureInitialize = pictureInitialize;
     }
 
@@ -138,5 +85,13 @@ public class ViewManage implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

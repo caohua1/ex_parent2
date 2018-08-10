@@ -8,6 +8,7 @@ import java.util.Map;
 
 @Mapper
 public interface VideoShareManageDao {
+
     /**
      * 视享管理（条件查询）
      * @param termMap

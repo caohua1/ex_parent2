@@ -12,7 +12,7 @@
             AND merchantId=#{merchantId}
         </if>
         <if test="describe!=null and describe!=''">
-            AND m.describe LIKE '%'#{describe}'%'
+            AND m.describe LIKE CONCAT('%', #{describe}, '%')
         </if>
         <if test="firstDate!=null and lastDate==null">
             and uploadfileTime&gt;=#{firstDate}
