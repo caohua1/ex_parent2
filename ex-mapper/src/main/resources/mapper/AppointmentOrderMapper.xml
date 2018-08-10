@@ -76,9 +76,15 @@
 	</select>
 
 	<!--查询某个订单预定的所有商品信息-->
-	<select id="selectProductsByIds" parameterType="String" resultType="com.ex.entity.ProductInfoManage">
-		select * from product_info where id in(#{productInfoIds})
+	<select id="selectProductsByIds" parameterType="List" resultType="com.ex.entity.ProductInfoManage">
+		select * from productinfo_manage where id in(<foreach item="item" index="index" collection="list" separator=",">#{item}</foreach>)
 	</select>
+
+	<!--方式2-->
+	<select id="selectProductsByIds1" parameterType="String" resultType="com.ex.entity.ProductInfoManage">
+		SELECT  * from productinfo_manage where id in(${ids})
+	</select>
+
 
 	<!--根据用户Id查询该用户所有的预定信息-->
 	<select id="selectAppointmentOrderByUserApp" parameterType="java.lang.Long" resultType="com.ex.vo.AppointmentOrderByUserAppVo">
@@ -86,5 +92,40 @@
 		left join store_info si on  si.merchantId = ao.merchantId
 		where ao.registUserId = #{registUserId}
 	</select>
+
+
+	<!--=============================订单管理模块-->
+	<!--预约订单查询（条件查询）-->
+	<select id="selectAppontmentOrdersByParam" parameterType="com.ex.vo.AppointmentOrderVo" resultType="com.ex.vo.AppointmentOrderVo">
+		select ao.*,mr.username from appointment_order ao
+		left join merchant_regist mr on mr.id = ao.merchantId
+		where 1=1
+		<if test="username!=null and username!=''">
+			and mr.username = #{username}
+		</if>
+		<if test="registUsername!=null and registUsername!=''">
+			and ao.registUsername = #{registUsername}
+		</if>
+		<if test="orderNum!=null and orderNum!=''">
+			and ao.orderNum = #{orderNum}
+		</if>
+		<if test="merchantId!=null">
+			and ao.merchantId = #{merchantId}
+		</if>
+		<if test="status!=null">
+			and ao.status = #{status}
+		</if>
+		<if test="startTime!=null and startTime ==null">
+			and ao.createTime &gt;= #{startTime}
+		</if>
+		<if test="startTime==null and endTime !=null">
+			and ao.createTime &lt;= #{endTime}
+		</if>
+		<if test="startTime!=null and endTime!=null">
+			and ao.createTime BETWEEN #{startTime} AND #{endTime}
+		</if>
+       order by ao.createTimne
+	</select>
+
 
 </mapper>

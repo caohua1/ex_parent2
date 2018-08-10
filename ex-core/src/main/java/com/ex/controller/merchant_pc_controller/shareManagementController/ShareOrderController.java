@@ -1,7 +1,7 @@
 package com.ex.controller.merchant_pc_controller.shareManagementController;
 
 import com.ex.entity.ShareOrder;
-import com.ex.entity.ShareOrderInfo;
+import com.ex.vo.ShareOrderInfoPCVo;
 import com.ex.service.ShareOrderService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
@@ -127,7 +127,7 @@ public class ShareOrderController {
             Map<String,Object> map = new HashMap<String,Object>();
             map.put("merchantId",merchantId);
             map.put("payStatus",payStatus);
-            ShareOrderInfo shareOrderInfo = shareOrderService.selectShareOrderInfo(map);
+            ShareOrderInfoPCVo shareOrderInfo = shareOrderService.selectShareOrderInfo(map);
             jsonView.setCode(JsonView.SUCCESS);
             jsonView.setMessage("请求数据成功");
             jsonView.setData(shareOrderInfo);

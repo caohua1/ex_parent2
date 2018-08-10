@@ -2,6 +2,7 @@ package com.ex.service.impl;
 
 import com.ex.dao.AppointmentOrderDao;
 import com.ex.entity.AppointmentOrder;
+import com.ex.entity.ProductInfoManage;
 import com.ex.service.AppointmentOrderService;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -77,5 +79,23 @@ public class AppointmentOrderServiceImpl implements AppointmentOrderService{
     @Override
     public Integer selectAppointmentOrderCount(Map map) {
         return appointmentOrderDao.selectAppointmentOrderCount(map);
+    }
+
+    /**
+     * 查询某预约订单的详情
+     * @param id
+     * @return
+     */
+    @Override
+    public AppointmentOrderVo selectAppointOrderInfo(Long id) {
+        AppointmentOrderVo appointmentOrderVo = appointmentOrderDao.selectAppAppointmentById(id);
+        String[] split = appointmentOrderVo.getProductInfoIds().split(",");
+        List list = new ArrayList();
+        for(String string :split){
+            list.add(string);
+        }
+        List<ProductInfoManage> productInfoManages = appointmentOrderDao.selectProductsByIds(list);
+        appointmentOrderVo.setProductInfoManageList(productInfoManages);
+        return appointmentOrderVo;
     }
 }

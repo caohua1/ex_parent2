@@ -1,6 +1,7 @@
 package com.ex.vo;
 
 import com.ex.entity.Orders;
+import com.ex.entity.ProductPropertySet;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class OrderVo extends Orders implements Serializable{
 
     private Long registUserId;
+    private String username; //用户账号
     private String nickName;//昵称
     private String headUrl;//头像
     private Double consumption;//累计消费
@@ -20,6 +22,8 @@ public class OrderVo extends Orders implements Serializable{
     private String phone;//收货人电话
     private String productPicUrl;//商品图片
     private String typeName;//商品规格
+    private ProductInfoManageVo productInfoManageVo;
+    private Double productDJ;//
 
 
     public Long getRegistUserId() {
@@ -28,6 +32,14 @@ public class OrderVo extends Orders implements Serializable{
 
     public void setRegistUserId(Long registUserId) {
         this.registUserId = registUserId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getNickName() {
@@ -108,5 +120,21 @@ public class OrderVo extends Orders implements Serializable{
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public Double getProductDJ() {
+        return productDJ;
+    }
+
+    public void setProductDJ(Double productDJ) {
+        this.productDJ = productDJ;
+    }
+
+    public ProductInfoManageVo getProductInfoManageVo() {
+        return productInfoManageVo;
+    }
+
+    public void setProductInfoManageVo(ProductInfoManageVo productInfoManageVo) {
+        this.productInfoManageVo = productInfoManageVo;
     }
 }

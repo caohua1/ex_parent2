@@ -146,7 +146,7 @@
     </update>
 
     <!--查询顶部统计数据-->
-    <select id="selectShareOrderInfo" resultType="com.ex.entity.ShareOrderInfo" parameterType="map">
+    <select id="selectShareOrderInfo" resultType="com.ex.vo.ShareOrderInfoPCVo" parameterType="map">
         select COUNT(buyUserId) AS buyUserIds,SUM(orderMoney) AS orderMoneys,SUM(commission) AS commissions,COUNT(*) AS counts FROM share_order where merchantId = #{merchantId} AND payStatus = #{payStatus}
     </select>
 
@@ -163,7 +163,7 @@
         FROM share_order so
         LEFT JOIN orders o ON so.orderNum = o.orderNum
         where so.shareUserId = #{userId}
-        AND o.finishTime > '2018-07-04 08:36:04'
+        AND o.finishTime &gt; #{finishTime}
         ) waitRevenue ,
         (
         select COUNT(*)
@@ -180,4 +180,40 @@
         AND o.finishTime &lt; #{finishTime}
         ) orderInTransaction
     </select>
+
+    <!--后台，订单管理，分享订单的查询-->
+    <!--查询所有的分享订单信息-->
+    <select id="selectAllShareOrderByParam" parameterType="com.ex.vo.ShareOrderInfoVo" resultType="com.ex.vo.ShareOrderInfoVo">
+        select so.*,o.status shareOrderStatus,mr.username from share_order so
+        left join orders o on o.orderNum = so.orderNum
+        left join merchant_regist mr on mr.id = so.merchantId
+        where 1=1
+        <if test="shareUsername!=null and shareUsername!=''">
+            and so.shareUsername = #{shareUsername}
+        </if>
+        <if test="username!=null and username !=''">
+            and mr.username = #{username}
+        </if>
+        <if test="orderNum !=null and orderNum !=''">
+            and so.orderNum = #{orderNum}
+        </if>
+        <if test="startTime!=null and startTime ==null">
+            and so.createTime &gt;= #{startTime}
+        </if>
+        <if test="startTime==null and endTime !=null">
+            and so.createTime &lt;= #{endTime}
+        </if>
+        <if test="startTime!=null and endTime!=null">
+            and so.createTime BETWEEN #{startTime} AND #{endTime}
+        </if>
+        <if test="shareOrderStatus !=null">
+            and o.status = #{shareOrderStatus}
+        </if>
+        <if test="merchantId!=null">
+            and so.merchantId = #{merchantId}
+        </if>
+        order by so.createTime
+    </select>
+
+
 </mapper>
