@@ -25,6 +25,7 @@
         <module>ex-pay-api</module>
         <module>ex-solr-api</module>
         <module>ex-order-api</module>
+        <module>ex-aliyun</module>
     </modules>
 
 

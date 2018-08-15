@@ -28,7 +28,13 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/ex-solr/pom.xml" />
         <option value="$PROJECT_DIR$/ex-order/pom.xml" />
+        <option value="D:/exporject/ex_parent2/ex-quartz/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/ex-aliyun/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
