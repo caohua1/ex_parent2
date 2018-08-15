@@ -1,8 +1,6 @@
 package com.ex.dao;
 
 import com.ex.entity.ShareOrder;
-import com.ex.entity.ShareOrderInfo;
-import com.ex.vo.OrderVo;
 import com.ex.vo.ShareOrderInfoPCVo;
 import com.ex.vo.ShareOrderInfoVo;
 import com.ex.vo.ShareOrderVo;

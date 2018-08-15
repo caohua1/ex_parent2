@@ -211,13 +211,22 @@ public class UserAppLoginController {
         return  jsonView;
     }
 
+    /**
+     * 修改会员信息
+     * @param userAppPersonData
+     * @param Files
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/updateUserAppPersonData",method = RequestMethod.POST)
     public JsonView updateUserAppPersonData(UserAppPersonData userAppPersonData, MultipartFile Files, HttpServletRequest request){
         JsonView jsonView = new JsonView();
         try {
-            FileUploadTool fileUploadTool = new FileUploadTool();
-            FileEntity entity = fileUploadTool.createFile(Files, request);//上传文件
-            userAppPersonData.setHeadUrl(entity.getPath());//文件上传的地址
+            if(Files != null){
+                FileUploadTool fileUploadTool = new FileUploadTool();
+                FileEntity entity = fileUploadTool.createFile(Files, request);//上传文件
+                userAppPersonData.setHeadUrl(entity.getPath());//文件上传的地址
+            }
             int i = userAppPersonDataService.updateUserAppPersonData(userAppPersonData);
             if (i>0){
                 jsonView.setCode(JsonView.SUCCESS);
