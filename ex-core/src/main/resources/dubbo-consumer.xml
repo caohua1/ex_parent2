@@ -10,7 +10,7 @@
 	<!-- dubbo项目名称 -->
 	<dubbo:application name="ex-core" />
 	<!-- 指定注册中心 -->
-	<dubbo:registry protocol="zookeeper" address="192.168.1.14:2181" />
+	<dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
 	<!-- 引用服务 -->
 	<dubbo:reference interface="com.ex.service.RedisUtilService" id="redisUtilService" version="1.0.0" />
 	<dubbo:reference interface="com.ex.service.PcAlipayService" id="pcAlipayService" version="1.0.0" />

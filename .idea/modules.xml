@@ -7,19 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/ex-config/ex-config.iml" filepath="$PROJECT_DIR$/ex-config/ex-config.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-core/ex-core.iml" filepath="$PROJECT_DIR$/ex-core/ex-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-mapper/ex-mapper.iml" filepath="$PROJECT_DIR$/ex-mapper/ex-mapper.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-order/ex-order.iml" filepath="$PROJECT_DIR$/ex-order/ex-order.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-order-api/ex-order-api.iml" filepath="$PROJECT_DIR$/ex-order-api/ex-order-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-parent.iml" filepath="$PROJECT_DIR$/ex-parent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-pay/ex-pay.iml" filepath="$PROJECT_DIR$/ex-pay/ex-pay.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-pay-api/ex-pay-api.iml" filepath="$PROJECT_DIR$/ex-pay-api/ex-pay-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-pojo/ex-pojo.iml" filepath="$PROJECT_DIR$/ex-pojo/ex-pojo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-product/ex-product.iml" filepath="$PROJECT_DIR$/ex-product/ex-product.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-product-api/ex-product-api.iml" filepath="$PROJECT_DIR$/ex-product-api/ex-product-api.iml" />
       <module fileurl="file://D:/exporject/ex_parent2/ex-quartz/ex-quartz.iml" filepath="D:/exporject/ex_parent2/ex-quartz/ex-quartz.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-redis/ex-redis.iml" filepath="$PROJECT_DIR$/ex-redis/ex-redis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-redis-api/ex-redis-api.iml" filepath="$PROJECT_DIR$/ex-redis-api/ex-redis-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-solr/ex-solr.iml" filepath="$PROJECT_DIR$/ex-solr/ex-solr.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ex-solr-api/ex-solr-api.iml" filepath="$PROJECT_DIR$/ex-solr-api/ex-solr-api.iml" />
     </modules>
   </component>
 </project>
