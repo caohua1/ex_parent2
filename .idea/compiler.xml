@@ -12,7 +12,6 @@
         <module name="ex-core" />
         <module name="ex-mapper" />
         <module name="ex-pojo" />
-        <module name="ex-quartz" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

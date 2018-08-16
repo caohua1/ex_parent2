@@ -9,7 +9,6 @@
       <module fileurl="file://$PROJECT_DIR$/ex-mapper/ex-mapper.iml" filepath="$PROJECT_DIR$/ex-mapper/ex-mapper.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-parent.iml" filepath="$PROJECT_DIR$/ex-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-pojo/ex-pojo.iml" filepath="$PROJECT_DIR$/ex-pojo/ex-pojo.iml" />
-      <module fileurl="file://D:/exporject/ex_parent2/ex-quartz/ex-quartz.iml" filepath="D:/exporject/ex_parent2/ex-quartz/ex-quartz.iml" />
     </modules>
   </component>
 </project>
