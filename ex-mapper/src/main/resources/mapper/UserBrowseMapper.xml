@@ -15,7 +15,7 @@
 	</select>
 
 	<!--定时删除数据库数据-->
-	<delete id="deleteBrowse"  >
+	<delete id="deleteBrowse">
 		delete from user_browse
 	</delete>
 </mapper>

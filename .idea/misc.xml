@@ -26,9 +26,23 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-order-api/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-pay-api/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-product-api/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-redis-api/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-solr-api/pom.xml" />
         <option value="$PROJECT_DIR$/ex-solr/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-redis/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-quartz/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-product/pom.xml" />
+        <option value="$PROJECT_DIR$/ex-pay/pom.xml" />
         <option value="$PROJECT_DIR$/ex-order/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/ex-aliyun/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">

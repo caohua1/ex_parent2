@@ -7,9 +7,12 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
+import com.aliyuncs.http.HttpRequest;
+import com.aliyuncs.http.HttpResponse;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import org.json.JSONObject;
 
 import java.util.UUID;
 
@@ -41,12 +44,11 @@ public class ALiYunUtil {
     private static final String KEY = "abc123";
 
     /**
-     *
      * @param phone 待发送手机号。支持以逗号分隔的形式进行批量调用，批量上限为1000个手机号码
      * @return
      * @throws ClientException
      */
-    public static String sendSMS(String phone,String content,String name,int state) throws ClientException {
+    public static String sendSMS(String phone, String content, String name, int state) throws ClientException {
         //设置超时时间-可自行调整
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
@@ -59,11 +61,12 @@ public class ALiYunUtil {
         request.setMethod(MethodType.POST);
         request.setPhoneNumbers(phone);
         request.setSignName(signName);
-        if(state==1) {
+        String code = null;
+        if (state == 1) {
             request.setTemplateCode(TemplateCode1);
-            String code = MathUtil.getRandom(6);
+            code = MathUtil.getRandom(6);
             request.setTemplateParam("{\"code\":\"" + code + "\"}"); //短信验证码发送
-        }else if(state==2){
+        } else if (state == 2) {
             request.setTemplateCode(TemplateCode2);
             //你好：${name}，${content}
             request.setTemplateParam("{\"name\":\"" + name + "\",\"content\":\"" + content + "\"}");  //自定义短信发送
@@ -72,18 +75,19 @@ public class ALiYunUtil {
         //request.setSmsUpExtendCode("90997");
         request.setOutId("yourOutId");
         //请求失败这里会抛ClientException异常
-        try{
+        try {
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
-        }catch (ClientException e){
+            return code;
+        } catch (ClientException e) {
             e.printStackTrace();
             return null;
         }
-        return null;
     }
 
 
-    public void ALIBB_RPBasic() {
+    public static boolean ALIBB_RPBasic(String url) {
         //创建DefaultAcsClient实例并初始化
+        System.out.println("创建DefaultAcsClient实例并初始化");
         DefaultProfile profile = DefaultProfile.getProfile(
                 "cn-hangzhou",             //默认
                 accessKeyId,         //您的Access Key ID
@@ -91,9 +95,11 @@ public class ALiYunUtil {
         IAcsClient client = new DefaultAcsClient(profile);
         String biz = "MERCHANTORPERSON"; //您在控制台上创建的、采用RPBasic认证方案的认证场景标识, 创建方法：https://help.aliyun.com/document_detail/59975.html
         String ticketId = UUID.randomUUID().toString(); //认证ID, 由使用方指定, 发起不同的认证任务需要更换不同的认证ID
+        System.out.println("生成认证ID：" + ticketId);
         String token = null; //认证token, 表达一次认证会话
         int statusCode = -1; //-1 未认证, 0 认证中, 1 认证通过, 2 认证不通过
         //1. 服务端发起认证请求, 获取到token
+        // System.out.println("服务端发起认证请求, 获取到token");
         //GetVerifyToken接口文档：https://help.aliyun.com/document_detail/57050.html
         GetVerifyTokenRequest getVerifyTokenRequest = new GetVerifyTokenRequest();
         getVerifyTokenRequest.setBiz(biz);
@@ -106,7 +112,13 @@ public class ALiYunUtil {
         } catch (ClientException e) {
             e.printStackTrace();
         }
-        //2. 服务端将token传递给无线客户端
+        System.out.println("生成token：" + token);
+//        //2. 服务端将token传递给无线客户端
+//        Httpclients httpclients = new Httpclients();
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.append("token", token);
+//        JSONObject jsonObject1 = httpclients.doPost(url, jsonObject);
+        System.out.println("服务端将token传递给无线客户端");
         //3. 无线客户端用token调起无线认证SDK
         //4. 用户按照由无线认证SDK组织的认证流程页面的指引，提交认证资料
         //5. 认证流程结束退出无线认证SDK，进入客户端回调函数
@@ -132,10 +144,12 @@ public class ALiYunUtil {
             try {
                 GetMaterialsResponse response = client.getAcsResponse(getMaterialsRequest);
                 //后续业务处理
-                if (statusCode==1){
+                if (statusCode == 1) {
                     System.out.println("认证通过");
-                }else {
+                    return true;
+                } else {
                     System.out.println("认证不通过");
+                    return false;
                 }
             } catch (ServerException e) {
                 e.printStackTrace();
@@ -143,6 +157,7 @@ public class ALiYunUtil {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
 }
