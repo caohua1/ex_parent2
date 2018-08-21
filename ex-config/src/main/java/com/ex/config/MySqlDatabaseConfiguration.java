@@ -22,16 +22,16 @@ import java.util.Properties;
 
 @EnableTransactionManagement
 @Configuration
-@MapperScan(basePackages = "com.ex.dao", sqlSessionTemplateRef = "sqlSessionTemplate")
+@MapperScan(basePackages ="com.ex.dao", sqlSessionTemplateRef ="sqlSessionTemplate")
 public class MySqlDatabaseConfiguration {
 
-  @Bean(name = "dataSource")
-  @ConfigurationProperties(prefix = "spring.datasource.mysql")
+  @Bean(name ="dataSource")
+  @ConfigurationProperties(prefix ="spring.datasource.mysql")
   public DataSource dataSource() {
     return DataSourceBuilder.create().build();
   }
 
-  @Bean(name = "sqlSessionFactory")
+  @Bean(name ="sqlSessionFactory")
   public SqlSessionFactory sqlSessionFactory(@Qualifier("dataSource") DataSource dataSource) throws Exception {
 
     SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();

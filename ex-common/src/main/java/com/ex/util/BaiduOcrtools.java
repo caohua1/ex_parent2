@@ -1,6 +1,7 @@
 package com.ex.util;
 
 import com.baidu.aip.ocr.AipOcr;
+
 import com.ex.entity.BusinessLicenseInfo;
 import com.ex.vo.FileEntity;
 import com.fasterxml.jackson.core.JsonParseException;

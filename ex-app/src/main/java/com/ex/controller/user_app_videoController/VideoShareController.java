@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -172,4 +173,52 @@ public class VideoShareController {
         }
         return jsonView;
     }
-}
+
+
+
+
+
+
+
+
+
+
+    public static void qiXi() throws ParseException, InterruptedException {
+        SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();// new Date()为获取当前系统时间
+        for (int i=1; i<=i+1; i++){
+            Thread.sleep(1000);
+                long between=(new Date().getTime()-date.getTime())/1000;//除以1000是为了转换成秒
+                long second1=between;
+                if(second1==1){
+                    System.out.println("有时打动我的是一首歌，");
+                }else if(second1==2){
+                    System.out.println("因为唱出了我的感觉，");
+                }else if(second1==3){
+                    System.out.println("有时打动我的是一篇文，");
+                }else if(second1==4){
+                    System.out.println("因为写出了我的心声，");
+                }else if(second1==5){
+                    System.out.println("有时打动我的是一条微信，");
+                }else if(second1==6){
+                    System.out.println("只因为发送者是你，");
+                }else if(second1==7){
+                    System.out.println("七夕将至，我更想你..");
+                }else if(second1==8){
+                    date=new Date();
+                }
+            }
+        }
+    public static void main(String[] args){
+        try {
+            try {
+                qiXi();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+

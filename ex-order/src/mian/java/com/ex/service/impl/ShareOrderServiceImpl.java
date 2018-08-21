@@ -1,6 +1,9 @@
 package com.ex.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.ex.dao.OrdersDao;
+import com.ex.dao.ProductInfoManageDao;
+import com.ex.dao.ProductPropertySetDao;
 import com.ex.dao.ShareOrderDao;
 import com.ex.entity.ProductPropertySet;
 import com.ex.entity.ShareOrder;

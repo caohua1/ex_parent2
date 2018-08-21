@@ -11,7 +11,6 @@ import com.ex.entity.ProductPropertySet;
 import com.ex.service.AppointmentOrder1Service;
 import com.ex.util.JsonView;
 import com.ex.util.PageRequest;
-import com.ex.util.SMSUtil;
 import com.ex.vo.AppointmentOrderByUserAppVo;
 import com.ex.vo.AppointmentOrderVo;
 import com.ex.vo.ProductInfoManageVo;
