@@ -26,24 +26,31 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
 
     /**
      * 按用户Id查询该用户所有订单信息
-     *
      * @param registUserId
      * @return
      */
     @Override
     public List<UserOrder> selectUserOrderByid(Long registUserId) {
-        return userOrderDao.selectUserOrderByid(registUserId, null);
+        return userOrderDao.selectUserOrderByid(registUserId, 4);
     }
 
     /**
-     * 按用户Id查询该用户所有订单信息
-     *
-     * @param registUserId
+     * 按用户Id和订单状态查询该用户所有订单信息
+     * @param map
      * @return
      */
     @Override
-    public List<UserOrder> selectUserOrderByIdAndStatus(Long registUserId) {
-        return userOrderDao.selectUserOrderByid(registUserId, 4);
+    public List<UserOrder> selectUserOrderByIdAndStatus(Map<String,Object> map) {
+
+        Long registUserId = null;
+        if (map.get("registUserId")!=null) {
+            registUserId = (Long) map.get("registUserId");
+        }
+        Integer status= null;
+        if (map.get("status")!=null){
+            status = (Integer) map.get("registUserId");
+        }
+        return userOrderDao.selectUserOrderByIdAndStatus(registUserId, status);
     }
 
     /**
@@ -54,6 +61,11 @@ public class UserAppOrderServiceImpl implements UserAppOrderService {
     @Override
     public List<UserOrder> selectUserOrderAll() {
         return userOrderDao.selectUserOrderAll();
+    }
+
+    @Override
+    public List<UserOrder> selectUserOrderAllWhere(UserOrder userOrder) {
+        return null;
     }
 
     /**
