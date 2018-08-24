@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/ex-aliyun/ex-aliyun.iml" filepath="$PROJECT_DIR$/ex-aliyun/ex-aliyun.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-app/ex-app.iml" filepath="$PROJECT_DIR$/ex-app/ex-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-common/ex-common.iml" filepath="$PROJECT_DIR$/ex-common/ex-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex-config/ex-config.iml" filepath="$PROJECT_DIR$/ex-config/ex-config.iml" />

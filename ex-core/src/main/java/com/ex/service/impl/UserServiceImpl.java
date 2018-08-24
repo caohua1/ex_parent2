@@ -3,8 +3,10 @@ package com.ex.service.impl;
 import com.ex.dao.UserAppInfoDao;
 import com.ex.dao.UserDao;
 import com.ex.entity.UserAppRegist;
+import com.ex.entity.UserTransaction;
 import com.ex.service.UserService;
 import com.ex.util.PageRequest;
+import com.ex.vo.UserMoneyVo;
 import com.ex.vo.UserVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -65,5 +67,48 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer updateUserInfo(UserAppRegist userAppRegist) {
         return userDao.updateUserInfo(userAppRegist);
+    }
+
+    /**
+     * 可用余额，用户id(分页，条件查询)
+     * @param map
+     * @return
+     */
+    @Override
+    public PageInfo<UserMoneyVo> selectUserMoneyByParam(Map map,PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<UserMoneyVo> userMoneyVos = userDao.selectUserYuE(map);
+        if(userMoneyVos!=null && userMoneyVos.size()>0){
+            for(int i=0;i<userMoneyVos.size();i++){
+                Double tqMoney = userDao.selectTQMoney(userMoneyVos.get(i).getRegistUserId());
+                if(tqMoney!=null){
+                    userMoneyVos.get(i).setTQMoney(tqMoney);
+                }else{
+                    userMoneyVos.get(i).setTQMoney(0.0);
+                }
+                if(userMoneyVos.get(i).getYuE()==null){
+                    userMoneyVos.get(i).setYuE(0.0);
+                }
+
+            }
+        }
+        PageInfo<UserMoneyVo> pageInfo = new PageInfo<>(userMoneyVos);
+        pageInfo.setSize(userMoneyVos.size());
+        return pageInfo;
+    }
+
+
+    /**
+     * 用户，交易明细（分页，条件查询）
+     * @param map
+     * @return
+     */
+    @Override
+    public PageInfo<UserTransaction> selectUserTransaction(Map map,PageRequest pageRequest) {
+        PageHelper.startPage(pageRequest.getPageNum(),pageRequest.getPageSize());
+        List<UserTransaction> userTransactions = userDao.selectUserTransaction(map);
+        PageInfo<UserTransaction> pageInfo = new PageInfo<>(userTransactions);
+        pageInfo.setSize(userTransactions.size());
+        return pageInfo;
     }
 }

@@ -1,5 +1,7 @@
 package com.ex.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,7 +11,10 @@ public class MerchantTransaction implements Serializable {
    private Long merchantId;
    private Double money;
    private Integer type;
+   private String describes;
+   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
    private Date createTime;
+   private Integer TXStatus;//提现状态
    private Integer status;
 
     public Long getId() {
@@ -44,12 +49,28 @@ public class MerchantTransaction implements Serializable {
         this.type = type;
     }
 
+    public String getDescribe() {
+        return describes;
+    }
+
+    public void setDescribe(String describe) {
+        this.describes = describe;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getTXStatus() {
+        return TXStatus;
+    }
+
+    public void setTXStatus(Integer TXStatus) {
+        this.TXStatus = TXStatus;
     }
 
     public Integer getStatus() {

@@ -58,4 +58,50 @@
 
 	</update>
 
+	<!--用户资金账户统计-->
+	<!--查询可用金额-->
+	<select id="selectUserYuE" parameterType="java.util.Map" resultType="com.ex.vo.UserMoneyVo">
+       select ur.id registUserId,ui.YuE,ur.username  from userapp_regist ur
+       left join userapp_info ui on ur.id = ui.registUserId
+       where 1=1
+       <if test="username!=null and username !=''">
+		   and ur.username = #{username}
+	   </if>
+		<if test="minMoney !=null and maxMoney ==null">
+			and ui.YuE &gt;= YuE
+		</if>
+		<if test="minMoney ==null and maxMoney !=null">
+			and ui.YuE &lt;= YuE
+		</if>
+		<if test="minMoney !=null and maxMoney !=null">
+			and ui.YuE BETWEEN #{minMoney} and #{maxMoney}
+		</if>
+
+	</select>
+
+	<!--查询某用户的提取中的金额-->
+	<select id="selectTQMoney" parameterType="Long" resultType="Double">
+		select sum(money) from user_transaction
+		where registUserId = #{registUserId}
+		and TXStatus = 1
+		and type = 0
+	</select>
+
+	<!--查看用户的交易明细-->
+	<select id="selectUserTransaction" parameterType="java.util.Map" resultType="com.ex.entity.UserTransaction">
+		select * from user_transaction where 1=1
+	    and status = 1
+		<if test="registUserId !=null">
+			and registUserId = #{registUserId}
+		</if>
+		<if test="type!=null">
+			and type = #{type}
+		</if>
+		<if test="SZType = 0">
+			and money &lt; 0
+		</if>
+		<if test="SZType = 1">
+			and money &gt; 0
+		</if>
+	</select>
 </mapper>

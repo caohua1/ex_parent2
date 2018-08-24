@@ -15,6 +15,7 @@ public class StoreInfo implements Serializable {
     private Double YuE;//商家的余额
 
     private String storename;
+    private String storeAddress;
 
     private String describe;
 
@@ -71,6 +72,14 @@ public class StoreInfo implements Serializable {
 
     public void setStorename(String storename) {
         this.storename = storename;
+    }
+
+    public String getStoreAddress() {
+        return storeAddress;
+    }
+
+    public void setStoreAddress(String storeAddress) {
+        this.storeAddress = storeAddress;
     }
 
     public String getDescribe() {
