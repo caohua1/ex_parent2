@@ -1,5 +1,4 @@
 package com.ex.controller.core_controller.moneyManageController;
-import com.ex.entity.MerchantPersonData;
 import com.ex.entity.MerchantTransaction;
 import com.ex.entity.UserTransaction;
 import com.ex.service.MerchantPersonDataService;
@@ -159,7 +158,7 @@ public class MoneyManageController {
      * @param type （0提现 1充值 2分享分享推荐，得到的佣金 3分享入住权限，得到的佣金）
      * @return
      */
-    @RequestMapping("/selectUserTransaction")
+    @RequestMapping("/selectMerchantTransaction")
     public JsonView selectMerchantTransaction(Integer SZType,Long merchantId,Integer type,PageRequest pageRequest){
         JsonView jsonView = new JsonView();
         try{
