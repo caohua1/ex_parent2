@@ -16,4 +16,52 @@
 		left join merchantorperson_check_in mci on mci.merchantId = mpd.merchantId
         where mpd.merchantId = #{merchantId}
 	</select>
+
+
+	<!--用户资金账户统计-->
+	<!--查询可用金额-->
+	<select id="selectMerchantYuE" parameterType="java.util.Map" resultType="com.ex.vo.MerchantMoneyVo">
+		select si.id merchantId,si.YuE,mr.username  from merchant_regist mr
+		left join store_info si on mr.id = si.merchantId
+		where 1=1
+		<if test="username!=null and username !=''">
+			and si.username = #{username}
+		</if>
+		<if test="minMoney !=null and maxMoney ==null">
+			and si.YuE &gt;= YuE
+		</if>
+		<if test="minMoney ==null and maxMoney !=null">
+			and si.YuE &lt;= YuE
+		</if>
+		<if test="minMoney !=null and maxMoney !=null">
+			and si.YuE BETWEEN #{minMoney} and #{maxMoney}
+		</if>
+
+	</select>
+
+	<!--查询某用户的提取中的金额-->
+	<select id="selectTQMoney" parameterType="Long" resultType="Double">
+		select sum(money) from merchant_transaction
+		where merchantId = #{merchantId}
+		and TXStatus = 1
+		and type = 0
+	</select>
+
+	<!--查看用户的交易明细-->
+	<select id="selectMerchantTransaction" parameterType="java.util.Map" resultType="com.ex.entity.MerchantTransaction">
+		select * from merchant_transaction where 1=1
+		and status = 1
+		<if test="merchantId !=null">
+			and merchantId = #{merchantId}
+		</if>
+		<if test="type!=null">
+			and type = #{type}
+		</if>
+		<if test="SZType = 0">
+			and money &lt; 0
+		</if>
+		<if test="SZType = 1">
+			and money &gt; 0
+		</if>
+	</select>
 </mapper>
