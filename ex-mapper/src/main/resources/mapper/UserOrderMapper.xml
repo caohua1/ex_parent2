@@ -63,6 +63,16 @@
         </where>
     </select>
 
+    <select id="selectUserOrderByIdAndStatus" parameterType="map" resultMap="UserOrderResultMap">
+        SELECT * FROM user_order uo LEFT JOIN orders o ON uo.orderId = o.id LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
+        <where>
+            uo.registUserId = #{registUserId}
+            <if test="status!=null">
+                AND uo.status = #{status}
+            </if>
+        </where>
+    </select>
+
     <!--查询所有订单信息-->
     <select id="selectUserOrderAll" resultMap="UserOrderResultMap">
         SELECT * FROM user_order uo LEFT JOIN orders o ON uo.orderId = o.id LEFT JOIN productinfo_manage pm ON o.productInfoId = pm.id
